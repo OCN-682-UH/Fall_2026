@@ -1,0 +1,978 @@
+---
+title: "Computer Modeling (OCN 682)"
+subtitle: "Data Science Fundamentals in R"
+author: "Dr. Nyssa Silbiger"
+institute: "UH Fall 2026"
+date: today
+format:
+  revealjs:
+    theme: [default, ../_theme/custom-theme.scss]
+    highlight-style: github
+    code-line-numbers: true
+    width: 1500
+    height: 1000
+    preview-links: auto
+    self-contained-math: true
+    embed-resources: false
+    slide-number: c/t
+    footer: "OCN 682 | Week 1 | What is Data?"
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE, htmltools.preserve.raw = FALSE)
+library(tidyverse)
+library(patchwork)
+```
+
+## Welcome to Data Science Fundamentals in R {.inverse .center .middle}
+
+## Welcome to Data Science Fundamentals in R
+
+::: {.columns}
+
+::: {.column width="70%"}
+
+**Class times:** 1:00 - 2:50 Tuesday
+
+**Dr. Nyssa Silbiger**
+
+- Office hours: Tuesday 3:00 - 4:00 (MSB 612)
+
+**TA is Mica Chapuis**
+
+- Office hours: Monday 12:00 - 14:00 (MSB 306)
+
+:::
+
+::: {.column width="30%"}
+
+![](https://njsilbiger.github.io/images/NyssaMath.jpg){width="100%"}
+
+:::
+
+:::
+
+## Outline of class
+
+1. What are data?
+2. What is your coding background?
+3. Introduction to the class
+4. Data structures
+5. R intro/refresher
+
+## Data are everywhere!
+
+![](https://cdn.statcdn.com/Infographic/images/normal/32725.jpeg){fig-align="center" width="70%"}
+
+## Data are everywhere!
+
+![](https://media.idownloadblog.com/wp-content/uploads/2018/11/Health-App-Activity-Steps-iPhone.jpg){fig-align="center" width="100%"}
+
+## Data are everywhere!
+
+![](https://static01.nyt.com/images/2024/01/09/multimedia/2024-01-06-covid-wastewater-index/2024-01-06-covid-wastewater-index-videoSixteenByNine3000-v2.png){fig-align="center"}
+
+## Data are everywhere!
+
+![](https://pbs.twimg.com/media/DUU0UOMU8AAwh0-.jpg){fig-align="center" width="100%"}
+
+## We live in a data filled world
+
+### Data can take many forms
+
+::: {.columns}
+
+::: {.column width="50%"}
+
+- Athletic performance
+- Timeseries of polls
+- Sequence data
+- Measurements of physical properties
+- Spatial data (e.g., Maps)
+- Timing of events
+- Images
+- Networks
+- Plain text
+- So much more...
+
+:::
+
+::: {.column width="50%"}
+
+![](https://businessoverbroadway.com/wp-content/uploads/2014/09/big-data.jpg){width="100%"}
+
+:::
+
+:::
+
+## Data are at the center of biology and oceanography {.inverse .center .middle}
+
+## Data are at the center of biology and oceanography
+
+![](https://emea.illumina.com/content/dam/illumina-marketing/images/informatics/v2/web-graphics/data-analysis-web-graphic.png){fig-align="center"}
+
+## Data are at the center of biology and oceanography
+
+![](https://www.pacioos.hawaii.edu/wp-content/uploads/2016/02/voyagerScreenShot_MauiBottomFishing_large.jpg){fig-align="center"}
+
+## Data are at the center of biology and oceanography
+
+![](https://newheavenreefconservation.org/templates/yootheme/cache/MarineCourses_13-62f353dd.jpeg){fig-align="center"}
+
+## This semester, we will all become data scientists!
+
+::: {.columns}
+
+::: {.column width="50%"}
+
+![](https://media1.tenor.com/images/c0c2264911d8cd4a688acd0542240f95/tenor.gif){width="100%"}
+
+:::
+
+::: {.column width="50%"}
+
+::: {.fragment}
+
+> *"I feel like I am fighting R most of the time and I think if we (me and R) just could sit down and understand one another it would be much easier for us both, ya know?"*
+
+:::
+
+:::
+
+:::
+
+## What is your experience?
+
+```{r experience-plots, echo=FALSE, warning=FALSE, message=FALSE}
+survey <- read_csv("libs/Data/survey4.csv")
+nr <- nrow(survey)
+
+degree <- survey %>%
+  count(Grade) %>%
+  mutate(n = 100*n/nr, x = "Grade") %>%
+  ggplot(aes(y = n, fill = Grade, x = x)) +
+  geom_bar(position = "stack", stat = "identity") +
+  labs(title = "Degree") +
+  theme_bw() +
+  theme(axis.title = element_blank(), axis.ticks.x = element_blank(),
+        axis.text.x = element_blank(), legend.text = element_text(size = 14),
+        title = element_text(size = 14))
+
+Rexper <- survey %>%
+  count(R_experience) %>%
+  mutate(n = 100*n/nr, x = "R experience") %>%
+  separate(R_experience, into = c("R", "experience"), sep = "-") %>%
+  ggplot(aes(y = n, fill = R, x = x)) +
+  geom_bar(position = "stack", stat = "identity") +
+  labs(title = "What is your experience with R?") +
+  theme_bw() +
+  theme(axis.title = element_blank(), axis.ticks.x = element_blank(),
+        axis.text.x = element_blank(), legend.text = element_text(size = 14),
+        title = element_text(size = 14))
+
+gitexper <- survey %>%
+  count(Github_experience) %>%
+  mutate(n = 100*n/nr, x = "Git experience") %>%
+  separate(Github_experience, into = c("Github", "experience"), sep = "-") %>%
+  ggplot(aes(y = n, fill = Github, x = x)) +
+  geom_bar(position = "stack", stat = "identity") +
+  labs(title = "What is your experience with Github?") +
+  theme_bw() +
+  theme(axis.title = element_blank(), axis.ticks.x = element_blank(),
+        axis.text.x = element_blank(), legend.text = element_text(size = 14),
+        title = element_text(size = 14))
+
+degree
+```
+
+## What is your experience?
+
+```{r rexper-plot, echo=FALSE, warning=FALSE, message=FALSE, fig.width=10, fig.height=6}
+Rexper
+```
+
+## What is your experience?
+
+```{r git-plot, echo=FALSE, warning=FALSE, message=FALSE, fig.width=10, fig.height=6}
+gitexper
+```
+
+## What do you want to learn?
+
+```{r wordcloud, echo=FALSE, message=FALSE, warning=FALSE, fig.align='center', fig.width=10, fig.height=7}
+library(wordcloud2)
+
+stop_words <- c('a','and','for','the','to','in','be','i','it','of','that',
+                'with','can','about','if','how','use','my','when','am','on',
+                'im','this','were','could','was','so','its','or','but','by')
+
+words <- survey %>%
+  select(text = WantToDo) %>%
+  mutate(text = tolower(text),
+         text = str_remove_all(text, '[[:punct:]]'),
+         tokens = str_split(text, "\\s+")) %>%
+  unnest(cols = c(tokens)) %>%
+  count(tokens) %>%
+  filter(!tokens %in% stop_words) %>%
+  arrange(desc(n)) %>%
+  select(words = tokens, freq = n)
+
+wordcloud2(words, color = "random-light", backgroundColor = "grey")
+```
+
+## But first, tell me about you...
+
+### Ice Breaker
+
+::: {.incremental}
+
+1. Tell us your name
+2. Why you wanted to take this class
+3. If you could create any function in the world, what would it be?
+
+:::
+
+## Our semester: NOT a statistics or bioinformatics course
+
+::: {.columns}
+
+::: {.column width="60%"}
+
+**This class is NOT:**
+
+- A statistics course
+- A bioinformatics course
+
+::: {.fragment}
+
+**We WILL:**
+
+::: {.incremental}
+
+- Learn best practices for data entry
+- Create clean, reproducible scripts in *R*
+- Share code and data on a public version-controlled repository
+- Work collaboratively on a project
+- Create high quality visuals using *R*
+- Learn to love working with data!
+
+:::
+
+:::
+
+:::
+
+::: {.column width="40%"}
+
+::: {.fragment}
+
+![](https://i.imgflip.com/2ll45k.jpg){width="100%"}
+
+:::
+
+:::
+
+:::
+
+## Our semester: the data science workflow
+
+![](https://d33wubrfki0l68.cloudfront.net/571b056757d68e6df81a3e3853f54d3c76ad6efc/32d37/diagrams/data-science.png){fig-align="center" width="100%"}
+
+## We will learn **R** and **Markdown** languages
+
+![](https://cdn.myportfolio.com/45214904-6a61-4e23-98d6-b140f8654a40/d65eb83f-66e4-4760-8c1f-29d336d1d6df_rw_3840.png?h=ece3b7c448f38a10cd71866e2cbb2b4d){fig-align="center" width="80%"}
+
+Image credit: [Allison Horst](https://github.com/allisonhorst/stats-illustrations)
+
+## We will create beautiful graphics using #TidyTuesday
+
+::: {.columns}
+
+::: {.column width="50%"}
+
+![](libs/images/IMG_9407.jpg){width="100%"}
+
+:::
+
+::: {.column width="50%"}
+
+![](libs/images/IMG_9408.jpg){width="100%"}
+
+:::
+
+:::
+
+## Grading {.center}
+
+| Component                 | Percent |
+|---------------------------|:-------:|
+| Tidy Tuesday Plots        | 15%     |
+| Lab Assignments           | 30%     |
+| Class Participation       | 5%      |
+| Final Independent Project | 35%     |
+| Short Quizzes             | 15%     |
+
+::: {.fragment}
+
+I will go over each component in future lectures. All rubrics are on Lamakū and details are on the syllabus.
+
+![](https://media1.tenor.com/images/bdf4fc8b29583b18c9f4723c5d587bc5/tenor.gif){fig-align="center" width="35%"}
+
+:::
+
+## Communication
+
+::: {.columns}
+
+::: {.column width="40%"}
+
+![](https://seekvectorlogo.com/wp-content/uploads/2019/05/slack-technologies-vector-logo.png){width="100%"}
+
+:::
+
+::: {.column width="60%"}
+
+I created a class Slack channel for asking classmates for help, sharing advice, and sharing resources.
+
+[Click Here to Join](https://join.slack.com/t/ocn-682/shared_invite/zt-3bc1df99i-QtMqDmktE0kAf1WtyZTs2Q) or see the syllabus.
+
+What is Slack? [See here](https://slack.com/intl/en-pf/)
+
+Is it free? **YES**
+
+:::
+
+:::
+
+## How to get class assignments and lectures?
+
+This week everything will be on Lamakū. Starting next week, all assignments and slides will be on **Github**.
+
+::: {.columns}
+
+::: {.column width="55%"}
+
+::: {.incremental}
+
+- 3 unit class: 2 units in-person, 1 unit at home
+- One in-class lecture + one online lecture per week (complete online lecture **before** next in-person meeting)
+- Weekly lab assignments due the following week
+
+:::
+
+:::
+
+::: {.column width="45%"}
+
+::: {.fragment}
+
+**What is Github?**
+
+![](https://miro.medium.com/max/719/1*WaaXnUvhvrswhBJSw4YTuQ.png){width="100%"}
+
+Stay tuned...
+
+:::
+
+:::
+
+:::
+
+## Group work
+
+This class is structured on the principle that you learn just as much from your peers as you do from me. All assignments are turned in independently, but you are encouraged to work in groups.
+
+::: {.fragment}
+
+You will have many **think-pair-share** opportunities during lectures. Pair with different students each class — every one thinks differently!
+
+:::
+
+::: {.fragment}
+
+::: {.callout-note}
+## Class Participation (5%)
+Helping your peers during class counts toward your participation grade.
+:::
+
+:::
+
+![](https://l4stars.files.wordpress.com/2015/04/sharing-is-caring.jpg){fig-align="center" width="35%"}
+
+## Readings
+
+All textbooks are **free and online**.
+
+::: {.incremental}
+
+- Links for all books are in the syllabus
+- All required reading should be completed **before** class
+- Use **active reading** — most readings include code. Work through it before class and it will be much easier to follow in lecture
+
+:::
+
+::: {.fragment}
+
+![](https://d33wubrfki0l68.cloudfront.net/b88ef926a004b0fce72b2526b0b5c4413666a4cb/24a30/cover.png){width="12%"} ![](https://leotechpress.com/wp-content/uploads/2019/05/9789352138111.jpg){width="12%"} ![](https://image.ebooks.com/previews/096/096295/096295629/096295629-hq-168-80.jpg){width="12%"} ![](https://d33wubrfki0l68.cloudfront.net/0c97eee3d8fc820f3a8d670c08b286e8a524257b/e426c/cover.png){width="12%"}
+
+:::
+
+## Short quizzes
+
+### 5-10 min quiz every week
+
+::: {.incremental}
+
+- Covers required readings, labs, and lectures
+- Open notes — but no discussing with classmates
+- Only 10 mins, so come prepared and on time!
+- Lowest grade is dropped
+
+:::
+
+## Projects
+
+### Independent Final Project
+
+::: {.incremental}
+
+- Visualization and explanation of a dataset of your choosing (your own work or found data)
+- Bringing together multiple datasets is encouraged!
+- Start thinking now about what data you want to use and what questions you want to answer
+- You will propose your ideas to me for approval
+
+:::
+
+## What is data? {.inverse .center .middle}
+
+## Data comes in lots of forms
+
+### There are several **Data Types** in R that you will need to know
+
+::: {.incremental}
+
+- [character]{.dt} : Letters or combinations of letters enclosed in quotes
+  - ex: `"a"`, `"my name is Dr. Silbiger"`
+
+- [numeric]{.dt} : Numbers with a decimal value or fraction (also called "double")
+  - ex: `2.0`, `14.573849`
+
+- [integer]{.dt} : Numbers without decimal values
+  - ex: `1`, `2`, `3`, `4`
+
+- [logical]{.dt} : A variable that can only be `TRUE` or `FALSE`
+  - ex: `TRUE`, `FALSE`
+
+:::
+
+## Data types (cont.)
+
+::: {.incremental}
+
+- [complex]{.dt} : An imaginary number
+  - ex: `1+4i`
+
+- [factor]{.dt} : A qualitative relationship — useful in statistical modeling
+  - ex: `"Good"`, `"Better"`, `"Best"`
+
+:::
+
+::: {.fragment}
+
+### Knowing the names of all these data types is important
+
+::: {.callout-tip}
+## Quick check
+Use [class]{.fn}([x]{.param}) to find out the data type of any object — e.g. `class("hello")` → `"character"`, `class(3.14)` → `"numeric"`.
+:::
+
+:::
+
+## Data can also come in many *structures*
+
+![](https://res.cloudinary.com/dyd911kmh/image/upload/f_auto,q_auto:best/v1579700665/datatypesR_skztbb.png){fig-align="center" width="80%"}
+
+## Data can also come in many *structures*
+
+| Dims | Homogeneous (same type) | Heterogeneous (mixed types) |
+|:----:|:-----------------------:|:---------------------------:|
+| 1D   | Atomic vector           | List                        |
+| 2D   | Matrix                  | DataFrame (Tibble)          |
+| ND   | Array                   |                             |
+
+::: {.columns}
+
+::: {.column width="50%"}
+
+::: {.fragment}
+
+**Vector** — 1D, homogeneous
+
+```{r vector-example, echo=FALSE}
+Vector <- c(1, 2, 3, 4)
+print(Vector)
+```
+
+:::
+
+:::
+
+::: {.column width="50%"}
+
+::: {.fragment}
+
+**List** — 1D, heterogeneous
+
+```{r list-example, echo=FALSE}
+List <- list(1, "a", "TRUE")
+print(List)
+```
+
+:::
+
+:::
+
+:::
+
+## Data can also come in many *structures* (continued)
+
+| Dims | Homogeneous (same type) | Heterogeneous (mixed types) |
+|:----:|:-----------------------:|:---------------------------:|
+| 1D   | Atomic vector           | List                        |
+| 2D   | Matrix                  | DataFrame (Tibble)          |
+| ND   | Array                   |                             |
+
+::: {.columns}
+
+::: {.column width="33%"}
+
+::: {.fragment}
+
+**Matrix** — 2D, homogeneous
+
+```{r matrix-example, echo=FALSE}
+matrix(1:6, ncol = 3, nrow = 2)
+```
+
+:::
+
+:::
+
+::: {.column width="33%"}
+
+::: {.fragment}
+
+**DataFrame** — 2D, heterogeneous
+
+```{r dataframe-example, echo=FALSE}
+data.frame(x = 1:3,
+           y = c("a","b","c"),
+           stringsAsFactors = FALSE)
+```
+
+:::
+
+:::
+
+::: {.column width="33%"}
+
+::: {.fragment}
+
+**Array** — ND
+
+```{r array-example, echo=FALSE}
+data.frame(x = 1:3, y = I(matrix(1:9, nrow = 3)))
+```
+
+:::
+
+:::
+
+:::
+
+## What is R? {.inverse .center .middle}
+
+## What is R?
+
+::: {.columns}
+
+::: {.column width="60%"}
+
+::: {.incremental}
+
+- "R is a language and environment for statistical computing and graphics"
+- **FREE** and completely open-source
+- Object-oriented and functional language
+- Runs on all computer platforms
+- Superb data management and manipulation capabilities
+
+:::
+
+:::
+
+::: {.column width="40%"}
+
+![](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTd0hVdSDaMedkPjum7M1Qs5dgJ-7Y_ufudGA&usqp=CAU){width="100%"}
+
+:::
+
+:::
+
+## What is coding?
+
+::: {.incremental}
+
+- **Coding** is directly telling the computer what to do
+- Every button click in a program has a line of code behind it
+- Coding lets you manipulate the computer exactly how you want
+- A **script** contains multiple lines of code to execute at once
+
+:::
+
+::: {.fragment}
+
+![](https://www.rstudio.com/images/docs/codefolding_regions.png){fig-align="center" width="70%"}
+
+:::
+
+## Benefits of using R
+
+::: {.incremental}
+
+- **FREE!** (JMP: \$1,540 · PRIMER: \$500 · Minitab: \$1,495)
+- Powerful and flexible
+- Publication quality graphics
+- Runs on all platforms
+- Reproducibility: scripts instead of mouse clicks
+- You can write functions for specific needs
+- You become a **better statistician** by learning model internals, not just clicking buttons
+- Enormous help community — Google knows everything about R
+- Coding skills = some of the most lucrative jobs in science
+
+:::
+
+## Publication quality graphics
+
+::: {.columns style="display: flex !important; flex-wrap: nowrap !important; gap: 1rem;"}
+
+::: {.column width="50%" style="flex: 1 1 50% !important; min-width: 0;"}
+
+::: {.fragment}
+
+**From simple...**
+
+![](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRi7omo9p2Lqt_rhZMOg7lxhs3XwzgUkPR4_A&usqp=CAU){width="85%"}
+
+:::
+
+:::
+
+::: {.column width="50%" style="flex: 1 1 50% !important; min-width: 0;"}
+
+::: {.fragment}
+
+**To more complex...**
+
+![](https://image.slidesharecdn.com/r-basics-and-best-practices-141003191750-conversion-gate01/95/r-basics-and-best-practices-6-638.jpg?cb=1412381711){width="85%"}
+
+:::
+
+:::
+
+:::
+
+## Constraints
+
+::: {.columns}
+
+::: {.column width="55%"}
+
+::: {.incremental}
+
+- It's an uphill battle — but totally worth it and **YOU CAN DO IT**
+- Open source means multiple functions can do the same thing
+- Errors are often cryptic at first
+
+:::
+
+::: {.fragment}
+
+::: {.callout-tip}
+## The learning curve is real, but short
+Most students find that after a few weeks of consistent practice the language starts to click.
+:::
+
+:::
+
+:::
+
+::: {.column width="45%"}
+
+![](https://cdn.myportfolio.com/45214904-6a61-4e23-98d6-b140f8654a40/e684f0da-13b1-4d00-ab25-37814e79ee1e_rw_1920.png?h=2b72c110cfcf02f5cf1f74b558461c06){width="100%"}
+
+Image credit: [Allison Horst](https://github.com/allisonhorst/stats-illustrations)
+
+:::
+
+:::
+
+## RStudio: Integrated Development Environment
+
+![](libs/images/Rstudio.PNG){fig-align="center"}
+
+## RStudio
+
+::: {.columns}
+
+::: {.column width="50%"}
+
+![](libs/images/console_script.PNG){width="100%"}
+
+:::
+
+::: {.column width="50%"}
+
+Two main ways to interact with R:
+
+::: {.incremental}
+
+- **Console** — R waits for commands. Useful for quick checks, but commands are lost when you close R.
+
+- **Script** — Write and save code. Send lines to the console in several ways. Always use scripts for real work.
+
+:::
+
+:::
+
+:::
+
+## Interacting with R
+
+::: {.incremental}
+
+- **`>`** in the console means R is ready for you. If you don't see it, R is busy.
+
+- **`+`** means R is waiting for you to finish an incomplete expression.
+
+- Use [<-]{.op} to assign objects. An [=]{.err} will work for simple cases but causes hard-to-trace errors in complex code.
+
+:::
+
+::: {.fragment}
+
+```{r assignment-example}
+#| echo: true
+#| eval: true
+X <- 3  # the value of X is now 3
+```
+
+:::
+
+::: {.fragment}
+
+::: {.callout-warning}
+## Always use `<-` not `=`
+`=` works for simple assignment but will break in function calls and more complex code.
+:::
+
+:::
+
+::: {.incremental}
+
+- **`#`** marks a comment — everything to the right is ignored by R
+- R is **case-sensitive**: `a <- 4` and `A <- 4` are completely different objects
+
+:::
+
+## Functions
+
+::: {.incremental}
+
+- Functions are "canned scripts" that automate something complicated or convenient
+- Example: [sum]{.fn}([1, 4, 3]{.param}) adds numbers together instead of writing out a long equation
+
+:::
+
+::: {.fragment}
+
+```{r sum-example}
+#| echo: true
+#| eval: true
+sum(1, 4, 3)
+```
+
+:::
+
+::: {.columns}
+
+::: {.column width="50%"}
+
+::: {.fragment}
+
+- [plot]{.fn}([x]{.param}, [y]{.param}) creates a simple plot
+
+:::
+
+:::
+
+::: {.column width="50%"}
+
+::: {.fragment}
+
+```{r plot-example, fig.width=4, fig.height=3}
+#| echo: true
+#| eval: true
+plot(1:5, 5:9)
+```
+
+:::
+
+:::
+
+:::
+
+## Asking for help
+
+::: {.fragment}
+
+Put **`?`** in front of any function name:
+
+```{r help-example}
+#| echo: true
+#| eval: false
+?plot
+```
+
+:::
+
+::: {.fragment}
+
+Search for a function that does a particular task:
+
+```{r help-search-example}
+#| echo: true
+#| eval: false
+help.search("ANOVA")
+```
+
+:::
+
+::: {.fragment}
+
+When you can't even remember the name:
+
+```{r apropos-example}
+#| echo: true
+#| eval: true
+apropos("nova")
+```
+
+:::
+
+::: {.fragment}
+
+**Google is your best friend!!**
+
+:::
+
+## R as a calculator
+
+::: {.columns}
+
+::: {.column width="50%"}
+
+::: {.fragment}
+
+```{r calc-simple}
+#| echo: true
+#| eval: true
+1 + 1
+```
+
+:::
+
+:::
+
+::: {.column width="50%"}
+
+::: {.fragment}
+
+```{r calc-assign}
+#| echo: true
+#| eval: true
+answer <- 1 + 1  # save it as answer
+answer
+```
+
+:::
+
+:::
+
+:::
+
+## R as a calculator: functions and equations
+
+::: {.columns}
+
+::: {.column width="50%"}
+
+::: {.fragment}
+
+```{r sqrt-example}
+#| echo: true
+#| eval: true
+a <- sqrt(10)
+a
+```
+
+:::
+
+:::
+
+::: {.column width="50%"}
+
+::: {.fragment}
+
+```{r log-example}
+#| echo: true
+#| eval: true
+b <- a * log(10)
+b
+```
+
+:::
+
+:::
+
+:::
+
+::: {.fragment}
+
+::: {.callout-note}
+## Good practice
+Save intermediate results as named objects (like [a]{.var} and [b]{.var}) so your work is readable and reusable.
+:::
+
+:::
+
+## Getting started with R
+
+::: {.callout-note}
+## Before next Tuesday
+Work through these Data Carpentry lessons for an intro/refresher in R. Not graded, but if you skip it you will fall behind quickly.
+
+[Data Analysis and Visualization in R](https://datacarpentry.org/R-ecology-lesson-alternative/index.html)
+:::
+
+::: {.fragment}
+
+::: {.callout-warning}
+## Online lecture this week
+The online lecture covers making data sheets. Complete the **reading assignment before watching**. There is homework due — do not wait until the last minute.
+:::
+
+:::
+
+## Thanks! {.center .middle}
+
+Slides created via [**Quarto**](https://quarto.org/)

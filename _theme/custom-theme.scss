@@ -1,0 +1,252 @@
+/*-- scss:defaults --*/
+
+// Custom theme colors for Data Science Fundamentals course
+$yellow: #FFCC29;
+$orange: #F58634;
+$green: #007965;
+
+$dark-text: #333333;
+$light-bg: #f5f5f5;
+
+/*-- scss:rules --*/
+
+.reveal {
+  // Basic color classes
+  .yellow { color: $yellow; }
+  .orange { color: $orange; }
+  .green  { color: $green;  }
+
+  // -------------------------------------------------------
+  // Item #7: Semantic color classes for annotating code in slides
+  // Convention:
+  //   [sum]{.fn}         → function names          (orange, monospace)
+  //   [x]{.var}          → variables/user objects   (green,  monospace)
+  //   [<-]{.op}          → operators                (orange, monospace)
+  //   [numeric]{.dt}     → data type names          (orange, monospace)
+  //   [ERROR]{.err}      → errors / critical notes  (yellow highlight)
+  // -------------------------------------------------------
+  .fn {
+    color: $orange;
+    font-family: monospace;
+    font-weight: bold;
+  }
+  .op {
+    color: $orange;
+    font-family: monospace;
+    font-weight: bold;
+  }
+  .dt {
+    color: $orange;
+    font-family: monospace;
+    font-weight: bold;
+  }
+  .var {
+    color: $green;
+    font-family: monospace;
+    font-weight: bold;
+  }
+  .err {
+    color: darken($yellow, 40%);
+    background-color: lighten($yellow, 25%);
+    font-family: monospace;
+    font-weight: bold;
+    padding: 0.05em 0.3em;
+    border-radius: 3px;
+  }
+
+  // -------------------------------------------------------
+  // Item #6: Function parameter highlighting
+  // Convention:
+  //   [x]{.param}        → user-supplied arguments  (yellow, monospace)
+  //   [na.rm = TRUE]{.default-param}  → default args (muted, monospace)
+  // -------------------------------------------------------
+  .param {
+    color: darken($yellow, 20%);
+    font-family: monospace;
+    font-weight: bold;
+  }
+  .default-param {
+    color: lighten($dark-text, 30%);
+    font-family: monospace;
+    font-style: italic;
+  }
+
+  // -------------------------------------------------------
+  // Item #3: Inverse slide accent bars
+  // -------------------------------------------------------
+  .inverse {
+    background-color: #1a1a2e !important;
+    color: white;
+
+    &::before {
+      content: "";
+      display: block;
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 8px;
+      background: linear-gradient(to right, $orange, $yellow);
+      z-index: 100;
+    }
+
+    &::after {
+      content: "";
+      display: block;
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      height: 8px;
+      background: linear-gradient(to right, $green, $yellow);
+      z-index: 100;
+    }
+
+    h1, h2, h3 {
+      color: white;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    }
+  }
+
+  // -------------------------------------------------------
+  // Item #1: Code block enhancements
+  // -------------------------------------------------------
+
+  // Source code blocks (input) — orange-accented
+  pre.sourceCode {
+    background-color: #f4f0e8 !important;
+    border: 1px solid #e0d5c5 !important;
+    border-left: 4px solid $orange !important;
+    border-radius: 6px !important;
+    padding: 0.6em 0.8em !important;
+    font-size: 0.72em !important;
+    line-height: 1.65 !important;
+    width: 100% !important;
+    box-shadow: 2px 2px 6px rgba(0,0,0,0.08) !important;
+  }
+
+  pre.sourceCode code {
+    background-color: transparent !important;
+    font-size: 1em !important;
+  }
+
+  // Inline code in prose
+  code:not(pre > code) {
+    background-color: #f4f0e8;
+    border: 1px solid #e0d5c5;
+    border-radius: 3px;
+    padding: 0.1em 0.35em;
+    font-size: 0.85em;
+    color: $orange;
+  }
+
+  // -------------------------------------------------------
+  // Item #5: Console output styling — green-accented
+  // -------------------------------------------------------
+  .cell-output-stdout pre,
+  .cell-output pre {
+    background-color: #eaf4f0 !important;
+    border: 1px solid #c5ddd7 !important;
+    border-left: 4px solid $green !important;
+    border-radius: 6px !important;
+    padding: 0.5em 0.8em !important;
+    font-size: 0.68em !important;
+    line-height: 1.5 !important;
+    color: #1a3a30 !important;
+    box-shadow: 2px 2px 6px rgba(0,0,0,0.05) !important;
+  }
+
+  // -------------------------------------------------------
+  // Item #4: Custom callout boxes
+  // -------------------------------------------------------
+
+  // Tip — orange (syntax tips, best practices)
+  .callout.callout-style-default.callout-tip {
+    border-left-color: $orange !important;
+    background-color: #fff7ef !important;
+
+    .callout-header {
+      background-color: #fdecd8 !important;
+      color: darken($orange, 10%) !important;
+      font-weight: bold;
+    }
+  }
+
+  // Note — green (general info, reminders)
+  .callout.callout-style-default.callout-note {
+    border-left-color: $green !important;
+    background-color: #f0faf7 !important;
+
+    .callout-header {
+      background-color: #d8f0e8 !important;
+      color: darken($green, 5%) !important;
+      font-weight: bold;
+    }
+  }
+
+  // Warning — yellow (common mistakes, gotchas)
+  .callout.callout-style-default.callout-warning {
+    border-left-color: darken($yellow, 15%) !important;
+    background-color: #fffdf0 !important;
+
+    .callout-header {
+      background-color: #fff8cc !important;
+      color: darken($yellow, 35%) !important;
+      font-weight: bold;
+    }
+  }
+
+  // -------------------------------------------------------
+  // Item #8: Slide number & footer styling
+  // -------------------------------------------------------
+  .slide-number {
+    background-color: $orange !important;
+    color: white !important;
+    font-size: 0.65em !important;
+    padding: 4px 10px !important;
+    border-radius: 4px 0 0 0 !important;
+    font-family: monospace !important;
+    font-weight: bold !important;
+    opacity: 0.85 !important;
+  }
+
+  .footer {
+    font-size: 0.55em !important;
+    color: lighten($dark-text, 30%) !important;
+    font-style: italic;
+  }
+
+  // -------------------------------------------------------
+  // Column layouts
+  // -------------------------------------------------------
+  .columns {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    width: 100% !important;
+    gap: 1rem;
+
+    .column {
+      flex: 1 1 auto !important;
+      min-width: 0 !important;
+
+      img {
+        max-width: 100% !important;
+        height: auto !important;
+        display: block !important;
+      }
+    }
+  }
+
+  // -------------------------------------------------------
+  // General slide styles
+  // -------------------------------------------------------
+  .center { text-align: center; }
+  .middle { vertical-align: middle; }
+
+  h1, h2, h3, h4, h5, h6 { text-transform: none; }
+  h1 { font-size: 2.5em; font-weight: bold; color: #333; }
+  h2 { font-size: 1.8em; font-weight: bold; color: #333; }
+
+  strong { font-weight: bold; }
+}
+
+// Incremental list spacing
+.incremental > li {
+  margin-bottom: 0.5em;
+}

@@ -251,7 +251,7 @@ wordcloud2(words, color = "random-light", backgroundColor = "grey")
 
 - Learn best practices for data entry
 - Create clean, reproducible scripts in *R*
-- Share code and data on a public version-controlled repository
+- Share code and data on a public version-controlled repository ([GitHub]{.fn})
 - Work collaboratively on a project
 - Create high quality visuals using *R*
 - Learn to love working with data!
@@ -284,7 +284,7 @@ wordcloud2(words, color = "random-light", backgroundColor = "grey")
 
 Image credit: [Allison Horst](https://github.com/allisonhorst/stats-illustrations)
 
-## We will create beautiful graphics using #TidyTuesday
+## We will create beautiful graphics using fun #TidyTuesday and real scientific data
 
 ::: {.columns}
 
@@ -304,19 +304,44 @@ Image credit: [Allison Horst](https://github.com/allisonhorst/stats-illustration
 
 ## Grading {.center}
 
-| Component                 | Percent |
-|---------------------------|:-------:|
-| Tidy Tuesday Plots        | 15%     |
-| Lab Assignments           | 30%     |
-| Class Participation       | 5%      |
-| Final Independent Project | 35%     |
-| Short Quizzes             | 15%     |
+| Component                                    | Percent |
+|-----------------------------------------------|:-------:|
+| Short Quizzes                                 | 15%     |
+| Homework Assignments                          | 25%     |
+| AI-Assisted Community Data Sprint & Reflection| 20%     |
+| Class Participation                           | 5%      |
+| Final Independent Project                     | 35%     |
 
 ::: {.fragment}
 
 I will go over each component in future lectures. All rubrics are on Lamakū and details are on the syllabus.
 
 ![](https://media1.tenor.com/images/bdf4fc8b29583b18c9f4723c5d587bc5/tenor.gif){fig-align="center" width="35%"}
+
+:::
+
+## Ethical & responsible AI use in this course
+
+::: {.callout-warning}
+## Core skill-building work (quizzes, homework, final project)
+Do **not** use generative AI to write, complete, or generate the code, functions, or written interpretations you submit. If AI use is suspected, you may be asked to live-code your answers in class.
+:::
+
+::: {.fragment}
+
+::: {.callout-tip}
+## The AI-Assisted Community Data Sprint (Week 8)
+This assignment explicitly requires AI use — once you already have the independent skills to evaluate what it produces. Every prompt, response, and correction must be logged.
+:::
+
+:::
+
+::: {.fragment}
+
+::: {.callout-note}
+## Disclosure
+Any permitted AI use requires a brief AI-use statement (tool, prompt, what you changed) in your submission or commit message.
+:::
 
 :::
 
@@ -332,7 +357,7 @@ I will go over each component in future lectures. All rubrics are on Lamakū and
 
 ::: {.column width="60%"}
 
-I created a class Slack channel for asking classmates for help, sharing advice, and sharing resources.
+I created a class Slack channel (**OCN682**) for asking classmates for help, sharing advice, and sharing resources.
 
 [Click Here to Join](https://join.slack.com/t/ocn-682/shared_invite/zt-3bc1df99i-QtMqDmktE0kAf1WtyZTs2Q) or see the syllabus.
 
@@ -340,6 +365,15 @@ What is Slack? [See here](https://slack.com/intl/en-pf/)
 
 Is it free? **YES**
 
+:::
+
+:::
+
+::: {.fragment}
+
+::: {.callout-note}
+## Best source of course info
+Course [GitHub]{.fn} site — [github.com/OCN-682-UH/Fall_2026](https://github.com/OCN-682-UH/Fall_2026) — and Lamakū. Check the schedule regularly; it may change.
 :::
 
 :::
@@ -356,7 +390,7 @@ This week everything will be on Lamakū. Starting next week, all assignments and
 
 - 3 unit class: 2 units in-person, 1 unit at home
 - One in-class lecture + one online lecture per week (complete online lecture **before** next in-person meeting)
-- Weekly lab assignments due the following week
+- Weekly homework assignments due the following week — **turned in on GitHub** for full credit
 
 :::
 
@@ -419,14 +453,25 @@ All textbooks are **free and online**.
 
 ## Short quizzes
 
-### 5-10 min quiz every week
+### Multiple-choice quiz every week
 
 ::: {.incremental}
 
-- Covers required readings, labs, and lectures
+- Covers required readings, homework, and lectures
 - Open notes — but no discussing with classmates
-- Only 10 mins, so come prepared and on time!
-- Lowest grade is dropped
+- Only 10 mins, at the **start** of class, so come prepared and on time!
+- Lowest grade is dropped — no make-ups
+
+:::
+
+## New this semester: AI-Assisted Community Data Sprint
+
+::: {.incremental}
+
+- In **Week 8**, you'll act as a coding consultant for a real local community partner (e.g., DAR, DOH, or a Mālama restoration group)
+- You'll use a generative AI tool as a coding assistant under a **documented, disclosed, and critically evaluated** workflow
+- This is layered **on top of** — not a substitute for — the core coding skills you build independently the rest of the semester
+- You'll keep an **AI Developer Log**: prompts, AI output/errors, how you diagnosed and corrected them, and a reflection
 
 :::
 
@@ -436,10 +481,11 @@ All textbooks are **free and online**.
 
 ::: {.incremental}
 
-- Visualization and explanation of a dataset of your choosing (your own work or found data)
+- Tell a story with a dataset of your choosing — your own work or publicly available data
 - Bringing together multiple datasets is encouraged!
 - Start thinking now about what data you want to use and what questions you want to answer
 - You will propose your ideas to me for approval
+- You'll **present** your project to the class at the end of the semester
 
 :::
 

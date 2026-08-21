@@ -17,9 +17,11 @@ subtitle: "Your Lecture Title Here"
 author: "Dr. Nyssa Silbiger"
 institute: "UH Fall 2026"
 date: today
+resources:
+  - custom-theme.scss
 format:
   revealjs:
-    theme: [default, ../_theme/custom-theme.scss]
+    theme: [default, custom-theme.scss]
     highlight-style: github
     code-line-numbers: true
     width: 1500
@@ -32,7 +34,24 @@ format:
 ---
 ```
 
-> ⚠️ Update the path to `custom-theme.scss` relative to each week's folder.
+### Self-contained theme copy (required for publishing)
+
+Each `Week_XX/` folder must have its **own copy** of `custom-theme.scss` sitting next to the lecture `.qmd` file(s) — do **not** reference `_theme/custom-theme.scss` with a relative `../` path.
+
+> ⚠️ **Why:** When a single lecture is published (e.g., to Posit Connect Cloud) via `rsconnect::deployDoc()`, the deployment bundle only includes the document's own folder. A `../_theme/custom-theme.scss` reference resolves fine locally but doesn't exist on the server, causing Quarto to misinterpret the path as a built-in theme name and fail to render (`custom-theme.scss.scss not found`).
+
+**Setup for a new week:**
+```bash
+cp _theme/custom-theme.scss Week_XX/custom-theme.scss
+```
+Then reference it in the YAML with a bare filename, as shown above: `theme: [default, custom-theme.scss]`.
+
+**Also required — declare it as a `resources:` entry.** `rsconnect::deployDoc()` only auto-bundles files it detects being used by executed R code (images, data files, etc.) — it does not scan the `theme:` field. Without an explicit top-level `resources:` entry, `custom-theme.scss` will silently be left out of the deployment bundle even though it renders fine locally, causing the exact same publish failure as the `../_theme/` path issue. Always add it as shown in the YAML template above, and verify with `quarto inspect your-file.qmd` that `custom-theme.scss` appears under `"resources"` before publishing.
+
+**Keeping copies in sync:** `_theme/custom-theme.scss` remains the source of truth. If you edit it (new colors, callout styles, etc.), re-copy it into every `Week_XX/` folder — the per-week copies do not update automatically:
+```bash
+for d in Week_*/; do cp _theme/custom-theme.scss "$d"; done
+```
 
 ---
 

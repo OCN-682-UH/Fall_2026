@@ -6,3 +6,4 @@ Note: Lectures posted here before the start of class are still a work in progres
 
 *Week 1*
 - [What is Data?](https://01a02667-ab6b-487f-ceaa-4f4960dd9a85.share.connect.posit.cloud)
+- [Collecting Data and Metadata](https://01a0266f-82ec-9abd-7ffc-5f01293de96b.share.connect.posit.cloud)

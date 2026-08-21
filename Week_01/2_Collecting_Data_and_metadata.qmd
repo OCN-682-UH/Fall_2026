@@ -4,9 +4,11 @@ subtitle: "Collecting and Recording Data"
 author: "Dr. Nyssa Silbiger"
 institute: "UH Fall 2026"
 date: today
+resources:
+  - custom-theme.scss
 format:
   revealjs:
-    theme: [default, ../_theme/custom-theme.scss]
+    theme: [default, custom-theme.scss]
     highlight-style: github
     code-line-numbers: true
     width: 1500

@@ -1,0 +1,441 @@
+---
+title: "Computer Modeling (OCN 682)"
+subtitle: "Reproducible Scripts and Workflow"
+author: "Dr. Nyssa Silbiger"
+institute: "UH Fall 2026"
+date: today
+resources:
+  - custom-theme.scss
+format:
+  revealjs:
+    theme: [default, custom-theme.scss]
+    highlight-style: github
+    code-line-numbers: true
+    width: 1500
+    height: 1000
+    preview-links: auto
+    self-contained-math: true
+    embed-resources: false
+    slide-number: c/t
+    footer: "OCN 682 | Week 2 | Scripts & Workflow"
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE, htmltools.preserve.raw = FALSE)
+library(tidyverse)
+```
+
+## Outline of class
+
+1. Clone class repos
+2. Proper file structure
+3. Proper script structure
+4. Reminder on R packages
+5. Import Data
+
+Homework
+
+1. Create file structure for class
+2. Basic markdown for Readme files
+
+## Git Organizations
+
+- Last class you learned how to create your own repo as an individual. Another cool thing about GitHub is you can be part of an **organization** where you can keep lots of repos from one group together.
+- You have all been added to GitHub Organization **OCN-682-UH**.
+- You should have received an email asking you to accept (please do if you haven't already)
+
+![](libs/Images/OrgoPhotoUH.png){fig-align="center"}
+
+## Git Organizations (continued)
+
+- Everything for our class will be in this organization.
+- You will clone **two** repositories from our class organization today.
+
+::: {.fragment}
+1. Fall-2026
+   - This is where all the information for the class will be.
+   - You **DO NOT** have access to push to this repo so that you do not accidentally change the lecture slides. You can only **pull**
+   - Every day before class use `git pull` to download all the class materials
+:::
+
+::: {.fragment}
+2. Your Last Name
+   - This is where you will turn in all your assignments. You, and currently only you, have access to **push** changes to your own repo.
+:::
+
+::: {.fragment}
+I will show you an example now
+:::
+
+## Working in git for this class
+
+::: {.incremental}
+1. Before class starts, navigate to "Fall-2026" in your projects (upper right-hand corner of RStudio) and **pull**.
+2. Next navigate to your personal repository and **pull**. (This is the repo you will work in during class.)
+
+- A hint for viewing the lectures online: copy the url of the html file on GitHub into [raw.githack.com](https://raw.githack.com/), then copy the "use this URL for development" link into your browser.
+:::
+
+## Proper file structure
+
+This is a photo of one of my past working directories
+
+![](https://njsilbiger.github.io/images/Week1/BadDirectory.png){fig-align="center"}
+
+There is **NO** organization here.... It is impossible to find anything...
+
+## Don't be past me...
+
+In general, your repos should be set-up to have at least 3 subfolders: **Data**, **Scripts**, and **Output**.
+
+Think of one repo as one project or publication or chapter. Do not put everything you do in one single repo.
+
+::: {.center}
+![](https://i0.wp.com/raw.githubusercontent.com/martinctc/blog/master/images/RPROJECT_2000dpi.png?w=578&ssl=1){width="45%"}
+:::
+
+## File structure for this class...
+
+In this class, we will have one more level of structure to keep everything tidy and easy to find.
+
+1. Have one folder for every week
+2. Within that weekly folder have a folder named *Data*, *Scripts*, and *Output*.
+
+It will look like this...
+
+::: {.fragment}
+- Week_03
+  - Data
+  - Scripts
+  - Output
+- Week_04
+  - Data
+  - Scripts
+  - Output
+- so on....
+:::
+
+## Adding folders to Git
+
+You can add all the contents in a folder at once by adding the folder
+
+- `git add Week_03/` will add all the contents in the *Week_03* folder so that you do not have to do it one by one
+- Note, git will **not** put an empty folder on GitHub (because there is nothing inside). So, do not worry if you go to add your folder now and don't see anything on GitHub. There is nothing for git to save.
+
+## Reproducible Projects require clear readme files.
+
+Some examples:
+
+- [Jennifer Fields](https://github.com/jenniferfields/EcoFunORTidepools)
+- [Danielle Becker](https://github.com/daniellembecker/Nutrient_sediment_loading_affect_coral_functionality)
+
+## Readme files
+
+1. Give an overview of what the reader will find
+2. List the contents of the repository
+3. If this is for a **publication**, list authors, journal information, funding (if relevant), citation, and content.
+
+![](libs/Images/Maunalua.PNG){fig-align="center"}
+
+## How to edit a readme file
+
+### Intro to Markdown - "Markdown is a lightweight markup language with plain text formatting syntax."
+
+::: {.fragment}
+Why write with Markdown when you can press buttons in an interface to format your text?
+:::
+
+::: {.incremental}
+1. Markdown can be used for everything. People use it to create websites, documents, notes, books, presentations, email messages, and technical documentation.
+2. Markdown is portable. Files containing Markdown-formatted text can be opened using virtually any application. If you decide you don't like the Markdown application you're currently using, you can import your Markdown files into another Markdown application. That's in stark contrast to word processing applications like Microsoft Word that lock your content into a proprietary file format.
+3. Markdown is platform independent. You can create Markdown-formatted text on any device running any operating system.
+:::
+
+## How to edit a readme file (continued)
+
+### Intro to Markdown - "Markdown is a lightweight markup language with plain text formatting syntax."
+
+::: {.incremental}
+4. Markdown is future proof. Even if the application you're using stops working at some point in the future, you'll still be able to read your Markdown-formatted text using a text editing application.
+5. Markdown is everywhere. Websites like Reddit and GitHub support Markdown, and lots of desktop and web-based applications support it.
+:::
+
+::: {.fragment}
+### How to learn
+
+- Markdown guides [Markdown Basics](https://www.markdownguide.org/basic-syntax/)
+- Free online tutorials [Online tutorial](https://www.markdowntutorial.com/)
+- Free online Markdown editor [dillinger](https://dillinger.io/)
+
+You will practice using Markdown in lab today.
+:::
+
+## Creating a transparent script
+
+- Do your collaborators know what you did?
+- Do **you** know what you did? Can you go back to the code in a year after a reviewer asked you to change your analysis?
+
+::: {.fragment}
+Your script should be divided into 5 (ish) subsections (depending on what you are doing)
+:::
+
+::: {.incremental}
+1. A short **intro** to the purpose of the code
+2. Loading the **libraries** that you use in the script
+3. A list of important **functions** (we won't use these until later in the semester)
+4. Read in your **data**
+5. Code for your **data analysis**
+   - This will be divided further based on your own personal analysis
+:::
+
+## Creating a transparent script (continued)
+
+![](libs/Images/script.PNG){fig-align="center"}
+
+## Creating a transparent script (continued 2)
+
+Section 1: Start with a short intro of what your intend to do with your script. Say who you are, the date you created it, and when you last edited it.
+
+Section 2: Load the libraries. Here, I load all the libraries that I need for my code to run.
+
+Section 3: Functions. If you will be creating your own functions it is best to put them all right up front so that they are available for the whole script. If I have lots of functions, sometimes I will put them in their own script and then source them in so that it is not so messy. More on that later.
+
+Section 4: Load data. This is where you load all your data files.
+
+Section 5 and beyond: All your analyses, which can also be subset into different sections.
+
+***Probably the most important advice that I can give you is to comment, comment, comment, and comment some more on your code.***
+
+## Let's create our first simple script
+::: {.fragment}
+- Navigate to the project with your last name
+- Create a folder titled "Week_02" and 3 subfolders titled "Scripts", "Data", and "Output"
+  - You can do this directly in the folder on your computer, in RStudio by clicking "New folder", or in the terminal by typing `mkdir foldername`
+:::
+
+::: {.fragment}
+### Before we make our script we are going to install two packages.
+:::
+
+::: {.fragment}
+- A package is a library of canned functions.
+- You download and install them onto your local harddrive in order to use them.
+- To install a package you type **in the console**:
+
+```{r}
+#| echo: true
+#| eval: false
+install.packages("PackageName")
+```
+:::
+
+::: {.fragment}
+- You **do not** need to put this in your script because you only ever do it once (unless you need to update the package). Think of it as installing a program. You only install it once. You do not need to install it again every time you open it.
+:::
+
+## Install packages
+
+::: {.columns}
+
+::: {.column width="60%"}
+### The {here} package helps us easily navigate around our projects.
+We will use this to make unbreakable file paths.
+
+```{r}
+#| echo: true
+#| eval: false
+install.packages("here")
+```
+:::
+
+::: {.column width="40%"}
+![](libs/Images/here.png){width="100%"}
+:::
+
+:::
+
+## What do we mean by "unbreakable file paths"?
+
+### **Consider**: an absolute file path
+
+```{r}
+#| echo: true
+#| eval: false
+my_data <- read_csv("usr/nsilbiger/My Documents/ComputerModeling/Fall 2026/Lab 1/data/some_data.csv")
+```
+
+Note: the code to read in data is *read_csv("file path to data")*. The file name in this example is **some_data.csv**.
+
+In this example, we have named our new dataframe *my_data*.
+
+::: {.fragment}
+### **How does it break?**
+Let us count the ways...
+:::
+
+## {.center .middle}
+
+![](libs/Images/filepath1.png){fig-align="center"}
+
+## {.center .middle}
+
+![](libs/Images/filepath2.png){fig-align="center"}
+
+## A better way
+
+![](<libs/Images/a better way.png>){fig-align="center"}
+
+## Let try an example with an appropriate R project, file structure, and {here}
+
+::: {.center}
+![](<libs/Images/file structure.png>){fig-align="center" width="60%"}
+:::
+
+## If I am working within my project...
+
+If I am working within my project, then to read in the sb_temp.csv file (which is in the data folder), I can use the **here::here()** function:
+
+(the left of the :: is the *package name* and to the right is the *function name*. In this case, they are both *here*)
+
+```{r}
+#| echo: true
+#| eval: false
+my_data <- read_csv(here("data", "sb_temp.csv"))
+```
+
+::: {.fragment}
+This code says "read the csv file named sb_temp.csv that is in the folder data."
+:::
+
+::: {.fragment}
+![](libs/Images/robustfile.png){fig-align="center" width="70%"}
+:::
+
+## Install Tidyverse
+
+::: {.center}
+*"The tidyverse is a coherent system of packages for data manipulation, exploration and visualization that share a common design philosophy."*
+:::
+
+![](https://gblobscdn.gitbook.com/assets%2F-M38c0s4s0YCM6dGwrz1%2F-M7RetZBh2Wf7TnfLhKs%2F-M7RkjP-fqIgI8ZsDmKh%2Ftidyverse2.png?alt=media&token=73bf5842-1ae0-4ca4-8622-ec2ae9063a7a){fig-align="center" width="35%"}
+
+<small><em>Joseph Rickert — [What is the tidyverse](https://rviews.rstudio.com/2017/06/08/what-is-the-tidyverse/?) — RStudio Community Blog</em></small>
+
+## Install Tidyverse (continued)
+
+```{r}
+#| echo: true
+#| eval: false
+install.packages("tidyverse")
+```
+
+## Reproducible environments with {renv}
+
+- {here} makes your file **paths** reproducible — but what about your **packages**?
+- Package versions change over time; code that works today may break (or silently give different results) next year
+- {renv} creates a project-specific library and a lockfile (`renv.lock`) that records the exact package versions your project used
+
+::: {.fragment}
+```{r}
+#| echo: true
+#| eval: false
+install.packages("renv")
+renv::init()      # start using renv in this project
+renv::snapshot()  # record installed package versions to renv.lock
+```
+:::
+
+::: {.fragment}
+- Commit `renv.lock` to GitHub along with your scripts
+- A collaborator (or future you) can run `renv::restore()` to reinstall the **exact** package versions your script needs
+:::
+
+## Let's create our first simple script (part 2)
+
+- You should now have {here} and the {tidyverse} installed on your computer.
+- Today, we are just going to load some libraries and read in a simple .csv file.
+
+::: {.fragment}
+- Copy the **"weightdata.csv"** file from the Fall-2026 repo into your own private repo. Put it in the **data** folder within **Week_02**.
+:::
+
+::: {.fragment}
+- Open a new script and save it in your **scripts** folder within **Week_02**. You can name it whatever you want.
+:::
+
+## Let's create our first simple script — header
+
+The first thing we do is make a header
+
+```{r}
+#| echo: true
+#| eval: false
+### This is my first script.  I am learning how to import data
+### Created by: Dr. Nyssa Silbiger
+### Created on: 2026-09-01
+###############################################
+```
+
+## Let's create our first simple script — libraries
+
+Next, we want to load the libraries that we plan to use.
+Adding the extra hashtags after load libraries makes a new section (notice the little carrot that appears)
+
+```{r}
+#| echo: true
+#| eval: false
+### Load libraries ##########
+library(tidyverse)
+library(here)
+```
+
+## Let's create our first simple script — read data
+
+Next, let's read in our data using the {here} package.
+weightdata.csv is in folder data, which is in folder Week_2
+
+```{r}
+#| echo: true
+#| eval: false
+### Read in data ###
+WeightData <- read_csv(here("Week_02", "data", "weightdata.csv"))
+```
+
+## Let's create our first simple script — analysis
+
+Lastly, for today, some analysis.
+We will simply look at the data.
+
+```{r}
+#| echo: true
+#| eval: false
+### Data Analysis #####
+
+head(WeightData) # Looks at the top 6 lines of the dataframe
+```
+
+## Let's create our first simple script — analysis (continued)
+
+```{r}
+#| echo: true
+#| eval: false
+tail(WeightData) # Looks at the bottom 6 lines of the dataframe
+
+View(WeightData) # opens a new window to look at the entire dataframe
+```
+
+## For lab today you have three tasks
+
+1. Push the Week 2 folder with your first script and associated data onto your personal GitHub repository
+2. Complete the [Online Markdown tutorial](https://www.markdowntutorial.com/)
+3. Edit your readme file to say something useful about your repository.
+
+Complete all 3 before Tuesday at 1pm. Feel free to ask your classmates for help
+
+## {.center .middle}
+
+# Thanks!
+
+Slides created via [**Quarto**](https://quarto.org/)
+
+Some slides modified from Allison Horst, Jarret Byrnes

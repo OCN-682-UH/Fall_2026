@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="3_Reproducible_Research_files/libs/clipboard/clipboard.min.js"></script>
+<script src="3_Reproducible_Research_files/libs/quarto-html/tabby.min.js"></script>
+<script src="3_Reproducible_Research_files/libs/quarto-html/popper.min.js"></script>
+<script src="3_Reproducible_Research_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="3_Reproducible_Research_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="3_Reproducible_Research_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="3_Reproducible_Research_files/libs/quarto-html/quarto-syntax-highlighting-de63f62b328812d8e578a4d74e282472.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.9.38">
+
+  <meta name="author" content="Dr.&nbsp;Nyssa Silbiger">
+  <meta name="dcterms.date" content="2026-08-21">
+  <title>Computer Modeling (OCN 682)</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="3_Reproducible_Research_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="3_Reproducible_Research_files/libs/revealjs/dist/reveal.css">
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="3_Reproducible_Research_files/libs/revealjs/dist/theme/quarto-17c3c277c85a04f55bb94c1aeb5b08f3.css">
+  <link href="3_Reproducible_Research_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="3_Reproducible_Research_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="3_Reproducible_Research_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="3_Reproducible_Research_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">Computer Modeling (OCN 682)</h1>
+  <p class="subtitle">What is reproducible research and why is it important?</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Dr.&nbsp;Nyssa Silbiger 
+</div>
+        <p class="quarto-title-affiliation">
+            UH Fall 2026
+          </p>
+    </div>
+</div>
+
+  <p class="date">2026-08-21</p>
+</section>
+<section id="outline-of-class" class="slide level2">
+<h2>Outline of class</h2>
+<ol type="1">
+<li>Quiz!</li>
+<li>Share your data sheets</li>
+<li>What is reproducible science?</li>
+<li>Open science: Should data and protocols be public?</li>
+<li>Tools for reproducible science:
+<ul>
+<li>RStudio</li>
+<li>GitHub</li>
+</ul></li>
+</ol>
+</section>
+<section id="reproducibility-what-is-it" class="slide level2">
+<h2>Reproducibility — what is it?</h2>
+<div class="fragment">
+<h3 id="u.s.-national-science-foundation-nsf-subcommittee-on-replicability-in-science-reproducibility-refers-to-the-ability-of-a-researcher-to-duplicate-the-results-of-a-prior-study-using-the-same-materials-as-were-used-by-the-original-investigator.">“U.S. National Science Foundation (NSF) subcommittee on replicability in science: ’reproducibility refers to the <strong>ability of a researcher to duplicate the results of a prior study using the same materials as were used by the original investigator.’</strong>”</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="https://blog.ml.cmu.edu/wp-content/uploads/2019/11/2.png" class="quarto-figure quarto-figure-center" style="width:80.0%"></p>
+</figure>
+</div>
+<p><small><em>Goodman et al., Science Translational Medicine 01 Jun 2016: Vol. 8, Issue 341, pp.&nbsp;341ps12. DOI: 10.1126/scitranslmed.aaf5027</em></small></p>
+</div>
+</section>
+<section id="we-are-in-a-reproducibility-crisis-in-science" class="slide level2">
+<h2>We are in a reproducibility crisis in science</h2>
+
+<img data-src="libs/Images/RepoCrisis.png" class="quarto-figure quarto-figure-center r-stretch"><p><small><em>Monya Baker (2016). 1500 scientists lift the lid on reproducibility. Nature 533 (7604).</em></small></p>
+</section>
+<section id="types-of-reproducibility" class="slide level2">
+<h2>Types of reproducibility</h2>
+<p><small><em>From Victoria Stodden (as summarized in the ROpenSci Reproducibility Guide)</em></small></p>
+<div class="fragment">
+<p>“<strong>Computational reproducibility</strong>: when detailed information is provided about code, software, hardware and implementation details.”</p>
+</div>
+<div class="fragment">
+<p>“<strong>Empirical reproducibility</strong>: when detailed information is provided about non-computational empirical scientific experiments and observations. In practice this is enabled by making data freely available, as well as details of how the data was collected.”</p>
+</div>
+<div class="fragment">
+<p>“<strong>Statistical reproducibility</strong>: when detailed information is provided about the choice of statistical tests, model parameters, threshold values, etc. This mostly relates to pre-registration of study design to prevent p-value hacking and other manipulations.”</p>
+</div>
+</section>
+<section id="is-this-how-you-have-been-working" class="slide level2">
+<h2>Is this how you have been working?</h2>
+<h3 id="if-so-thats-ok-lets-learn-together.">If so, that’s ok! Let’s learn together.</h3>
+
+<img data-src="libs/Images/excelword.png" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="what-about-this-workflow-makes-it-hard-to-reproduce" class="slide level2">
+<h2>What about this workflow makes it hard to reproduce?</h2>
+
+<img data-src="libs/Images/excelword.png" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="a-few-areas-for-improvement" class="slide level2">
+<h2>A few areas for improvement</h2>
+<ul>
+<li class="fragment">No clear or organized history of what’s been done to the data from raw data through final figures/results</li>
+<li class="fragment">Lack of comments/annotation describing the steps</li>
+<li class="fragment">Tedious &amp; time consuming for a collaborator to recreate the analyses</li>
+<li class="fragment">Backed up w/version control? Probably not…</li>
+<li class="fragment">How do we transfer this into a final report or presentation? Is that reproducible?</li>
+<li class="fragment">Note all the slides I make for this class are…. in R!</li>
+</ul>
+<div class="fragment">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="https://c.tenor.com/6K79yKr1dnIAAAAM/so-extra-sponge-bob.gif" class="quarto-figure quarto-figure-center"></p>
+</figure>
+</div>
+</div>
+</section>
+<section id="why-does-this-matter" class="slide level2">
+<h2>Why does this matter?</h2>
+<p>Say I’ve been <strong>arrested for a murder</strong> that was committed 6 months ago. My attorney says it’s very important to remember exactly what I did on the day of the murder to establish an alibi. I try my best to remember, and come up with this diagram describing my day:</p>
+
+<img data-src="libs/Images/arrested1.jpg" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="my-attorney-is-like-bummer" class="slide level2">
+<h2>My attorney is like “bummer…”</h2>
+
+<img data-src="https://media.tenor.com/images/505870ffff0e7dbe9f13e4221b2c32dd/tenor.gif" class="quarto-figure quarto-figure-center r-stretch" style="width:35.0%"></section>
+<section id="i-wrack-my-brain-and-come-up-with-this-order-of-things" class="slide level2">
+<h2>I wrack my brain and come up with this order of things:</h2>
+
+<img data-src="libs/Images/arrested2.jpg" class="quarto-figure quarto-figure-center r-stretch" style="width:30.0%"><p><small><em>Still not great…</em></small></p>
+</section>
+<section id="but-then-i-remember-i-had-a-datebook-with-all-this-information" class="slide level2">
+<h2>But then! I remember I had a datebook with all this information…</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="libs/Images/arrested3.jpg" class="quarto-figure quarto-figure-center"></p>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="https://media4.giphy.com/media/Xpj7V61MQ4wEQRub8c/giphy.gif" class="quarto-figure quarto-figure-center" style="width:25.0%"></p>
+</figure>
+</div>
+</section>
+<section id="do-your-data-sci-like-it-is-going-to-need-an-alibi." class="slide level2">
+<h2>Do your <strong>Data Sci</strong> like it is going to need an <strong>alibi</strong>.</h2>
+
+<img data-src="libs/Images/alibi.png" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="with-data-that-looks-something-like" class="slide level2">
+<h2>With data that looks something like…</h2>
+
+<img data-src="libs/Images/repodata.png" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="the-workflow-we-will-grow-in-this-class" class="slide level2">
+<h2>The workflow we will grow in this class…</h2>
+<p><em>We will do everything in <strong>well-annotated, organized scripts</strong> that contain streamlined and easy-to-follow records of our entire analyses from <strong>raw data</strong> through <strong>final reports</strong>, with <strong>unbreakable file paths</strong> and with <strong>a complete history</strong> of changes made.</em></p>
+</section>
+<section id="the-workflow-we-will-grow-in-this-class-continued" class="slide level2">
+<h2>The workflow we will grow in this class… (continued)</h2>
+
+<img data-src="libs/Images/repodata2.png" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="but-first-why-open-science-is-best-science" class="slide level2">
+<h2>But first, why open science is best science</h2>
+
+<img data-src="https://media.giphy.com/media/LqJALOD5Nqefb0JVQj/giphy.gif" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="open-science" class="slide level2">
+<h2>Open Science</h2>
+<section id="open-science-is-not-just-about-improving-the-way-we-share-data-and-methods-it-is-also-about-improving-the-way-we-think-work-and-interact-with-each-other.-its-about-technology-enabling-social-infrastructure-that-can-promote-inclusivity-to-create-kinder-science." class="center">
+<h3><em>“Open science is not just about improving the way we share data and methods; it is also about improving the way we think, work and interact with each other. It’s about technology enabling social infrastructure that can promote inclusivity to create kinder science.”</em></h3>
+</section>
+<p><small><em><a href="https://blogs.scientificamerican.com/observations/open-software-means-kinder-science/">Open Software Means Kinder Science. By Julia Stewart Lowndes on December 10, 2019</a></em></small></p>
+</section>
+<section id="open-science-continued" class="slide level2">
+<h2>Open Science (continued)</h2>
+<h3 id="one-scientist-can-only-do-so-much">One scientist can only do so much</h3>
+<ul>
+<li>More data = more Power</li>
+</ul>
+<div class="fragment">
+<h3 id="science-must-be-reproducible">Science must be reproducible</h3>
+</div>
+<div class="fragment">
+<h3 id="who-paid-for-this-data-collection">Who paid for this data collection?</h3>
+<ul>
+<li>If on federal or state grant then the tax payers paid for your data</li>
+</ul>
+</div>
+<div class="fragment">
+<h3 id="better-and-kinder-science-done-in-less-time-and-done-together.---julie-lowndes">“Better and kinder science, done in less time and done together.” - Julie Lowndes</h3>
+</div>
+</section>
+<section id="examples-of-openscience" class="slide level2">
+<h2>Examples of #OpenScience</h2>
+
+<img data-src="libs/Images/putnam.PNG" class="quarto-figure quarto-figure-center r-stretch" style="width:50.0%"></section>
+<section id="examples-of-openscience-continued" class="slide level2">
+<h2>Examples of #OpenScience (continued)</h2>
+
+<img data-src="libs/Images/labgithub.png" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="why-some-people-are-scared." class="slide level2">
+<h2>Why some people are scared….</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><img data-src="https://64.media.tumblr.com/6e146340c3fba8b8ea096fa3e5d831c9/tumblr_o1dkk6vmAw1ul25n3o1_1280.jpg" style="width:100.0%"></p>
+</div><div class="column" style="width:50%;">
+<p><img data-src="https://64.media.tumblr.com/78a7657c6f9f26a0d987270f11a83589/tumblr_inline_o1nbr5uz351s80q9m_540.jpg" style="width:100.0%"></p>
+</div></div>
+<div class="center">
+<p>Work together, advance science, and don’t waste time and money</p>
+</div>
+</section>
+<section id="fair-and-care-principles" class="slide level2">
+<h2>FAIR and CARE principles</h2>
+
+<img data-src="https://images.squarespace-cdn.com/content/v1/5d3799de845604000199cd24/1567592451970-2R8XFL670QNMAGDRV7ED/Be+FAIR+and+CARE.png?format=2500w" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="care-principles-for-indigenous-data-governance" class="slide level2">
+<h2>CARE principles for Indigenous Data Governance</h2>
+
+<img data-src="libs/Images/CARE.png" class="quarto-figure quarto-figure-center r-stretch" style="width:45.0%"><p>Jennings et al.&nbsp;2023</p>
+</section>
+<section id="care-principles-close-to-home" class="slide level2">
+<h2>CARE principles, close to home</h2>
+<p>CARE stands for <strong>Collective Benefit, Authority to Control, Responsibility,</strong> and <strong>Ethics</strong> — a complement to FAIR that centers the rights and interests of the people data is <em>about</em>, not just those reusing it.</p>
+<ul>
+<li class="fragment"><strong>Collective Benefit</strong>: data ecosystems should be designed to benefit Indigenous communities, not just researchers or institutions</li>
+<li class="fragment"><strong>Authority to Control</strong>: Native Hawaiian communities and organizations (e.g., DAR, DHHL, community-based monitoring groups) have the right to govern data about their ʻāina, moʻolelo, and resources</li>
+<li class="fragment"><strong>Responsibility</strong>: researchers must build relationships that support the self-determination of Kānaka Maoli and local communities before, during, and after data collection</li>
+<li class="fragment"><strong>Ethics</strong>: data practices should reduce harm and actively consider Native Hawaiian and Pacific values, not just legal compliance</li>
+</ul>
+</section>
+<section id="care-in-practice-here-in-hawaiʻi" class="slide level2">
+<h2>CARE in practice, here in Hawaiʻi</h2>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Data governance is already happening locally</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>DHHL</strong> and <strong>OHA</strong> maintain their own protocols for who can access and use data about Native Hawaiian beneficiaries, lands, and resources — a real-world example of Authority to Control. If your research touches Hawaiian Home Lands, ceded lands, or Kānaka Maoli communities, identify and respect these structures <strong>before</strong> you collect a single data point.</p>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Why this matters for your Community Data Sprint</strong></p>
+</div>
+<div class="callout-content">
+<p>Working with DAR, DOH, or a Mālama restoration group in Week 8 means handling data tied to a specific place and community. CARE asks who benefits, who decides, and who’s accountable — not just whether the data is technically open.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="our-tools-this-semester-for-open-and-reproducible-science" class="slide level2">
+<h2>Our tools this semester for open and reproducible science</h2>
+
+<img data-src="libs/Images/RandGit.png" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="git-and-github" class="slide level2">
+<h2>Git and GitHub</h2>
+<p>Why use it?</p>
+<p>Do you have a folder for your research project that looks like this?</p>
+<div class="center">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="https://njsilbiger.github.io/images/Week1/BadDirectory.png" class="quarto-figure quarto-figure-center" style="width:70.0%"></p>
+</figure>
+</div>
+</div>
+</section>
+<section id="git-and-github-solve-this-problem" class="slide level2">
+<h2>Git and GitHub solve this problem</h2>
+<h3 id="git">Git</h3>
+<ul>
+<li>Git is a distributed version control system.</li>
+<li>Imagine if Dropbox (saving info on the cloud) and “Track changes” from MS word had a baby. Git would be that baby.</li>
+<li>But, it’s even better because Git is optimized for the things that data scientists spend a lot of time working on (e.g., code)</li>
+<li>There is a learning curve, but I promise you it is worth it.</li>
+</ul>
+<div class="fragment">
+<h3 id="github">GitHub</h3>
+<ul>
+<li>Git and GitHub are two different things.</li>
+<li>GitHub is an online hosting platform that provides an array of services that are built on the Git system. (There are also other platforms like Bitbucket and GitLab)</li>
+<li>Just like we don’t <em>need</em> RStudio to run R code, we don’t <em>need</em> GitHub to use Git… but it will make our lives a lot easier</li>
+</ul>
+<p><small><em>https://raw.githack.com/uo-ec607/lectures/master/02-git/02-Git.html</em></small></p>
+</div>
+</section>
+<section id="from-software-development" class="slide level2">
+<h2>From software development…</h2>
+<p>Git and GitHub play a big role in global software development.</p>
+<ul>
+<li>There is a high probability that your fave app., program or package is built using Git-based tools (RStudio is).</li>
+</ul>
+<div class="fragment">
+<h3 id="to-scientific-research">… to scientific research</h3>
+<ul>
+<li>Git and GitHub help operationalise the ideals of open science and reproducibility</li>
+<li>Journals have increasingly strict requirements regarding reproducibility and data access. GH makes this easy (DOI integration, off-the-shelf licenses, etc.)</li>
+<li>I host all my code, data for my research papers, and research protocols on GH.</li>
+<li>GH helps us to collaborate with others and, most importantly, <strong>your future self.</strong></li>
+</ul>
+</div>
+</section>
+<section id="git-and-rstudio-work-well-together" class="slide level2">
+<h2>Git and RStudio work well together</h2>
+<p>We will start with Rprojects to keep organized.</p>
+<div class="center">
+<p><img data-src="https://i0.wp.com/raw.githubusercontent.com/martinctc/blog/master/images/RPROJECT_2000dpi.png?w=578&amp;ssl=1" style="width:45.0%"></p>
+</div>
+</section>
+<section id="we-will-make-our-first-repository-together" class="slide level2">
+<h2>We will make our first repository together</h2>
+</section>
+<section id="create-a-github-account" class="slide level2">
+<h2>Create a GitHub account</h2>
+<p>Go to <a href="https://github.com/">https://github.com/</a></p>
+<ul>
+<li>Click Sign-up and follow directions</li>
+<li><a href="https://happygitwithr.com/github-acct.html">Advice for your username</a></li>
+<li>GitHub now <strong>requires two-factor authentication (2FA)</strong> on all accounts — have your phone or an authenticator app ready during sign-up</li>
+</ul>
+
+<img data-src="libs/Images/SignUp.PNG" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="install-git" class="slide level2">
+<h2>Install git</h2>
+<p>Follow the directions here from the “Install git” and “Introduce yourself to Git” chapters:</p>
+<ul>
+<li><p><a href="https://happygitwithr.com/install-git.html">https://happygitwithr.com/install-git.html</a></p></li>
+<li><p>NOTE: When you get to the part where you create a Personal Access Token, make sure that all boxes are clicked and that you set the expiration date to never (the very first drop down menu). If you keep the default (30 days), it will stop working in the middle of the semester.</p></li>
+<li><p>This may take a while if you are completely new. That is OK! We are here to help.</p></li>
+<li><p>One common issue to look out for… “Support for password authentication was removed!”</p></li>
+<li><p>If this happens to you at any time, follow the directions <a href="https://happygitwithr.com/https-pat.html">here</a></p></li>
+</ul>
+</section>
+<section id="first-sign-into-github-and-we-will-create-a-new-repository" class="slide level2">
+<h2>First, sign into GitHub and we will create a new repository</h2>
+<ul>
+<li>Press the new button</li>
+</ul>
+
+<img data-src="libs/Images/newrepobutton.PNG" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="we-are-going-to-make-a-test-repo" class="slide level2">
+<h2>We are going to make a test repo</h2>
+<ul>
+<li>Fill in the name and description</li>
+<li>Click “add ReadMe”</li>
+</ul>
+
+<img data-src="libs/Images/testrepo.PNG" class="quarto-figure quarto-figure-center r-stretch" style="width:75.0%"></section>
+<section id="here-is-your-empty-repo" class="slide level2">
+<h2>Here is your empty repo</h2>
+
+<img data-src="libs/Images/NewRepo.PNG" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="clone-it-and-bring-it-into-rstudio" class="slide level2">
+<h2>“Clone it” and bring it into RStudio</h2>
+<ul>
+<li>Click the green “code” button</li>
+<li>Click the clipboard to copy the link</li>
+</ul>
+
+<img data-src="libs/Images/Clone1.PNG" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="open-rstudio" class="slide level2">
+<h2>Open RStudio</h2>
+<ul>
+<li>Click the carrot on the top right</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="libs/Images/Rstudio1.PNG" class="quarto-figure quarto-figure-center"></p>
+</figure>
+</div>
+<ul>
+<li>Click New project</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="libs/Images/NewProj.PNG" class="quarto-figure quarto-figure-center"></p>
+</figure>
+</div>
+</section>
+<section id="create-a-version-controlled-project" class="slide level2">
+<h2>Create a version controlled project</h2>
+<ul>
+<li>Click Version control</li>
+</ul>
+
+<img data-src="libs/Images/VersControl.PNG" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="create-a-version-controlled-project-continued" class="slide level2">
+<h2>Create a version controlled project (continued)</h2>
+<ul>
+<li>Click Git</li>
+</ul>
+
+<img data-src="libs/Images/ClickGit.PNG" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="create-a-version-controlled-project-continued-2" class="slide level2">
+<h2>Create a version controlled project (continued 2)</h2>
+<ul>
+<li>Paste the url that you copied from GitHub</li>
+<li>Decide where you want it to live on your computer</li>
+<li>Click Create Project</li>
+</ul>
+
+<img data-src="libs/Images/CreateRepo2.PNG" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="you-have-a-version-controlled-project" class="slide level2">
+<h2>You have a version-controlled project!</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="libs/Images/TestProject.PNG" class="quarto-figure quarto-figure-center"></p>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="https://media3.giphy.com/media/l2JJA5fbJ5o328Odi/giphy.gif" class="quarto-figure quarto-figure-center" style="width:50.0%"></p>
+</figure>
+</div>
+</section>
+<section id="so-now-what." class="slide level2">
+<h2>So, now what….</h2>
+<h3 id="most-important-things-to-know-to-version-control-your-repository">Most important things to know to version-control your repository</h3>
+<h3 id="p">P</h3>
+<h3 id="a">A</h3>
+<h3 id="c">C</h3>
+<h3 id="p-1">P</h3>
+</section>
+<section id="so-now-what.-continued" class="slide level2">
+<h2>So, now what…. (continued)</h2>
+<h3 id="most-important-things-to-know-to-version-control-your-repository-1">Most important things to know to version-control your repository</h3>
+<h3 id="pull">Pull</h3>
+<h3 id="add">Add</h3>
+<h3 id="commit">Commit</h3>
+<h3 id="push">Push</h3>
+</section>
+<section id="so-now-what.-continued-2" class="slide level2">
+<h2>So, now what…. (continued 2)</h2>
+<h3 id="most-important-things-to-know-to-version-control-your-repository-2">Most important things to know to version-control your repository</h3>
+<h3 id="pull-please">Pull (please)</h3>
+<h3 id="add-always">Add (always)</h3>
+<h3 id="commit-carry">Commit (carry)</h3>
+<h3 id="push-pizza">Push (pizza)</h3>
+</section>
+<section id="most-important-commands" class="slide level2">
+<h2>Most important commands</h2>
+<p><strong>Pull</strong> - <code>git pull</code> — this “downloads” any changes to your repository on GitHub, by your collaborators, or your past self on a different machine. (always do this first! You may have forgotten that you made a change.)</p>
+<div class="fragment">
+<p><strong>Add</strong> - <code>git add</code> — this stages files. It tells git, “I want to add these to the repository”</p>
+</div>
+<div class="fragment">
+<p><strong>Commit</strong> - <code>git commit</code> — this “saves” your changes with git (as opposed to ctrl+S which saves them to your local machine – although you should still do that too)</p>
+</div>
+<div class="fragment">
+<ul>
+<li>git commit always requires a message so that you know what changes you made.</li>
+<li>ex: <code>git commit -a -m "I created a test repo"</code></li>
+<li>“-a” means commit all (every change) “-m” means (I am adding a message). What you have in quotes is your message.</li>
+</ul>
+</div>
+<div class="fragment">
+<p><strong>Push</strong> - <code>git push</code> — this “uploads” your changes to GitHub.</p>
+</div>
+</section>
+<section id="work-with-git-in-the-terminal" class="slide level2">
+<h2>Work with git in the terminal</h2>
+<ul>
+<li class="fragment">First, let’s create and save a simple script (save it as “testscript.R”)</li>
+<li class="fragment">Now, let’s save it to git</li>
+<li class="fragment">Click on the terminal tab (next to console). This allows you to interact directly with your terminal</li>
+<li class="fragment">Type “git pull” (it should say already up to date because you have not done anything yet)</li>
+<li class="fragment">Type <code>git add testscript.R</code> (this stages the new script)</li>
+<li class="fragment">Type <code>git commit -a -m "I am adding testscript"</code></li>
+<li class="fragment">Type <code>git push</code>
+<ul>
+<li class="fragment">you may get prompted for your username and password</li>
+</ul></li>
+</ul>
+</section>
+<section id="what-it-should-look-like" class="slide level2">
+<h2>What it should look like</h2>
+<p>Check GitHub and see if it is there!</p>
+
+<img data-src="libs/Images/pushingtest.PNG" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="lets-do-the-same-thing-by-clicking-buttons" class="slide level2">
+<h2>Let’s do the same thing by clicking buttons</h2>
+<ul>
+<li>Make a new script (testscript2.R)</li>
+</ul>
+<p>Find the git tab on the right-hand side</p>
+
+<img data-src="libs/Images/clickgit2.PNG" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="lets-do-the-same-thing-by-clicking-buttons-continued" class="slide level2">
+<h2>Let’s do the same thing by clicking buttons (continued)</h2>
+<ul>
+<li>Check the box next to testscript2.R (this adds it – once you add a script, you never have to add it again. Only commit new changes)</li>
+</ul>
+
+<img data-src="libs/Images/stagged.PNG" class="quarto-figure quarto-figure-center r-stretch"><div class="fragment">
+<ul>
+<li>Click commit and add a message</li>
+</ul>
+</div>
+</section>
+<section id="click-commit-and-add-a-message" class="slide level2">
+<h2>Click commit and add a message</h2>
+
+<img data-src="libs/Images/commit2.PNG" class="quarto-figure quarto-figure-center r-stretch"><ul>
+<li>Press commit and when it is done hit close and exit out</li>
+<li>Next hit “push”</li>
+<li>When it is done close it. You should no longer see “testscript2.R” in the upper right-hand side.</li>
+<li>Check GitHub! (Don’t forget to refresh the webpage)</li>
+</ul>
+</section>
+<section id="make-some-changes" class="slide level2">
+<h2>Make some changes!</h2>
+<ul>
+<li>Let’s make some changes to testscript.R</li>
+<li>Add any code you want to it, commit it (with a message), and push it</li>
+<li>Click history (the clock on the top) to see what changes were made and by who</li>
+</ul>
+</section>
+<section id="oh-no" class="slide level2">
+<h2>Oh no!</h2>
+<ul>
+<li>You notice that your cat walked across the screen totally screwed up your code. Oh no!</li>
+</ul>
+
+<img data-src="https://media.tenor.com/images/1c3fd7fe0757e0b43e455fae004957d6/tenor.gif" class="quarto-figure quarto-figure-center r-stretch" style="width:50.0%"><ul>
+<li>It’s ok… you can revert it</li>
+<li>Click the blue wheel and then revert</li>
+<li>Note: commit often (it will only revert back to the last commit you made. This is like pressing the save button. Do it with every major change to your script.)</li>
+</ul>
+</section>
+<section id="delete-this-test-repository" class="slide level2">
+<h2>Delete this test repository</h2>
+<ul>
+<li>Click settings and scroll all the way to the bottom (‘Danger Zone’) and delete repository and follow directions</li>
+</ul>
+
+<img data-src="libs/Images/settings.PNG" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="online-class" class="slide level2">
+<h2>Online class</h2>
+<ul>
+<li>We will learn about proper file structure and how to set-up a transparent script.</li>
+<li>Send me your git username in Slack <strong>right now</strong>.</li>
+</ul>
+</section>
+<section id="section" class="slide level2 center middle">
+<h2></h2>
+</section>
+<section id="thanks" class="title-slide slide level1 center">
+<h1>Thanks!</h1>
+<p>Slides created via <a href="https://quarto.org/"><strong>Quarto</strong></a></p>
+<p>Some slides modified from Allison Horst, Jarret Byrnes</p>
+
+</section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+<p>OCN 682 | Week 2 | Reproducible Research</p>
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="3_Reproducible_Research_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="3_Reproducible_Research_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="3_Reproducible_Research_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="3_Reproducible_Research_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="3_Reproducible_Research_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="3_Reproducible_Research_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="3_Reproducible_Research_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="3_Reproducible_Research_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="3_Reproducible_Research_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="3_Reproducible_Research_files/libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': true,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1500,
+
+        height: 1000,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    
+
+    <script>
+
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+
+      // slide changes (different for each slide format).
+
+      (function () {
+
+        // dispatch for htmlwidgets
+
+        function fireSlideEnter() {
+
+          const event = window.document.createEvent("Event");
+
+          event.initEvent("slideenter", true, true);
+
+          window.document.dispatchEvent(event);
+
+        }
+
+    
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+
+          fireSlideEnter();
+
+    
+
+          // dispatch for shiny
+
+          if (window.jQuery) {
+
+            if (previousSlide) {
+
+              window.jQuery(previousSlide).trigger("hidden");
+
+            }
+
+            if (currentSlide) {
+
+              window.jQuery(currentSlide).trigger("shown");
+
+            }
+
+          }
+
+        }
+
+    
+
+        // hookup for slidy
+
+        if (window.w3c_slidy) {
+
+          window.w3c_slidy.add_observer(function (slide_num) {
+
+            // slide_num starts at position 1
+
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+
+          });
+
+        }
+
+    
+
+      })();
+
+    </script>
+
+    
+
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>

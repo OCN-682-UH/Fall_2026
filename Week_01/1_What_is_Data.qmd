@@ -182,14 +182,9 @@ gitexper <- survey %>%
         axis.text.x = element_blank(), legend.text = element_text(size = 14),
         title = element_text(size = 14))
 
-degree
-```
-
-## What is your experience?
-
-```{r rexper-plot, echo=FALSE, warning=FALSE, message=FALSE, fig.width=10, fig.height=6}
 Rexper
 ```
+
 
 ## What is your experience?
 
@@ -200,7 +195,7 @@ gitexper
 ## What do you want to learn?
 
 ```{r wordcloud, echo=FALSE, message=FALSE, warning=FALSE, fig.align='center', fig.width=10, fig.height=7}
-library(wordcloud2)
+library(ggwordcloud)
 
 stop_words <- c('a','and','for','the','to','in','be','i','it','of','that',
                 'with','can','about','if','how','use','my','when','am','on',
@@ -217,7 +212,12 @@ words <- survey %>%
   arrange(desc(n)) %>%
   select(words = tokens, freq = n)
 
-wordcloud2(words, color = "random-light", backgroundColor = "grey")
+set.seed(4821)
+ggplot(words, aes(label = words, size = freq, color = freq)) +
+  geom_text_wordcloud_area(shape = "circle", rm_outside = TRUE) +
+  scale_size_area(max_size = 24) +
+  scale_color_gradientn(colors = c("#007965", "#F58634", "#FFCC29")) +
+  theme_void()
 ```
 
 ## But first, tell me about you...

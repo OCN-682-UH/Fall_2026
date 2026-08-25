@@ -146,21 +146,9 @@ library(patchwork)
 
 ```{r experience-plots, echo=FALSE, warning=FALSE, message=FALSE}
 survey <- read_csv("libs/Data/survey4.csv")
-nr <- nrow(survey)
+nr     <- nrow(survey)
 
-# degree <- survey %>%
-#   count(Grade) %>%
-#   mutate(n = 100*n/nr, x = "Grade") %>%
-#   ggplot(aes(y = n, fill = Grade, x = x)) +
-#   geom_bar(position = "stack", stat = "identity") +
-#   labs(title = "Degree") +
-#   theme_bw() +
-#   theme(axis.title = element_blank(), axis.ticks.x = element_blank(),
-#         axis.text.x = element_blank(), legend.text = element_text(size = 14),
-#         title = element_text(size = 14))
-
-r_levels <- c("I am a beginner", "I am intermediate", "I am advanced", "I am an expert")
-
+# Shared theme for all experience charts
 exp_theme <- theme_minimal(base_size = 18) +
   theme(panel.grid      = element_blank(),
         axis.text.x     = element_blank(),
@@ -169,7 +157,9 @@ exp_theme <- theme_minimal(base_size = 18) +
                                        margin = margin(b = 14)),
         plot.background = element_rect(fill = "white", color = NA))
 
-pal_r <- c("Beginner"          = "#FFCC29",
+# Color palettes
+pal_r <- c("No experience"     = "#d3d3d3",
+           "Beginner"          = "#FFCC29",
            "Intermediate"      = "#F58634",
            "Advanced"          = "#007965",
            "Expert"            = "#1a1a2e")
@@ -179,27 +169,33 @@ pal_git <- c("Never heard of it" = "#d3d3d3",
              "Intermediate"      = "#F58634",
              "Expert"            = "#007965")
 
+# Degree / year chart
+degree <- survey %>%
+  count(Grade) %>%
+  mutate(pct   = 100 * n / sum(n),
+         label = factor(Grade)) %>%
+  ggplot(aes(x = pct, y = label, fill = label)) +
+  geom_col(width = 0.5, show.legend = FALSE) +
+  geom_text(aes(label = paste0(n, " students  (", round(pct), "%)")),
+            hjust = -0.08, size = 5.5, fontface = "bold", color = "#333333") +
+  scale_x_continuous(limits = c(0, 140), expand = c(0, 0)) +
+  labs(title = "Degree / Year", x = NULL, y = NULL) +
+  exp_theme
+
+# R experience — fct_drop() removes unused levels (e.g. "Advanced", "Expert")
+# so they never appear as NA bars on the y-axis
 r_df <- survey %>%
   count(R_experience) %>%
   mutate(pct   = 100 * n / sum(n),
          label = case_when(
+           str_detect(R_experience, "never")        ~ "No experience",
            str_detect(R_experience, "beginner")     ~ "Beginner",
            str_detect(R_experience, "intermediate") ~ "Intermediate",
            str_detect(R_experience, "advanced")     ~ "Advanced",
            str_detect(R_experience, "expert")       ~ "Expert"),
-         label = factor(label, levels = c("Beginner","Intermediate",
-                                          "Advanced","Expert")))
-
-git_df <- survey %>%
-  count(Github_experience) %>%
-  mutate(pct   = 100 * n / sum(n),
-         label = case_when(
-           str_detect(Github_experience, "What")         ~ "Never heard of it",
-           str_detect(Github_experience, "beginner")     ~ "Beginner",
-           str_detect(Github_experience, "intermediate") ~ "Intermediate",
-           str_detect(Github_experience, "expert")       ~ "Expert"),
-         label = factor(label, levels = c("Never heard of it","Beginner",
-                                          "Intermediate","Expert")))
+         label = factor(label, levels = c("No experience","Beginner",
+                                          "Intermediate","Advanced","Expert")) |>
+           fct_drop())
 
 Rexper <- ggplot(r_df, aes(x = pct, y = label, fill = label)) +
   geom_col(width = 0.5, show.legend = FALSE) +
@@ -209,6 +205,19 @@ Rexper <- ggplot(r_df, aes(x = pct, y = label, fill = label)) +
   scale_x_continuous(limits = c(0, 140), expand = c(0, 0)) +
   labs(title = "R Experience", x = NULL, y = NULL) +
   exp_theme
+
+# GitHub experience — fct_drop() handles partial response sets
+git_df <- survey %>%
+  count(Github_experience) %>%
+  mutate(pct   = 100 * n / sum(n),
+         label = case_when(
+           str_detect(Github_experience, "What")         ~ "Never heard of it",
+           str_detect(Github_experience, "beginner")     ~ "Beginner",
+           str_detect(Github_experience, "intermediate") ~ "Intermediate",
+           str_detect(Github_experience, "expert")       ~ "Expert"),
+         label = factor(label, levels = c("Never heard of it","Beginner",
+                                          "Intermediate","Expert")) |>
+           fct_drop())
 
 gitexper <- ggplot(git_df, aes(x = pct, y = label, fill = label)) +
   geom_col(width = 0.5, show.legend = FALSE) +

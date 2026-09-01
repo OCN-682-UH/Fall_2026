@@ -10,3 +10,4 @@ Note: Lectures posted here before the start of class are still a work in progres
 
 *Week 2*
 - [Reproducible Research](https://01a05ac6-9123-6920-37d0-d2e127782fb6.share.connect.posit.cloud)
+- [Scripting](https://01a05adc-02fa-31eb-e3d4-081bc55c36df.share.connect.posit.cloud)

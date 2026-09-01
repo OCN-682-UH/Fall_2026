@@ -211,7 +211,7 @@ CARE stands for **Collective Benefit, Authority to Control, Responsibility,** an
 
 ::: {.callout-note}
 ## Data governance is already happening locally
-**DHHL** and **OHA** maintain their own protocols for who can access and use data about Native Hawaiian beneficiaries, lands, and resources — a real-world example of Authority to Control. If your research touches Hawaiian Home Lands, ceded lands, or Kānaka Maoli communities, identify and respect these structures **before** you collect a single data point.
+ If your research touches Hawaiian Home Lands, ceded lands, or Kānaka Maoli communities, identify and respect these structures **before** you collect a single data point. [This Sea Grant page has excellent resources specifically for Hawai'i](https://seagrant.soest.hawaii.edu/ulana-ike/iks-resources/)
 :::
 
 ::: {.fragment}

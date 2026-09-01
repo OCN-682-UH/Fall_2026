@@ -3,6 +3,7 @@ Course information for Data Science Fundamentals at UH Here you will find all th
 There is one unique folder per week with all the information needed for that week.
 Note: Lectures posted here before the start of class are still a work in progress
 
+[YouTube Playlist for Lectures](https://studio.youtube.com/playlist/PLR1EZaHfMVBg/videos)
 
 *Week 1*
 - [What is Data?](https://01a03097-9371-8e2b-5cf9-e57d888dbf3e.share.connect.posit.cloud)

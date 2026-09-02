@@ -24,6 +24,12 @@ format:
 options(htmltools.dir.version = FALSE)
 library(tidyverse)
 library(palmerpenguins)
+# Loaded here (rather than only inside their eval=FALSE demo chunks) so that
+# deployment dependency scanners (e.g. rsconnect) reliably detect and bundle
+# them -- they are still executed later via ref.label in the Jitter/Density
+# plot slides.
+library(ggbeeswarm)
+library(ggridges)
 ```
 
 ## Outline of class

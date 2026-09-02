@@ -138,6 +138,17 @@ Look up all the different methods
 
 :::
 
+## A quick aside: `size` vs `linewidth`
+
+Since ggplot2 3.4 (2022), the `size` aesthetic is **deprecated for line-based geoms** (`geom_line()`, `geom_smooth()`, `geom_segment()`, etc.) in favor of `linewidth`.
+
+```{r, eval=FALSE, echo=TRUE}
+geom_smooth(linewidth = 2)   # current, correct syntax
+geom_smooth(size = 2)        # still runs, but triggers a deprecation warning
+```
+
+`size` still works for **point-based geoms** (`geom_point()`, `geom_jitter()`) — only line *thickness* moved to `linewidth`. If you see a deprecation warning in your own scripts, this is almost always why.
+
 ## Add a best fit line: [Make it a linear model]{.orange}
 
 ::: {.columns}
@@ -454,6 +465,28 @@ ggplot(data=penguins,
 [Wes Anderson palette](https://github.com/karthik/wesanderson)  
 [Colors of California](https://github.com/an-bui/calecopal)                     
 [Colors of the Pacific Northwest](https://github.com/jakelawlor/PNWColors)
+
+## Check your palette: is it colorblind-friendly?
+
+Using `scale_color_viridis_d()` isn't just about looking nice — viridis palettes are designed to be **perceptually uniform and distinguishable under common forms of color blindness**. This connects back to the "responsible plotting" idea from our first lecture: color choices are part of communicating data honestly, not just aesthetics.
+
+You can check *any* palette — including custom ones — with the **colorBlindness** package:
+
+```{r, eval=FALSE, echo=TRUE}
+install.packages("colorBlindness")
+library(colorBlindness)
+
+my_plot <- ggplot(data = penguins,
+       mapping = aes(x = bill_depth_mm, y = bill_length_mm, color = species)) +
+  geom_point() +
+  scale_color_viridis_d()
+
+cvdPlot(my_plot) # simulates deuteranopia, protanopia, tritanopia
+```
+
+::: {.fragment}
+Try this on a `scale_color_manual()` palette too. Some color combinations that look distinct to you may be indistinguishable to the ~8% of men with red-green color blindness.
+:::
 
 ## Aside on downloading packages that are *in development*.
 There are several packages on GitHub that are not yet published and are still being developed.  You can still use them, but you need to install them directly from github.
@@ -913,7 +946,27 @@ ggplot(data=penguins,
 :::
 
 ::: {.column width="50%"}
-```{r plot-labelu-out, ref.label="plot-labelu", echo=FALSE, warning = FALSE, message=FALSE}
+```{r plot-labelu-out, echo=FALSE, warning = FALSE, message=FALSE}
+# Executed with a deployment-safe path (not here::here()) so this slide
+# renders identically in RStudio and when published; students should still
+# use here() as shown in the code on the left within their own project.
+p_labelu <- ggplot(data=penguins, 
+  mapping = aes(x = bill_depth_mm,
+                y = bill_length_mm,
+                group = species,
+                color = species)) + 
+  geom_point()+ 
+  geom_smooth(method = "lm")+ 
+   labs(x = "Bill depth (mm)", 
+        y = "Bill length (mm)"
+        ) +
+  scale_color_manual(values = beyonce_palette(2)) +
+  theme_bw() +
+  theme(axis.title = element_text(size = 20),
+        panel.background = element_rect(fill = "linen")) 
+
+p_labelu
+ggsave(file.path(tempdir(), "penguin.png"), plot = p_labelu)
 ```
 :::
 
@@ -946,7 +999,28 @@ ggplot(data=penguins,
 :::
 
 ::: {.column width="50%"}
-```{r plot-labelw-out, ref.label="plot-labelw", echo=FALSE, warning = FALSE, message=FALSE}
+```{r plot-labelw-out, echo=FALSE, warning = FALSE, message=FALSE}
+# Executed with a deployment-safe path (not here::here()) so this slide
+# renders identically in RStudio and when published; students should still
+# use here() as shown in the code on the left within their own project.
+p_labelw <- ggplot(data=penguins, 
+  mapping = aes(x = bill_depth_mm,
+                y = bill_length_mm,
+                group = species,
+                color = species)) + 
+  geom_point()+ 
+  geom_smooth(method = "lm")+ 
+   labs(x = "Bill depth (mm)", 
+        y = "Bill length (mm)"
+        ) +
+  scale_color_manual(values = beyonce_palette(2)) +
+  theme_bw() +
+  theme(axis.title = element_text(size = 20),
+        panel.background = element_rect(fill = "linen")) 
+
+p_labelw
+ggsave(file.path(tempdir(), "penguin.png"), plot = p_labelw,
+       width = 7, height = 5) # in inches
 ```
 :::
 

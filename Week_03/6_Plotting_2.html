@@ -1,0 +1,1668 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="6_Plotting_2_files/libs/clipboard/clipboard.min.js"></script>
+<script src="6_Plotting_2_files/libs/quarto-html/tabby.min.js"></script>
+<script src="6_Plotting_2_files/libs/quarto-html/popper.min.js"></script>
+<script src="6_Plotting_2_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="6_Plotting_2_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="6_Plotting_2_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="6_Plotting_2_files/libs/quarto-html/quarto-syntax-highlighting-de63f62b328812d8e578a4d74e282472.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.9.38">
+
+  <meta name="author" content="Dr.&nbsp;Nyssa Silbiger">
+  <meta name="dcterms.date" content="2026-09-01">
+  <title>Computer Modeling (OCN 682)</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="6_Plotting_2_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="6_Plotting_2_files/libs/revealjs/dist/reveal.css">
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #24292e;  }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #24292e; } /* Normal */
+    code span.al { color: #ff5555; font-weight: bold; } /* Alert */
+    code span.an { color: #6a737d; } /* Annotation */
+    code span.at { color: #d73a49; } /* Attribute */
+    code span.bn { color: #005cc5; } /* BaseN */
+    code span.bu { color: #d73a49; } /* BuiltIn */
+    code span.cf { color: #d73a49; } /* ControlFlow */
+    code span.ch { color: #032f62; } /* Char */
+    code span.cn { color: #005cc5; } /* Constant */
+    code span.co { color: #6a737d; } /* Comment */
+    code span.cv { color: #6a737d; } /* CommentVar */
+    code span.do { color: #6a737d; } /* Documentation */
+    code span.dt { color: #d73a49; } /* DataType */
+    code span.dv { color: #005cc5; } /* DecVal */
+    code span.er { color: #ff5555; text-decoration: underline; } /* Error */
+    code span.ex { color: #d73a49; font-weight: bold; } /* Extension */
+    code span.fl { color: #005cc5; } /* Float */
+    code span.fu { color: #6f42c1; } /* Function */
+    code span.im { color: #032f62; } /* Import */
+    code span.in { color: #6a737d; } /* Information */
+    code span.kw { color: #d73a49; } /* Keyword */
+    code span.op { color: #24292e; } /* Operator */
+    code span.ot { color: #6f42c1; } /* Other */
+    code span.pp { color: #d73a49; } /* Preprocessor */
+    code span.re { color: #6a737d; } /* RegionMarker */
+    code span.sc { color: #005cc5; } /* SpecialChar */
+    code span.ss { color: #032f62; } /* SpecialString */
+    code span.st { color: #032f62; } /* String */
+    code span.va { color: #e36209; } /* Variable */
+    code span.vs { color: #032f62; } /* VerbatimString */
+    code span.wa { color: #ff5555; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="6_Plotting_2_files/libs/revealjs/dist/theme/quarto-9e4340bb97cbf06a7fc0e3582515d99c.css">
+  <link href="6_Plotting_2_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="6_Plotting_2_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="6_Plotting_2_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="6_Plotting_2_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">Computer Modeling (OCN 682)</h1>
+  <p class="subtitle">Plotting 2</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Dr.&nbsp;Nyssa Silbiger 
+</div>
+        <p class="quarto-title-affiliation">
+            UH Fall 2026
+          </p>
+    </div>
+</div>
+
+  <p class="date">2026-09-01</p>
+</section>
+<section id="outline-of-class" class="slide level2">
+<h2>Outline of class</h2>
+<ol type="1">
+<li><p>Adding multiple geoms</p></li>
+<li><p>Scales</p></li>
+<li><p>Coordinates</p></li>
+<li><p>Themes</p></li>
+<li><p>Save your plots</p></li>
+<li><p>ggplot extensions</p></li>
+</ol>
+<p>Homework 1. Make your own plot</p>
+</section>
+<section id="review-grammar-of-graphics-ggplot2" class="slide level2">
+<h2>Review: Grammar of graphics (ggplot2)</h2>
+<p><span class="green">ggplot2</span> is a data visualization package</p>
+<p>Structure of the plot can be summarized like this:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="fu">ggplot</span>(<span class="at">data =</span> [dataset], </span>
+<span id="cb1-2"><a href=""></a>       <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> [x<span class="sc">-</span>variable], </span>
+<span id="cb1-3"><a href=""></a>                     <span class="at">y =</span> [y<span class="sc">-</span>variable])) <span class="sc">+</span></span>
+<span id="cb1-4"><a href=""></a>   <span class="fu">geom_xxx</span>() <span class="sc">+</span></span>
+<span id="cb1-5"><a href=""></a>   other options</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><em>aes()</em> means <em>aesthetics</em><br>
+<em>geom_xx</em> means <em>geometry</em></p>
+<div class="fragment">
+<h3 id="what-is-the-difference-between-mapping-and-setting">What is the difference between <strong>mapping</strong> and <strong>setting</strong>?</h3>
+</div>
+</section>
+<section id="penguin-data.-lets-start-our-script" class="slide level2">
+<h2>Penguin data. Let’s start our script</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a><span class="do">### Today we are going to plot penguin data ####</span></span>
+<span id="cb2-2"><a href=""></a><span class="do">### Created by: Dr. Nyssa Silbiger #############</span></span>
+<span id="cb2-3"><a href=""></a><span class="do">### Updated on: 2025-09-10 ####################</span></span>
+<span id="cb2-4"><a href=""></a></span>
+<span id="cb2-5"><a href=""></a></span>
+<span id="cb2-6"><a href=""></a><span class="do">#### Load Libraries ######</span></span>
+<span id="cb2-7"><a href=""></a><span class="fu">library</span>(palmerpenguins)</span>
+<span id="cb2-8"><a href=""></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb2-9"><a href=""></a><span class="fu">library</span>(here)</span>
+<span id="cb2-10"><a href=""></a></span>
+<span id="cb2-11"><a href=""></a></span>
+<span id="cb2-12"><a href=""></a><span class="do">### Load data ######</span></span>
+<span id="cb2-13"><a href=""></a><span class="co"># The data is part of the package and is called penguins</span></span>
+<span id="cb2-14"><a href=""></a><span class="co"># How else besides glimpse can we inspect the data?</span></span>
+<span id="cb2-15"><a href=""></a><span class="fu">glimpse</span>(penguins) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 344
+Columns: 8
+$ species           &lt;fct&gt; Adelie, Adelie, Adelie, Adelie, Adelie, Adelie, Adel…
+$ island            &lt;fct&gt; Torgersen, Torgersen, Torgersen, Torgersen, Torgerse…
+$ bill_length_mm    &lt;dbl&gt; 39.1, 39.5, 40.3, NA, 36.7, 39.3, 38.9, 39.2, 34.1, …
+$ bill_depth_mm     &lt;dbl&gt; 18.7, 17.4, 18.0, NA, 19.3, 20.6, 17.8, 19.6, 18.1, …
+$ flipper_length_mm &lt;int&gt; 181, 186, 195, NA, 193, 190, 181, 195, 193, 190, 186…
+$ body_mass_g       &lt;int&gt; 3750, 3800, 3250, NA, 3450, 3650, 3625, 4675, 3475, …
+$ sex               &lt;fct&gt; male, female, female, NA, female, male, female, male…
+$ year              &lt;int&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007…</code></pre>
+</div>
+</div>
+</section>
+<section id="make-a-simple-plot" class="slide level2">
+<h2>Make a simple plot</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a><span class="fu">ggplot</span>(<span class="at">data=</span>penguins, </span>
+<span id="cb4-2"><a href=""></a>  <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> bill_depth_mm,</span>
+<span id="cb4-3"><a href=""></a>                <span class="at">y =</span> bill_length_mm)) <span class="sc">+</span></span>
+<span id="cb4-4"><a href=""></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
+<span id="cb4-5"><a href=""></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Bill depth (mm)"</span>, </span>
+<span id="cb4-6"><a href=""></a>        <span class="at">y =</span> <span class="st">"Bill length (mm)"</span></span>
+<span id="cb4-7"><a href=""></a>        ) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="6_Plotting_2_files/figure-revealjs/plot-labela-out-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="add-a-best-fit-line" class="slide level2">
+<h2>Add a best fit line</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5" data-code-line-numbers="5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a><span class="fu">ggplot</span>(<span class="at">data=</span>penguins, </span>
+<span id="cb5-2"><a href=""></a>  <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> bill_depth_mm,</span>
+<span id="cb5-3"><a href=""></a>                <span class="at">y =</span> bill_length_mm)) <span class="sc">+</span></span>
+<span id="cb5-4"><a href=""></a>  <span class="fu">geom_point</span>()<span class="sc">+</span> </span>
+<span id="cb5-5"><a href=""></a>  <span class="fu">geom_smooth</span>()<span class="sc">+</span></span>
+<span id="cb5-6"><a href=""></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Bill depth (mm)"</span>, </span>
+<span id="cb5-7"><a href=""></a>        <span class="at">y =</span> <span class="st">"Bill length (mm)"</span></span>
+<span id="cb5-8"><a href=""></a>        ) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Look up all the different methods<br>
+?geom_smooth()</p>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="6_Plotting_2_files/figure-revealjs/plot-labelb-out-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="add-a-best-fit-line-make-it-a-linear-model" class="slide level2">
+<h2>Add a best fit line: <span class="orange">Make it a linear model</span></h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6" data-code-line-numbers="5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a><span class="fu">ggplot</span>(<span class="at">data=</span>penguins, </span>
+<span id="cb6-2"><a href=""></a>  <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> bill_depth_mm,</span>
+<span id="cb6-3"><a href=""></a>                <span class="at">y =</span> bill_length_mm)) <span class="sc">+</span></span>
+<span id="cb6-4"><a href=""></a>  <span class="fu">geom_point</span>()<span class="sc">+</span> </span>
+<span id="cb6-5"><a href=""></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>)<span class="sc">+</span></span>
+<span id="cb6-6"><a href=""></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Bill depth (mm)"</span>, </span>
+<span id="cb6-7"><a href=""></a>        <span class="at">y =</span> <span class="st">"Bill length (mm)"</span></span>
+<span id="cb6-8"><a href=""></a>        ) </span>
+<span id="cb6-9"><a href=""></a></span>
+<span id="cb6-10"><a href=""></a><span class="co"># Note you can put any formula here to make it specific to your analysis</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>There are 3 different species in this data, how do you think we should view the model?</p>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="6_Plotting_2_files/figure-revealjs/plot-labelc-out-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="add-a-best-fit-line.-make-it-a-linear-model.-group-by-species." class="slide level2">
+<h2>Add a best fit line. Make it a linear model. <span class="orange">Group by species.</span></h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7" data-code-line-numbers="4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href=""></a><span class="fu">ggplot</span>(<span class="at">data=</span>penguins, </span>
+<span id="cb7-2"><a href=""></a>  <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> bill_depth_mm,</span>
+<span id="cb7-3"><a href=""></a>                <span class="at">y =</span> bill_length_mm,</span>
+<span id="cb7-4"><a href=""></a>                <span class="at">group =</span> species)) <span class="sc">+</span></span>
+<span id="cb7-5"><a href=""></a>  <span class="fu">geom_point</span>()<span class="sc">+</span> </span>
+<span id="cb7-6"><a href=""></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>)<span class="sc">+</span> </span>
+<span id="cb7-7"><a href=""></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Bill depth (mm)"</span>, </span>
+<span id="cb7-8"><a href=""></a>        <span class="at">y =</span> <span class="st">"Bill length (mm)"</span></span>
+<span id="cb7-9"><a href=""></a>        ) </span>
+<span id="cb7-10"><a href=""></a></span>
+<span id="cb7-11"><a href=""></a><span class="co"># Note you can put any formula here to make it specific to your analysis</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="6_Plotting_2_files/figure-revealjs/plot-labeld-out-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="add-a-best-fit-line.-make-it-a-linear-model.-group-by-species.-add-some-colors-by-species." class="slide level2">
+<h2>Add a best fit line. Make it a linear model. Group by species. <span class="orange">Add some colors by species.</span></h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8" data-code-line-numbers="5,11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href=""></a><span class="fu">ggplot</span>(<span class="at">data=</span>penguins, </span>
+<span id="cb8-2"><a href=""></a>  <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> bill_depth_mm,</span>
+<span id="cb8-3"><a href=""></a>                <span class="at">y =</span> bill_length_mm,</span>
+<span id="cb8-4"><a href=""></a>                <span class="at">group =</span> species,</span>
+<span id="cb8-5"><a href=""></a>                <span class="at">color =</span> species)) <span class="sc">+</span></span>
+<span id="cb8-6"><a href=""></a>  <span class="fu">geom_point</span>()<span class="sc">+</span> </span>
+<span id="cb8-7"><a href=""></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>)<span class="sc">+</span> </span>
+<span id="cb8-8"><a href=""></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Bill depth (mm)"</span>, </span>
+<span id="cb8-9"><a href=""></a>        <span class="at">y =</span> <span class="st">"Bill length (mm)"</span></span>
+<span id="cb8-10"><a href=""></a>        ) <span class="sc">+</span></span>
+<span id="cb8-11"><a href=""></a>  <span class="fu">scale_color_viridis_d</span>()</span>
+<span id="cb8-12"><a href=""></a></span>
+<span id="cb8-13"><a href=""></a><span class="co"># Note you can put any formula here to make it specific to your analysis</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="6_Plotting_2_files/figure-revealjs/plot-labele-out-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="section" class="slide level2 center middle">
+<h2></h2>
+
+<img data-src="https://i.pinimg.com/originals/ea/0c/b5/ea0cb5a48e3337523ffe8d60f177879d.gif" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="aside." class="slide level2">
+<h2>Aside….</h2>
+<h4 id="celebrate-your-r-victories-with-the-praise-package">Celebrate your R victories with the <em>{praise}</em> package</h4>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href=""></a><span class="fu">install.packages</span>(<span class="st">"praise"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href=""></a><span class="fu">library</span>(praise)</span>
+<span id="cb10-2"><a href=""></a><span class="fu">praise</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "You are ace!"</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href=""></a><span class="fu">praise</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "You are brilliant!"</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href=""></a><span class="fu">praise</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "You are gnarly!"</code></pre>
+</div>
+</div>
+</section>
+<section id="scales" class="slide level2">
+<h2>Scales</h2>
+<h3 id="back-to-penguins.">Back to penguins….</h3>
+<p>The naming scheme for <em>scale</em> has 3 parts:</p>
+<ol type="1">
+<li>scale</li>
+<li>The name of the primary aesthetic (e.g., color, shape, or x)</li>
+<li>The name of the scale (e.g., continuous, discrete, manual).</li>
+</ol>
+<div class="fragment">
+<p>If I want to change the scale of a continuous color it would be:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href=""></a><span class="fu">scale_color_continuous</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="fragment">
+<p>If I want to change the scale of a continuous x-axis it would be:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href=""></a><span class="fu">scale_x_continuous</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</section>
+<section id="change-scales.-change-x-scale-limits-020." class="slide level2">
+<h2>Change scales. <span class="orange">Change x scale limits (0,20).</span></h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18" data-code-line-numbers="12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href=""></a><span class="fu">ggplot</span>(<span class="at">data=</span>penguins, </span>
+<span id="cb18-2"><a href=""></a>  <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> bill_depth_mm,</span>
+<span id="cb18-3"><a href=""></a>                <span class="at">y =</span> bill_length_mm,</span>
+<span id="cb18-4"><a href=""></a>                <span class="at">group =</span> species,</span>
+<span id="cb18-5"><a href=""></a>                <span class="at">color =</span> species)) <span class="sc">+</span> </span>
+<span id="cb18-6"><a href=""></a>  <span class="fu">geom_point</span>()<span class="sc">+</span> </span>
+<span id="cb18-7"><a href=""></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>)<span class="sc">+</span> </span>
+<span id="cb18-8"><a href=""></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Bill depth (mm)"</span>, </span>
+<span id="cb18-9"><a href=""></a>        <span class="at">y =</span> <span class="st">"Bill length (mm)"</span></span>
+<span id="cb18-10"><a href=""></a>        ) <span class="sc">+</span></span>
+<span id="cb18-11"><a href=""></a>  <span class="fu">scale_color_viridis_d</span>()<span class="sc">+</span></span>
+<span id="cb18-12"><a href=""></a>  <span class="fu">scale_x_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">20</span>)) <span class="co"># set x limits from 0 to 20</span></span>
+<span id="cb18-13"><a href=""></a></span>
+<span id="cb18-14"><a href=""></a><span class="co"># Note anytime you make a vector you need to put "c" which means "concatenate</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="6_Plotting_2_files/figure-revealjs/plot-labelf-out-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="change-scales.-change-x-scale-limits-020.-change-y-scale-limits-050." class="slide level2">
+<h2>Change scales. Change x scale limits (0,20). <span class="orange">Change y scale limits (0,50).</span></h2>
+<p>Obviously, this is a terrible figure…. but this is how you change the limits</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19" data-code-line-numbers="13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href=""></a><span class="fu">ggplot</span>(<span class="at">data=</span>penguins, </span>
+<span id="cb19-2"><a href=""></a>  <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> bill_depth_mm,</span>
+<span id="cb19-3"><a href=""></a>                <span class="at">y =</span> bill_length_mm,</span>
+<span id="cb19-4"><a href=""></a>                <span class="at">group =</span> species,</span>
+<span id="cb19-5"><a href=""></a>                <span class="at">color =</span> species)) <span class="sc">+</span> </span>
+<span id="cb19-6"><a href=""></a>  <span class="fu">geom_point</span>()<span class="sc">+</span> </span>
+<span id="cb19-7"><a href=""></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>)<span class="sc">+</span> </span>
+<span id="cb19-8"><a href=""></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Bill depth (mm)"</span>, </span>
+<span id="cb19-9"><a href=""></a>        <span class="at">y =</span> <span class="st">"Bill length (mm)"</span></span>
+<span id="cb19-10"><a href=""></a>        ) <span class="sc">+</span></span>
+<span id="cb19-11"><a href=""></a>  <span class="fu">scale_color_viridis_d</span>()<span class="sc">+</span></span>
+<span id="cb19-12"><a href=""></a>  <span class="fu">scale_x_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">20</span>)) <span class="sc">+</span> <span class="co"># set x limits from 0 to 20 </span></span>
+<span id="cb19-13"><a href=""></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">50</span>))</span>
+<span id="cb19-14"><a href=""></a></span>
+<span id="cb19-15"><a href=""></a><span class="co"># Note anytime you make a vector you need to put "c" which means "concatenate</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="6_Plotting_2_files/figure-revealjs/plot-labelg-out-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="change-scales-change-x-breaks." class="slide level2">
+<h2>Change scales: <span class="orange">Change x breaks.</span></h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20" data-code-line-numbers="12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href=""></a><span class="fu">ggplot</span>(<span class="at">data=</span>penguins, </span>
+<span id="cb20-2"><a href=""></a>  <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> bill_depth_mm,</span>
+<span id="cb20-3"><a href=""></a>                <span class="at">y =</span> bill_length_mm,</span>
+<span id="cb20-4"><a href=""></a>                <span class="at">group =</span> species,</span>
+<span id="cb20-5"><a href=""></a>                <span class="at">color =</span> species)) <span class="sc">+</span> </span>
+<span id="cb20-6"><a href=""></a>  <span class="fu">geom_point</span>()<span class="sc">+</span> </span>
+<span id="cb20-7"><a href=""></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>)<span class="sc">+</span> </span>
+<span id="cb20-8"><a href=""></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Bill depth (mm)"</span>, </span>
+<span id="cb20-9"><a href=""></a>        <span class="at">y =</span> <span class="st">"Bill length (mm)"</span></span>
+<span id="cb20-10"><a href=""></a>        ) <span class="sc">+</span></span>
+<span id="cb20-11"><a href=""></a>  <span class="fu">scale_color_viridis_d</span>()<span class="sc">+</span></span>
+<span id="cb20-12"><a href=""></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">14</span>, <span class="dv">17</span>, <span class="dv">21</span>))</span>
+<span id="cb20-13"><a href=""></a> </span>
+<span id="cb20-14"><a href=""></a></span>
+<span id="cb20-15"><a href=""></a><span class="co"># Note anytime you make a vector you need to put "c" which means "concatenate</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="6_Plotting_2_files/figure-revealjs/plot-labelh-out-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="change-scales-change-x-breaks.-change-x-break-labels" class="slide level2">
+<h2>Change scales: Change x breaks. <span class="orange">Change x break labels</span></h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21" data-code-line-numbers="13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href=""></a><span class="fu">ggplot</span>(<span class="at">data=</span>penguins, </span>
+<span id="cb21-2"><a href=""></a>  <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> bill_depth_mm,</span>
+<span id="cb21-3"><a href=""></a>                <span class="at">y =</span> bill_length_mm,</span>
+<span id="cb21-4"><a href=""></a>                <span class="at">group =</span> species,</span>
+<span id="cb21-5"><a href=""></a>                <span class="at">color =</span> species)) <span class="sc">+</span> </span>
+<span id="cb21-6"><a href=""></a>  <span class="fu">geom_point</span>()<span class="sc">+</span> </span>
+<span id="cb21-7"><a href=""></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>)<span class="sc">+</span> </span>
+<span id="cb21-8"><a href=""></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Bill depth (mm)"</span>, </span>
+<span id="cb21-9"><a href=""></a>        <span class="at">y =</span> <span class="st">"Bill length (mm)"</span></span>
+<span id="cb21-10"><a href=""></a>        ) <span class="sc">+</span></span>
+<span id="cb21-11"><a href=""></a>  <span class="fu">scale_color_viridis_d</span>()<span class="sc">+</span></span>
+<span id="cb21-12"><a href=""></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">14</span>, <span class="dv">17</span>, <span class="dv">21</span>), </span>
+<span id="cb21-13"><a href=""></a>                     <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"low"</span>, <span class="st">"medium"</span>, <span class="st">"high"</span>))</span>
+<span id="cb21-14"><a href=""></a> </span>
+<span id="cb21-15"><a href=""></a></span>
+<span id="cb21-16"><a href=""></a><span class="co"># Note anytime you make a vector you need to put "c" which means "concatenate</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="6_Plotting_2_files/figure-revealjs/plot-labeli-out-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="change-scales-manually-change-color-scale." class="slide level2">
+<h2>Change scales: <span class="orange">Manually change color scale.</span></h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22" data-code-line-numbers="11,12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href=""></a><span class="fu">ggplot</span>(<span class="at">data=</span>penguins, </span>
+<span id="cb22-2"><a href=""></a>  <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> bill_depth_mm,</span>
+<span id="cb22-3"><a href=""></a>                <span class="at">y =</span> bill_length_mm,</span>
+<span id="cb22-4"><a href=""></a>                <span class="at">group =</span> species,</span>
+<span id="cb22-5"><a href=""></a>                <span class="at">color =</span> species)) <span class="sc">+</span> </span>
+<span id="cb22-6"><a href=""></a>  <span class="fu">geom_point</span>()<span class="sc">+</span> </span>
+<span id="cb22-7"><a href=""></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>)<span class="sc">+</span> </span>
+<span id="cb22-8"><a href=""></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Bill depth (mm)"</span>, </span>
+<span id="cb22-9"><a href=""></a>        <span class="at">y =</span> <span class="st">"Bill length (mm)"</span></span>
+<span id="cb22-10"><a href=""></a>        ) <span class="sc">+</span></span>
+<span id="cb22-11"><a href=""></a>  <span class="co">#scale_color_viridis_d()</span></span>
+<span id="cb22-12"><a href=""></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"orange"</span>, <span class="st">"purple"</span>, <span class="st">"green"</span>))</span>
+<span id="cb22-13"><a href=""></a> </span>
+<span id="cb22-14"><a href=""></a></span>
+<span id="cb22-15"><a href=""></a><span class="co"># Note anytime you make a vector you need to put "c" which means "concatenate</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="6_Plotting_2_files/figure-revealjs/plot-labelj-out-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="custom-color-scales" class="slide level2">
+<h2>Custom color scales</h2>
+<h4 id="there-are-so-many-custom-color-palettes-to-play-with.">There are <span class="orange"><strong>so many</strong></span> custom color palettes to play with.</h4>
+<p><a href="https://www.datanovia.com/en/blog/top-r-color-palettes-to-know-for-great-data-visualization/">Most popular color palettes</a> <a href="https://beyoncepalettes.tumblr.com/">Beyonce - tumblr!!!</a><br>
+<a href="https://github.com/dill/beyonce">Beyonce - color palette</a><br>
+<a href="https://github.com/karthik/wesanderson">Wes Anderson palette</a><br>
+<a href="https://github.com/an-bui/calecopal">Colors of California</a><br>
+<a href="https://github.com/jakelawlor/PNWColors">Colors of the Pacific Northwest</a></p>
+</section>
+<section id="aside-on-downloading-packages-that-are-in-development." class="slide level2">
+<h2>Aside on downloading packages that are <em>in development</em>.</h2>
+<p>There are several packages on GitHub that are not yet published and are still being developed. You can still use them, but you need to install them directly from github.</p>
+<p>First, you need to install the <em>{devtools}</em> package (Development tools)</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href=""></a><span class="fu">install.packages</span>(<span class="st">'devtools'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="fragment">
+<p>Instead of using <em>install.packages(“PackageName”)</em>, we use <em>install_github(“username/packagename”)</em>.</p>
+</div>
+</section>
+<section id="lets-download-the-beyonce-color-palette." class="slide level2">
+<h2>Let’s download the beyonce color palette.</h2>
+<div class="fragment">
+<ol type="1">
+<li>Ask google where the “Beyonce color palette in R” is.</li>
+<li>Go to the <a href="https://github.com/dill/beyonce">github page</a> and follow the directions</li>
+</ol>
+<div class="center">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="libs/Images/Beyonce.PNG" class="quarto-figure quarto-figure-center" style="width:40.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="install-the-package" class="slide level2">
+<h2>Install the package</h2>
+<div class="fragment">
+<ol start="3" type="1">
+<li>In your <strong>console</strong> (not your script): copy and paste:</li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href=""></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"dill/beyonce"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="fragment">
+<ol start="4" type="1">
+<li>In the <strong>libraries section of your script</strong>: copy and paste</li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href=""></a><span class="fu">library</span>(beyonce)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</section>
+<section id="change-scales-use-one-of-the-beyonce-color-palettes." class="slide level2">
+<h2>Change scales: <span class="orange">Use one of the Beyonce color palettes.</span></h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26" data-code-line-numbers="11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href=""></a><span class="fu">ggplot</span>(<span class="at">data=</span>penguins, </span>
+<span id="cb26-2"><a href=""></a>  <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> bill_depth_mm,</span>
+<span id="cb26-3"><a href=""></a>                <span class="at">y =</span> bill_length_mm,</span>
+<span id="cb26-4"><a href=""></a>                <span class="at">group =</span> species,</span>
+<span id="cb26-5"><a href=""></a>                <span class="at">color =</span> species)) <span class="sc">+</span> </span>
+<span id="cb26-6"><a href=""></a>  <span class="fu">geom_point</span>()<span class="sc">+</span> </span>
+<span id="cb26-7"><a href=""></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>)<span class="sc">+</span> </span>
+<span id="cb26-8"><a href=""></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Bill depth (mm)"</span>, </span>
+<span id="cb26-9"><a href=""></a>        <span class="at">y =</span> <span class="st">"Bill length (mm)"</span></span>
+<span id="cb26-10"><a href=""></a>        ) <span class="sc">+</span></span>
+<span id="cb26-11"><a href=""></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">beyonce_palette</span>(<span class="dv">2</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="6_Plotting_2_files/figure-revealjs/plot-labelk-out-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="change-scales-use-one-of-the-beyonce-color-palettes.-1" class="slide level2">
+<h2>Change scales: <span class="orange">Use one of the Beyonce color palettes.</span></h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27" data-code-line-numbers="11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href=""></a><span class="fu">ggplot</span>(<span class="at">data=</span>penguins, </span>
+<span id="cb27-2"><a href=""></a>  <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> bill_depth_mm,</span>
+<span id="cb27-3"><a href=""></a>                <span class="at">y =</span> bill_length_mm,</span>
+<span id="cb27-4"><a href=""></a>                <span class="at">group =</span> species,</span>
+<span id="cb27-5"><a href=""></a>                <span class="at">color =</span> species)) <span class="sc">+</span> </span>
+<span id="cb27-6"><a href=""></a>  <span class="fu">geom_point</span>()<span class="sc">+</span> </span>
+<span id="cb27-7"><a href=""></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>)<span class="sc">+</span> </span>
+<span id="cb27-8"><a href=""></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Bill depth (mm)"</span>, </span>
+<span id="cb27-9"><a href=""></a>        <span class="at">y =</span> <span class="st">"Bill length (mm)"</span></span>
+<span id="cb27-10"><a href=""></a>        ) <span class="sc">+</span></span>
+<span id="cb27-11"><a href=""></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">beyonce_palette</span>(<span class="dv">10</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="6_Plotting_2_files/figure-revealjs/plot-labell-out-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="coordinates" class="slide level2">
+<h2>Coordinates</h2>
+<p>The default coordinates for ggplot is <em>cartesian</em>, where the 2D position of an element is given by the x and y position in <em>aes()</em>.</p>
+<p>We can manipulate the coordinates system in a few different ways.</p>
+<p>We will run through the following examples</p>
+<ul>
+<li><p>coord_flip(): Cartesian coordinate system with x and y axes flipped.</p></li>
+<li><p>coord_fixed(): Cartesian coordinate system with a fixed aspect ratio.</p></li>
+<li><p>coord_trans(): Apply arbitrary transformations to x and y positions, after the data has been processed by the stat.</p></li>
+<li><p>coord_polar(): Polar coordinates.</p></li>
+</ul>
+<p>Later when we learn how to make a map</p>
+<ul>
+<li>coord_map()/coord_quickmap()/coord_sf(): Map projections.</li>
+</ul>
+</section>
+<section id="change-coordinates-flip-the-axes." class="slide level2">
+<h2>Change coordinates: <span class="orange">Flip the axes.</span></h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28" data-code-line-numbers="12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href=""></a><span class="fu">ggplot</span>(<span class="at">data=</span>penguins, </span>
+<span id="cb28-2"><a href=""></a>  <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> bill_depth_mm,</span>
+<span id="cb28-3"><a href=""></a>                <span class="at">y =</span> bill_length_mm,</span>
+<span id="cb28-4"><a href=""></a>                <span class="at">group =</span> species,</span>
+<span id="cb28-5"><a href=""></a>                <span class="at">color =</span> species)) <span class="sc">+</span> </span>
+<span id="cb28-6"><a href=""></a>  <span class="fu">geom_point</span>()<span class="sc">+</span> </span>
+<span id="cb28-7"><a href=""></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>)<span class="sc">+</span> </span>
+<span id="cb28-8"><a href=""></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Bill depth (mm)"</span>, </span>
+<span id="cb28-9"><a href=""></a>        <span class="at">y =</span> <span class="st">"Bill length (mm)"</span></span>
+<span id="cb28-10"><a href=""></a>        ) <span class="sc">+</span></span>
+<span id="cb28-11"><a href=""></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">beyonce_palette</span>(<span class="dv">10</span>)) <span class="sc">+</span></span>
+<span id="cb28-12"><a href=""></a>  <span class="fu">coord_flip</span>() <span class="co"># flip x and y axes</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="6_Plotting_2_files/figure-revealjs/plot-labelm-out-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="change-coordinates-fix-the-axes." class="slide level2">
+<h2>Change coordinates: <span class="orange">Fix the axes.</span></h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29" data-code-line-numbers="12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href=""></a><span class="fu">ggplot</span>(<span class="at">data=</span>penguins, </span>
+<span id="cb29-2"><a href=""></a>  <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> bill_depth_mm,</span>
+<span id="cb29-3"><a href=""></a>                <span class="at">y =</span> bill_length_mm,</span>
+<span id="cb29-4"><a href=""></a>                <span class="at">group =</span> species,</span>
+<span id="cb29-5"><a href=""></a>                <span class="at">color =</span> species)) <span class="sc">+</span> </span>
+<span id="cb29-6"><a href=""></a>  <span class="fu">geom_point</span>()<span class="sc">+</span> </span>
+<span id="cb29-7"><a href=""></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>)<span class="sc">+</span> </span>
+<span id="cb29-8"><a href=""></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Bill depth (mm)"</span>, </span>
+<span id="cb29-9"><a href=""></a>        <span class="at">y =</span> <span class="st">"Bill length (mm)"</span></span>
+<span id="cb29-10"><a href=""></a>        ) <span class="sc">+</span></span>
+<span id="cb29-11"><a href=""></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">beyonce_palette</span>(<span class="dv">10</span>)) <span class="sc">+</span></span>
+<span id="cb29-12"><a href=""></a>  <span class="fu">coord_fixed</span>() <span class="co"># fix axes</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="6_Plotting_2_files/figure-revealjs/plot-labeln-out-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="change-coordinates-transform-the-x-and-y-axis-log10" class="slide level2">
+<h2>Change coordinates: <span class="orange">Transform the x and y-axis (log10)</span></h2>
+<p>I am going to use a different example with exponential data so it shows more clearly</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href=""></a><span class="fu">ggplot</span>(diamonds, <span class="fu">aes</span>(carat, price)) <span class="sc">+</span></span>
+<span id="cb30-2"><a href=""></a>  <span class="fu">geom_point</span>() </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="6_Plotting_2_files/figure-revealjs/unnamed-chunk-12-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href=""></a><span class="fu">ggplot</span>(diamonds, <span class="fu">aes</span>(carat, price)) <span class="sc">+</span></span>
+<span id="cb31-2"><a href=""></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb31-3"><a href=""></a>  <span class="fu">coord_trans</span>(<span class="at">x =</span> <span class="st">"log10"</span>, <span class="at">y =</span> <span class="st">"log10"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="6_Plotting_2_files/figure-revealjs/unnamed-chunk-13-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="change-coordinates-make-them-polar" class="slide level2">
+<h2>Change coordinates: <span class="orange">make them polar</span></h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32" data-code-line-numbers="12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href=""></a><span class="fu">ggplot</span>(<span class="at">data=</span>penguins, </span>
+<span id="cb32-2"><a href=""></a>  <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> bill_depth_mm,</span>
+<span id="cb32-3"><a href=""></a>                <span class="at">y =</span> bill_length_mm,</span>
+<span id="cb32-4"><a href=""></a>                <span class="at">group =</span> species,</span>
+<span id="cb32-5"><a href=""></a>                <span class="at">color =</span> species)) <span class="sc">+</span> </span>
+<span id="cb32-6"><a href=""></a>  <span class="fu">geom_point</span>()<span class="sc">+</span> </span>
+<span id="cb32-7"><a href=""></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>)<span class="sc">+</span> </span>
+<span id="cb32-8"><a href=""></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Bill depth (mm)"</span>, </span>
+<span id="cb32-9"><a href=""></a>        <span class="at">y =</span> <span class="st">"Bill length (mm)"</span></span>
+<span id="cb32-10"><a href=""></a>        ) <span class="sc">+</span></span>
+<span id="cb32-11"><a href=""></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">beyonce_palette</span>(<span class="dv">10</span>)) <span class="sc">+</span></span>
+<span id="cb32-12"><a href=""></a>  <span class="fu">coord_polar</span>(<span class="st">"x"</span>) <span class="co"># make the polar</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="6_Plotting_2_files/figure-revealjs/plot-labelo-out-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="themes" class="slide level2">
+<h2>Themes</h2>
+<p>The theming system is composed of four main components:</p>
+<ul>
+<li class="fragment">Theme <strong>elements</strong> specify the non-data elements that you can control. For example, the plot.title element controls the appearance of the plot title; axis.ticks.x, the ticks on the x axis; legend.key.height, the height of the keys in the legend.</li>
+<li class="fragment">Each element is associated with an <strong>element function</strong>, which describes the visual properties of the element. For example, element_text() sets the font size, color and face of text elements like plot.title.</li>
+<li class="fragment">The theme() function which allows you to override the default theme elements by calling element functions, like theme(plot.title = element_text(color = “red”)). This will make the plot title red</li>
+<li class="fragment"><strong>Complete themes</strong>, like theme_grey() set all of the theme elements to values designed to work together harmoniously. These are nicely packaged themes where you do not have to change much to make it look good.</li>
+</ul>
+</section>
+<section id="complete-themes" class="slide level2">
+<h2>Complete themes</h2>
+
+<img data-src="libs/Images/theme1.PNG" class="r-stretch quarto-figure-center"><p class="caption">theme 1</p><p><a href="https://www.datanovia.com/en/blog/ggplot-themes-gallery/">https://www.datanovia.com/en/blog/ggplot-themes-gallery/</a></p>
+</section>
+<section id="complete-themes-1" class="slide level2">
+<h2>Complete themes</h2>
+
+<img data-src="libs/Images/theme2.PNG" class="r-stretch quarto-figure-center"><p class="caption">theme 2</p><p><a href="https://www.datanovia.com/en/blog/ggplot-themes-gallery/">https://www.datanovia.com/en/blog/ggplot-themes-gallery/</a></p>
+</section>
+<section id="change-theme-make-it-theme_classic" class="slide level2">
+<h2>Change theme: <span class="orange">Make it theme_classic()</span></h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33" data-code-line-numbers="12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href=""></a><span class="fu">ggplot</span>(<span class="at">data=</span>penguins, </span>
+<span id="cb33-2"><a href=""></a>  <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> bill_depth_mm,</span>
+<span id="cb33-3"><a href=""></a>                <span class="at">y =</span> bill_length_mm,</span>
+<span id="cb33-4"><a href=""></a>                <span class="at">group =</span> species,</span>
+<span id="cb33-5"><a href=""></a>                <span class="at">color =</span> species)) <span class="sc">+</span> </span>
+<span id="cb33-6"><a href=""></a>  <span class="fu">geom_point</span>()<span class="sc">+</span> </span>
+<span id="cb33-7"><a href=""></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>)<span class="sc">+</span> </span>
+<span id="cb33-8"><a href=""></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Bill depth (mm)"</span>, </span>
+<span id="cb33-9"><a href=""></a>        <span class="at">y =</span> <span class="st">"Bill length (mm)"</span></span>
+<span id="cb33-10"><a href=""></a>        ) <span class="sc">+</span></span>
+<span id="cb33-11"><a href=""></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">beyonce_palette</span>(<span class="dv">10</span>)) <span class="sc">+</span></span>
+<span id="cb33-12"><a href=""></a>  <span class="fu">theme_classic</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="6_Plotting_2_files/figure-revealjs/plot-labelp-out-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="change-theme-make-it-theme_bw" class="slide level2">
+<h2>Change theme: <span class="orange">Make it theme_bw()</span></h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34" data-code-line-numbers="12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href=""></a><span class="fu">ggplot</span>(<span class="at">data=</span>penguins, </span>
+<span id="cb34-2"><a href=""></a>  <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> bill_depth_mm,</span>
+<span id="cb34-3"><a href=""></a>                <span class="at">y =</span> bill_length_mm,</span>
+<span id="cb34-4"><a href=""></a>                <span class="at">group =</span> species,</span>
+<span id="cb34-5"><a href=""></a>                <span class="at">color =</span> species)) <span class="sc">+</span> </span>
+<span id="cb34-6"><a href=""></a>  <span class="fu">geom_point</span>()<span class="sc">+</span> </span>
+<span id="cb34-7"><a href=""></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>)<span class="sc">+</span> </span>
+<span id="cb34-8"><a href=""></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Bill depth (mm)"</span>, </span>
+<span id="cb34-9"><a href=""></a>        <span class="at">y =</span> <span class="st">"Bill length (mm)"</span></span>
+<span id="cb34-10"><a href=""></a>        ) <span class="sc">+</span></span>
+<span id="cb34-11"><a href=""></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">beyonce_palette</span>(<span class="dv">10</span>)) <span class="sc">+</span></span>
+<span id="cb34-12"><a href=""></a>  <span class="fu">theme_bw</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="6_Plotting_2_files/figure-revealjs/plot-labelq-out-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="custom-themes" class="slide level2">
+<h2>Custom themes</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href=""></a><span class="fu">install.packages</span>(<span class="st">"ggthemes"</span>) <span class="co"># do this in the console</span></span>
+<span id="cb35-2"><a href=""></a></span>
+<span id="cb35-3"><a href=""></a><span class="co"># put the code below in the libraries section of your script</span></span>
+<span id="cb35-4"><a href=""></a><span class="fu">library</span>(ggthemes)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><a href="https://yutannihilation.github.io/allYourFigureAreBelongToUs/ggthemes/">See here for ggthemes</a></p>
+</section>
+<section id="themes-you-can-customize-your-theme-further" class="slide level2">
+<h2>Themes: You can customize your theme further</h2>
+<h5 id="change-the-font-size-for-the-axis-labels"><span class="orange">Change the font size for the axis labels</span></h5>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36" data-code-line-numbers="13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href=""></a><span class="fu">ggplot</span>(<span class="at">data=</span>penguins, </span>
+<span id="cb36-2"><a href=""></a>  <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> bill_depth_mm,</span>
+<span id="cb36-3"><a href=""></a>                <span class="at">y =</span> bill_length_mm,</span>
+<span id="cb36-4"><a href=""></a>                <span class="at">group =</span> species,</span>
+<span id="cb36-5"><a href=""></a>                <span class="at">color =</span> species)) <span class="sc">+</span> </span>
+<span id="cb36-6"><a href=""></a>  <span class="fu">geom_point</span>()<span class="sc">+</span> </span>
+<span id="cb36-7"><a href=""></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>)<span class="sc">+</span> </span>
+<span id="cb36-8"><a href=""></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Bill depth (mm)"</span>, </span>
+<span id="cb36-9"><a href=""></a>        <span class="at">y =</span> <span class="st">"Bill length (mm)"</span></span>
+<span id="cb36-10"><a href=""></a>        ) <span class="sc">+</span></span>
+<span id="cb36-11"><a href=""></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">beyonce_palette</span>(<span class="dv">10</span>)) <span class="sc">+</span></span>
+<span id="cb36-12"><a href=""></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb36-13"><a href=""></a>  <span class="fu">theme</span>(<span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="6_Plotting_2_files/figure-revealjs/plot-labelr-out-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="themes-you-can-customize-your-theme-further-1" class="slide level2">
+<h2>Themes: You can customize your theme further</h2>
+<h5 id="change-the-font-size-for-the-axis-labels.-change-the-color-of-the-axis-labels.">Change the font size for the axis labels. <span class="orange">Change the color of the axis labels.</span></h5>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37" data-code-line-numbers="14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href=""></a><span class="fu">ggplot</span>(<span class="at">data=</span>penguins, </span>
+<span id="cb37-2"><a href=""></a>  <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> bill_depth_mm,</span>
+<span id="cb37-3"><a href=""></a>                <span class="at">y =</span> bill_length_mm,</span>
+<span id="cb37-4"><a href=""></a>                <span class="at">group =</span> species,</span>
+<span id="cb37-5"><a href=""></a>                <span class="at">color =</span> species)) <span class="sc">+</span> </span>
+<span id="cb37-6"><a href=""></a>  <span class="fu">geom_point</span>()<span class="sc">+</span> </span>
+<span id="cb37-7"><a href=""></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>)<span class="sc">+</span> </span>
+<span id="cb37-8"><a href=""></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Bill depth (mm)"</span>, </span>
+<span id="cb37-9"><a href=""></a>        <span class="at">y =</span> <span class="st">"Bill length (mm)"</span></span>
+<span id="cb37-10"><a href=""></a>        ) <span class="sc">+</span></span>
+<span id="cb37-11"><a href=""></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">beyonce_palette</span>(<span class="dv">10</span>)) <span class="sc">+</span></span>
+<span id="cb37-12"><a href=""></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb37-13"><a href=""></a>  <span class="fu">theme</span>(<span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>,</span>
+<span id="cb37-14"><a href=""></a>                                  <span class="at">color =</span> <span class="st">"red"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="6_Plotting_2_files/figure-revealjs/plot-labels-out-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="themes-you-can-customize-your-theme-further-2" class="slide level2">
+<h2>Themes: You can customize your theme further</h2>
+<h5 id="change-the-font-size-for-the-axis-labels.-change-the-color-of-the-axis-labels.-change-the-background-color.">Change the font size for the axis labels. Change the color of the axis labels. <span class="orange">Change the background color.</span></h5>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38" data-code-line-numbers="15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href=""></a><span class="fu">ggplot</span>(<span class="at">data=</span>penguins, </span>
+<span id="cb38-2"><a href=""></a>  <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> bill_depth_mm,</span>
+<span id="cb38-3"><a href=""></a>                <span class="at">y =</span> bill_length_mm,</span>
+<span id="cb38-4"><a href=""></a>                <span class="at">group =</span> species,</span>
+<span id="cb38-5"><a href=""></a>                <span class="at">color =</span> species)) <span class="sc">+</span> </span>
+<span id="cb38-6"><a href=""></a>  <span class="fu">geom_point</span>()<span class="sc">+</span> </span>
+<span id="cb38-7"><a href=""></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>)<span class="sc">+</span> </span>
+<span id="cb38-8"><a href=""></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Bill depth (mm)"</span>, </span>
+<span id="cb38-9"><a href=""></a>        <span class="at">y =</span> <span class="st">"Bill length (mm)"</span></span>
+<span id="cb38-10"><a href=""></a>        ) <span class="sc">+</span></span>
+<span id="cb38-11"><a href=""></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">beyonce_palette</span>(<span class="dv">10</span>)) <span class="sc">+</span></span>
+<span id="cb38-12"><a href=""></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb38-13"><a href=""></a>  <span class="fu">theme</span>(<span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>,</span>
+<span id="cb38-14"><a href=""></a>                                  <span class="at">color =</span> <span class="st">"red"</span>),</span>
+<span id="cb38-15"><a href=""></a>        <span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"linen"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="6_Plotting_2_files/figure-revealjs/plot-labelt-out-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="section-1" class="slide level2 center middle">
+<h2></h2>
+<p>Type ?theme() to see all the different elements that you can change.</p>
+<p>Play around with your plot for ~ 2 minutes and change the theme in a way that you want.</p>
+</section>
+<section id="save-your-plot" class="slide level2">
+<h2>Save your plot</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39" data-code-line-numbers="16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href=""></a><span class="fu">ggplot</span>(<span class="at">data=</span>penguins, </span>
+<span id="cb39-2"><a href=""></a>  <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> bill_depth_mm,</span>
+<span id="cb39-3"><a href=""></a>                <span class="at">y =</span> bill_length_mm,</span>
+<span id="cb39-4"><a href=""></a>                <span class="at">group =</span> species,</span>
+<span id="cb39-5"><a href=""></a>                <span class="at">color =</span> species)) <span class="sc">+</span> </span>
+<span id="cb39-6"><a href=""></a>  <span class="fu">geom_point</span>()<span class="sc">+</span> </span>
+<span id="cb39-7"><a href=""></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>)<span class="sc">+</span> </span>
+<span id="cb39-8"><a href=""></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Bill depth (mm)"</span>, </span>
+<span id="cb39-9"><a href=""></a>        <span class="at">y =</span> <span class="st">"Bill length (mm)"</span></span>
+<span id="cb39-10"><a href=""></a>        ) <span class="sc">+</span></span>
+<span id="cb39-11"><a href=""></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">beyonce_palette</span>(<span class="dv">2</span>)) <span class="sc">+</span></span>
+<span id="cb39-12"><a href=""></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb39-13"><a href=""></a>  <span class="fu">theme</span>(<span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>),</span>
+<span id="cb39-14"><a href=""></a>        <span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"linen"</span>)) </span>
+<span id="cb39-15"><a href=""></a></span>
+<span id="cb39-16"><a href=""></a>  <span class="fu">ggsave</span>(<span class="fu">here</span>(<span class="st">"Week_03"</span>,<span class="st">"output"</span>,<span class="st">"penguin.png"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="6_Plotting_2_files/figure-revealjs/plot-labelu-out-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="save-your-plot-change-the-width-and-height" class="slide level2">
+<h2>Save your plot: <span class="orange">change the width and height</span></h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40" data-code-line-numbers="17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href=""></a><span class="fu">ggplot</span>(<span class="at">data=</span>penguins, </span>
+<span id="cb40-2"><a href=""></a>  <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> bill_depth_mm,</span>
+<span id="cb40-3"><a href=""></a>                <span class="at">y =</span> bill_length_mm,</span>
+<span id="cb40-4"><a href=""></a>                <span class="at">group =</span> species,</span>
+<span id="cb40-5"><a href=""></a>                <span class="at">color =</span> species)) <span class="sc">+</span> </span>
+<span id="cb40-6"><a href=""></a>  <span class="fu">geom_point</span>()<span class="sc">+</span> </span>
+<span id="cb40-7"><a href=""></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>)<span class="sc">+</span> </span>
+<span id="cb40-8"><a href=""></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Bill depth (mm)"</span>, </span>
+<span id="cb40-9"><a href=""></a>        <span class="at">y =</span> <span class="st">"Bill length (mm)"</span></span>
+<span id="cb40-10"><a href=""></a>        ) <span class="sc">+</span></span>
+<span id="cb40-11"><a href=""></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">beyonce_palette</span>(<span class="dv">2</span>)) <span class="sc">+</span></span>
+<span id="cb40-12"><a href=""></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb40-13"><a href=""></a>  <span class="fu">theme</span>(<span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>),</span>
+<span id="cb40-14"><a href=""></a>        <span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"linen"</span>)) </span>
+<span id="cb40-15"><a href=""></a></span>
+<span id="cb40-16"><a href=""></a>  <span class="fu">ggsave</span>(<span class="fu">here</span>(<span class="st">"Week_03"</span>,<span class="st">"output"</span>,<span class="st">"penguin.png"</span>),</span>
+<span id="cb40-17"><a href=""></a>         <span class="at">width =</span> <span class="dv">7</span>, <span class="at">height =</span> <span class="dv">5</span>) <span class="co"># in inches</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="6_Plotting_2_files/figure-revealjs/plot-labelw-out-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="save-your-plot-as-an-object" class="slide level2">
+<h2>Save your plot as an object</h2>
+<p>This allows you to modify the plot further later.</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41" data-code-line-numbers="1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href=""></a>plot1<span class="ot">&lt;-</span><span class="fu">ggplot</span>(<span class="at">data=</span>penguins,</span>
+<span id="cb41-2"><a href=""></a>  <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> bill_depth_mm,</span>
+<span id="cb41-3"><a href=""></a>                <span class="at">y =</span> bill_length_mm,</span>
+<span id="cb41-4"><a href=""></a>                <span class="at">group =</span> species,</span>
+<span id="cb41-5"><a href=""></a>                <span class="at">color =</span> species)) <span class="sc">+</span> </span>
+<span id="cb41-6"><a href=""></a>  <span class="fu">geom_point</span>()<span class="sc">+</span> </span>
+<span id="cb41-7"><a href=""></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>)<span class="sc">+</span> </span>
+<span id="cb41-8"><a href=""></a>   <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Bill depth (mm)"</span>, </span>
+<span id="cb41-9"><a href=""></a>        <span class="at">y =</span> <span class="st">"Bill length (mm)"</span></span>
+<span id="cb41-10"><a href=""></a>        ) <span class="sc">+</span></span>
+<span id="cb41-11"><a href=""></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">beyonce_palette</span>(<span class="dv">2</span>)) <span class="sc">+</span></span>
+<span id="cb41-12"><a href=""></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb41-13"><a href=""></a>  <span class="fu">theme</span>(<span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>),</span>
+<span id="cb41-14"><a href=""></a>        <span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"linen"</span>)) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href=""></a>plot1 <span class="co"># you need to type it out to view it now</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div></div>
+</section>
+<section id="ggplot2-extensions" class="slide level2">
+<h2>ggplot2 extensions</h2>
+<div class="center">
+<p><a href="https://exts.ggplot2.tidyverse.org/gallery/">There are over 100 ggplot2 extentions</a><br>
+<a href="https://ggplot2-book.org/index.html">Great resource for ggploting</a></p>
+</div>
+</section>
+<section id="homework" class="slide level2">
+<h2>Homework</h2>
+<p>Come up with the best possible plot with the penguin data that you can in <strong>1 hour</strong>.</p>
+<ul>
+<li><p>It CANNOT be the same plot that we just made. Look through the data and make a new visual.</p></li>
+<li><p>Make something other than a scatter plot. Look at the other possible geoms from the resources I have given you over the past two classes.<br>
+</p></li>
+<li><p>Your script must be formatted correctly (according to the lecture on transparent scripts).<br>
+</p></li>
+<li><p>Comment your code appropriately</p></li>
+<li><p>Push to github in the appropriate folders (you will only need a scripts and output folder for this week).</p></li>
+<li><p><strong>Due on github by Tuesday at 1pm.</strong></p></li>
+</ul>
+</section>
+<section id="section-2" class="slide level2 center middle">
+<h2></h2>
+</section>
+<section id="thanks" class="title-slide slide level1 center">
+<h1>Thanks!</h1>
+<p>Slides created via <a href="https://quarto.org/"><strong>Quarto</strong></a></p>
+<p>Some slides modified from <a href="https://ggplot2-book.org/polishing.html">ggplot2-book</a></p>
+
+</section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+<p>OCN 682 | Week 3 | Plotting 2</p>
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="6_Plotting_2_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="6_Plotting_2_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="6_Plotting_2_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="6_Plotting_2_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="6_Plotting_2_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="6_Plotting_2_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="6_Plotting_2_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="6_Plotting_2_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="6_Plotting_2_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="6_Plotting_2_files/libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': true,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1500,
+
+        height: 1000,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    
+
+    <script>
+
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+
+      // slide changes (different for each slide format).
+
+      (function () {
+
+        // dispatch for htmlwidgets
+
+        function fireSlideEnter() {
+
+          const event = window.document.createEvent("Event");
+
+          event.initEvent("slideenter", true, true);
+
+          window.document.dispatchEvent(event);
+
+        }
+
+    
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+
+          fireSlideEnter();
+
+    
+
+          // dispatch for shiny
+
+          if (window.jQuery) {
+
+            if (previousSlide) {
+
+              window.jQuery(previousSlide).trigger("hidden");
+
+            }
+
+            if (currentSlide) {
+
+              window.jQuery(currentSlide).trigger("shown");
+
+            }
+
+          }
+
+        }
+
+    
+
+        // hookup for slidy
+
+        if (window.w3c_slidy) {
+
+          window.w3c_slidy.add_observer(function (slide_num) {
+
+            // slide_num starts at position 1
+
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+
+          });
+
+        }
+
+    
+
+      })();
+
+    </script>
+
+    
+
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>

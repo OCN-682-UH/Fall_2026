@@ -1,0 +1,1142 @@
+---
+title: "Week 3a"
+subtitle: "Intro to plotting"
+author: "Dr. Nyssa Silbiger"
+institute: "UH Fall 2025"
+date: "(updated: `r Sys.Date()`)"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      highlightSpans: true
+      countIncrementalSlides: false
+      beforeInit: "macros.js"
+      ratio: '15:10'
+---
+
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+```
+<div style = "position:fixed; visibility: hidden">
+$$\require{color}\definecolor{yellow}{rgb}{1, 0.8, 0.16078431372549}$$
+$$\require{color}\definecolor{orange}{rgb}{0.96078431372549, 0.525490196078431, 0.203921568627451}$$
+$$\require{color}\definecolor{green}{rgb}{0, 0.474509803921569, 0.396078431372549}$$
+</div>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: {
+    Macros: {
+      yellow: ["{\\color{yellow}{#1}}", 1],
+      orange: ["{\\color{orange}{#1}}", 1],
+      green: ["{\\color{green}{#1}}", 1]
+    },
+    loader: {load: ['[tex]/color']},
+    tex: {packages: {'[+]': ['color']}}
+  }
+});
+</script>
+
+<style>
+.yellow {color: #FFCC29;}
+.orange {color: #F58634;}
+.green {color: #007965;}
+</style>
+
+
+```{r flair_color, echo=FALSE}
+library(flair)
+yellow <- "#FFCC29"
+orange <- "#F58634"
+green <- "#007965"
+```
+
+---
+# Outline of class
+
+1. Quiz 2!
+
+1. Go over some readme files
+
+1. Responsible plotting
+
+1. Intro to ggplot2
+
+1. Make your first plot
+
+
+---
+# Review
+
+What are the 5 sections you should always have in your scripts?
+
+---
+
+# Why you should always look at your data
+
+We have to really understand our data to be able to decide on the appropriate analyses to answer our research questions. It can also lead to unexpected & interesting research questions. That requires first **looking** at your data, usually in a number of ways, to ask questions like: 
+
+--
+
+- Are there interesting patterns, groups, trends or relationships?  
+- How are observations distributed?  
+- Are there outliers?  
+- Is there notable bias in observations or missing observations?  
+
+--
+
+**When do I need to look at my data and think about it really hard before analyzing it?**  
+
+--
+
+***EVERY TIME***
+
+--
+
+**When can I just make assumptions about the data and some some regression or hypothesis testing or anything else without exploring it?**
+
+--
+
+***NEVER***
+
+---
+# Start exploring with visualizations that don't hide or assume anything about the data
+
+.center[
+<img src="https://cdn.myportfolio.com/45214904-6a61-4e23-98d6-b140f8654a40/352c905d-7be3-4808-9514-1fac3b0fe2fc_rw_1920.png?h=e32478e3ccf4317ba2d9536f416e2f90", width="50%"/>
+]
+
+---
+# For continuous (measured) observations you might start with:
+
+- Jitter plots (if logical groups exist)  
+- Beeswarm plots (ggbeeswarm)  
+- Scatterplots (2 variables, or map additional)  
+- Histograms or density plots  
+- More variables: map w/ colors, size?
+
+
+---
+# Jitter plots:   
+Show values of observations within a group, adding some amount of “jitter” so that they don’t all overlap 
+
+.pull-left[
+```{r, plot-label, eval=FALSE, warning=FALSE, message=FALSE, results = 'hide'}
+library(tidyverse)
+ggplot(chickwts, aes(x = feed, y = weight))+
+  geom_jitter(aes(color = feed),
+              alpha = 0.4,
+              width = 0.1,
+              height = 0,
+              size = 3,
+              show.legend = FALSE)+
+  scale_color_brewer(palette = "Dark2")+
+  theme_light()
+```
+]
+
+.pull-right[
+```{r plot-label-out, ref.label="plot-label", echo=FALSE, warning=FALSE, message=FALSE}
+```
+]
+
+---
+# Swarm plots:   
+Show values of observations within a group, with amount of jitter dependent on density around values
+
+.pull-left[
+```{r, plot-label2, eval=FALSE, warning=FALSE, message=FALSE}
+library(ggbeeswarm)
+ggplot(iris, aes(x = Species, y = Petal.Length))+
+  geom_jitter(aes(color = Species),
+              alpha = 0.5,
+              show.legend = FALSE)+
+  scale_color_manual(values = c("purple",
+                                "black",
+                                "orange"))+
+  theme_minimal()+
+  labs(y = "Petal Length (cm)")
+```
+]
+
+.pull-right[
+```{r plot-label2-out, ref.label="plot-label2", echo=FALSE, warning=FALSE, message=FALSE}
+```
+]
+
+---
+# Density plots:   
+Show values of observations within a group
+
+.pull-left[
+```{r, plot-label2b, eval=FALSE, warning=FALSE, message=FALSE}
+library(ggridges)
+ggplot(iris, aes(y = Species, x = Petal.Length))+
+  geom_density_ridges(aes(fill = Species),
+              alpha = 0.5,
+              show.legend = FALSE)+
+  scale_fill_manual(values = c("purple",
+                                "black",
+                                "orange"))+
+  theme_minimal()+
+  labs(x = "Petal Length (cm)")
+```
+]
+
+.pull-right[
+```{r plot-label2b-out, ref.label="plot-label2b", echo=FALSE, warning=FALSE, message=FALSE}
+```
+]
+
+---
+
+# Scatter plots:
+Show relationship between two measured variables
+
+.pull-left[
+```{r, plot-label3, eval=FALSE, warning=FALSE, message=FALSE}
+ggplot(faithful, aes(x = waiting, y = eruptions))+
+  geom_point(aes(color = eruptions),
+             show.legend = FALSE,
+             size=2)+
+  scale_color_gradient(low = "black",
+                       high = "purple")+
+  theme_bw()+
+  labs(x = "Waiting time (min)",
+       y = "Eruption duration (min)",
+       title = "Old Faithful eruption patterns")
+```
+]
+
+.pull-right[
+```{r plot-label3-out, ref.label="plot-label3", echo=FALSE, warning=FALSE, message=FALSE}
+```
+]
+---
+# Website with other ways to visualize the same data
+
+[Beyond Bar and Boxplots/](https://z3tt.github.io/beyond-bar-and-box-plots/)
+
+![](https://i0.wp.com/www.business-science.io/assets/2021-07-22-ggdist-raincloud-plots/05_plot_output.jpg?w=578&ssl=1)
+---
+# Why can’t we just look at summary statistics?
+
+.center[
+<img src="https://socviz.co/dataviz-pdfl_files/figure-html4/ch-01-correlations-1.png", width = 70%/>
+]
+
+---
+# Why can’t we just look at summary statistics?
+
+<img src="https://nbisweden.github.io/RaukR-2019/GeneralStats/Presentation_GeneralStats/DataSaurus.gif.png", width =70%/>
+
+### Summary statistics hide important information!!
+
+.foot-note[Originally created by Alberto Cairo in [Download the Datasaurus: Never trust summary statistics alone; always visualize your data](http://www.thefunctionalart.com/2016/08/download-datasaurus-never-trust-summary.html)
+]
+
+---
+# Don't hide your data 
+
+Weissgerber TL, Milic NM, Winham SJ, Garovic VD (2015) **Beyond Bar and Line Graphs: Time for a New Data Presentation Paradigm.** PLoS Biol 13(4): e1002128. https://doi.org/10.1371/journal.pbio.1002128  
+
+
+![bar plot](libs/Images/barplot.png)
+
+Would you draw the same conclusions with each of these datasets? 
+
+
+
+
+---
+# The hierarchy of data viz (according to Allison Horst)
+
+1. Is it **correct**?
+
+1. Is it **clear**?
+
+1. Does it communicate data **responsibly**?
+
+1. Does it look **awesome**?
+
+---
+# 1. Is it **correct**?
+
+--
+
+- Observations and experimental design
+
+--
+
+- Avoid data wrangling and calculation mistakes
+  - Keep raw data raw
+  - Check...check.. quadruple check data wrangling/cleaning
+  - Look at your data frames at every step 
+  - Compare your outcomes to expected results
+  - Reproducibility and detailed annotation
+  - Get an outside reviewer to check your code
+  
+--
+
+- Units/labels
+
+---
+
+# 2. Is it **clear**?  
+
+-- 
+
+- Too many points, variables, or series
+
+- Overwhelming legends
+
+- Lack of useful emphasis
+
+- Are things put in context?
+
+- Is it a pie graph? (Don't do it)
+
+- Overmapping aesthetics
+
+- Is it 3D? (please no)
+
+---
+# Too many points, variables or series
+
+![Too many points](libs/Images/toomanypoints.png)
+
+---
+# Too many everything
+
+![too many everything](libs/Images/toomanyeverything.png)
+---
+# **Emphasize** the things you want the audience or readers to remember
+
+.center[![line1](libs/Images/lineplot1.png)]
+
+---
+# **Emphasize** the things you want the audience or readers to remember
+
+.center[![line2](libs/Images/lineplot2.png)]
+
+---
+# **Legends:**  
+## Put them somewhere that reduces eyes jumping back and forth across the whole page
+
+.center[![legend](libs/Images/legend1.png)]
+
+.foot-note[[Fundamentals of Data Visualization by Claus O. Wilke 
+](https://serialmentor.com/dataviz/)]
+---
+
+# Often for clarity, **labels are often easier than legends**
+ 
+
+.center[![legend2](libs/Images/legend2.png)]
+
+.foot-note[[Fundamentals of Data Visualization by Claus O. Wilke 
+](https://serialmentor.com/dataviz/)]
+---
+
+# Often for clarity, **labels are often easier than legends**
+ 
+
+.center[![legend3](libs/Images/legend3.png)]
+
+
+.foot-note[[Depict Data Studio Directly Labeling Your Line Graphs](https://depictdatastudio.com/directly-labeling-line-graphs/)]
+---
+# Your legends should **definitely** follow a logical order
+
+.center[
+![legend4](libs/Images/legend4.png)]
+
+---
+
+## Consider putting things in **context** if visualizing across plots, for easier comparison
+
+![context](libs/Images/context.png)
+
+.foot-note[[Fundamentals of Data Visualization by Claus O. Wilke 
+](https://serialmentor.com/dataviz/)]
+---
+# 3. Is it **responsible**?
+
+- Is your graph type/model/presentation even appropriate? 
+
+- Misleading axes ranges or direction  
+
+- Masking data within summary statistics  
+
+- Does it include a measure of uncertainty (if applicable)?  
+
+---
+# Misleading axes ranges or direction
+
+- Reversing scale direction  
+- Manipulating scale increments or data to make differences seem larger/less than they are  
+- Cropping value scale to exaggerate differences   
+
+---
+# Reversing scale direction
+
+.center[
+![gun death](libs/Images/gun death.png)]
+
+.footnote[[https://viz.wtf/](https://viz.wtf/)]
+---
+# Manipulating scales
+
+.center[
+![Q growth](libs/Images/Q4growth.png)]
+
+.footnote[[https://viz.wtf/](https://viz.wtf/)]
+
+---
+
+# Manipulating scales
+
+.center[
+<img src="https://64.media.tumblr.com/fe84cf0265eb2890800a9a34507b9fc2/tumblr_q6rmcbb7ph1sgh0voo1_1280.jpg", width="50%"/>
+]
+
+.footnote[[https://viz.wtf/](https://viz.wtf/)]
+
+---
+# Show me the data
+Adding summary statistics, models, etc. is good - but try to also show me the *actual data*
+
+.center[
+<img src="libs/Images/violin.png", width=75%/>]
+
+---
+# Show me the data
+Adding summary statistics, models, etc. is good - but try to also show me the *actual data*
+
+.center[
+<img src="libs/Images/jitter2.png", width=75%/>]
+
+
+---
+# Show me the data
+Another option to show data + summary: **Marginal Plots**
+
+<img src="libs/Images/marginalplots.png"/>
+
+.footnote[[Datanovia.com ggplot examples](https://www.datanovia.com/en/blog/ggplot-examples-best-reference/#scatter-plot)]
+
+---
+# Does it look **awesome**?
+
+- Never sacrifice clarity for creativity  
+
+- Decluttering your graphs  
+
+- Empty & inked space balance  
+
+- Thoughtful color schemes (always clarity > beauty)  
+
+---
+
+# Declutter your graphs
+### Every element should exist to improve audience understanding
+
+.pull-left[
+![Kondo](libs/Images/kondo.png)]
+
+.pull-right[<img src="https://i.pinimg.com/originals/b1/5e/7c/b15e7c5fafcbae55bc45d1878f74edc5.jpg">]
+
+---
+### **For each element and design decision, ask:**
+- Is this element necessary/helpful for **audience understanding**?
+- Is it presented in the **best way** to encourage audience understanding & retention of the things that I have decided are the most critical?
+
+--
+
+### ** This includes:**
+- Gridlines  
+- Symbols/images  
+- Tick marks & increments  
+- Axis labels & tick mark labels  
+- Angled text  
+- Points, columns, lines, etc.  
+- Legends (avoid redundancy)  
+- Value labels & annotation  
+- Colors & formatting  
+
+
+---
+# This is not awesome
+
+![piechart](libs/Images/piechart.png)
+
+---
+## And ggplot2 defaults have their own issues
+
+.pull-left[
+```{r, plot-label4, eval=FALSE, warning=FALSE, message=FALSE}
+ggplot(midwest, aes(x = state, y = percbelowpoverty))+
+  geom_jitter()
+```
+
+#### Things you **must** change here:
+- Update axis labels
+- Reduce width of each groups
+
+#### Things you should **consider** changing:
+- BG color  
+- X & Y limits & expansion  
+- Often overused/unnecessary gridlines  
+- Not prompted to auto-update axis labels  
+- Abbreviations are hard 
+]
+
+.pull-right[
+```{r plot-label4-out, ref.label="plot-label4", echo=FALSE}
+```
+]
+
+---
+# Make it better
+
+![jitter plot 3](libs/Images/jotter3.png)
+
+---
+
+### Things that are **almost always bad**, or a symptom of badness:
+- Color gradients with a single element  
+- Shadows. Why are there shadows?  
+- 3D. With rare exceptions.  
+
+--
+
+### Things that **can be bad**, or a symptom of badness:
+- Multiple legends (probably means you've plotted too much)
+- Overuse of colors  
+- Many symbols of line types  
+- Labels for values (esp. if many) - consider a table of exact value is important
+- Really creative fonts
+
+---
+# What needs changing?
+
+![michigan1](libs/Images/michigan1.png)
+---
+# A possible update
+
+![michigan2](libs/Images/michigan2.png)
+
+
+
+---
+
+# Let's ggplot!
+
+<img src="https://cdn.myportfolio.com/45214904-6a61-4e23-98d6-b140f8654a40/9a306c0a-dac8-413d-ba2e-cc7fd4c4d5c8_rw_1920.png?h=c802991088a9623f1f7aa18c470797ee", width="50%"/>
+
+
+---
+# Grammar of graphics (ggplot2)
+.green[ggplot2] is a data visualization package  
+
+Structure of the plot can be summarized like this:
+
+```{r, eval=FALSE}
+ggplot(data = [dataset], 
+       mapping = aes(x = [x-variable], 
+                     y = [y-variable])) +
+   geom_xxx() +
+   other options
+```
+
+*aes()* means *aesthetics*  
+*geom_xx* means *geometry*
+
+---
+
+# Data: Palmer Penguins
+### Measurements for penguin species, island in Palmer Archipelago, size (flipper length, body mass, bill dimensions), and sex.  
+- Set-up your script and don't forget to comment.
+
+
+.pull-left[
+<img src="https://cdn.myportfolio.com/45214904-6a61-4e23-98d6-b140f8654a40/774cb5d6-99c4-49ec-bf8d-2f6bcdbed2cb.png?h=11a6c0a50dca7b7c8e615c271939d44f", width="75%" />
+]
+
+```{r, eval=FALSE}
+install.packages("palmerpenguins")
+```
+
+```{r, message=FALSE, warning=FALSE}
+library(palmerpenguins)
+library(tidyverse)
+glimpse(penguins)
+```
+
+
+---
+# We will make this plot
+
+.pull-left[
+```{r, plot-label151, echo=FALSE, warning=FALSE, message=FALSE}
+ggplot(data=penguins, 
+  mapping = aes(x = bill_depth_mm,
+                y = bill_length_mm,
+                color = species)) +
+  geom_point()+
+   labs(title = "Bill depth and length",
+        subtitle = "Dimensions for Adelie, Chinstrap, and Gentoo Penguins",
+        x = "Bill depth (mm)", y = "Bill length (mm)",
+        color = "Species",
+        caption = "Source: Palmer Station LTER / palmerpenguins package")+
+  scale_color_viridis_d()#<<
+
+```
+]
+
+
+---
+#### Start with the .orange[penguin] dataframe
+
+.pull-left[
+```{r, plot-label5, eval=FALSE}
+ggplot(data=penguins) #<<
+
+```
+]
+
+.pull-right[
+```{r plot-label5-out, ref.label="plot-label5", echo=FALSE}
+```
+]
+
+---
+#### Start with the .orange[penguin] dataframe, .yellow[map bill depth to the x-axis]
+
+.pull-left[
+```{r, plot-label6, eval=FALSE, warning=FALSE, message=FALSE}
+ggplot(data=penguins, 
+  mapping = aes(x = bill_depth_mm)) #<<
+
+```
+]
+
+.pull-right[
+```{r plot-label6-out, ref.label="plot-label6", echo=FALSE}
+```
+]
+
+---
+#### Start with the .orange[penguin] dataframe, map bill depth to the x-axis .yellow[and map bill length to the y-axis.]
+
+.pull-left[
+```{r, plot-label7, eval=FALSE, warning=FALSE, message=FALSE}
+ggplot(data=penguins, 
+  mapping = aes(x = bill_depth_mm,
+                y = bill_length_mm)) #<<
+
+```
+]
+
+.pull-right[
+```{r plot-label7-out, ref.label="plot-label7", echo=FALSE}
+```
+]
+---
+
+#### Start with the .orange[penguin] dataframe, map bill depth to the x-axis and map bill length to the y-axis. .yellow[Represent each observation with a point.]
+
+.pull-left[
+```{r, plot-label8, eval=FALSE, warning=FALSE, message=FALSE}
+ggplot(data=penguins, 
+  mapping = aes(x = bill_depth_mm,
+                y = bill_length_mm)) +
+  geom_point()#<<
+
+```
+]
+
+.pull-right[
+```{r plot-label8-out, ref.label="plot-label8", echo=FALSE, warning = FALSE}
+```
+]
+
+
+---
+
+#### Start with the .orange[penguin] dataframe, map bill depth to the x-axis and map bill length to the y-axis. Represent each observation with a point .yellow[and map species to the colour of each point.]
+
+.pull-left[
+```{r, plot-label9, eval=FALSE, warning=FALSE, message=FALSE}
+ggplot(data=penguins, 
+  mapping = aes(x = bill_depth_mm,
+                y = bill_length_mm,
+                color = species)) +#<<
+  geom_point()
+
+```
+]
+
+.pull-right[
+```{r plot-label9-out, ref.label="plot-label9", echo=FALSE, warning = FALSE}
+```
+]
+
+
+---
+
+#### Start with the .orange[penguin] dataframe, map bill depth to the x-axis and map bill length to the y-axis. Represent each observation with a point and map species to the colour of each point. .yellow[Title the plot "Bill depth and length"]
+
+.pull-left[
+```{r, plot-label10, eval=FALSE, warning=FALSE, message=FALSE}
+ggplot(data=penguins, 
+  mapping = aes(x = bill_depth_mm,
+                y = bill_length_mm,
+                color = species)) +
+  geom_point()+
+   labs(title = "Bill depth and length") #<<
+
+```
+]
+
+.pull-right[
+```{r plot-label10-out, ref.label="plot-label10", echo=FALSE, warning = FALSE}
+```
+]
+
+---
+
+#### Start with the .orange[penguin] dataframe, map bill depth to the x-axis and map bill length to the y-axis. Represent each observation with a point and map species to the colour of each point. Title the plot "Bill depth and length". .yellow[Add the subtitle "Dimensions for Adelie, Chinstrap, and Gentoo Penguins"]
+
+.pull-left[
+```{r, plot-label11, eval=FALSE, warning=FALSE, message=FALSE}
+ggplot(data=penguins, 
+  mapping = aes(x = bill_depth_mm,
+                y = bill_length_mm,
+                color = species)) +
+  geom_point()+
+   labs(title = "Bill depth and length",
+        subtitle = "Dimensions for Adelie, Chinstrap, and Gentoo Penguins") #<<
+
+```
+]
+
+.pull-right[
+```{r plot-label11-out, ref.label="plot-label11", echo=FALSE, warning = FALSE}
+```
+]
+
+---
+
+#### Start with the .orange[penguin] dataframe, map bill depth to the x-axis and map bill length to the y-axis. Represent each observation with a point and map species to the colour of each point. Title the plot "Bill depth and length". Add the subtitle "Dimensions for Adelie, Chinstrap, and Gentoo Penguins", .yellow[label the x and y axes as "Bill depth (mm)" and "Bill length (mm)", respectively.]
+
+.pull-left[
+```{r, plot-label12, eval=FALSE, warning=FALSE, message=FALSE}
+ggplot(data=penguins, 
+  mapping = aes(x = bill_depth_mm,
+                y = bill_length_mm,
+                color = species)) +
+  geom_point()+
+   labs(title = "Bill depth and length",
+        subtitle = "Dimensions for Adelie, Chinstrap, and Gentoo Penguins",
+        x = "Bill depth (mm)", y = "Bill length (mm)") #<<
+
+```
+]
+
+.pull-right[
+```{r plot-label12-out, ref.label="plot-label12", echo=FALSE, warning = FALSE}
+```
+]
+
+---
+#### Start with the .orange[penguin] dataframe, map bill depth to the x-axis and map bill length to the y-axis. Represent each observation with a point and map species to the colour of each point. Title the plot "Bill depth and length". Add the subtitle "Dimensions for Adelie, Chinstrap, and Gentoo Penguins", label the x and y axes as "Bill depth (mm)" and "Bill length (mm)", respectively. .yellow[Label the legend "Species.]
+
+.pull-left[
+```{r, plot-label13, eval=FALSE, warning=FALSE, message=FALSE}
+ggplot(data=penguins, 
+  mapping = aes(x = bill_depth_mm,
+                y = bill_length_mm,
+                color = species)) +
+  geom_point()+
+   labs(title = "Bill depth and length",
+        subtitle = "Dimensions for Adelie, Chinstrap, and Gentoo Penguins",
+        x = "Bill depth (mm)", y = "Bill length (mm)",
+        color = "Species") #<<
+
+```
+]
+
+.pull-right[
+```{r plot-label13-out, ref.label="plot-label13", echo=FALSE, warning = FALSE}
+```
+]
+
+---
+#### Start with the .orange[penguin] dataframe, map bill depth to the x-axis and map bill length to the y-axis. Represent each observation with a point and map species to the colour of each point. Title the plot "Bill depth and length". Add the subtitle "Dimensions for Adelie, Chinstrap, and Gentoo Penguins", label the x and y axes as "Bill depth (mm)" and "Bill length (mm)", respectively. Label the legend "Species. .yellow[Add a caption for the source of the data.]
+
+.pull-left[
+```{r, plot-label14, eval=FALSE, warning=FALSE, message=FALSE}
+ggplot(data=penguins, 
+  mapping = aes(x = bill_depth_mm,
+                y = bill_length_mm,
+                color = species)) +
+  geom_point()+
+   labs(title = "Bill depth and length",
+        subtitle = "Dimensions for Adelie, Chinstrap, and Gentoo Penguins",
+        x = "Bill depth (mm)", y = "Bill length (mm)",
+        color = "Species",
+        caption = "Source: Palmer Station LTER / palmerpenguins package") #<<
+
+```
+]
+
+.pull-right[
+```{r plot-label14-out, ref.label="plot-label14", echo=FALSE, warning = FALSE}
+```
+]
+
+
+---
+#### Start with the .orange[penguin] dataframe, map bill depth to the x-axis and map bill length to the y-axis. Represent each observation with a point and map species to the colour of each point. Title the plot "Bill depth and length". Add the subtitle "Dimensions for Adelie, Chinstrap, and Gentoo Penguins", label the x and y axes as "Bill depth (mm)" and "Bill length (mm)", respectively. Label the legend "Species. Add a caption for the source of the data. .yellow[Finally, use a discrete color scale that is designed to be preceived by viewers with common forms of color blindness.]
+
+.pull-left[
+```{r, plot-label15, eval=FALSE, warning=FALSE, message=FALSE}
+ggplot(data=penguins, 
+  mapping = aes(x = bill_depth_mm,
+                y = bill_length_mm,
+                color = species)) +
+  geom_point()+
+   labs(title = "Bill depth and length",
+        subtitle = "Dimensions for Adelie, Chinstrap, and Gentoo Penguins",
+        x = "Bill depth (mm)", y = "Bill length (mm)",
+        color = "Species",
+        caption = "Source: Palmer Station LTER / palmerpenguins package")+
+  scale_color_viridis_d()#<<
+
+```
+]
+
+.pull-right[
+```{r plot-label15-out, ref.label="plot-label15", echo=FALSE, warning = FALSE}
+```
+]
+
+---
+.center[
+```{r plot-label15-out, ref.label="plot-label15", echo=FALSE, warning = FALSE}
+```
+]
+
+---
+# Aesthetic options
+Commonly used characteristics of plotting characters that can be .orange[mapped to a specific variable] in the data are:
+
+- color (or colour)
+- shape
+- size
+- alpha (transparency)
+
+---
+# Color
+.pull-left[
+```{r, plot-label17, eval=FALSE, warning=FALSE, message=FALSE}
+ggplot(data=penguins, 
+  mapping = aes(x = bill_depth_mm,
+                y = bill_length_mm,
+                color = species)) +
+  geom_point()+
+   labs(title = "Bill depth and length",
+        subtitle = "Dimensions for Adelie, Chinstrap, and Gentoo Penguins",
+        x = "Bill depth (mm)", y = "Bill length (mm)",
+        color = "Species") + #<<
+  scale_color_viridis_d()
+
+```
+]
+
+.pull-right[
+```{r plot-label17-out, ref.label="plot-label17", echo=FALSE, warning = FALSE}
+```
+]
+
+---
+# Shape
+
+Mapped to a different variable than .orange[color].
+
+.pull-left[
+```{r, plot-label18, eval=FALSE, warning=FALSE, message=FALSE}
+ggplot(data=penguins, 
+  mapping = aes(x = bill_depth_mm,
+                y = bill_length_mm,
+                color = species,
+                shape = island #<<
+                )) +
+  geom_point()+
+   labs(title = "Bill depth and length",
+        subtitle = "Dimensions for Adelie, Chinstrap, and Gentoo Penguins",
+        x = "Bill depth (mm)", y = "Bill length (mm)",
+        color = "Species") +
+  scale_color_viridis_d()
+
+```
+]
+
+.pull-right[
+```{r plot-label18-out, ref.label="plot-label18", echo=FALSE, warning = FALSE}
+```
+]
+
+---
+
+# Shape
+
+Mapped to the same variable than .orange[color].
+
+.pull-left[
+```{r, plot-label19, eval=FALSE, warning=FALSE, message=FALSE}
+ggplot(data=penguins, 
+  mapping = aes(x = bill_depth_mm,
+                y = bill_length_mm,
+                color = species,
+                shape = species #<<
+                )) +
+  geom_point()+
+  scale_color_viridis_d()
+
+```
+]
+
+.pull-right[
+```{r plot-label19-out, ref.label="plot-label19", echo=FALSE, warning = FALSE}
+```
+]
+
+
+---
+
+# Size
+
+
+.pull-left[
+```{r, plot-label20, eval=FALSE, warning=FALSE, message=FALSE}
+ggplot(data=penguins, 
+  mapping = aes(x = bill_depth_mm,
+                y = bill_length_mm,
+                color = species,
+                size = body_mass_g #<<
+                )) +
+  geom_point()+
+  scale_color_viridis_d()
+
+```
+]
+
+.pull-right[
+```{r plot-label20-out, ref.label="plot-label20", echo=FALSE, warning = FALSE}
+```
+]
+
+---
+# Alpha (transparency)
+
+
+.pull-left[
+```{r, plot-label21, eval=FALSE, warning=FALSE, message=FALSE}
+ggplot(data=penguins, 
+  mapping = aes(x = bill_depth_mm,
+                y = bill_length_mm,
+                color = species,
+                size = body_mass_g,
+                alpha = flipper_length_mm#<<
+                )) +
+  geom_point()+
+  scale_color_viridis_d()
+
+```
+]
+
+.pull-right[
+```{r plot-label21-out, ref.label="plot-label21", echo=FALSE, warning = FALSE}
+```
+]
+
+---
+# Mapping vs setting 
+
+- .orange[Mapping:] Determine the size, shape, alpha, etc. of points **based on the values of a variable** in the data
+  - goes into .orange[aes()]
+  
+--
+
+- .orange[Setting:] Determine the size, shape, alpha, etc. of points **not** based on the values of a variable in the data
+  - goes into .orange[geom_*()]. This was geom_point() in the previous example, but we will learn more geoms soon.
+
+---
+
+.pull-left[
+
+### Mapping
+```{r, warning=FALSE, fig.width= 6, fig.height=4}
+ggplot(data=penguins, 
+  mapping = aes(x = bill_depth_mm,
+                y = bill_length_mm,
+                size = body_mass_g, #<<
+                alpha = flipper_length_mm #<<
+                )) +
+  geom_point()
+```
+]
+
+.pull-right[
+
+### Setting
+```{r, warning=FALSE, fig.width= 5, fig.height=5}
+ggplot(data=penguins, 
+  mapping = aes(x = bill_depth_mm,
+                y = bill_length_mm)) +
+  geom_point(size = 2, alpha = 0.5) #<<
+```
+]
+
+---
+class: center, middle
+
+# Faceting
+
+---
+# Faceting
+
+- Smaller plots that display different subsets of the data
+- Useful for exploring conditional relationships and large data
+
+
+--
+## Note:
+In the next few slides I do not put proper titles, axis labels, etc. because I am focusing on faceting. However, remember to always label your plots!
+
+---
+
+
+```{r,warning=FALSE, fig.width= 6, fig.height=6}
+ggplot(penguins, 
+       aes(x = bill_depth_mm,
+           y = bill_length_mm))+
+  geom_point()+
+  facet_grid(species~sex) #<<
+# make multiple plots groups by species on the y (rows) and and sex on the x (columns) 
+```
+
+Notice there is a section labeled **NA** for sex. This is because there were some birds where they did not know the sex.  We will learn how to clean this up next week.
+
+---
+```{r,warning=FALSE, fig.width= 6, fig.height=6}
+ggplot(penguins, 
+       aes(x = bill_depth_mm,
+           y = bill_length_mm))+
+  geom_point()+
+  facet_grid(sex~species) #<<
+# make multiple plots groups by sex on the y (rows) and and species on the x (columns) 
+```
+
+---
+
+```{r, warning = FALSE}
+ggplot(penguins, aes(x = bill_depth_mm, y = bill_length_mm)) + 
+  geom_point() +
+  facet_wrap(~ species) #<<
+```
+
+---
+
+```{r, warning = FALSE}
+ggplot(penguins, aes(x = bill_depth_mm, y = bill_length_mm)) + 
+  geom_point() +
+  facet_wrap(~ species, ncol=2) # make it two columns #<<
+```
+---
+
+# Faceting summary
+
+- facet_grid():
+  - 2D grid
+  - rows ~ columns
+
+- facet_wrap(): 1d ribbon wrapped according to numbers of rows and columns specified or available plotting area
+
+---
+# Facet and color
+
+.pull-left[
+```{r, plot-label22, eval=FALSE, warning=FALSE, message=FALSE}
+ggplot(data=penguins, 
+  mapping = aes(x = bill_depth_mm,
+                y = bill_length_mm,
+                color = species, #<<
+                )) +
+  geom_point()+
+  scale_color_viridis_d()+
+  facet_grid(species~sex)
+
+```
+]
+
+.pull-right[
+```{r plot-label22-out, ref.label="plot-label22", echo=FALSE, warning = FALSE}
+```
+]
+
+
+---
+# Facet and color, no legend
+
+.pull-left[
+```{r, plot-label23, eval=FALSE, warning=FALSE, message=FALSE}
+ggplot(data=penguins, 
+  mapping = aes(x = bill_depth_mm,
+                y = bill_length_mm,
+                color = species, #<<
+                )) +
+  geom_point()+
+  scale_color_viridis_d()+
+  facet_grid(species~sex)+
+  guides(color = FALSE) #<<
+
+```
+]
+
+.pull-right[
+```{r plot-label23-out, ref.label="plot-label23", echo=FALSE, warning = FALSE}
+```
+]
+---
+# ggplot2 resources
+
+[Data to viz](https://www.data-to-viz.com/#histogram)  
+[ggplot2 cheatsheet](https://github.com/rstudio/cheatsheets/blob/master/data-visualization-2.1.pdf)  
+[All the geoms](https://ggplot2.tidyverse.org/reference/)  
+[A master list of visuals](http://r-statistics.co/Top50-Ggplot2-Visualizations-MasterList-R-Code.html)   
+[Practical ggplot](https://wilkelab.org/practicalgg/)   
+[R graph gallery](https://www.r-graph-gallery.com/)  
+
+--
+## More plotting fun in online class.
+
+
+---
+class: center, middle
+
+# Thanks!
+
+Slides created via the R package [**xaringan**](https://github.com/yihui/xaringan).
+
+Some slides modified from Allison Horst, Data Science Box
+
+[Allison Horst ESM 206](https://docs.google.com/presentation/d/1IlQlBbZo53C_NUl-A9MHxQZZiubiiyFKV_nf1hFwAeM/edit#slide=id.g9c1b4376f4_0_211)  
+[Data Science Box](https://rstudio-education.github.io/datascience-box/course-materials/slides/u2-d02-ggplot2/u2-d02-ggplot2.html#1)
+
+

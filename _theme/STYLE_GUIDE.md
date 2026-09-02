@@ -155,6 +155,95 @@ your_code_here
 - 🟠 Orange left border = code input (what you type)
 - 🟢 Green left border = R output (what R returns)
 
+> ⚠️ **Always set `echo=TRUE` explicitly — never rely on the default.** In
+> testing, revealjs chunks without an explicit `echo=TRUE` (or `#| echo: true`)
+> silently dropped the source code from the rendered HTML, even though the
+> code was present in the knitr-executed intermediate markdown. This affected
+> plain `eval=FALSE` chunks and chunks with no echo/eval options at all. Every
+> chunk meant to show code to students — including the visible half of a
+> two-column code/output pair — must set `echo=TRUE` (or `echo = TRUE`) in its
+> own chunk header, even though `echo` is nominally `TRUE` by default. Only
+> the `-out`/`ref.label` output-only half of a pair, and chunks like `setup`
+> that are meant to be fully hidden, should use `echo=FALSE`.
+
+---
+
+## Building Up Code Step-by-Step
+
+When teaching a concept by building a plot (or any code) incrementally across a
+sequence of slides — one small addition per slide — use the `code-line-numbers`
+chunk option to highlight **only the line(s) that are new** on that slide. This
+draws the reader's eye straight to what changed instead of making them re-read
+the whole block each time.
+
+```r
+```{r plot-label6, eval=FALSE, echo=TRUE}
+#| code-line-numbers: "2"
+ggplot(data = penguins,
+  mapping = aes(x = bill_depth_mm))
+```
+```
+
+**Guidelines:**
+- Put `#| code-line-numbers: "N"` as the **first line inside the chunk**, right
+  after the opening fence (`code-line-numbers: true` in the YAML header already
+  turns on line numbers globally — this option layers a highlight on top).
+- Count lines from the first line of code inside the chunk (line 1), including
+  blank lines within the chunk body.
+- Highlight multiple lines/ranges with a comma- or hyphen-separated string,
+  e.g. `"4,9"` or `"2-4"`, when more than one line changed.
+- Only add this to the chunk that actually **shows** the code (the
+  `eval=FALSE, echo=TRUE` chunk in a two-column code/output pair). The paired
+  `ref.label` output-only chunk doesn't need it.
+- When a slide isn't strictly "new code" but instead **emphasizes** which
+  existing line(s) relate to the concept being introduced (e.g. pointing out
+  the `color =` lines on a slide about the `color` aesthetic), highlight those
+  lines instead of literally-new ones — the goal is to direct attention, not
+  strictly track diffs.
+- After adding or editing line numbers, re-render and check that the fenced
+  code block still has the correct opening/closing triple-backticks and that
+  any surrounding `::: {.columns}` / `::: {.column}` divs are still balanced —
+  hand-editing existing chunks is an easy place to accidentally drop a closing
+  fence or `:::`.
+
+*Used throughout the Intro to Plotting deck's step-by-step `ggplot()` build-up
+(`plot-label5`–`plot-label15`), the aesthetic-mapping slides (Color/Shape/Size/Alpha),
+and the faceting slides.*
+
+---
+
+## Shrinking Titles on Progressively-Built Slides
+
+When a slide title itself grows longer at each step of a build-up sequence
+(e.g. "Start with the penguin dataframe" then "...and map bill depth to the
+x-axis" then "...and map bill length to the y-axis." and so on), the default
+h2 size (1.8em) will wrap and eat into the space needed for the code/output
+below. Add the `.smaller-title` class to the heading to shrink just that
+slide's title:
+
+```markdown
+## Start with the [penguin]{.orange} dataframe, [map bill depth to the x-axis]{.yellow} {.smaller-title}
+```
+
+**Guidelines:**
+- Add `{.smaller-title}` at the very end of the heading line, after any
+  inline spans (e.g. `[text]{.orange}`). Pandoc treats a trailing `{...}`
+  block as the header's own attributes (applied to the slide's `<section>`),
+  not as another inline span, as long as it isn't glued directly onto a
+  `[...]` bracket.
+- The class is defined once in `custom-theme.scss` under `.smaller-title h2`
+  (currently `font-size: 0.75em` with a tightened `line-height` and
+  `margin-bottom`). Reuse it rather than inventing a one-off size per slide.
+- Only apply it to slides where the title text is genuinely the source of
+  overflow (long, incrementally-built titles). Don't apply it broadly to
+  every slide; most titles are short enough at the default size.
+- If a title is still overflowing after `.smaller-title`, the culprit is
+  likely elsewhere (code block width/font-size, image size). Investigate the
+  slide's content rather than shrinking the title further.
+
+*Used on the `plot-label5` through `plot-label15` progressive `ggplot()` build-up
+slides in the Intro to Plotting deck.*
+
 ---
 
 ## Callout Boxes

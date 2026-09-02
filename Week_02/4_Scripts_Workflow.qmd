@@ -73,7 +73,7 @@ I will show you an example now
 1. Before class starts, navigate to "Fall-2026" in your projects (upper right-hand corner of RStudio) and **pull**.
 2. Next navigate to your personal repository and **pull**. (This is the repo you will work in during class.)
 
-- A hint for viewing the lectures online: copy the url of the html file on GitHub into [raw.githack.com](https://raw.githack.com/), then copy the "use this URL for development" link into your browser.
+- A hint for viewing the lectures online: Click the links in the ReadMe File.  The lectures are published through Posit Connect Cloud (will learn more about this later).
 :::
 
 ## Proper file structure
@@ -126,8 +126,8 @@ You can add all the contents in a folder at once by adding the folder
 
 Some examples:
 
-- [Jennifer Fields](https://github.com/jenniferfields/EcoFunORTidepools)
-- [Danielle Becker](https://github.com/daniellembecker/Nutrient_sediment_loading_affect_coral_functionality)
+- [Past Me](https://github.com/njsilbiger/Intertidal-Benthic-Pelagic/tree/main)  
+- [Tena Dhayalan](https://github.com/tenadhayalan/Asymmetric_metabolic_responses_of_rockweed_and_herbivores/tree/main)
 
 ## Readme files
 
@@ -194,15 +194,15 @@ Your script should be divided into 5 (ish) subsections (depending on what you ar
 
 ## Creating a transparent script (continued 2)
 
-Section 1: Start with a short intro of what your intend to do with your script. Say who you are, the date you created it, and when you last edited it.
+Section 1: Start with a **short intro** of what your intend to do with your script. Say who you are, the date you created it, and when you last edited it.
 
-Section 2: Load the libraries. Here, I load all the libraries that I need for my code to run.
+Section 2: **Load the libraries**. Here, I load all the libraries that I need for my code to run.
 
-Section 3: Functions. If you will be creating your own functions it is best to put them all right up front so that they are available for the whole script. If I have lots of functions, sometimes I will put them in their own script and then source them in so that it is not so messy. More on that later.
+Section 3: **Functions**. If you will be creating your own functions it is best to put them all right up front so that they are available for the whole script. If I have lots of functions, sometimes I will put them in their own script and then source them in so that it is not so messy. More on that later.
 
-Section 4: Load data. This is where you load all your data files.
+Section 4: **Load data**. This is where you load all your data files.
 
-Section 5 and beyond: All your analyses, which can also be subset into different sections.
+Section 5 and beyond: **All your analyses**, which can also be subset into different sections.
 
 ***Probably the most important advice that I can give you is to comment, comment, comment, and comment some more on your code.***
 
@@ -424,11 +424,11 @@ tail(WeightData) # Looks at the bottom 6 lines of the dataframe
 View(WeightData) # opens a new window to look at the entire dataframe
 ```
 
-## For lab today you have three tasks
+## For Homework today you have three tasks
 
 1. Push the Week 2 folder with your first script and associated data onto your personal GitHub repository
 2. Complete the [Online Markdown tutorial](https://www.markdowntutorial.com/)
-3. Edit your readme file to say something useful about your repository.
+3. Edit your readme file to say something *useful* about your repository (and you!).
 
 Complete all 3 before Tuesday at 1pm. Feel free to ask your classmates for help
 

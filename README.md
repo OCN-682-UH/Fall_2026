@@ -13,6 +13,6 @@ Note: Lectures posted here before the start of class are still a work in progres
 - [Reproducible Research](https://01a05ac6-9123-6920-37d0-d2e127782fb6.share.connect.posit.cloud)
 - [Scripting](https://01a05adc-02fa-31eb-e3d4-081bc55c36df.share.connect.posit.cloud)
 
-*Week 3*
--[Intro to plotting](https://01a07e78-52c2-8c93-f00c-f77edc263447.share.connect.posit.cloud)  
--[Plotting Lesson 2](https://01a07e96-7e37-90d4-f396-e28ab84f1a61.share.connect.posit.cloud)
+*Week 3*  
+- [Intro to plotting](https://01a07e78-52c2-8c93-f00c-f77edc263447.share.connect.posit.cloud)  
+- [Plotting Lesson 2](https://01a07e96-7e37-90d4-f396-e28ab84f1a61.share.connect.posit.cloud)

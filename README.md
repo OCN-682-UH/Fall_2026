@@ -15,3 +15,4 @@ Note: Lectures posted here before the start of class are still a work in progres
 
 *Week 3*
 -[Intro to plotting](https://01a07e78-52c2-8c93-f00c-f77edc263447.share.connect.posit.cloud)
+-[Plotting Lesson 2](https://01a07e96-7e37-90d4-f396-e28ab84f1a61.share.connect.posit.cloud)

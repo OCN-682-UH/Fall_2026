@@ -71,7 +71,7 @@ ggplot(data = [dataset],
 ```{r, message=FALSE, warning=FALSE, echo=TRUE}
 ### Today we are going to plot penguin data ####
 ### Created by: Dr. Nyssa Silbiger #############
-### Updated on: 2025-09-10 ####################
+### Updated on: 2026-09-08 ####################
 
 
 #### Load Libraries ######
@@ -241,7 +241,7 @@ ggplot(data=penguins,
 
 ## {.center .middle}
 
-![](https://i.pinimg.com/originals/ea/0c/b5/ea0cb5a48e3337523ffe8d60f177879d.gif){fig-align="center"}
+![](https://i.pinimg.com/originals/ea/0c/b5/ea0cb5a48e3337523ffe8d60f177879d.gif){fig-align="center" width="55%"}
 
 ## Aside....
 
@@ -468,7 +468,7 @@ ggplot(data=penguins,
 
 ## Check your palette: is it colorblind-friendly?
 
-Using `scale_color_viridis_d()` isn't just about looking nice — viridis palettes are designed to be **perceptually uniform and distinguishable under common forms of color blindness**. This connects back to the "responsible plotting" idea from our first lecture: color choices are part of communicating data honestly, not just aesthetics.
+Using `scale_color_viridis_d()` viridis palettes are designed to be **perceptually uniform and distinguishable under common forms of color blindness**. This connects back to the "responsible plotting" idea from our first lecture: color choices are part of communicating data honestly, not just aesthetics.
 
 You can check *any* palette — including custom ones — with the **colorBlindness** package:
 
@@ -491,15 +491,24 @@ Try this on a `scale_color_manual()` palette too. Some color combinations that l
 ## Aside on downloading packages that are *in development*.
 There are several packages on GitHub that are not yet published and are still being developed.  You can still use them, but you need to install them directly from github.
 
-First, you need to install the *{devtools}* package (Development tools)
-
-```{r, eval=FALSE, echo=TRUE}
-install.packages('devtools')
-```
+First, you need to install the *{devtools}* package (Development tools) and *{pak}*
 
 ::: {.fragment}
-Instead of using *install.packages("PackageName")*, we use *install_github("username/packagename")*.
+```{r, eval=FALSE, echo=TRUE}
+install.packages('devtools')
+install_github("username/packagename")
+```
+
+
+Instead of using *install.packages("PackageName")*, we used to use *install_github("username/packagename")*, which will still work but is now old. You will see this example often on github
+
+**Modern alternative:** The `pak` package is newer lighter-weight and handles dependencies better:
+```{r, eval=FALSE, echo=TRUE}
+install.packages("pak")
+pak::pkg_install("username/packagename")  # same idea, more robust
+```
 :::
+
 
 
 ## Let's download the beyonce color palette.
@@ -509,7 +518,7 @@ Instead of using *install.packages("PackageName")*, we use *install_github("user
 2. Go to the [github page](https://github.com/dill/beyonce) and follow the directions
 
 ::: {.center}
-![](libs/Images/Beyonce.PNG){fig-align="center" width="40%"}
+![](libs/Images/Beyonce.PNG){fig-align="center" width="65%"}
 :::
 :::
 
@@ -518,7 +527,7 @@ Instead of using *install.packages("PackageName")*, we use *install_github("user
 3. In your **console** (not your script): copy and paste:
 
 ```{r, eval=FALSE, echo=TRUE}
-devtools::install_github("dill/beyonce")
+pak::pkg_install("dill/beyonce")
 ```
 :::
 
@@ -598,7 +607,8 @@ We can manipulate the coordinates system in a few different ways.
 
 We will run through the following examples
 
-- coord_flip(): Cartesian coordinate system with x and y axes flipped.
+- coord_flip(): Cartesian coordinate system with x and y axes flipped.  
+  *(Note: modern ggplot2 practice prefers **swapping x and y in `aes()` directly** rather than using `coord_flip()` — it is simpler and avoids unexpected behavior with some geoms.)*
 
 - coord_fixed(): Cartesian coordinate system with a fixed aspect ratio.
 
@@ -738,13 +748,13 @@ The theming system is composed of four main components:
 
 ## Complete themes
 
-![theme 1](libs/Images/theme1.PNG)
+![](libs/Images/theme1.PNG){fig-align="center" width="90%"}
 
 [https://www.datanovia.com/en/blog/ggplot-themes-gallery/](https://www.datanovia.com/en/blog/ggplot-themes-gallery/)
 
 ## Complete themes
 
-![theme 2](libs/Images/theme2.PNG)
+![](libs/Images/theme2.PNG){fig-align="center" width="90%"}
 
 [https://www.datanovia.com/en/blog/ggplot-themes-gallery/](https://www.datanovia.com/en/blog/ggplot-themes-gallery/)
 
@@ -1066,9 +1076,19 @@ plot1 # you need to type it out to view it now
 ## ggplot2 extensions
 
 ::: {.center}
-[There are over 100 ggplot2 extentions](https://exts.ggplot2.tidyverse.org/gallery/)  
-[Great resource for ggploting](https://ggplot2-book.org/index.html)
+[There are hundreds of ggplot2 extensions](https://exts.ggplot2.tidyverse.org/gallery/)  
+[Great resource for ggplot2](https://ggplot2-book.org/index.html)
 :::
+
+A few you'll likely find useful:
+
+| Package | What it does |
+|---|---|
+| `patchwork` | Combine multiple plots into one figure |
+| `ggrepel` | Auto-position point/text labels so they don't overlap |
+| `gganimate` | Animate ggplot2 graphics |
+| `ggtext` | Rich text (markdown/HTML) in titles, labels, and annotations |
+| `ggridges` | Ridge/density plots  |
 
 
 ## Homework

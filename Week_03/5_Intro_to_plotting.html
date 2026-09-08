@@ -10,7 +10,7 @@
   <meta name="generator" content="quarto-1.9.38">
 
   <meta name="author" content="Dr.&nbsp;Nyssa Silbiger">
-  <meta name="dcterms.date" content="2026-09-01">
+  <meta name="dcterms.date" content="2026-09-07">
   <title>Computer Modeling (OCN 682)</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -211,7 +211,7 @@ Dr.&nbsp;Nyssa Silbiger
     </div>
 </div>
 
-  <p class="date">2026-09-01</p>
+  <p class="date">2026-09-07</p>
 </section>
 <section id="outline-of-class" class="slide level2">
 <h2>Outline of class</h2>
@@ -254,7 +254,7 @@ Dr.&nbsp;Nyssa Silbiger
 <div class="center">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="https://cdn.myportfolio.com/45214904-6a61-4e23-98d6-b140f8654a40/352c905d-7be3-4808-9514-1fac3b0fe2fc_rw_1920.png?h=e32478e3ccf4317ba2d9536f416e2f90" class="quarto-figure quarto-figure-center" style="width:50.0%"></p>
+<p><img data-src="https://cdn.myportfolio.com/45214904-6a61-4e23-98d6-b140f8654a40/352c905d-7be3-4808-9514-1fac3b0fe2fc_rw_1920.png?h=e32478e3ccf4317ba2d9536f416e2f90" class="quarto-figure quarto-figure-center" style="width:80.0%"></p>
 </figure>
 </div>
 </div>
@@ -310,7 +310,7 @@ Dr.&nbsp;Nyssa Silbiger
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a><span class="fu">library</span>(ggbeeswarm)</span>
 <span id="cb2-2"><a href=""></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(<span class="at">x =</span> Species, <span class="at">y =</span> Petal.Length))<span class="sc">+</span></span>
-<span id="cb2-3"><a href=""></a>  <span class="fu">geom_jitter</span>(<span class="fu">aes</span>(<span class="at">color =</span> Species),</span>
+<span id="cb2-3"><a href=""></a>  <span class="fu">geom_beeswarm</span>(<span class="fu">aes</span>(<span class="at">color =</span> Species),</span>
 <span id="cb2-4"><a href=""></a>              <span class="at">alpha =</span> <span class="fl">0.5</span>,</span>
 <span id="cb2-5"><a href=""></a>              <span class="at">show.legend =</span> <span class="cn">FALSE</span>)<span class="sc">+</span></span>
 <span id="cb2-6"><a href=""></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"purple"</span>,</span>
@@ -393,7 +393,7 @@ Dr.&nbsp;Nyssa Silbiger
 <h2>Website with other ways to visualize the same data</h2>
 <p><a href="https://z3tt.github.io/beyond-bar-and-box-plots/">Beyond Bar and Boxplots/</a></p>
 
-<img data-src="https://i0.wp.com/www.business-science.io/assets/2021-07-22-ggdist-raincloud-plots/05_plot_output.jpg?w=578&amp;ssl=1" class="r-stretch"></section>
+<img data-src="https://i0.wp.com/www.business-science.io/assets/2021-07-22-ggdist-raincloud-plots/05_plot_output.jpg?w=578&amp;ssl=1" class="quarto-figure quarto-figure-center r-stretch" style="width:85.0%"></section>
 <section id="why-cant-we-just-look-at-summary-statistics" class="slide level2">
 <h2>Why can’t we just look at summary statistics?</h2>
 <div class="center">
@@ -414,7 +414,7 @@ Dr.&nbsp;Nyssa Silbiger
 <h2>Don’t hide your data</h2>
 <p>Weissgerber TL, Milic NM, Winham SJ, Garovic VD (2015) <strong>Beyond Bar and Line Graphs: Time for a New Data Presentation Paradigm.</strong> PLoS Biol 13(4): e1002128. https://doi.org/10.1371/journal.pbio.1002128</p>
 
-<img data-src="libs/Images/barplot.png" class="r-stretch quarto-figure-center"><p class="caption">bar plot</p><p>Would you draw the same conclusions with each of these datasets?</p>
+<img data-src="libs/Images/barplot.png" style="width:90.0%" class="r-stretch quarto-figure-center"><p class="caption">bar plot</p><p>Would you draw the same conclusions with each of these datasets?</p>
 </section>
 <section id="the-hierarchy-of-data-viz" class="slide level2">
 <h2>The hierarchy of data viz</h2>
@@ -456,85 +456,55 @@ Dr.&nbsp;Nyssa Silbiger
 <section id="too-many-points-variables-or-series" class="slide level2">
 <h2>Too many points, variables or series</h2>
 
-<img data-src="libs/Images/toomanypoints.png" class="r-stretch quarto-figure-center"><p class="caption">Too many points</p></section>
+<img data-src="libs/Images/toomanypoints.png" class="quarto-figure quarto-figure-center r-stretch" style="width:90.0%"></section>
 <section id="too-many-everything" class="slide level2">
 <h2>Too many everything</h2>
 
-<img data-src="libs/Images/toomanyeverything.png" class="r-stretch quarto-figure-center"><p class="caption">too many everything</p></section>
+<img data-src="libs/Images/toomanyeverything.png" class="quarto-figure quarto-figure-center r-stretch" style="width:90.0%"></section>
 <section id="emphasize-the-things-you-want-the-audience-or-readers-to-remember" class="slide level2">
 <h2><strong>Emphasize</strong> the things you want the audience or readers to remember</h2>
 <div class="center">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="libs/Images/lineplot1.png"></p>
-<figcaption>line1</figcaption>
-</figure>
-</div>
+<p><img data-src="libs/Images/lineplot1.png" style="width:80.0%"></p>
 </div>
 </section>
 <section id="emphasize-the-things-you-want-the-audience-or-readers-to-remember-1" class="slide level2">
 <h2><strong>Emphasize</strong> the things you want the audience or readers to remember</h2>
 <div class="center">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="libs/Images/lineplot2.png"></p>
-<figcaption>line2</figcaption>
-</figure>
-</div>
+<p><img data-src="libs/Images/lineplot2.png" style="width:80.0%"></p>
 </div>
 </section>
 <section id="legends" class="slide level2">
 <h2><strong>Legends:</strong></h2>
 <h3 id="put-them-somewhere-that-reduces-eyes-jumping-back-and-forth-across-the-whole-page">Put them somewhere that reduces eyes jumping back and forth across the whole page</h3>
 <div class="center">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="libs/Images/legend1.png"></p>
-<figcaption>legend</figcaption>
-</figure>
-</div>
+<p><img data-src="libs/Images/legend1.png" style="width:80.0%"></p>
 </div>
 <p><small><em><a href="https://serialmentor.com/dataviz/">Fundamentals of Data Visualization by Claus O. Wilke</a></em></small></p>
 </section>
 <section id="often-for-clarity-labels-are-often-easier-than-legends" class="slide level2">
 <h2>Often for clarity, <strong>labels are often easier than legends</strong></h2>
 <div class="center">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="libs/Images/legend2.png"></p>
-<figcaption>legend2</figcaption>
-</figure>
-</div>
+<p><img data-src="libs/Images/legend2.png" style="width:80.0%"></p>
 </div>
 <p><small><em><a href="https://serialmentor.com/dataviz/">Fundamentals of Data Visualization by Claus O. Wilke</a></em></small></p>
 </section>
 <section id="often-for-clarity-labels-are-often-easier-than-legends-1" class="slide level2">
 <h2>Often for clarity, <strong>labels are often easier than legends</strong></h2>
 <div class="center">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="libs/Images/legend3.png"></p>
-<figcaption>legend3</figcaption>
-</figure>
-</div>
+<p><img data-src="libs/Images/legend3.png" style="width:90.0%"></p>
 </div>
 <p><small><em><a href="https://depictdatastudio.com/directly-labeling-line-graphs/">Depict Data Studio Directly Labeling Your Line Graphs</a></em></small></p>
 </section>
 <section id="your-legends-should-definitely-follow-a-logical-order" class="slide level2">
 <h2>Your legends should <strong>definitely</strong> follow a logical order</h2>
 <div class="center">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="libs/Images/legend4.png"></p>
-<figcaption>legend4</figcaption>
-</figure>
-</div>
+<p><img data-src="libs/Images/legend4.png" style="width:90.0%"></p>
 </div>
 </section>
 <section id="consider-putting-things-in-context-if-visualizing-across-plots-for-easier-comparison" class="slide level2">
 <h2>Consider putting things in <strong>context</strong> if visualizing across plots, for easier comparison</h2>
 
-<img data-src="libs/Images/context.png" class="r-stretch quarto-figure-center"><p class="caption">context</p><p><small><em><a href="https://serialmentor.com/dataviz/">Fundamentals of Data Visualization by Claus O. Wilke</a></em></small></p>
+<img data-src="libs/Images/context.png" class="quarto-figure quarto-figure-center r-stretch" style="width:90.0%"><p><small><em><a href="https://serialmentor.com/dataviz/">Fundamentals of Data Visualization by Claus O. Wilke</a></em></small></p>
 </section>
 <section id="is-it-responsible" class="slide level2">
 <h2>3. Is it <strong>responsible</strong>?</h2>
@@ -558,24 +528,14 @@ Dr.&nbsp;Nyssa Silbiger
 <section id="reversing-scale-direction" class="slide level2">
 <h2>Reversing scale direction</h2>
 <div class="center">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="libs/Images/gun%20death.png"></p>
-<figcaption>gun death</figcaption>
-</figure>
-</div>
+<p><img data-src="libs/Images/gun%20death.png" style="width:55.0%"></p>
 </div>
 <p><small><em><a href="https://viz.wtf/">https://viz.wtf/</a></em></small></p>
 </section>
 <section id="manipulating-scales" class="slide level2">
 <h2>Manipulating scales</h2>
 <div class="center">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="libs/Images/Q4growth.png"></p>
-<figcaption>Q growth</figcaption>
-</figure>
-</div>
+<p><img data-src="libs/Images/Q4growth.png" style="width:85.0%"></p>
 </div>
 <p><small><em><a href="https://viz.wtf/">https://viz.wtf/</a></em></small></p>
 </section>
@@ -584,7 +544,7 @@ Dr.&nbsp;Nyssa Silbiger
 <div class="center">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="https://64.media.tumblr.com/fe84cf0265eb2890800a9a34507b9fc2/tumblr_q6rmcbb7ph1sgh0voo1_1280.jpg" class="quarto-figure quarto-figure-center" style="width:50.0%"></p>
+<p><img data-src="https://64.media.tumblr.com/fe84cf0265eb2890800a9a34507b9fc2/tumblr_q6rmcbb7ph1sgh0voo1_1280.jpg" class="quarto-figure quarto-figure-center" style="width:70.0%"></p>
 </figure>
 </div>
 </div>
@@ -616,7 +576,7 @@ Dr.&nbsp;Nyssa Silbiger
 <h2>Show me the data</h2>
 <p>Another option to show data + summary: <strong>Marginal Plots</strong></p>
 
-<img data-src="libs/Images/marginalplots.png" class="quarto-figure quarto-figure-center r-stretch"><p><small><em><a href="https://www.datanovia.com/en/blog/ggplot-examples-best-reference/#scatter-plot">Datanovia.com ggplot examples</a></em></small></p>
+<img data-src="libs/Images/marginalplots.png" class="quarto-figure quarto-figure-center r-stretch" style="width:85.0%"><p><small><em><a href="https://www.datanovia.com/en/blog/ggplot-examples-best-reference/#scatter-plot">Datanovia.com ggplot examples</a></em></small></p>
 </section>
 <section id="does-it-look-awesome" class="slide level2">
 <h2>Does it look <strong>awesome</strong>?</h2>
@@ -634,14 +594,14 @@ Dr.&nbsp;Nyssa Silbiger
 <div class="column" style="width:50%;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="libs/Images/kondo.png"></p>
+<p><img data-src="libs/Images/kondo.png" style="width:100.0%"></p>
 <figcaption>Kondo</figcaption>
 </figure>
 </div>
 </div><div class="column" style="width:50%;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="https://i.pinimg.com/originals/b1/5e/7c/b15e7c5fafcbae55bc45d1878f74edc5.jpg" class="quarto-figure quarto-figure-center"></p>
+<p><img data-src="https://i.pinimg.com/originals/b1/5e/7c/b15e7c5fafcbae55bc45d1878f74edc5.jpg" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
 </figure>
 </div>
 </div></div>
@@ -671,7 +631,7 @@ Dr.&nbsp;Nyssa Silbiger
 <section id="this-is-not-awesome" class="slide level2">
 <h2>This is not awesome</h2>
 
-<img data-src="libs/Images/piechart.png" class="r-stretch quarto-figure-center"><p class="caption">piechart</p></section>
+<img data-src="libs/Images/piechart.png" style="width:80.0%" class="r-stretch quarto-figure-center"><p class="caption">piechart</p></section>
 <section id="and-ggplot2-defaults-have-their-own-issues" class="slide level2">
 <h2>And ggplot2 defaults have their own issues</h2>
 <div class="columns">
@@ -712,7 +672,7 @@ Dr.&nbsp;Nyssa Silbiger
 <section id="make-it-better" class="slide level2">
 <h2>Make it better</h2>
 
-<img data-src="libs/Images/jotter3.png" class="r-stretch"></section>
+<img data-src="libs/Images/jotter3.png" class="quarto-figure quarto-figure-center r-stretch" style="width:85.0%"></section>
 <section class="slide level2">
 
 <h3 id="things-that-are-almost-always-bad-or-a-symptom-of-badness">Things that are <strong>almost always bad</strong>, or a symptom of badness:</h3>
@@ -735,15 +695,15 @@ Dr.&nbsp;Nyssa Silbiger
 <section id="what-needs-changing" class="slide level2">
 <h2>What needs changing?</h2>
 
-<img data-src="libs/Images/michigan1.png" class="r-stretch quarto-figure-center"><p class="caption">michigan1</p></section>
+<img data-src="libs/Images/michigan1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:90.0%"></section>
 <section id="a-possible-update" class="slide level2">
 <h2>A possible update</h2>
 
-<img data-src="libs/Images/michigan2.png" class="r-stretch quarto-figure-center"><p class="caption">michigan2</p></section>
+<img data-src="libs/Images/michigan2.png" class="quarto-figure quarto-figure-center r-stretch" style="width:90.0%"></section>
 <section id="lets-ggplot" class="slide level2">
 <h2>Let’s ggplot!</h2>
 
-<img data-src="https://cdn.myportfolio.com/45214904-6a61-4e23-98d6-b140f8654a40/9a306c0a-dac8-413d-ba2e-cc7fd4c4d5c8_rw_1920.png?h=c802991088a9623f1f7aa18c470797ee" class="quarto-figure quarto-figure-center r-stretch" style="width:50.0%"></section>
+<img data-src="https://cdn.myportfolio.com/45214904-6a61-4e23-98d6-b140f8654a40/9a306c0a-dac8-413d-ba2e-cc7fd4c4d5c8_rw_1920.png?h=c802991088a9623f1f7aa18c470797ee" class="quarto-figure quarto-figure-center r-stretch" style="width:65.0%"></section>
 <section id="grammar-of-graphics-ggplot2" class="slide level2">
 <h2>Grammar of graphics (ggplot2)</h2>
 <p><span class="green">ggplot2</span> is a data visualization package</p>

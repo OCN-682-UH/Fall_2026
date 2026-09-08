@@ -78,7 +78,7 @@ We have to really understand our data to be able to decide on the appropriate an
 ## Start exploring with visualizations that don't hide or assume anything about the data
 
 ::: {.center}
-![](https://cdn.myportfolio.com/45214904-6a61-4e23-98d6-b140f8654a40/352c905d-7be3-4808-9514-1fac3b0fe2fc_rw_1920.png?h=e32478e3ccf4317ba2d9536f416e2f90){fig-align="center" width="50%"}
+![](https://cdn.myportfolio.com/45214904-6a61-4e23-98d6-b140f8654a40/352c905d-7be3-4808-9514-1fac3b0fe2fc_rw_1920.png?h=e32478e3ccf4317ba2d9536f416e2f90){fig-align="center" width="80%"}
 :::
 
 ## For continuous (measured) observations you might start with:
@@ -125,7 +125,7 @@ Show values of observations within a group, with amount of jitter dependent on d
 ```{r, plot-label2, eval=FALSE, echo=TRUE, warning=FALSE, message=FALSE}
 library(ggbeeswarm)
 ggplot(iris, aes(x = Species, y = Petal.Length))+
-  geom_jitter(aes(color = Species),
+  geom_beeswarm(aes(color = Species),
               alpha = 0.5,
               show.legend = FALSE)+
   scale_color_manual(values = c("purple",
@@ -202,7 +202,7 @@ ggplot(faithful, aes(x = waiting, y = eruptions))+
 
 [Beyond Bar and Boxplots/](https://z3tt.github.io/beyond-bar-and-box-plots/)
 
-![](https://i0.wp.com/www.business-science.io/assets/2021-07-22-ggdist-raincloud-plots/05_plot_output.jpg?w=578&ssl=1)
+![](https://i0.wp.com/www.business-science.io/assets/2021-07-22-ggdist-raincloud-plots/05_plot_output.jpg?w=578&ssl=1){fig-align="center" width="85%"}
 
 ## Why can’t we just look at summary statistics?
 
@@ -223,7 +223,7 @@ ggplot(faithful, aes(x = waiting, y = eruptions))+
 Weissgerber TL, Milic NM, Winham SJ, Garovic VD (2015) **Beyond Bar and Line Graphs: Time for a New Data Presentation Paradigm.** PLoS Biol 13(4): e1002128. https://doi.org/10.1371/journal.pbio.1002128  
 
 
-![bar plot](libs/Images/barplot.png)
+![bar plot](libs/Images/barplot.png){fig-align="center" width="90%"}
 
 Would you draw the same conclusions with each of these datasets?
 
@@ -265,29 +265,29 @@ Would you draw the same conclusions with each of these datasets?
 
 ## Too many points, variables or series
 
-![Too many points](libs/Images/toomanypoints.png)
+![](libs/Images/toomanypoints.png){fig-align="center" width="90%"}
 
 ## Too many everything
 
-![too many everything](libs/Images/toomanyeverything.png)
+![](libs/Images/toomanyeverything.png){fig-align="center" width="90%"}
 
 ## **Emphasize** the things you want the audience or readers to remember
 
 ::: {.center}
-![line1](libs/Images/lineplot1.png)
+![](libs/Images/lineplot1.png){width="80%"}
 :::
 
 ## **Emphasize** the things you want the audience or readers to remember
 
 ::: {.center}
-![line2](libs/Images/lineplot2.png)
+![](libs/Images/lineplot2.png){width="80%"}
 :::
 
 ## **Legends:**  
 ### Put them somewhere that reduces eyes jumping back and forth across the whole page
 
 ::: {.center}
-![legend](libs/Images/legend1.png)
+![](libs/Images/legend1.png){width="80%"}
 :::
 
 <small><em>[Fundamentals of Data Visualization by Claus O. Wilke 
@@ -298,7 +298,7 @@ Would you draw the same conclusions with each of these datasets?
  
 
 ::: {.center}
-![legend2](libs/Images/legend2.png)
+![](libs/Images/legend2.png){width="80%"}
 :::
 
 <small><em>[Fundamentals of Data Visualization by Claus O. Wilke 
@@ -309,7 +309,7 @@ Would you draw the same conclusions with each of these datasets?
  
 
 ::: {.center}
-![legend3](libs/Images/legend3.png)
+![](libs/Images/legend3.png){width="90%"}
 :::
 
 
@@ -318,13 +318,13 @@ Would you draw the same conclusions with each of these datasets?
 ## Your legends should **definitely** follow a logical order
 
 ::: {.center}
-![legend4](libs/Images/legend4.png)
+![](libs/Images/legend4.png){width="90%"}
 :::
 
 
 ## Consider putting things in **context** if visualizing across plots, for easier comparison
 
-![context](libs/Images/context.png)
+![](libs/Images/context.png){fig-align="center" width="90%"}
 
 <small><em>[Fundamentals of Data Visualization by Claus O. Wilke 
 ](https://serialmentor.com/dataviz/)</em></small>
@@ -348,7 +348,7 @@ Would you draw the same conclusions with each of these datasets?
 ## Reversing scale direction
 
 ::: {.center}
-![gun death](libs/Images/gun death.png)
+![](libs/Images/gun death.png){width="55%"}
 :::
 
 <small><em>[https://viz.wtf/](https://viz.wtf/)</em></small>
@@ -356,7 +356,7 @@ Would you draw the same conclusions with each of these datasets?
 ## Manipulating scales
 
 ::: {.center}
-![Q growth](libs/Images/Q4growth.png)
+![](libs/Images/Q4growth.png){width="85%"}
 :::
 
 <small><em>[https://viz.wtf/](https://viz.wtf/)</em></small>
@@ -365,7 +365,7 @@ Would you draw the same conclusions with each of these datasets?
 ## Manipulating scales
 
 ::: {.center}
-![](https://64.media.tumblr.com/fe84cf0265eb2890800a9a34507b9fc2/tumblr_q6rmcbb7ph1sgh0voo1_1280.jpg){fig-align="center" width="50%"}
+![](https://64.media.tumblr.com/fe84cf0265eb2890800a9a34507b9fc2/tumblr_q6rmcbb7ph1sgh0voo1_1280.jpg){fig-align="center" width="70%"}
 :::
 
 <small><em>[https://viz.wtf/](https://viz.wtf/)</em></small>
@@ -387,7 +387,7 @@ Adding summary statistics, models, etc. is good - but try to also show me the *a
 ## Show me the data
 Another option to show data + summary: **Marginal Plots**
 
-![](libs/Images/marginalplots.png){fig-align="center"}
+![](libs/Images/marginalplots.png){fig-align="center" width="85%"}
 
 <small><em>[Datanovia.com ggplot examples](https://www.datanovia.com/en/blog/ggplot-examples-best-reference/#scatter-plot)</em></small>
 
@@ -408,11 +408,11 @@ Another option to show data + summary: **Marginal Plots**
 ::: {.columns}
 
 ::: {.column width="50%"}
-![Kondo](libs/Images/kondo.png)
+![Kondo](libs/Images/kondo.png){width="100%"}
 :::
 
 ::: {.column width="50%"}
-![](https://i.pinimg.com/originals/b1/5e/7c/b15e7c5fafcbae55bc45d1878f74edc5.jpg){fig-align="center"}
+![](https://i.pinimg.com/originals/b1/5e/7c/b15e7c5fafcbae55bc45d1878f74edc5.jpg){fig-align="center" width="100%"}
 :::
 
 :::
@@ -442,7 +442,7 @@ Another option to show data + summary: **Marginal Plots**
 
 ## This is not awesome
 
-![piechart](libs/Images/piechart.png)
+![piechart](libs/Images/piechart.png){fig-align="center" width="80%"}
 
 ## And ggplot2 defaults have their own issues
 
@@ -475,7 +475,7 @@ ggplot(midwest, aes(x = state, y = percbelowpoverty))+
 
 ## Make it better
 
-![](libs/Images/jotter3.png)
+![](libs/Images/jotter3.png){fig-align="center" width="85%"}
 
 ---
 
@@ -499,16 +499,16 @@ ggplot(midwest, aes(x = state, y = percbelowpoverty))+
 
 ## What needs changing?
 
-![michigan1](libs/Images/michigan1.png)
+![](libs/Images/michigan1.png){fig-align="center" width="90%"}
 
 ## A possible update
 
-![michigan2](libs/Images/michigan2.png)
+![](libs/Images/michigan2.png){fig-align="center" width="90%"}
 
 
 ## Let's ggplot!
 
-![](https://cdn.myportfolio.com/45214904-6a61-4e23-98d6-b140f8654a40/9a306c0a-dac8-413d-ba2e-cc7fd4c4d5c8_rw_1920.png?h=c802991088a9623f1f7aa18c470797ee){fig-align="center" width="50%"}
+![](https://cdn.myportfolio.com/45214904-6a61-4e23-98d6-b140f8654a40/9a306c0a-dac8-413d-ba2e-cc7fd4c4d5c8_rw_1920.png?h=c802991088a9623f1f7aa18c470797ee){fig-align="center" width="65%"}
 
 ## Grammar of graphics (ggplot2)
 [ggplot2]{.green} is a data visualization package  

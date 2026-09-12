@@ -6,11 +6,11 @@
 <script src="8_tidyr_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="8_tidyr_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="8_tidyr_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="8_tidyr_files/libs/quarto-html/quarto-syntax-highlighting-de63f62b328812d8e578a4d74e282472.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.9.38">
+<link href="8_tidyr_files/libs/quarto-html/quarto-syntax-highlighting-bb62276ab45c84d9efd712f51ff97b5a.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.10.18">
 
   <meta name="author" content="Dr.&nbsp;Nyssa Silbiger">
-  <meta name="dcterms.date" content="2026-09-07">
+  <meta name="dcterms.date" content="2026-09-12">
   <title>Computer Modeling (OCN 682)</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -21,10 +21,13 @@
     /* Default styles provided by pandoc.
     ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
     */
-    code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
     ul.task-list li input[type="checkbox"] {
@@ -203,7 +206,7 @@
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
 <div class="quarto-title-author-name">
-Dr.&nbsp;Nyssa Silbiger 
+Dr.&nbsp;Nyssa Silbiger
 </div>
         <p class="quarto-title-affiliation">
             UH Fall 2026
@@ -211,7 +214,7 @@ Dr.&nbsp;Nyssa Silbiger
     </div>
 </div>
 
-  <p class="date">2026-09-07</p>
+  <p class="date">2026-09-12</p>
 </section>
 <section id="outline-of-class" class="slide level2">
 <h2>Outline of class</h2>
@@ -252,17 +255,19 @@ Dr.&nbsp;Nyssa Silbiger
 <section id="set-up-your-script-for-today" class="slide level2">
 <h2>Set up your script for today</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="do">### Today we are going to practice tidyr with biogeochemistry data from Hawaii ####</span></span>
-<span id="cb1-2"><a href=""></a><span class="do">### Created by: Dr. Nyssa Silbiger #############</span></span>
-<span id="cb1-3"><a href=""></a><span class="do">### Updated on: 2026-09-17 ####################</span></span>
-<span id="cb1-4"><a href=""></a></span>
-<span id="cb1-5"><a href=""></a><span class="do">#### Load Libraries ######</span></span>
-<span id="cb1-6"><a href=""></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-7"><a href=""></a><span class="fu">library</span>(here)</span>
-<span id="cb1-8"><a href=""></a></span>
-<span id="cb1-9"><a href=""></a><span class="do">### Load data ######</span></span>
-<span id="cb1-10"><a href=""></a>ChemData <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">"Week_04"</span>, <span class="st">"data"</span>, <span class="st">"chemicaldata_maunalua.csv"</span>))</span>
-<span id="cb1-11"><a href=""></a><span class="fu">glimpse</span>(ChemData)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="" aria-label="1"></a><span class="do">### Today we are going to practice tidyr with biogeochemistry data from Hawaii ####</span></span>
+<span id="cb1-2"><a href="" aria-label="2"></a><span class="do">### Created by: Dr. Nyssa Silbiger #############</span></span>
+<span id="cb1-3"><a href="" aria-label="3"></a><span class="do">### Updated on: 2026-09-14 ####################</span></span>
+<span id="cb1-4"><a href="" aria-label="4"></a></span>
+<span id="cb1-5"><a href="" aria-label="5"></a><span class="do">#### Load Libraries ######</span></span>
+<span id="cb1-6"><a href="" aria-label="6"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-7"><a href="" aria-label="7"></a><span class="fu">library</span>(here)</span>
+<span id="cb1-8"><a href="" aria-label="8"></a></span>
+<span id="cb1-9"><a href="" aria-label="9"></a><span class="do">### Load data ######</span></span>
+<span id="cb1-10"><a href="" aria-label="10"></a>ChemData <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">"Week_04"</span>, <span class="st">"data"</span>, <span class="st">"chemicaldata_maunalua.csv"</span>))</span>
+<span id="cb1-11"><a href="" aria-label="11"></a><span class="fu">glimpse</span>(ChemData)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 355
 Columns: 15
@@ -288,8 +293,8 @@ $ percent_sgd &lt;dbl&gt; 20.4043928, 11.9625323, 18.5529716, 5.4677003, 16.3397
 <h2>Another way to remove all the NAs</h2>
 <p>There are several ways we can remove all the NAs in a data set</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a>ChemData_clean <span class="ot">&lt;-</span> ChemData <span class="sc">|&gt;</span></span>
-<span id="cb3-2"><a href=""></a>  <span class="fu">filter</span>(<span class="fu">complete.cases</span>(ChemData)) <span class="co"># filters out everything that is not a complete row</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="" aria-label="1"></a>ChemData_clean <span class="ot">&lt;-</span> ChemData <span class="sc">|&gt;</span></span>
+<span id="cb3-2"><a href="" aria-label="2"></a>  <span class="fu">filter</span>(<span class="fu">complete.cases</span>(ChemData)) <span class="co"># filters out everything that is not a complete row</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 
 <img data-src="libs/images/clean1.PNG" class="quarto-figure quarto-figure-center r-stretch" style="width:70.0%"><div class="callout callout-note callout-titled callout-style-default">
@@ -340,13 +345,13 @@ $ percent_sgd &lt;dbl&gt; 20.4043928, 11.9625323, 18.5529716, 5.4677003, 16.3397
 <h2>Separate</h2>
 <p>Let’s continue to build off our data frame</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5" data-code-line-numbers="3,4,5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a>ChemData_clean <span class="ot">&lt;-</span> ChemData <span class="sc">|&gt;</span></span>
-<span id="cb5-2"><a href=""></a>  <span class="fu">drop_na</span>() <span class="sc">|&gt;</span></span>
-<span id="cb5-3"><a href=""></a>  <span class="fu">separate_wider_delim</span>(<span class="at">cols  =</span> Tide_time,</span>
-<span id="cb5-4"><a href=""></a>                       <span class="at">delim =</span> <span class="st">"_"</span>,</span>
-<span id="cb5-5"><a href=""></a>                       <span class="at">names =</span> <span class="fu">c</span>(<span class="st">"Tide"</span>, <span class="st">"Time"</span>))</span>
-<span id="cb5-6"><a href=""></a></span>
-<span id="cb5-7"><a href=""></a><span class="fu">head</span>(ChemData_clean)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5" data-code-line-numbers="3,4,5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="" aria-label="1"></a>ChemData_clean <span class="ot">&lt;-</span> ChemData <span class="sc">|&gt;</span></span>
+<span id="cb5-2"><a href="" aria-label="2"></a>  <span class="fu">drop_na</span>() <span class="sc">|&gt;</span></span>
+<span id="cb5-3"><a href="" aria-label="3"></a>  <span class="fu">separate_wider_delim</span>(<span class="at">cols  =</span> Tide_time,</span>
+<span id="cb5-4"><a href="" aria-label="4"></a>                       <span class="at">delim =</span> <span class="st">"_"</span>,</span>
+<span id="cb5-5"><a href="" aria-label="5"></a>                       <span class="at">names =</span> <span class="fu">c</span>(<span class="st">"Tide"</span>, <span class="st">"Time"</span>))</span>
+<span id="cb5-6"><a href="" aria-label="6"></a></span>
+<span id="cb5-7"><a href="" aria-label="7"></a><span class="fu">head</span>(ChemData_clean)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 16
   Waypoint Zone    Lat  Long Site  Season Tide  Time  Temp_in Salinity Phosphate
@@ -366,14 +371,14 @@ $ percent_sgd &lt;dbl&gt; 20.4043928, 11.9625323, 18.5529716, 5.4677003, 16.3397
 <h2>Separate</h2>
 <p>Notice this deletes the original column. If we wanted to keep it we would add <code>cols_remove = FALSE</code>.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7" data-code-line-numbers="6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href=""></a>ChemData_clean <span class="ot">&lt;-</span> ChemData <span class="sc">|&gt;</span></span>
-<span id="cb7-2"><a href=""></a>  <span class="fu">drop_na</span>() <span class="sc">|&gt;</span></span>
-<span id="cb7-3"><a href=""></a>  <span class="fu">separate_wider_delim</span>(<span class="at">cols        =</span> Tide_time,</span>
-<span id="cb7-4"><a href=""></a>                       <span class="at">delim       =</span> <span class="st">"_"</span>,</span>
-<span id="cb7-5"><a href=""></a>                       <span class="at">names       =</span> <span class="fu">c</span>(<span class="st">"Tide"</span>, <span class="st">"Time"</span>),</span>
-<span id="cb7-6"><a href=""></a>                       <span class="at">cols_remove =</span> <span class="cn">FALSE</span>) <span class="co"># keep the original Tide_time column</span></span>
-<span id="cb7-7"><a href=""></a></span>
-<span id="cb7-8"><a href=""></a><span class="fu">head</span>(ChemData_clean)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7" data-code-line-numbers="6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="" aria-label="1"></a>ChemData_clean <span class="ot">&lt;-</span> ChemData <span class="sc">|&gt;</span></span>
+<span id="cb7-2"><a href="" aria-label="2"></a>  <span class="fu">drop_na</span>() <span class="sc">|&gt;</span></span>
+<span id="cb7-3"><a href="" aria-label="3"></a>  <span class="fu">separate_wider_delim</span>(<span class="at">cols        =</span> Tide_time,</span>
+<span id="cb7-4"><a href="" aria-label="4"></a>                       <span class="at">delim       =</span> <span class="st">"_"</span>,</span>
+<span id="cb7-5"><a href="" aria-label="5"></a>                       <span class="at">names       =</span> <span class="fu">c</span>(<span class="st">"Tide"</span>, <span class="st">"Time"</span>),</span>
+<span id="cb7-6"><a href="" aria-label="6"></a>                       <span class="at">cols_remove =</span> <span class="cn">FALSE</span>) <span class="co"># keep the original Tide_time column</span></span>
+<span id="cb7-7"><a href="" aria-label="7"></a></span>
+<span id="cb7-8"><a href="" aria-label="8"></a><span class="fu">head</span>(ChemData_clean)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 17
   Waypoint Zone    Lat  Long Site  Season Tide  Time  Tide_time Temp_in Salinity
@@ -398,7 +403,7 @@ $ percent_sgd &lt;dbl&gt; 20.4043928, 11.9625323, 18.5529716, 5.4677003, 16.3397
 <li>The <span class="param">sep</span> argument controls the separator (default is a space <code>" "</code>)</li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href=""></a><span class="fu">paste</span>(<span class="st">"Maunalua"</span>, <span class="st">"Fringing"</span>, <span class="at">sep =</span> <span class="st">"."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="" aria-label="1"></a><span class="fu">paste</span>(<span class="st">"Maunalua"</span>, <span class="st">"Fringing"</span>, <span class="at">sep =</span> <span class="st">"."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Maunalua.Fringing"</code></pre>
 </div>
@@ -408,15 +413,15 @@ $ percent_sgd &lt;dbl&gt; 20.4043928, 11.9625323, 18.5529716, 5.4677003, 16.3397
 <h2>Combining columns with paste()</h2>
 <p>Use it inside <span class="fn">mutate()</span> to create a new combined column</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11" data-code-line-numbers="7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href=""></a>ChemData_clean <span class="ot">&lt;-</span> ChemData <span class="sc">|&gt;</span></span>
-<span id="cb11-2"><a href=""></a>  <span class="fu">drop_na</span>() <span class="sc">|&gt;</span></span>
-<span id="cb11-3"><a href=""></a>  <span class="fu">separate_wider_delim</span>(<span class="at">cols        =</span> Tide_time,</span>
-<span id="cb11-4"><a href=""></a>                       <span class="at">delim       =</span> <span class="st">"_"</span>,</span>
-<span id="cb11-5"><a href=""></a>                       <span class="at">names       =</span> <span class="fu">c</span>(<span class="st">"Tide"</span>, <span class="st">"Time"</span>),</span>
-<span id="cb11-6"><a href=""></a>                       <span class="at">cols_remove =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
-<span id="cb11-7"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">Site_Zone =</span> <span class="fu">paste</span>(Site, Zone, <span class="at">sep =</span> <span class="st">"."</span>))</span>
-<span id="cb11-8"><a href=""></a></span>
-<span id="cb11-9"><a href=""></a><span class="fu">head</span>(ChemData_clean)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11" data-code-line-numbers="7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="" aria-label="1"></a>ChemData_clean <span class="ot">&lt;-</span> ChemData <span class="sc">|&gt;</span></span>
+<span id="cb11-2"><a href="" aria-label="2"></a>  <span class="fu">drop_na</span>() <span class="sc">|&gt;</span></span>
+<span id="cb11-3"><a href="" aria-label="3"></a>  <span class="fu">separate_wider_delim</span>(<span class="at">cols        =</span> Tide_time,</span>
+<span id="cb11-4"><a href="" aria-label="4"></a>                       <span class="at">delim       =</span> <span class="st">"_"</span>,</span>
+<span id="cb11-5"><a href="" aria-label="5"></a>                       <span class="at">names       =</span> <span class="fu">c</span>(<span class="st">"Tide"</span>, <span class="st">"Time"</span>),</span>
+<span id="cb11-6"><a href="" aria-label="6"></a>                       <span class="at">cols_remove =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb11-7"><a href="" aria-label="7"></a>  <span class="fu">mutate</span>(<span class="at">Site_Zone =</span> <span class="fu">paste</span>(Site, Zone, <span class="at">sep =</span> <span class="st">"."</span>))</span>
+<span id="cb11-8"><a href="" aria-label="8"></a></span>
+<span id="cb11-9"><a href="" aria-label="9"></a><span class="fu">head</span>(ChemData_clean)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 18
   Waypoint Zone    Lat  Long Site  Season Tide  Time  Tide_time Temp_in Salinity
@@ -577,10 +582,10 @@ $ percent_sgd &lt;dbl&gt; 20.4043928, 11.9625323, 18.5529716, 5.4677003, 16.3397
 <h2>pivot_longer()</h2>
 <p>Start with our <span class="var">ChemData_clean</span> dataframe</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13" data-code-line-numbers="2,3,4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href=""></a>ChemData_long <span class="ot">&lt;-</span> ChemData_clean <span class="sc">|&gt;</span></span>
-<span id="cb13-2"><a href=""></a>  <span class="fu">pivot_longer</span>(<span class="at">cols      =</span> Temp_in<span class="sc">:</span>percent_sgd, <span class="co"># select columns to pivot</span></span>
-<span id="cb13-3"><a href=""></a>               <span class="at">names_to  =</span> <span class="st">"Variables"</span>,         <span class="co"># new column for old column names</span></span>
-<span id="cb13-4"><a href=""></a>               <span class="at">values_to =</span> <span class="st">"Values"</span>)            <span class="co"># new column for the values</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13" data-code-line-numbers="2,3,4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="" aria-label="1"></a>ChemData_long <span class="ot">&lt;-</span> ChemData_clean <span class="sc">|&gt;</span></span>
+<span id="cb13-2"><a href="" aria-label="2"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols      =</span> Temp_in<span class="sc">:</span>percent_sgd, <span class="co"># select columns to pivot</span></span>
+<span id="cb13-3"><a href="" aria-label="3"></a>               <span class="at">names_to  =</span> <span class="st">"Variables"</span>,         <span class="co"># new column for old column names</span></span>
+<span id="cb13-4"><a href="" aria-label="4"></a>               <span class="at">values_to =</span> <span class="st">"Values"</span>)            <span class="co"># new column for the values</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 
 <img data-src="libs/images/Long.PNG" class="quarto-figure quarto-figure-center r-stretch" style="width:70.0%"></section>
@@ -588,10 +593,10 @@ $ percent_sgd &lt;dbl&gt; 20.4043928, 11.9625323, 18.5529716, 5.4677003, 16.3397
 <h2>What can we do with the long data set?</h2>
 <p>Let’s calculate the mean and variance for all variables at each site</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14" data-code-line-numbers="2,3,4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href=""></a>ChemData_long <span class="sc">|&gt;</span></span>
-<span id="cb14-2"><a href=""></a>  <span class="fu">group_by</span>(Variables, Site) <span class="sc">|&gt;</span></span>
-<span id="cb14-3"><a href=""></a>  <span class="fu">summarise</span>(<span class="at">Param_means =</span> <span class="fu">mean</span>(Values, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb14-4"><a href=""></a>            <span class="at">Param_vars  =</span> <span class="fu">var</span>(Values,  <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14" data-code-line-numbers="2,3,4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="" aria-label="1"></a>ChemData_long <span class="sc">|&gt;</span></span>
+<span id="cb14-2"><a href="" aria-label="2"></a>  <span class="fu">group_by</span>(Variables, Site) <span class="sc">|&gt;</span></span>
+<span id="cb14-3"><a href="" aria-label="3"></a>  <span class="fu">summarise</span>(<span class="at">Param_means =</span> <span class="fu">mean</span>(Values, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb14-4"><a href="" aria-label="4"></a>            <span class="at">Param_vars  =</span> <span class="fu">var</span>(Values,  <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 16 × 4
 # Groups:   Variables [8]
@@ -621,45 +626,45 @@ $ percent_sgd &lt;dbl&gt; 20.4043928, 11.9625323, 18.5529716, 5.4677003, 16.3397
 <p>Calculate <strong>mean, variance, and standard deviation</strong> for all variables by <strong>site, zone, and tide</strong></p>
 <p>Here is your starter code:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href=""></a>ChemData_long <span class="sc">|&gt;</span></span>
-<span id="cb16-2"><a href=""></a>  <span class="fu">group_by</span>(Variables, Site) <span class="sc">|&gt;</span></span>
-<span id="cb16-3"><a href=""></a>  <span class="fu">summarise</span>(<span class="at">Param_means =</span> <span class="fu">mean</span>(Values, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb16-4"><a href=""></a>            <span class="at">Param_vars  =</span> <span class="fu">var</span>(Values,  <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="" aria-label="1"></a>ChemData_long <span class="sc">|&gt;</span></span>
+<span id="cb16-2"><a href="" aria-label="2"></a>  <span class="fu">group_by</span>(Variables, Site) <span class="sc">|&gt;</span></span>
+<span id="cb16-3"><a href="" aria-label="3"></a>  <span class="fu">summarise</span>(<span class="at">Param_means =</span> <span class="fu">mean</span>(Values, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb16-4"><a href="" aria-label="4"></a>            <span class="at">Param_vars  =</span> <span class="fu">var</span>(Values,  <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="example-using-facet_wrap-with-long-data" class="slide level2">
 <h2>Example using facet_wrap with long data</h2>
 <p>Create boxplots of every parameter by site</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17" data-code-line-numbers="2,3,4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href=""></a>ChemData_long <span class="sc">|&gt;</span></span>
-<span id="cb17-2"><a href=""></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Site, <span class="at">y =</span> Values)) <span class="sc">+</span></span>
-<span id="cb17-3"><a href=""></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
-<span id="cb17-4"><a href=""></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>Variables)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17" data-code-line-numbers="2,3,4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="" aria-label="1"></a>ChemData_long <span class="sc">|&gt;</span></span>
+<span id="cb17-2"><a href="" aria-label="2"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Site, <span class="at">y =</span> Values)) <span class="sc">+</span></span>
+<span id="cb17-3"><a href="" aria-label="3"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb17-4"><a href="" aria-label="4"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>Variables)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
 </div>
-<img data-src="8_tidyr_files/figure-revealjs/unnamed-chunk-10-1.png" width="960" class="r-stretch"></section>
+<img data-src="8_tidyr_files/figure-revealjs/unnamed-chunk-11-1.png" width="960" class="r-stretch"></section>
 <section id="fix-the-axes" class="slide level2">
 <h2>Fix the axes</h2>
 <p>Create boxplots of every parameter by site, <span class="orange">fix the axes.</span></p>
 <p><code>scales = "free"</code> releases both the x and y axes</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18" data-code-line-numbers="4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href=""></a>ChemData_long <span class="sc">|&gt;</span></span>
-<span id="cb18-2"><a href=""></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Site, <span class="at">y =</span> Values)) <span class="sc">+</span></span>
-<span id="cb18-3"><a href=""></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
-<span id="cb18-4"><a href=""></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>Variables, <span class="at">scales =</span> <span class="st">"free"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18" data-code-line-numbers="4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="" aria-label="1"></a>ChemData_long <span class="sc">|&gt;</span></span>
+<span id="cb18-2"><a href="" aria-label="2"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Site, <span class="at">y =</span> Values)) <span class="sc">+</span></span>
+<span id="cb18-3"><a href="" aria-label="3"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb18-4"><a href="" aria-label="4"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>Variables, <span class="at">scales =</span> <span class="st">"free"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
 </div>
-<img data-src="8_tidyr_files/figure-revealjs/unnamed-chunk-11-1.png" width="960" class="r-stretch"></section>
+<img data-src="8_tidyr_files/figure-revealjs/unnamed-chunk-12-1.png" width="960" class="r-stretch"></section>
 <section id="pivot_wider" class="slide level2">
 <h2>pivot_wider()</h2>
 <p>Let’s say we got data in long format and need to convert it back to wide</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19" data-code-line-numbers="2,3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href=""></a>ChemData_wide <span class="ot">&lt;-</span> ChemData_long <span class="sc">|&gt;</span></span>
-<span id="cb19-2"><a href=""></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from  =</span> Variables,</span>
-<span id="cb19-3"><a href=""></a>              <span class="at">values_from =</span> Values)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19" data-code-line-numbers="2,3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="" aria-label="1"></a>ChemData_wide <span class="ot">&lt;-</span> ChemData_long <span class="sc">|&gt;</span></span>
+<span id="cb19-2"><a href="" aria-label="2"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from  =</span> Variables,</span>
+<span id="cb19-3"><a href="" aria-label="3"></a>              <span class="at">values_from =</span> Values)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 
-<img data-src="libs/images/Wide%20again.PNG" class="quarto-figure quarto-figure-center r-stretch" style="width:70.0%"></section>
+<img data-src="libs/images/Wide_again.PNG" class="quarto-figure quarto-figure-center r-stretch" style="width:70.0%"></section>
 <section id="full-pipeline-summary-statistics-and-export" class="slide level2 inverse center middle">
 <h2>Full pipeline: summary statistics and export</h2>
 </section>
@@ -667,86 +672,86 @@ $ percent_sgd &lt;dbl&gt; 20.4043928, 11.9625323, 18.5529716, 5.4677003, 16.3397
 <h2>Remove all NAs</h2>
 <p>Start from the beginning and work through our entire flow again, ending with data export.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20" data-code-line-numbers="2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href=""></a>ChemData_clean <span class="ot">&lt;-</span> ChemData <span class="sc">|&gt;</span></span>
-<span id="cb20-2"><a href=""></a>  <span class="fu">drop_na</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20" data-code-line-numbers="2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="" aria-label="1"></a>ChemData_clean <span class="ot">&lt;-</span> ChemData <span class="sc">|&gt;</span></span>
+<span id="cb20-2"><a href="" aria-label="2"></a>  <span class="fu">drop_na</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="separate-tide_time-into-two-columns" class="slide level2">
 <h2>Separate Tide_time into two columns</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21" data-code-line-numbers="3,4,5,6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href=""></a>ChemData_clean <span class="ot">&lt;-</span> ChemData <span class="sc">|&gt;</span></span>
-<span id="cb21-2"><a href=""></a>  <span class="fu">drop_na</span>() <span class="sc">|&gt;</span></span>
-<span id="cb21-3"><a href=""></a>  <span class="fu">separate_wider_delim</span>(<span class="at">cols        =</span> Tide_time,</span>
-<span id="cb21-4"><a href=""></a>                       <span class="at">delim       =</span> <span class="st">"_"</span>,</span>
-<span id="cb21-5"><a href=""></a>                       <span class="at">names       =</span> <span class="fu">c</span>(<span class="st">"Tide"</span>, <span class="st">"Time"</span>),</span>
-<span id="cb21-6"><a href=""></a>                       <span class="at">cols_remove =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21" data-code-line-numbers="3,4,5,6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="" aria-label="1"></a>ChemData_clean <span class="ot">&lt;-</span> ChemData <span class="sc">|&gt;</span></span>
+<span id="cb21-2"><a href="" aria-label="2"></a>  <span class="fu">drop_na</span>() <span class="sc">|&gt;</span></span>
+<span id="cb21-3"><a href="" aria-label="3"></a>  <span class="fu">separate_wider_delim</span>(<span class="at">cols        =</span> Tide_time,</span>
+<span id="cb21-4"><a href="" aria-label="4"></a>                       <span class="at">delim       =</span> <span class="st">"_"</span>,</span>
+<span id="cb21-5"><a href="" aria-label="5"></a>                       <span class="at">names       =</span> <span class="fu">c</span>(<span class="st">"Tide"</span>, <span class="st">"Time"</span>),</span>
+<span id="cb21-6"><a href="" aria-label="6"></a>                       <span class="at">cols_remove =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="pivot-the-data-longer" class="slide level2">
 <h2>Pivot the data longer</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22" data-code-line-numbers="7,8,9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href=""></a>ChemData_clean <span class="ot">&lt;-</span> ChemData <span class="sc">|&gt;</span></span>
-<span id="cb22-2"><a href=""></a>  <span class="fu">drop_na</span>() <span class="sc">|&gt;</span></span>
-<span id="cb22-3"><a href=""></a>  <span class="fu">separate_wider_delim</span>(<span class="at">cols        =</span> Tide_time,</span>
-<span id="cb22-4"><a href=""></a>                       <span class="at">delim       =</span> <span class="st">"_"</span>,</span>
-<span id="cb22-5"><a href=""></a>                       <span class="at">names       =</span> <span class="fu">c</span>(<span class="st">"Tide"</span>, <span class="st">"Time"</span>),</span>
-<span id="cb22-6"><a href=""></a>                       <span class="at">cols_remove =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
-<span id="cb22-7"><a href=""></a>  <span class="fu">pivot_longer</span>(<span class="at">cols      =</span> Temp_in<span class="sc">:</span>percent_sgd,</span>
-<span id="cb22-8"><a href=""></a>               <span class="at">names_to  =</span> <span class="st">"Variables"</span>,</span>
-<span id="cb22-9"><a href=""></a>               <span class="at">values_to =</span> <span class="st">"Values"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22" data-code-line-numbers="7,8,9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="" aria-label="1"></a>ChemData_clean <span class="ot">&lt;-</span> ChemData <span class="sc">|&gt;</span></span>
+<span id="cb22-2"><a href="" aria-label="2"></a>  <span class="fu">drop_na</span>() <span class="sc">|&gt;</span></span>
+<span id="cb22-3"><a href="" aria-label="3"></a>  <span class="fu">separate_wider_delim</span>(<span class="at">cols        =</span> Tide_time,</span>
+<span id="cb22-4"><a href="" aria-label="4"></a>                       <span class="at">delim       =</span> <span class="st">"_"</span>,</span>
+<span id="cb22-5"><a href="" aria-label="5"></a>                       <span class="at">names       =</span> <span class="fu">c</span>(<span class="st">"Tide"</span>, <span class="st">"Time"</span>),</span>
+<span id="cb22-6"><a href="" aria-label="6"></a>                       <span class="at">cols_remove =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb22-7"><a href="" aria-label="7"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols      =</span> Temp_in<span class="sc">:</span>percent_sgd,</span>
+<span id="cb22-8"><a href="" aria-label="8"></a>               <span class="at">names_to  =</span> <span class="st">"Variables"</span>,</span>
+<span id="cb22-9"><a href="" aria-label="9"></a>               <span class="at">values_to =</span> <span class="st">"Values"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="group-by-variable-site-time-and-calculate-means" class="slide level2">
 <h2>Group by Variable, Site, Time and calculate means</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23" data-code-line-numbers="10,11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href=""></a>ChemData_clean <span class="ot">&lt;-</span> ChemData <span class="sc">|&gt;</span></span>
-<span id="cb23-2"><a href=""></a>  <span class="fu">drop_na</span>() <span class="sc">|&gt;</span></span>
-<span id="cb23-3"><a href=""></a>  <span class="fu">separate_wider_delim</span>(<span class="at">cols        =</span> Tide_time,</span>
-<span id="cb23-4"><a href=""></a>                       <span class="at">delim       =</span> <span class="st">"_"</span>,</span>
-<span id="cb23-5"><a href=""></a>                       <span class="at">names       =</span> <span class="fu">c</span>(<span class="st">"Tide"</span>, <span class="st">"Time"</span>),</span>
-<span id="cb23-6"><a href=""></a>                       <span class="at">cols_remove =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
-<span id="cb23-7"><a href=""></a>  <span class="fu">pivot_longer</span>(<span class="at">cols      =</span> Temp_in<span class="sc">:</span>percent_sgd,</span>
-<span id="cb23-8"><a href=""></a>               <span class="at">names_to  =</span> <span class="st">"Variables"</span>,</span>
-<span id="cb23-9"><a href=""></a>               <span class="at">values_to =</span> <span class="st">"Values"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb23-10"><a href=""></a>  <span class="fu">group_by</span>(Variables, Site, Time) <span class="sc">|&gt;</span></span>
-<span id="cb23-11"><a href=""></a>  <span class="fu">summarise</span>(<span class="at">mean_vals =</span> <span class="fu">mean</span>(Values, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23" data-code-line-numbers="10,11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="" aria-label="1"></a>ChemData_clean <span class="ot">&lt;-</span> ChemData <span class="sc">|&gt;</span></span>
+<span id="cb23-2"><a href="" aria-label="2"></a>  <span class="fu">drop_na</span>() <span class="sc">|&gt;</span></span>
+<span id="cb23-3"><a href="" aria-label="3"></a>  <span class="fu">separate_wider_delim</span>(<span class="at">cols        =</span> Tide_time,</span>
+<span id="cb23-4"><a href="" aria-label="4"></a>                       <span class="at">delim       =</span> <span class="st">"_"</span>,</span>
+<span id="cb23-5"><a href="" aria-label="5"></a>                       <span class="at">names       =</span> <span class="fu">c</span>(<span class="st">"Tide"</span>, <span class="st">"Time"</span>),</span>
+<span id="cb23-6"><a href="" aria-label="6"></a>                       <span class="at">cols_remove =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb23-7"><a href="" aria-label="7"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols      =</span> Temp_in<span class="sc">:</span>percent_sgd,</span>
+<span id="cb23-8"><a href="" aria-label="8"></a>               <span class="at">names_to  =</span> <span class="st">"Variables"</span>,</span>
+<span id="cb23-9"><a href="" aria-label="9"></a>               <span class="at">values_to =</span> <span class="st">"Values"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb23-10"><a href="" aria-label="10"></a>  <span class="fu">group_by</span>(Variables, Site, Time) <span class="sc">|&gt;</span></span>
+<span id="cb23-11"><a href="" aria-label="11"></a>  <span class="fu">summarise</span>(<span class="at">mean_vals =</span> <span class="fu">mean</span>(Values, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="convert-back-to-wide" class="slide level2">
 <h2>Convert back to wide</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24" data-code-line-numbers="12,13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href=""></a>ChemData_clean <span class="ot">&lt;-</span> ChemData <span class="sc">|&gt;</span></span>
-<span id="cb24-2"><a href=""></a>  <span class="fu">drop_na</span>() <span class="sc">|&gt;</span></span>
-<span id="cb24-3"><a href=""></a>  <span class="fu">separate_wider_delim</span>(<span class="at">cols        =</span> Tide_time,</span>
-<span id="cb24-4"><a href=""></a>                       <span class="at">delim       =</span> <span class="st">"_"</span>,</span>
-<span id="cb24-5"><a href=""></a>                       <span class="at">names       =</span> <span class="fu">c</span>(<span class="st">"Tide"</span>, <span class="st">"Time"</span>),</span>
-<span id="cb24-6"><a href=""></a>                       <span class="at">cols_remove =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
-<span id="cb24-7"><a href=""></a>  <span class="fu">pivot_longer</span>(<span class="at">cols      =</span> Temp_in<span class="sc">:</span>percent_sgd,</span>
-<span id="cb24-8"><a href=""></a>               <span class="at">names_to  =</span> <span class="st">"Variables"</span>,</span>
-<span id="cb24-9"><a href=""></a>               <span class="at">values_to =</span> <span class="st">"Values"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb24-10"><a href=""></a>  <span class="fu">group_by</span>(Variables, Site, Time) <span class="sc">|&gt;</span></span>
-<span id="cb24-11"><a href=""></a>  <span class="fu">summarise</span>(<span class="at">mean_vals =</span> <span class="fu">mean</span>(Values, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb24-12"><a href=""></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from  =</span> Variables,</span>
-<span id="cb24-13"><a href=""></a>              <span class="at">values_from =</span> mean_vals)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24" data-code-line-numbers="12,13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="" aria-label="1"></a>ChemData_clean <span class="ot">&lt;-</span> ChemData <span class="sc">|&gt;</span></span>
+<span id="cb24-2"><a href="" aria-label="2"></a>  <span class="fu">drop_na</span>() <span class="sc">|&gt;</span></span>
+<span id="cb24-3"><a href="" aria-label="3"></a>  <span class="fu">separate_wider_delim</span>(<span class="at">cols        =</span> Tide_time,</span>
+<span id="cb24-4"><a href="" aria-label="4"></a>                       <span class="at">delim       =</span> <span class="st">"_"</span>,</span>
+<span id="cb24-5"><a href="" aria-label="5"></a>                       <span class="at">names       =</span> <span class="fu">c</span>(<span class="st">"Tide"</span>, <span class="st">"Time"</span>),</span>
+<span id="cb24-6"><a href="" aria-label="6"></a>                       <span class="at">cols_remove =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb24-7"><a href="" aria-label="7"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols      =</span> Temp_in<span class="sc">:</span>percent_sgd,</span>
+<span id="cb24-8"><a href="" aria-label="8"></a>               <span class="at">names_to  =</span> <span class="st">"Variables"</span>,</span>
+<span id="cb24-9"><a href="" aria-label="9"></a>               <span class="at">values_to =</span> <span class="st">"Values"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb24-10"><a href="" aria-label="10"></a>  <span class="fu">group_by</span>(Variables, Site, Time) <span class="sc">|&gt;</span></span>
+<span id="cb24-11"><a href="" aria-label="11"></a>  <span class="fu">summarise</span>(<span class="at">mean_vals =</span> <span class="fu">mean</span>(Values, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb24-12"><a href="" aria-label="12"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from  =</span> Variables,</span>
+<span id="cb24-13"><a href="" aria-label="13"></a>              <span class="at">values_from =</span> mean_vals)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="export-the-csv-file" class="slide level2">
 <h2>Export the csv file</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25" data-code-line-numbers="14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href=""></a>ChemData_clean <span class="ot">&lt;-</span> ChemData <span class="sc">|&gt;</span></span>
-<span id="cb25-2"><a href=""></a>  <span class="fu">drop_na</span>() <span class="sc">|&gt;</span></span>
-<span id="cb25-3"><a href=""></a>  <span class="fu">separate_wider_delim</span>(<span class="at">cols        =</span> Tide_time,</span>
-<span id="cb25-4"><a href=""></a>                       <span class="at">delim       =</span> <span class="st">"_"</span>,</span>
-<span id="cb25-5"><a href=""></a>                       <span class="at">names       =</span> <span class="fu">c</span>(<span class="st">"Tide"</span>, <span class="st">"Time"</span>),</span>
-<span id="cb25-6"><a href=""></a>                       <span class="at">cols_remove =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
-<span id="cb25-7"><a href=""></a>  <span class="fu">pivot_longer</span>(<span class="at">cols      =</span> Temp_in<span class="sc">:</span>percent_sgd,</span>
-<span id="cb25-8"><a href=""></a>               <span class="at">names_to  =</span> <span class="st">"Variables"</span>,</span>
-<span id="cb25-9"><a href=""></a>               <span class="at">values_to =</span> <span class="st">"Values"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb25-10"><a href=""></a>  <span class="fu">group_by</span>(Variables, Site, Time) <span class="sc">|&gt;</span></span>
-<span id="cb25-11"><a href=""></a>  <span class="fu">summarise</span>(<span class="at">mean_vals =</span> <span class="fu">mean</span>(Values, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb25-12"><a href=""></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from  =</span> Variables,</span>
-<span id="cb25-13"><a href=""></a>              <span class="at">values_from =</span> mean_vals) <span class="sc">|&gt;</span></span>
-<span id="cb25-14"><a href=""></a>  <span class="fu">write_csv</span>(<span class="fu">here</span>(<span class="st">"Week_04"</span>, <span class="st">"output"</span>, <span class="st">"summary.csv"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25" data-code-line-numbers="14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="" aria-label="1"></a>ChemData_clean <span class="ot">&lt;-</span> ChemData <span class="sc">|&gt;</span></span>
+<span id="cb25-2"><a href="" aria-label="2"></a>  <span class="fu">drop_na</span>() <span class="sc">|&gt;</span></span>
+<span id="cb25-3"><a href="" aria-label="3"></a>  <span class="fu">separate_wider_delim</span>(<span class="at">cols        =</span> Tide_time,</span>
+<span id="cb25-4"><a href="" aria-label="4"></a>                       <span class="at">delim       =</span> <span class="st">"_"</span>,</span>
+<span id="cb25-5"><a href="" aria-label="5"></a>                       <span class="at">names       =</span> <span class="fu">c</span>(<span class="st">"Tide"</span>, <span class="st">"Time"</span>),</span>
+<span id="cb25-6"><a href="" aria-label="6"></a>                       <span class="at">cols_remove =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb25-7"><a href="" aria-label="7"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols      =</span> Temp_in<span class="sc">:</span>percent_sgd,</span>
+<span id="cb25-8"><a href="" aria-label="8"></a>               <span class="at">names_to  =</span> <span class="st">"Variables"</span>,</span>
+<span id="cb25-9"><a href="" aria-label="9"></a>               <span class="at">values_to =</span> <span class="st">"Values"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb25-10"><a href="" aria-label="10"></a>  <span class="fu">group_by</span>(Variables, Site, Time) <span class="sc">|&gt;</span></span>
+<span id="cb25-11"><a href="" aria-label="11"></a>  <span class="fu">summarise</span>(<span class="at">mean_vals =</span> <span class="fu">mean</span>(Values, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb25-12"><a href="" aria-label="12"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from  =</span> Variables,</span>
+<span id="cb25-13"><a href="" aria-label="13"></a>              <span class="at">values_from =</span> mean_vals) <span class="sc">|&gt;</span></span>
+<span id="cb25-14"><a href="" aria-label="14"></a>  <span class="fu">write_csv</span>(<span class="fu">here</span>(<span class="st">"Week_04"</span>, <span class="st">"output"</span>, <span class="st">"summary.csv"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
@@ -766,11 +771,11 @@ $ percent_sgd &lt;dbl&gt; 20.4043928, 11.9625323, 18.5529716, 5.4677003, 16.3397
 <h2>Today’s totally awesome R package</h2>
 <h3 id="make-your-animals-talk-with-cowsay">Make your animals talk with {cowsay}</h3>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href=""></a><span class="fu">install.packages</span>(<span class="st">"cowsay"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="" aria-label="1"></a><span class="fu">install.packages</span>(<span class="st">"cowsay"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href=""></a><span class="fu">library</span>(cowsay)</span>
-<span id="cb27-2"><a href=""></a><span class="fu">say</span>(<span class="st">"I love tidy data!"</span>, <span class="at">by =</span> <span class="st">"cat"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="" aria-label="1"></a><span class="fu">library</span>(cowsay)</span>
+<span id="cb27-2"><a href="" aria-label="2"></a><span class="fu">say</span>(<span class="st">"I love tidy data!"</span>, <span class="at">by =</span> <span class="st">"cat"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
  ___________________ 

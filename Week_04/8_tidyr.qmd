@@ -6,6 +6,7 @@ institute: "UH Fall 2026"
 date: today
 resources:
   - custom-theme.scss
+  - libs/images/wide.PNG
 format:
   revealjs:
     theme: [default, custom-theme.scss]
@@ -24,6 +25,9 @@ format:
 options(htmltools.dir.version = FALSE)
 library(tidyverse)
 library(here)
+# Load with a relative path so the bundle works on Posit Connect
+# (here() requires a .Rproj file that isn't included in the deployment bundle)
+ChemData <- read_csv("data/chemicaldata_maunalua.csv", show_col_types = FALSE)
 ```
 
 ## Outline of class
@@ -64,10 +68,10 @@ Basics: I collected biogeochemistry data at sites in Hawai'i with submarine grou
 
 ## Set up your script for today
 
-```{r, message=FALSE, warning=FALSE, echo=TRUE}
+```{r, message=FALSE, warning=FALSE, echo=TRUE, eval=FALSE}
 ### Today we are going to practice tidyr with biogeochemistry data from Hawaii ####
 ### Created by: Dr. Nyssa Silbiger #############
-### Updated on: 2026-09-17 ####################
+### Updated on: 2026-09-14 ####################
 
 #### Load Libraries ######
 library(tidyverse)
@@ -75,6 +79,10 @@ library(here)
 
 ### Load data ######
 ChemData <- read_csv(here("Week_04", "data", "chemicaldata_maunalua.csv"))
+glimpse(ChemData)
+```
+
+```{r, echo=FALSE}
 glimpse(ChemData)
 ```
 
@@ -310,7 +318,7 @@ ChemData_wide <- ChemData_long |>
               values_from = Values)
 ```
 
-![](libs/images/Wide again.PNG){fig-align="center" width="70%"}
+![](libs/images/Wide_again.PNG){fig-align="center" width="70%"}
 
 ## Full pipeline: summary statistics and export {.inverse .center .middle}
 
@@ -389,7 +397,7 @@ ChemData_clean <- ChemData |>
 
 ## Export the csv file
 
-```{r, echo=TRUE}
+```{r, eval=FALSE, echo=TRUE}
 #| code-line-numbers: "14"
 ChemData_clean <- ChemData |>
   drop_na() |>

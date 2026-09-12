@@ -1,0 +1,1460 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="7_dplyr_files/libs/clipboard/clipboard.min.js"></script>
+<script src="7_dplyr_files/libs/quarto-html/tabby.min.js"></script>
+<script src="7_dplyr_files/libs/quarto-html/popper.min.js"></script>
+<script src="7_dplyr_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="7_dplyr_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="7_dplyr_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="7_dplyr_files/libs/quarto-html/quarto-syntax-highlighting-de63f62b328812d8e578a4d74e282472.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.9.38">
+
+  <meta name="author" content="Dr.&nbsp;Nyssa Silbiger">
+  <meta name="dcterms.date" content="2026-09-12">
+  <title>Computer Modeling (OCN 682)</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="7_dplyr_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="7_dplyr_files/libs/revealjs/dist/reveal.css">
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #24292e;  }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #24292e; } /* Normal */
+    code span.al { color: #ff5555; font-weight: bold; } /* Alert */
+    code span.an { color: #6a737d; } /* Annotation */
+    code span.at { color: #d73a49; } /* Attribute */
+    code span.bn { color: #005cc5; } /* BaseN */
+    code span.bu { color: #d73a49; } /* BuiltIn */
+    code span.cf { color: #d73a49; } /* ControlFlow */
+    code span.ch { color: #032f62; } /* Char */
+    code span.cn { color: #005cc5; } /* Constant */
+    code span.co { color: #6a737d; } /* Comment */
+    code span.cv { color: #6a737d; } /* CommentVar */
+    code span.do { color: #6a737d; } /* Documentation */
+    code span.dt { color: #d73a49; } /* DataType */
+    code span.dv { color: #005cc5; } /* DecVal */
+    code span.er { color: #ff5555; text-decoration: underline; } /* Error */
+    code span.ex { color: #d73a49; font-weight: bold; } /* Extension */
+    code span.fl { color: #005cc5; } /* Float */
+    code span.fu { color: #6f42c1; } /* Function */
+    code span.im { color: #032f62; } /* Import */
+    code span.in { color: #6a737d; } /* Information */
+    code span.kw { color: #d73a49; } /* Keyword */
+    code span.op { color: #24292e; } /* Operator */
+    code span.ot { color: #6f42c1; } /* Other */
+    code span.pp { color: #d73a49; } /* Preprocessor */
+    code span.re { color: #6a737d; } /* RegionMarker */
+    code span.sc { color: #005cc5; } /* SpecialChar */
+    code span.ss { color: #032f62; } /* SpecialString */
+    code span.st { color: #032f62; } /* String */
+    code span.va { color: #e36209; } /* Variable */
+    code span.vs { color: #032f62; } /* VerbatimString */
+    code span.wa { color: #ff5555; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="7_dplyr_files/libs/revealjs/dist/theme/quarto-9e4340bb97cbf06a7fc0e3582515d99c.css">
+  <link href="7_dplyr_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="7_dplyr_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="7_dplyr_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="7_dplyr_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">Computer Modeling (OCN 682)</h1>
+  <p class="subtitle">Data wrangling: dplyr</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Dr.&nbsp;Nyssa Silbiger 
+</div>
+        <p class="quarto-title-affiliation">
+            UH Fall 2026
+          </p>
+    </div>
+</div>
+
+  <p class="date">2026-09-12</p>
+</section>
+<section id="outline-of-class" class="slide level2">
+<h2>Outline of class</h2>
+<ol type="1">
+<li>Quiz!</li>
+<li>Online lecture review</li>
+<li>Intro to {dplyr}
+<ul>
+<li>a set of verbs for manipulating data:</li>
+<li>filtering rows, selecting columns, sorting rows, mutating columns, summarising, grouping, counting, removing NAs</li>
+</ul></li>
+</ol>
+<p>Homework<br>
+1. Practice with dplyr</p>
+<p><a href="https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-transformation.pdf">dplyr cheat sheet.</a> Download this now to use as a resource.</p>
+</section>
+<section id="review" class="slide level2">
+<h2>Review</h2>
+<ol type="1">
+<li><p>Where do I change the font size of my x and y labels?</p></li>
+<li><p>How do I save my plot?</p></li>
+</ol>
+</section>
+<section id="intro-to-the-dplyr-package-part-of-the-tidyverse" class="slide level2">
+<h2>Intro to the {dplyr} package (part of the TidyVerse)</h2>
+
+<img data-src="https://cdn.myportfolio.com/45214904-6a61-4e23-98d6-b140f8654a40/fc9b748b-db96-4ed4-aa23-f6e0ffc866ee_rw_1920.jpg?h=8fa394b572089354aa87b1d602b0f887" class="quarto-figure quarto-figure-center r-stretch" style="width:70.0%"><p>Illustrations from the Openscapes blog <a href="https://www.openscapes.org/blog/2020/10/12/tidy-data/">Tidy Data for reproducibility, efficiency</a>, and collaboration by Julia Lowndes and Allison Horst</p>
+</section>
+<section id="dplyr-verbs-for-manipulating-data" class="slide level2">
+<h2>dplyr: verbs for manipulating data</h2>
+
+<img data-src="libs/images/dplyr_verbs.PNG" class="quarto-figure quarto-figure-center r-stretch" style="width:90.0%"></section>
+<section id="penguin-data-again." class="slide level2">
+<h2>Penguin data again.</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="do">### Today we are going to plot penguin data ####</span></span>
+<span id="cb1-2"><a href=""></a><span class="do">### Created by: Dr. Nyssa Silbiger #############</span></span>
+<span id="cb1-3"><a href=""></a><span class="do">### Updated on: 2026-09-15 ####################</span></span>
+<span id="cb1-4"><a href=""></a></span>
+<span id="cb1-5"><a href=""></a><span class="do">#### Load Libraries ######</span></span>
+<span id="cb1-6"><a href=""></a><span class="fu">library</span>(palmerpenguins)</span>
+<span id="cb1-7"><a href=""></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-8"><a href=""></a><span class="fu">library</span>(here)</span>
+<span id="cb1-9"><a href=""></a></span>
+<span id="cb1-10"><a href=""></a><span class="do">### Load data ######</span></span>
+<span id="cb1-11"><a href=""></a><span class="co"># The data is part of the package and is called penguins</span></span>
+<span id="cb1-12"><a href=""></a><span class="fu">glimpse</span>(penguins)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 344
+Columns: 8
+$ species           &lt;fct&gt; Adelie, Adelie, Adelie, Adelie, Adelie, Adelie, Adel…
+$ island            &lt;fct&gt; Torgersen, Torgersen, Torgersen, Torgersen, Torgerse…
+$ bill_length_mm    &lt;dbl&gt; 39.1, 39.5, 40.3, NA, 36.7, 39.3, 38.9, 39.2, 34.1, …
+$ bill_depth_mm     &lt;dbl&gt; 18.7, 17.4, 18.0, NA, 19.3, 20.6, 17.8, 19.6, 18.1, …
+$ flipper_length_mm &lt;int&gt; 181, 186, 195, NA, 193, 190, 181, 195, 193, 190, 186…
+$ body_mass_g       &lt;int&gt; 3750, 3800, 3250, NA, 3450, 3650, 3625, 4675, 3475, …
+$ sex               &lt;fct&gt; male, female, female, NA, female, male, female, male…
+$ year              &lt;int&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007…</code></pre>
+</div>
+</div>
+</section>
+<section id="filter" class="slide level2">
+<h2>Filter</h2>
+
+<img data-src="https://cdn.myportfolio.com/45214904-6a61-4e23-98d6-b140f8654a40/cb8d9c50-f48e-4c6d-a5b3-1d30ce0be2ad_rw_1920.png?h=1a879eda58a5efbf709ad0a59d784f98" class="quarto-figure quarto-figure-center r-stretch" style="width:70.0%"></section>
+<section id="filter-1" class="slide level2">
+<h2>filter</h2>
+<h3 id="extract-rows-that-meet-some-criteria">Extract rows that meet some criteria</h3>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a><span class="fu">filter</span>(<span class="at">.data =</span> DATA, ...)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div><div class="column" style="width:50%;">
+<ul>
+<li><p><span class="orange">DATA</span> = Data frame to transform</p></li>
+<li><p><span class="orange">…</span> = One or more conditions<br>
+<span class="fn">filter()</span> returns each row for which the condition is TRUE</p></li>
+</ul>
+</div></div>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Tip: <code>.data =</code> is optional when piping</strong></p>
+</div>
+<div class="callout-content">
+<p><code>filter(.data = penguins, sex == "female")</code> and <code>penguins |&gt; filter(sex == "female")</code> do the same thing. When you use <span class="op">|&gt;</span>, the dataframe is passed in automatically — no need to write <span class="param">.data =</span> explicitly.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="filter-only-the-female-penguins" class="slide level2">
+<h2>Filter only the female penguins</h2>
+<h3 id="as-always-exact-spelling-and-capitalization-matters">As always, exact spelling and capitalization matters</h3>
+<p>Before filtering</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a><span class="fu">head</span>(penguins)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 8
+  species island    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+  &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt;
+1 Adelie  Torgersen           39.1          18.7               181        3750
+2 Adelie  Torgersen           39.5          17.4               186        3800
+3 Adelie  Torgersen           40.3          18                 195        3250
+4 Adelie  Torgersen           NA            NA                  NA          NA
+5 Adelie  Torgersen           36.7          19.3               193        3450
+6 Adelie  Torgersen           39.3          20.6               190        3650
+# ℹ 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="filter-only-the-female-penguins-1" class="slide level2">
+<h2>Filter only the female penguins</h2>
+<h3 id="as-always-exact-spelling-and-capitalization-matters-1">As always, exact spelling and capitalization matters</h3>
+<p>After filtering</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a><span class="fu">filter</span>(<span class="at">.data =</span> penguins, sex <span class="sc">==</span> <span class="st">"female"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 165 × 8
+   species island    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+   &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt;
+ 1 Adelie  Torgersen           39.5          17.4               186        3800
+ 2 Adelie  Torgersen           40.3          18                 195        3250
+ 3 Adelie  Torgersen           36.7          19.3               193        3450
+ 4 Adelie  Torgersen           38.9          17.8               181        3625
+ 5 Adelie  Torgersen           41.1          17.6               182        3200
+ 6 Adelie  Torgersen           36.6          17.8               185        3700
+ 7 Adelie  Torgersen           38.7          19                 195        3450
+ 8 Adelie  Torgersen           34.4          18.4               184        3325
+ 9 Adelie  Biscoe              37.8          18.3               174        3400
+10 Adelie  Biscoe              35.9          19.2               189        3800
+# ℹ 155 more rows
+# ℹ 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="vs" class="slide level2">
+<h2>= vs ==</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8" data-code-line-numbers="2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href=""></a><span class="fu">filter</span>(<span class="at">.data =</span> penguins,</span>
+<span id="cb8-2"><a href=""></a>       sex <span class="sc">==</span> <span class="st">"female"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div><div class="column" style="width:50%;">
+<p>One <span class="green">=</span> sets an argument in the function</p>
+<p>Two <span class="green">==</span> reads as “is exactly equal to.” It is a question that returns a TRUE or FALSE. Here, filter keeps every TRUE</p>
+</div></div>
+</section>
+<section id="a-list-of-logical-expressions" class="slide level2">
+<h2>A list of logical expressions</h2>
+
+<img data-src="libs/images/logical_test.PNG" class="quarto-figure quarto-figure-center r-stretch" style="width:80.0%"></section>
+<section id="how-would-i-use-filter-to" class="slide level2">
+<h2>How would I use filter to…</h2>
+<ol type="1">
+<li><p>Penguins measured in the year 2008?</p></li>
+<li><p>Penguins that have a body mass greater than 5000</p></li>
+</ol>
+<div class="fragment">
+<h3 id="think-pair-share">Think, pair, share</h3>
+<p>Spend 2 minutes to <em>think</em> about it. Spend 2 minutes <em>paired</em> with a neighbor to discuss your answers. <em>Share</em> with the class.</p>
+</div>
+</section>
+<section id="common-mistakes" class="slide level2">
+<h2>Common mistakes</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<h3 id="using-instead-of">Using <span class="err">=</span> instead of <span class="fn">==</span></h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href=""></a><span class="co"># Wrong</span></span>
+<span id="cb9-2"><a href=""></a><span class="fu">filter</span>(<span class="at">.data =</span> penguins,</span>
+<span id="cb9-3"><a href=""></a>  <span class="at">sex =</span> <span class="st">"females"</span>)</span>
+<span id="cb9-4"><a href=""></a></span>
+<span id="cb9-5"><a href=""></a><span class="co"># Right</span></span>
+<span id="cb9-6"><a href=""></a><span class="fu">filter</span>(<span class="at">.data =</span> penguins,</span>
+<span id="cb9-7"><a href=""></a>  sex <span class="sc">==</span> <span class="st">"females"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="fragment">
+<h3 id="forgetting-quotes">Forgetting quotes</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href=""></a><span class="co"># Wrong</span></span>
+<span id="cb10-2"><a href=""></a><span class="fu">filter</span>(<span class="at">.data =</span> penguins,</span>
+<span id="cb10-3"><a href=""></a>       sex <span class="sc">==</span> females)</span>
+<span id="cb10-4"><a href=""></a></span>
+<span id="cb10-5"><a href=""></a><span class="co"># Right</span></span>
+<span id="cb10-6"><a href=""></a><span class="fu">filter</span>(<span class="at">.data =</span> penguins,</span>
+<span id="cb10-7"><a href=""></a>       sex <span class="sc">==</span> <span class="st">"females"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="filter-with-multiple-conditions" class="slide level2">
+<h2>Filter with multiple conditions</h2>
+<p>Select <span class="orange">females</span> that are also <span class="green">greater than 5000 g</span></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href=""></a><span class="fu">filter</span>(<span class="at">.data =</span> penguins, sex <span class="sc">==</span> <span class="st">"female"</span>, body_mass_g <span class="sc">&gt;</span> <span class="dv">5000</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 8
+  species island bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+  &lt;fct&gt;   &lt;fct&gt;           &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt;
+1 Gentoo  Biscoe           45.1          14.5               207        5050
+2 Gentoo  Biscoe           49.1          14.8               220        5150
+3 Gentoo  Biscoe           44.9          13.3               213        5100
+4 Gentoo  Biscoe           46.5          14.8               217        5200
+5 Gentoo  Biscoe           45.2          14.8               212        5200
+# ℹ 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="boolean-operators" class="slide level2">
+<h2>Boolean operators</h2>
+
+<img data-src="libs/images/operators.PNG" class="quarto-figure quarto-figure-center r-stretch" style="width:85.0%"></section>
+<section id="default-for-filter-is" class="slide level2">
+<h2>Default for filter is <strong>&amp;</strong></h2>
+<p>These do the same exact thing</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href=""></a><span class="fu">filter</span>(<span class="at">.data =</span> penguins, sex <span class="sc">==</span> <span class="st">"female"</span>, body_mass_g <span class="sc">&gt;</span> <span class="dv">5000</span>)</span>
+<span id="cb13-2"><a href=""></a></span>
+<span id="cb13-3"><a href=""></a><span class="fu">filter</span>(<span class="at">.data =</span> penguins, sex <span class="sc">==</span> <span class="st">"female"</span> <span class="sc">&amp;</span> body_mass_g <span class="sc">&gt;</span> <span class="dv">5000</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="think-pair-share-1" class="slide level2">
+<h2>Think, pair, share</h2>
+<p>Use filter and boolean logic to show:</p>
+<ol type="1">
+<li><p>Penguins that were collected in <em>either</em> 2008 <em>or</em> 2009</p></li>
+<li><p>Penguins that <em>are not</em> from the island Dream</p></li>
+<li><p>Penguins in the species Adelie and Gentoo</p></li>
+</ol>
+</section>
+<section id="common-mistakes-1" class="slide level2">
+<h2>Common mistakes</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<h3 id="collapsing-multiple-tests-into-one">Collapsing multiple tests into one</h3>
+<p>penguins between 3000 and 5000 g</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href=""></a><span class="co"># Wrong</span></span>
+<span id="cb14-2"><a href=""></a><span class="fu">filter</span>(<span class="at">.data =</span> penguins,</span>
+<span id="cb14-3"><a href=""></a>       <span class="dv">3000</span> <span class="sc">&lt;</span> body_mass_g <span class="sc">&lt;</span> <span class="dv">5000</span>)</span>
+<span id="cb14-4"><a href=""></a></span>
+<span id="cb14-5"><a href=""></a><span class="co"># Right</span></span>
+<span id="cb14-6"><a href=""></a><span class="fu">filter</span>(<span class="at">.data =</span> penguins,</span>
+<span id="cb14-7"><a href=""></a>       body_mass_g <span class="sc">&lt;</span> <span class="dv">5000</span>,</span>
+<span id="cb14-8"><a href=""></a>       body_mass_g <span class="sc">&gt;</span> <span class="dv">3000</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="fragment">
+<h3 id="using-multiple-tests-instead-of-in">Using multiple tests instead of %in%</h3>
+<p>penguins in Dream and Biscoe</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href=""></a><span class="co"># Wrong</span></span>
+<span id="cb15-2"><a href=""></a><span class="fu">filter</span>(<span class="at">.data =</span> penguins,</span>
+<span id="cb15-3"><a href=""></a>       island <span class="sc">==</span> <span class="st">"Dream"</span>,</span>
+<span id="cb15-4"><a href=""></a>       island <span class="sc">==</span> <span class="st">"Biscoe"</span>)</span>
+<span id="cb15-5"><a href=""></a></span>
+<span id="cb15-6"><a href=""></a><span class="co"># Right</span></span>
+<span id="cb15-7"><a href=""></a><span class="fu">filter</span>(<span class="at">.data =</span> penguins,</span>
+<span id="cb15-8"><a href=""></a>       island <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Dream"</span>, <span class="st">"Biscoe"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="filter-syntax" class="slide level2">
+<h2>filter syntax</h2>
+
+<img data-src="libs/images/syntax.PNG" class="quarto-figure quarto-figure-center r-stretch" style="width:85.0%"></section>
+<section id="mutate-add-new-columns" class="slide level2">
+<h2>mutate: add new columns</h2>
+
+<img data-src="https://cdn.myportfolio.com/45214904-6a61-4e23-98d6-b140f8654a40/bd4ae264-ae51-4d18-bd60-7a058ab42fba_rw_1920.png?h=a3757d1f46f418c59e7e7946d026344e" class="quarto-figure quarto-figure-center r-stretch" style="width:70.0%"></section>
+<section id="mutate" class="slide level2">
+<h2>mutate</h2>
+
+<img data-src="libs/images/mutate.PNG" class="quarto-figure quarto-figure-center r-stretch" style="width:85.0%"></section>
+<section id="mutate-1" class="slide level2">
+<h2>mutate</h2>
+<p>Add a new column converting body mass in g to kg</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16" data-code-line-numbers="2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href=""></a><span class="fu">mutate</span>(<span class="at">.data =</span> penguins,</span>
+<span id="cb16-2"><a href=""></a>       <span class="at">body_mass_kg =</span> body_mass_g <span class="sc">/</span> <span class="dv">1000</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 344 × 9
+   species island    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+   &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt;
+ 1 Adelie  Torgersen           39.1          18.7               181        3750
+ 2 Adelie  Torgersen           39.5          17.4               186        3800
+ 3 Adelie  Torgersen           40.3          18                 195        3250
+ 4 Adelie  Torgersen           NA            NA                  NA          NA
+ 5 Adelie  Torgersen           36.7          19.3               193        3450
+ 6 Adelie  Torgersen           39.3          20.6               190        3650
+ 7 Adelie  Torgersen           38.9          17.8               181        3625
+ 8 Adelie  Torgersen           39.2          19.6               195        4675
+ 9 Adelie  Torgersen           34.1          18.1               193        3475
+10 Adelie  Torgersen           42            20.2               190        4250
+# ℹ 334 more rows
+# ℹ 3 more variables: sex &lt;fct&gt;, year &lt;int&gt;, body_mass_kg &lt;dbl&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="change-multiple-columns-at-once" class="slide level2">
+<h2>Change multiple columns at once</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18" data-code-line-numbers="2,3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href=""></a><span class="fu">mutate</span>(<span class="at">.data =</span> penguins,</span>
+<span id="cb18-2"><a href=""></a>       <span class="at">body_mass_kg =</span> body_mass_g <span class="sc">/</span> <span class="dv">1000</span>,</span>
+<span id="cb18-3"><a href=""></a>       <span class="at">bill_length_depth =</span> bill_length_mm <span class="sc">/</span> bill_depth_mm)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 344 × 10
+   species island    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+   &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt;
+ 1 Adelie  Torgersen           39.1          18.7               181        3750
+ 2 Adelie  Torgersen           39.5          17.4               186        3800
+ 3 Adelie  Torgersen           40.3          18                 195        3250
+ 4 Adelie  Torgersen           NA            NA                  NA          NA
+ 5 Adelie  Torgersen           36.7          19.3               193        3450
+ 6 Adelie  Torgersen           39.3          20.6               190        3650
+ 7 Adelie  Torgersen           38.9          17.8               181        3625
+ 8 Adelie  Torgersen           39.2          19.6               195        4675
+ 9 Adelie  Torgersen           34.1          18.1               193        3475
+10 Adelie  Torgersen           42            20.2               190        4250
+# ℹ 334 more rows
+# ℹ 4 more variables: sex &lt;fct&gt;, year &lt;int&gt;, body_mass_kg &lt;dbl&gt;,
+#   bill_length_depth &lt;dbl&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="mutating-multiple-columns-at-once" class="slide level2">
+<h2>Mutating multiple columns at once</h2>
+<p>To apply the same function to many columns you can use <span class="fn">across()</span> inside <span class="fn">mutate()</span>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href=""></a>penguins <span class="sc">|&gt;</span></span>
+<span id="cb20-2"><a href=""></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), <span class="sc">~</span> <span class="fu">round</span>(.x, <span class="dv">1</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ul>
+<li><span class="fn">across()</span> — “apply the same transformation <strong>across</strong> multiple columns at once”</li>
+<li><span class="fn">where(is.numeric)</span> — “but only the columns <strong>where</strong> the data are numeric”</li>
+<li><span class="fn">~ round(.x, 1)</span> — “the transformation to apply: round each value to 1 decimal place” (the <span class="op">~</span> creates a small anonymous function; <span class="var">.x</span> is a placeholder meaning “the current column”)</li>
+</ul>
+<p>So the whole line reads: <em>“For every numeric column, round its values to 1 decimal place.”</em></p>
+<p>On your own, look up <a href="https://dplyr.tidyverse.org/reference/across.html"><code>across()</code></a> — it replaces the older <code>mutate_if()</code>, <code>mutate_at()</code>, and <code>mutate_all()</code> functions.</p>
+</section>
+<section>
+<section id="section" class="title-slide slide level1 center">
+<h1></h1>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>We’ll come back to this</strong></p>
+</div>
+<div class="callout-content">
+<p>The <span class="op">~</span> syntax used inside <span class="fn">across()</span> are concepts we haven’t covered yet. We will revisit <span class="fn">across()</span> once we learn how to write our own functions. For now, just know it exists and what it does conceptually.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="ifelse" class="slide level2">
+<h2>ifelse</h2>
+
+<img data-src="libs/images/ifelse.PNG" class="quarto-figure quarto-figure-center r-stretch" style="width:85.0%"></section>
+<section id="mutate-with-if_else" class="slide level2">
+<h2>mutate with if_else</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21" data-code-line-numbers="2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href=""></a><span class="fu">mutate</span>(<span class="at">.data =</span> penguins,</span>
+<span id="cb21-2"><a href=""></a>       <span class="at">after_2008 =</span> <span class="fu">if_else</span>(year <span class="sc">&gt;</span> <span class="dv">2008</span>, <span class="st">"After 2008"</span>, <span class="st">"Before 2008"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 344 × 9
+   species island    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+   &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt;
+ 1 Adelie  Torgersen           39.1          18.7               181        3750
+ 2 Adelie  Torgersen           39.5          17.4               186        3800
+ 3 Adelie  Torgersen           40.3          18                 195        3250
+ 4 Adelie  Torgersen           NA            NA                  NA          NA
+ 5 Adelie  Torgersen           36.7          19.3               193        3450
+ 6 Adelie  Torgersen           39.3          20.6               190        3650
+ 7 Adelie  Torgersen           38.9          17.8               181        3625
+ 8 Adelie  Torgersen           39.2          19.6               195        4675
+ 9 Adelie  Torgersen           34.1          18.1               193        3475
+10 Adelie  Torgersen           42            20.2               190        4250
+# ℹ 334 more rows
+# ℹ 3 more variables: sex &lt;fct&gt;, year &lt;int&gt;, after_2008 &lt;chr&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="think-pair-share-2" class="slide level2">
+<h2>Think, pair, share</h2>
+<ol type="1">
+<li><p>Use mutate to create a new column to add flipper length and body mass together</p></li>
+<li><p>Use mutate and if_else to create a new column where body mass greater than 4000 is labeled as “big” and everything else is “small”</p></li>
+</ol>
+</section>
+<section id="the-pipe-operator" class="slide level2 inverse center middle">
+<h2>The pipe operator: <span class="op">|&gt;</span></h2>
+</section>
+<section id="the-pipe" class="slide level2">
+<h2>The pipe |&gt;</h2>
+<h3 id="the-pipe-says-and-then-do">The “pipe” says “and then do”</h3>
+<pre><code>dataframe |&gt;   # select the dataframe and then
+  verb1() |&gt;   # do verb 1 and then
+  verb2()      # do verb 2</code></pre>
+</section>
+<section id="section-1" class="slide level2">
+<h2>|&gt;</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href=""></a>me <span class="sc">|&gt;</span></span>
+<span id="cb24-2"><a href=""></a>  <span class="fu">wake_up</span>(<span class="at">time =</span> <span class="st">"6:00"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb24-3"><a href=""></a>  <span class="fu">music</span>(<span class="at">turn =</span> <span class="st">"on"</span>, <span class="at">to =</span> <span class="st">"Beyonce"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb24-4"><a href=""></a>  <span class="fu">shower</span>(<span class="at">wash_hair =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb24-5"><a href=""></a>  <span class="fu">get_dressed</span>(<span class="at">pants =</span> <span class="cn">TRUE</span>, <span class="at">shirt =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb24-6"><a href=""></a>  <span class="fu">leave_house</span>(<span class="at">car =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="the-native-pipe" class="slide level2">
+<h2>The native pipe |&gt;</h2>
+<p>The <span class="op">|&gt;</span> is built into <strong>base R</strong> (R 4.1+) — no package needed.</p>
+<p>You may also see <span class="op">%&gt;%</span> (the <strong>magrittr</strong> pipe from tidyverse) in older code. They work the same in most situations. In this class we use <span class="op">|&gt;</span>.</p>
+<p><a href="https://r4ds.hadley.nz/data-transform#sec-the-pipe">Please Read Here!</a></p>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Keyboard shortcut</strong></p>
+</div>
+<div class="callout-content">
+<p>Insert <span class="op">|&gt;</span> instantly with <strong>Ctrl+Shift+M</strong> (Windows/Linux) or <strong>Cmd+Shift+M</strong> (Mac).</p>
+<p>To make sure RStudio inserts <span class="op">|&gt;</span> (not <code>%&gt;%</code>): <em>Tools → Global Options → Code → Use native pipe operator, |&gt;</em></p>
+</div>
+</div>
+</div>
+</section>
+<section id="section-2" class="slide level2">
+<h2>|&gt;</h2>
+<p>Filter only female penguins and add a new column that calculates the log body mass.<br>
+When you use <span class="op">|&gt;</span> the dataframe carries over so you don’t need to write it out anymore.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25" data-code-line-numbers="3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href=""></a>penguins <span class="sc">|&gt;</span></span>
+<span id="cb25-2"><a href=""></a>  <span class="fu">filter</span>(sex <span class="sc">==</span> <span class="st">"female"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb25-3"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">log_mass =</span> <span class="fu">log</span>(body_mass_g))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 165 × 9
+   species island    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+   &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt;
+ 1 Adelie  Torgersen           39.5          17.4               186        3800
+ 2 Adelie  Torgersen           40.3          18                 195        3250
+ 3 Adelie  Torgersen           36.7          19.3               193        3450
+ 4 Adelie  Torgersen           38.9          17.8               181        3625
+ 5 Adelie  Torgersen           41.1          17.6               182        3200
+ 6 Adelie  Torgersen           36.6          17.8               185        3700
+ 7 Adelie  Torgersen           38.7          19                 195        3450
+ 8 Adelie  Torgersen           34.4          18.4               184        3325
+ 9 Adelie  Biscoe              37.8          18.3               174        3400
+10 Adelie  Biscoe              35.9          19.2               189        3800
+# ℹ 155 more rows
+# ℹ 3 more variables: sex &lt;fct&gt;, year &lt;int&gt;, log_mass &lt;dbl&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="select" class="slide level2">
+<h2>Select</h2>
+<p>Use <span class="fn">select()</span> to select certain columns to remain in the dataframe</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27" data-code-line-numbers="4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href=""></a>penguins <span class="sc">|&gt;</span></span>
+<span id="cb27-2"><a href=""></a>  <span class="fu">filter</span>(sex <span class="sc">==</span> <span class="st">"female"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb27-3"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">log_mass =</span> <span class="fu">log</span>(body_mass_g)) <span class="sc">|&gt;</span></span>
+<span id="cb27-4"><a href=""></a>  <span class="fu">select</span>(species, island, sex, log_mass)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 165 × 4
+   species island    sex    log_mass
+   &lt;fct&gt;   &lt;fct&gt;     &lt;fct&gt;     &lt;dbl&gt;
+ 1 Adelie  Torgersen female     8.24
+ 2 Adelie  Torgersen female     8.09
+ 3 Adelie  Torgersen female     8.15
+ 4 Adelie  Torgersen female     8.20
+ 5 Adelie  Torgersen female     8.07
+ 6 Adelie  Torgersen female     8.22
+ 7 Adelie  Torgersen female     8.15
+ 8 Adelie  Torgersen female     8.11
+ 9 Adelie  Biscoe    female     8.13
+10 Adelie  Biscoe    female     8.24
+# ℹ 155 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="select-1" class="slide level2">
+<h2>Select</h2>
+<p>You can also use <span class="fn">select()</span> to rename columns.<br>
+Here, we are renaming species to have a capital S.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29" data-code-line-numbers="4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href=""></a>penguins <span class="sc">|&gt;</span></span>
+<span id="cb29-2"><a href=""></a>  <span class="fu">filter</span>(sex <span class="sc">==</span> <span class="st">"female"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb29-3"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">log_mass =</span> <span class="fu">log</span>(body_mass_g)) <span class="sc">|&gt;</span></span>
+<span id="cb29-4"><a href=""></a>  <span class="fu">select</span>(<span class="at">Species =</span> species, island, sex, log_mass)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 165 × 4
+   Species island    sex    log_mass
+   &lt;fct&gt;   &lt;fct&gt;     &lt;fct&gt;     &lt;dbl&gt;
+ 1 Adelie  Torgersen female     8.24
+ 2 Adelie  Torgersen female     8.09
+ 3 Adelie  Torgersen female     8.15
+ 4 Adelie  Torgersen female     8.20
+ 5 Adelie  Torgersen female     8.07
+ 6 Adelie  Torgersen female     8.22
+ 7 Adelie  Torgersen female     8.15
+ 8 Adelie  Torgersen female     8.11
+ 9 Adelie  Biscoe    female     8.13
+10 Adelie  Biscoe    female     8.24
+# ℹ 155 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="arrange" class="slide level2">
+<h2>arrange</h2>
+<p>Use <span class="fn">arrange()</span> to sort rows by a column — ascending by default.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31" data-code-line-numbers="2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href=""></a>penguins <span class="sc">|&gt;</span></span>
+<span id="cb31-2"><a href=""></a>  <span class="fu">arrange</span>(body_mass_g)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 344 × 8
+   species   island   bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+   &lt;fct&gt;     &lt;fct&gt;             &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt;
+ 1 Chinstrap Dream              46.9          16.6               192        2700
+ 2 Adelie    Biscoe             36.5          16.6               181        2850
+ 3 Adelie    Biscoe             36.4          17.1               184        2850
+ 4 Adelie    Biscoe             34.5          18.1               187        2900
+ 5 Adelie    Dream              33.1          16.1               178        2900
+ 6 Adelie    Torgers…           38.6          17                 188        2900
+ 7 Chinstrap Dream              43.2          16.6               187        2900
+ 8 Adelie    Biscoe             37.9          18.6               193        2925
+ 9 Adelie    Dream              37.5          18.9               179        2975
+10 Adelie    Dream              37            16.9               185        3000
+# ℹ 334 more rows
+# ℹ 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="arrange-1" class="slide level2">
+<h2>arrange</h2>
+<p>Use <span class="fn">desc()</span> to sort in <strong>descending</strong> order.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33" data-code-line-numbers="2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href=""></a>penguins <span class="sc">|&gt;</span></span>
+<span id="cb33-2"><a href=""></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(body_mass_g))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 344 × 8
+   species island bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+   &lt;fct&gt;   &lt;fct&gt;           &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt;
+ 1 Gentoo  Biscoe           49.2          15.2               221        6300
+ 2 Gentoo  Biscoe           59.6          17                 230        6050
+ 3 Gentoo  Biscoe           51.1          16.3               220        6000
+ 4 Gentoo  Biscoe           48.8          16.2               222        6000
+ 5 Gentoo  Biscoe           45.2          16.4               223        5950
+ 6 Gentoo  Biscoe           49.8          15.9               229        5950
+ 7 Gentoo  Biscoe           48.4          14.6               213        5850
+ 8 Gentoo  Biscoe           49.3          15.7               217        5850
+ 9 Gentoo  Biscoe           55.1          16                 230        5850
+10 Gentoo  Biscoe           49.5          16.2               229        5800
+# ℹ 334 more rows
+# ℹ 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="summarise" class="slide level2">
+<h2>Summarise</h2>
+<p>Compute a table of summarized data.<br>
+Calculate the mean flipper length (and exclude any NAs).</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35" data-code-line-numbers="2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href=""></a>penguins <span class="sc">|&gt;</span></span>
+<span id="cb35-2"><a href=""></a>  <span class="fu">summarise</span>(<span class="at">mean_flipper =</span> <span class="fu">mean</span>(flipper_length_mm, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 1
+  mean_flipper
+         &lt;dbl&gt;
+1         201.</code></pre>
+</div>
+</div>
+<div class="fragment">
+<p>Calculate mean and min flipper length</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37" data-code-line-numbers="2,3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href=""></a>penguins <span class="sc">|&gt;</span></span>
+<span id="cb37-2"><a href=""></a>  <span class="fu">summarise</span>(<span class="at">mean_flipper =</span> <span class="fu">mean</span>(flipper_length_mm, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb37-3"><a href=""></a>            <span class="at">min_flipper  =</span> <span class="fu">min</span>(flipper_length_mm, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 2
+  mean_flipper min_flipper
+         &lt;dbl&gt;       &lt;int&gt;
+1         201.         172</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="group_by" class="slide level2">
+<h2>group_by</h2>
+<p>You can summarize values by certain groups.<br>
+<span class="fn">group_by()</span> by itself doesn’t do anything, but it is powerful when put before <span class="fn">summarise()</span>.</p>
+<p>Let’s calculate the mean, max, and count of bill length by island.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href=""></a>penguins <span class="sc">|&gt;</span></span>
+<span id="cb39-2"><a href=""></a>  <span class="fu">group_by</span>(island) <span class="sc">|&gt;</span></span>
+<span id="cb39-3"><a href=""></a>  <span class="fu">summarise</span>(<span class="at">mean_bill_length =</span> <span class="fu">mean</span>(bill_length_mm, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb39-4"><a href=""></a>            <span class="at">max_bill_length  =</span> <span class="fu">max</span>(bill_length_mm, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb39-5"><a href=""></a>            <span class="at">n                =</span> <span class="fu">n</span>())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 4
+  island    mean_bill_length max_bill_length     n
+  &lt;fct&gt;                &lt;dbl&gt;           &lt;dbl&gt; &lt;int&gt;
+1 Biscoe                45.3            59.6   168
+2 Dream                 44.2            58     124
+3 Torgersen             39.0            46      52</code></pre>
+</div>
+</div>
+<p><span class="fn">n()</span> counts the number of rows in each group.</p>
+</section>
+<section id="group_by-both-island-and-sex" class="slide level2">
+<h2>group_by both island and sex</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41" data-code-line-numbers="2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href=""></a>penguins <span class="sc">|&gt;</span></span>
+<span id="cb41-2"><a href=""></a>  <span class="fu">group_by</span>(island, sex) <span class="sc">|&gt;</span></span>
+<span id="cb41-3"><a href=""></a>  <span class="fu">summarise</span>(<span class="at">mean_bill_length =</span> <span class="fu">mean</span>(bill_length_mm, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb41-4"><a href=""></a>            <span class="at">max_bill_length  =</span> <span class="fu">max</span>(bill_length_mm, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 9 × 4
+# Groups:   island [3]
+  island    sex    mean_bill_length max_bill_length
+  &lt;fct&gt;     &lt;fct&gt;             &lt;dbl&gt;           &lt;dbl&gt;
+1 Biscoe    female             43.3            50.5
+2 Biscoe    male               47.1            59.6
+3 Biscoe    &lt;NA&gt;               45.6            47.3
+4 Dream     female             42.3            58  
+5 Dream     male               46.1            55.8
+6 Dream     &lt;NA&gt;               37.5            37.5
+7 Torgersen female             37.6            41.1
+8 Torgersen male               40.6            46  
+9 Torgersen &lt;NA&gt;               37.9            42  </code></pre>
+</div>
+</div>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>The grouping message</strong></p>
+</div>
+<div class="callout-content">
+<p>You may see a message like <code>summarise() has grouped output by 'island'</code>. This is just informational — dplyr is telling you the output is still grouped.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="count" class="slide level2">
+<h2>count</h2>
+<p><span class="fn">count()</span> is a quick shortcut for counting rows per group — no need for <span class="fn">group_by()</span> + <span class="fn">summarise()</span>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href=""></a>penguins <span class="sc">|&gt;</span></span>
+<span id="cb43-2"><a href=""></a>  <span class="fu">count</span>(species)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 2
+  species       n
+  &lt;fct&gt;     &lt;int&gt;
+1 Adelie      152
+2 Chinstrap    68
+3 Gentoo      124</code></pre>
+</div>
+</div>
+</section>
+<section id="count-1" class="slide level2">
+<h2>count</h2>
+<p>Count by multiple variables at once</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href=""></a>penguins <span class="sc">|&gt;</span></span>
+<span id="cb45-2"><a href=""></a>  <span class="fu">count</span>(species, island)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 3
+  species   island        n
+  &lt;fct&gt;     &lt;fct&gt;     &lt;int&gt;
+1 Adelie    Biscoe       44
+2 Adelie    Dream        56
+3 Adelie    Torgersen    52
+4 Chinstrap Dream        68
+5 Gentoo    Biscoe      124</code></pre>
+</div>
+</div>
+</section>
+<section id="remove-nas" class="slide level2">
+<h2>Remove NAs</h2>
+<p><span class="fn">drop_na()</span> drops rows with NAs from a specific column.</p>
+<p>Drop all the rows that are missing data on sex.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47" data-code-line-numbers="2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href=""></a>penguins <span class="sc">|&gt;</span></span>
+<span id="cb47-2"><a href=""></a>  <span class="fu">drop_na</span>(sex)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 333 × 8
+   species island    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+   &lt;fct&gt;   &lt;fct&gt;              &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt;
+ 1 Adelie  Torgersen           39.1          18.7               181        3750
+ 2 Adelie  Torgersen           39.5          17.4               186        3800
+ 3 Adelie  Torgersen           40.3          18                 195        3250
+ 4 Adelie  Torgersen           36.7          19.3               193        3450
+ 5 Adelie  Torgersen           39.3          20.6               190        3650
+ 6 Adelie  Torgersen           38.9          17.8               181        3625
+ 7 Adelie  Torgersen           39.2          19.6               195        4675
+ 8 Adelie  Torgersen           41.1          17.6               182        3200
+ 9 Adelie  Torgersen           38.6          21.2               191        3800
+10 Adelie  Torgersen           34.6          21.1               198        4400
+# ℹ 323 more rows
+# ℹ 2 more variables: sex &lt;fct&gt;, year &lt;int&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="remove-nas-1" class="slide level2">
+<h2>Remove NAs</h2>
+<p><span class="fn">drop_na()</span> drops rows with NAs from a specific column.</p>
+<p>Drop all the rows that are missing data on sex, then calculate mean bill length by island and sex.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49" data-code-line-numbers="3,4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href=""></a>penguins <span class="sc">|&gt;</span></span>
+<span id="cb49-2"><a href=""></a>  <span class="fu">drop_na</span>(sex) <span class="sc">|&gt;</span></span>
+<span id="cb49-3"><a href=""></a>  <span class="fu">group_by</span>(island, sex) <span class="sc">|&gt;</span></span>
+<span id="cb49-4"><a href=""></a>  <span class="fu">summarise</span>(<span class="at">mean_bill_length =</span> <span class="fu">mean</span>(bill_length_mm, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 3
+# Groups:   island [3]
+  island    sex    mean_bill_length
+  &lt;fct&gt;     &lt;fct&gt;             &lt;dbl&gt;
+1 Biscoe    female             43.3
+2 Biscoe    male               47.1
+3 Dream     female             42.3
+4 Dream     male               46.1
+5 Torgersen female             37.6
+6 Torgersen male               40.6</code></pre>
+</div>
+</div>
+</section>
+<section id="pipe-into-a-ggplot" class="slide level2">
+<h2>Pipe into a ggplot</h2>
+<p>You can connect your <em>data wrangling</em> to a ggplot with the pipe (you won’t need to call the dataframe in ggplot if you pipe to it).</p>
+<p>Drop NAs from sex, and then plot boxplots of flipper length by sex.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51" data-code-line-numbers="3,4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href=""></a>penguins <span class="sc">|&gt;</span></span>
+<span id="cb51-2"><a href=""></a>  <span class="fu">drop_na</span>(sex) <span class="sc">|&gt;</span></span>
+<span id="cb51-3"><a href=""></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> sex, <span class="at">y =</span> flipper_length_mm)) <span class="sc">+</span></span>
+<span id="cb51-4"><a href=""></a>  <span class="fu">geom_boxplot</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+</div>
+<img data-src="7_dplyr_files/figure-revealjs/unnamed-chunk-30-1.png" width="960" class="r-stretch"></section>
+<section id="totally-awesome-r-package-of-the-day" class="slide level2">
+<h2>“Totally Awesome R package of the day”</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href=""></a><span class="fu">install.packages</span>(<span class="st">"dadjokeapi"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href=""></a><span class="fu">library</span>(dadjokeapi)</span>
+<span id="cb53-2"><a href=""></a><span class="fu">groan</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>I won an argument with a weather forecaster once. His logic was cloudy...</code></pre>
+</div>
+</div>
+</section>
+<section id="homework" class="slide level2">
+<h2>Homework</h2>
+<p>Write a script that:</p>
+<ol type="1">
+<li><p>calculates the mean and variance of body mass by species, island, and sex without any NAs</p></li>
+<li><p>filters out (i.e.&nbsp;excludes) male penguins, then calculates the log body mass, then selects only the columns for species, island, sex, and log body mass, then use these data to make any plot. Make sure the plot has clean and clear labels and follows best practices. Save the plot in the correct output folder.</p></li>
+</ol>
+<p>Include both part 1 and part 2 in your script and push it to github in the appropriate folders.</p>
+</section>
+<section id="section-3" class="slide level2 center middle">
+<h2></h2>
+</section></section>
+<section id="thanks" class="title-slide slide level1 center">
+<h1>Thanks!</h1>
+<p>Slides created via <a href="https://quarto.org/"><strong>Quarto</strong></a></p>
+<p>Some slides modified from <a href="https://evalsp21.classes.andrewheiss.com/projects/01_lab/slides/01_lab.html#73">Andrew Wheiss</a></p>
+
+</section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+<p>OCN 682 | Week 4 | Data wrangling: dplyr</p>
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="7_dplyr_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="7_dplyr_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="7_dplyr_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="7_dplyr_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="7_dplyr_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="7_dplyr_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="7_dplyr_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="7_dplyr_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="7_dplyr_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="7_dplyr_files/libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': true,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1500,
+
+        height: 1000,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    
+
+    <script>
+
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+
+      // slide changes (different for each slide format).
+
+      (function () {
+
+        // dispatch for htmlwidgets
+
+        function fireSlideEnter() {
+
+          const event = window.document.createEvent("Event");
+
+          event.initEvent("slideenter", true, true);
+
+          window.document.dispatchEvent(event);
+
+        }
+
+    
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+
+          fireSlideEnter();
+
+    
+
+          // dispatch for shiny
+
+          if (window.jQuery) {
+
+            if (previousSlide) {
+
+              window.jQuery(previousSlide).trigger("hidden");
+
+            }
+
+            if (currentSlide) {
+
+              window.jQuery(currentSlide).trigger("shown");
+
+            }
+
+          }
+
+        }
+
+    
+
+        // hookup for slidy
+
+        if (window.w3c_slidy) {
+
+          window.w3c_slidy.add_observer(function (slide_num) {
+
+            // slide_num starts at position 1
+
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+
+          });
+
+        }
+
+    
+
+      })();
+
+    </script>
+
+    
+
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>

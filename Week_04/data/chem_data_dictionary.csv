@@ -1,0 +1,16 @@
+Variable,Description,Units
+Waypoint,Waypoint number on the GPS,
+Zone,Zone for submarine groundwater based on Nelson et al. 2015,
+Lat,Latitude,Decimal Degrees
+Long,Longitude,Decimal Degrees
+Site,Site Name,
+Tide_time,Low of high tide and Day or Night,
+Season,Season of the year,
+Temp_in,Temperature in situ,C
+Salinity,Salinity,
+Phosphate,Phosphate,umol/L
+Silicate,Silicate,umol/L
+NN,Nitrate+nitrite,umol/L
+pH,pH,
+TA,Total alkalinity,umol/Kg
+percent_sgd,Relative amount of submarine groundwater discharge in the water,%

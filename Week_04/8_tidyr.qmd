@@ -4,9 +4,6 @@ subtitle: "Data wrangling: tidyr"
 author: "Dr. Nyssa Silbiger"
 institute: "UH Fall 2026"
 date: today
-resources:
-  - custom-theme.scss
-  - libs/images/wide.PNG
 format:
   revealjs:
     theme: [default, custom-theme.scss]
@@ -20,6 +17,7 @@ format:
     slide-number: c/t
     footer: "OCN 682 | Week 4 | Data wrangling: tidyr"
 ---
+
 
 ```{r setup, include=FALSE}
 options(htmltools.dir.version = FALSE)

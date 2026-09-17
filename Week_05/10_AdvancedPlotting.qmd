@@ -28,6 +28,7 @@ library(patchwork)
 library(ggrepel)
 library(palmerpenguins)
 library(gganimate)
+library(plotly)
 library(magick)
 ```
 
@@ -38,8 +39,8 @@ Advanced plotting techniques for creating publication-ready visualizations
 ::: {.incremental}
 1. [patchwork]{.fn} — bringing plots together
 2. [ggrepel]{.fn} — repel your labels on your plots
-3. [gganimate]{.fn} — add animations to your plots
-4. [gifsky]{.fn} — save animations as gifs
+3. [gganimate]{.fn} — add smooth animations to your plots
+4. [plotly]{.fn} — create interactive animated plots
 5. [magick]{.fn} — photo processing
 :::
 
@@ -57,9 +58,10 @@ This is just a taste of what each package can do. Check out the documentation fo
 #| eval: false
 install.packages("patchwork")  # for bringing plots together
 install.packages("ggrepel")    # for repelling labels
-install.packages("gganimate")  # animations
+install.packages("gganimate")  # smooth animations
+install.packages("gifski")     # for saving gifs
+install.packages("plotly")     # for interactive animations
 install.packages("magick")     # for images
-install.packages("gifski")     # for gifs
 ```
 
 ---
@@ -450,7 +452,101 @@ For more advanced animations, see the [gganimate documentation](https://gganimat
 
 ---
 
-# Part 4: magick
+# Part 4: plotly
+
+---
+
+## Interactive animations with plotly
+
+[plotly]{.fn} creates interactive plots with built-in animation that respond to user input. Perfect for exploratory data analysis!
+
+![](https://plotly.com/all_static/images/logo-white.svg){fig-align="center" width="40%"}
+
+---
+
+## Create an interactive scatter plot
+
+```{r}
+#| echo: true
+#| eval: false
+#| warning: false
+
+
+penguins |>
+  plot_ly(x = ~body_mass_g,
+          y = ~bill_depth_mm,
+          color = ~species,
+          type = "scatter",
+          mode = "markers") |>
+  layout(title = "Penguin Body Mass vs Bill Depth",
+         xaxis = list(title = "Body Mass (g)"),
+         yaxis = list(title = "Bill Depth (mm)"))
+```
+
+---
+```{r}
+#| echo: false
+#| eval: true
+library(plotly)
+
+penguins |>
+  plot_ly(x = ~body_mass_g,
+          y = ~bill_depth_mm,
+          color = ~species,
+          type = "scatter",
+          mode = "markers") |>
+  layout(title = "Penguin Body Mass vs Bill Depth",
+         xaxis = list(title = "Body Mass (g)"),
+         yaxis = list(title = "Bill Depth (mm)"))
+```
+::: {.callout-note}
+## Hover for details
+Plotly plots are interactive! Hover over points to see exact values, zoom in/out, and pan around.
+:::
+
+---
+
+## Animate by species with frame
+
+```{r}
+#| echo: true
+#| eval: true
+penguins |>
+  plot_ly(x = ~body_mass_g,
+          y = ~bill_depth_mm,
+          frame = ~species,
+          color = ~species,
+          type = "scatter",
+          mode = "markers",
+          marker = list(size = 8)) |>
+  layout(title = "Penguin Characteristics by Species",
+         xaxis = list(title = "Body Mass (g)"),
+         yaxis = list(title = "Bill Depth (mm)"))
+```
+
+Click the play button to animate through species!
+
+---
+
+## Advantages of plotly over gganimate
+
+::: {.incremental}
+- **Interactive** — hover, zoom, pan, click to explore
+- **Easier syntax** — less code than gganimate
+- **Web-ready** — works in HTML, Shiny, dashboards
+- **3D capable** — can create 3D scatter plots and surfaces
+- **No rendering** — animations happen in the browser, not rendered as GIFs
+:::
+
+---
+
+## Learn more about plotly
+
+For more interactive visualization options, see the [plotly R documentation](https://plotly.com/r/).
+
+---
+
+# Part 5: magick
 
 ---
 
@@ -467,7 +563,6 @@ For more advanced animations, see the [gganimate documentation](https://gganimat
 ```{r}
 #| echo: true
 #| eval: true
-library(magick)
 penguin <- image_read("https://pngimg.com/uploads/penguin/pinguin_PNG9.png")
 
 penguin

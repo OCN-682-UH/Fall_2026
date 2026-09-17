@@ -1,0 +1,664 @@
+---
+title: "Computer Modeling (OCN 682)"
+subtitle: "Data wrangling: joins & dates with lubridate"
+author: "Dr. Nyssa Silbiger"
+institute: "UH Fall 2026"
+date: today
+resources:
+  - custom-theme.scss
+format:
+  revealjs:
+    theme: [default, custom-theme.scss]
+    highlight-style: github
+    code-line-numbers: true
+    width: 1500
+    height: 1000
+    preview-links: auto
+    self-contained-math: true
+    embed-resources: false
+    slide-number: c/t
+    footer: "OCN 682 | Week 5 | Joins & Dates with lubridate"
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+library(tidyverse)
+library(here)
+library(lubridate)
+```
+
+## Outline of class
+
+::: {.incremental}
+1. Review of tidyr
+2. Learning joins (part of the [dplyr]{.fn} package)
+   - [left_join()]{.fn} — with real data
+   - Creating tibbles
+   - [right_join()]{.fn}, [inner_join()]{.fn}, [full_join()]{.fn}
+   - [semi_join()]{.fn}, [anti_join()]{.fn}
+3. Dates and times using [lubridate]{.fn}
+   - Converting dates and times
+   - Extracting date/time elements
+   - Manipulating and rounding dates
+:::
+
+**Homework:** Practice with joins and dates in online assignment
+
+---
+
+## Review {.center}
+
+::: {.incremental}
+1. What function do you use to split up one column into multiple columns?
+2. What function do you use to transition a wide data frame into a long data frame?
+:::
+
+---
+
+# Part 1: Data Joins
+
+---
+
+## Intro to different types of joins
+
+Let's say you have multiple hierarchies of data and you want to join them into one big data set. Join functions are the way you would do it.
+
+::: {.columns}
+
+::: {.column width="50%"}
+### Data 1
+
+| Site_number | Treatment | Nitrate | Temp |
+|---|---|---|---|
+| 1 | High | 1.2 | 7.2 |
+| 2 | High | 3.0 | 7.8 |
+| 3 | Low | 2.4 | 8.0 |
+| 4 | Low | 5.1 | 8.0 |
+| 5 | Low | 1.1 | 7.9 |
+:::
+
+::: {.column width="50%"}
+### Data 2
+
+| Site_Number | Sample_number | Biomass |
+|---|---|---|
+| 1 | 1 | 12.2 |
+| 1 | 2 | 14.0 |
+| 1 | 3 | 11.9 |
+| 1 | 4 | 10.0 |
+:::
+
+:::
+
+---
+
+## Identifying the key
+
+Which column is consistent across both datasets?
+
+::: {.columns}
+
+::: {.column width="50%"}
+### Data 1
+
+| Site_Number | Treatment | Nitrate | Temp |
+|---|---|---|---|
+| [1]{.orange} | [High]{.orange} | [1.2]{.orange} | [7.2]{.orange} |
+| 2 | High | 3.0 | 7.8 |
+| 3 | Low | 2.4 | 8.0 |
+| 4 | Low | 5.1 | 8.0 |
+| 5 | Low | 1.1 | 7.9 |
+:::
+
+::: {.column width="50%"}
+### Data 2
+
+| Site_Number | Sample_number | Biomass |
+|---|---|---|
+| [1]{.orange} | [1]{.orange} | [12.2]{.orange} |
+| [1]{.orange} | [2]{.orange} | [14.0]{.orange} |
+| [1]{.orange} | [3]{.orange} | [11.9]{.orange} |
+| [1]{.orange} | [4]{.orange} | [10.0]{.orange} |
+:::
+
+:::
+
+::: {.fragment}
+**The column name must be identical** in both dataframes (spelling, capitalization, everything). This is your **key**.
+
+Whenever collecting data, include a unique ID for every sample. This makes joining datasets much easier!
+:::
+
+---
+
+## Real-world example
+
+From **Becker and Silbiger (2020) Journal of Experimental Biology**.
+
+Danielle tested how nutrient loading and sedimentation affected thermal performance metrics of corals in Mo'orea, French Polynesia. She collected 10 corals from six sites with a wide range in nutrients/sedimentation.
+
+**Three datasets:**
+1. `site.characteristics.data.csv` — Environmental data from each site
+2. `Topt_data.csv` — Thermal performance curves
+3. `Data_dictionary.csv` — Column descriptions
+
+---
+
+## Creating sample tibbles
+
+Let's create two small example datasets:
+
+```{r}
+#| echo: true
+T1 <- tibble(
+  Site.ID = c("A", "B", "C", "D"),
+  Temperature = c(14.1, 16.7, 15.3, 12.8)
+)
+
+T1
+```
+
+---
+
+## Creating sample tibbles (continued)
+
+Now create a second tibble:
+
+```{r}
+#| echo: true
+T2 <- tibble(
+  Site.ID = c("A", "B", "D", "E"),
+  pH = c(7.3, 7.8, 8.1, 7.9)
+)
+
+T2
+```
+
+---
+
+## [left_join()]{.fn}
+
+[left_join()]{.fn} keeps all rows from the left (first) dataframe and adds matching rows from the right:
+
+```{r}
+#| echo: true
+left_join(T1, T2)
+```
+
+Notice that Site "C" stays (from T1) but "E" is excluded (only in T2).
+
+---
+
+## [right_join()]{.fn}
+
+[right_join()]{.fn} keeps all rows from the right (second) dataframe:
+
+```{r}
+#| echo: true
+right_join(T1, T2)
+```
+
+Now Site "E" is included, but "C" is excluded.
+
+---
+
+## [inner_join()]{.fn}
+
+[inner_join()]{.fn} keeps **only** rows that exist in both dataframes:
+
+```{r}
+#| echo: true
+inner_join(T1, T2)
+```
+
+Only sites A, B, and D are kept. C and E are dropped.
+
+::: {.callout-warning}
+## Data loss risk
+[inner_join()]{.fn} drops unmatched rows. Always check your result to ensure you haven't unexpectedly lost data.
+:::
+
+---
+
+## [full_join()]{.fn}
+
+[full_join()]{.fn} keeps **all** rows from both dataframes:
+
+```{r}
+#| echo: true
+full_join(T1, T2)
+```
+
+All sites (A, B, C, D, E) are kept, with [NA]{.err} filling in missing values.
+
+---
+
+## [semi_join()]{.fn}
+
+[semi_join()]{.fn} keeps rows from the first dataframe where there are matches in the second, but only returns columns from the first:
+
+```{r}
+#| echo: true
+semi_join(T1, T2)
+```
+
+Only sites A, B, D from T1, and only the Temperature column (from T1).
+
+---
+
+## [anti_join()]{.fn}
+
+[anti_join()]{.fn} returns rows in the first dataframe that **do not** match the second:
+
+```{r}
+#| echo: true
+anti_join(T1, T2)
+```
+
+Only Site C from T1 is returned (it has no match in T2).
+
+::: {.callout-tip}
+## Finding missing data
+Use [anti_join()]{.fn} to identify unmatched records and detect data quality issues.
+:::
+
+---
+
+## Summary of join types
+
+| Join | Keeps | Use when |
+|---|---|---|
+| [left_join()]{.fn} | All left rows + matches | Primary dataset is on the left |
+| [right_join()]{.fn} | All right rows + matches | Primary dataset is on the right |
+| [inner_join()]{.fn} | Only complete matches | Need only complete pairs |
+| [full_join()]{.fn} | All rows from both | Want to keep everything |
+| [semi_join()]{.fn} | Left rows with matches | Filtering without duplication |
+| [anti_join()]{.fn} | Left rows without matches | Finding unmatched data |
+
+
+
+---
+
+# Part 2: Dates & Times with lubridate
+
+---
+
+## What time is it now?
+
+```{r}
+#| echo: true
+now()
+```
+
+---
+
+## Current time in different timezones
+
+```{r}
+#| echo: true
+now(tzone = "EST")  # East Coast
+now(tzone = "GMT")  # Greenwich Mean Time
+```
+
+---
+
+## Just the date
+
+```{r}
+#| echo: true
+today()
+```
+
+---
+
+## Just the date in a specific timezone
+
+```{r}
+#| echo: true
+today(tzone = "GMT")
+```
+
+---
+
+## Time checks
+
+```{r}
+#| echo: true
+am(now())        # Is it morning?
+leap_year(now()) # Is it a leap year?
+```
+
+---
+
+## Date specifications
+
+[lubridate]{.fn} guesses date formats from character strings using **y**ear, **m**onth, **d**ay abbreviations:
+
+| Date format | Function |
+|---|---|
+| 2021-02-24 | [ymd()]{.fn} |
+| 02/24/2021 | [mdy()]{.fn} |
+| February 24 2021 | [mdy()]{.fn} |
+| 24/02/2021 | [dmy()]{.fn} |
+
+::: {.callout-warning}
+## Dates must be characters
+Always ensure your date column is a [character]{.dt}, not a factor. Use `as.character()` if needed.
+:::
+
+---
+
+## Convert dates: ISO format (YYYY-MM-DD)
+
+```{r}
+#| echo: true
+ymd("2021-02-24")
+```
+
+---
+
+## Convert dates: US format (MM/DD/YYYY)
+
+```{r}
+#| echo: true
+mdy("02/24/2021")
+```
+
+---
+
+## Convert dates: Written month
+
+```{r}
+#| echo: true
+mdy("February 24 2021")
+```
+
+---
+
+## Convert dates: European format (DD/MM/YYYY)
+
+```{r}
+#| echo: true
+dmy("24/02/2021")
+```
+
+---
+
+## Date & time specifications
+
+| Format | Function |
+|---|---|
+| 2021-02-24 10:22:20 PM | [ymd_hms()]{.fn} |
+| 02/24/2021 22:22:20 | [mdy_hms()]{.fn} |
+| February 24 2021 10:22 PM | [mdy_hm()]{.fn} |
+
+---
+
+## Convert date and time: ISO format with time
+
+```{r}
+#| echo: true
+ymd_hms("2021-02-24 10:22:20 PM")
+```
+
+---
+
+## Convert date and time: US format with seconds
+
+```{r}
+#| echo: true
+mdy_hms("02/24/2021 22:22:20")
+```
+
+---
+
+## Convert date and time: Written month with hour/minute
+
+```{r}
+#| echo: true
+mdy_hm("February 24 2021 10:22 PM")
+```
+
+---
+
+## Create a vector of datetimes
+
+```{r}
+#| echo: true
+datetimes <- c(
+  "02/24/2021 22:22:20",
+  "02/25/2021 11:21:10",
+  "02/26/2021 8:01:52"
+)
+
+datetimes
+```
+
+---
+
+## Convert the vector to datetime objects
+
+```{r}
+#| echo: true
+datetimes <- mdy_hms(datetimes)
+
+datetimes
+```
+
+Notice the output now shows [POSIXct]{.dt} dates with times!
+
+---
+
+## Extract the month (as number)
+
+```{r}
+#| echo: true
+month(datetimes)
+```
+
+---
+
+## Extract the month (as abbreviated label)
+
+```{r}
+#| echo: true
+month(datetimes, label = TRUE)
+```
+
+---
+
+## Extract the month (as full name)
+
+```{r}
+#| echo: true
+month(datetimes, label = TRUE, abbr = FALSE)
+```
+
+---
+
+## Extract the day of the month
+
+```{r}
+#| echo: true
+day(datetimes)
+```
+
+---
+
+## Extract the day of the week
+
+```{r}
+#| echo: true
+wday(datetimes, label = TRUE)
+```
+
+---
+
+## Extract hour, minute, and second
+
+```{r}
+#| echo: true
+hour(datetimes)
+minute(datetimes)
+second(datetimes)
+```
+
+---
+
+## Adding time intervals: Add 4 hours
+
+```{r}
+#| echo: true
+datetimes + hours(4)
+```
+
+::: {.callout-note}
+## Singular vs plural
+[hour()]{.fn} *extracts* the hour component  
+[hours()]{.fn} *adds* hours to a datetime
+
+The same pattern applies to all time units!
+:::
+
+---
+
+## Adding time intervals: Add 2 days
+
+```{r}
+#| echo: true
+datetimes + days(2)
+```
+
+You can also add [minutes()]{.fn}, [seconds()]{.fn}, [months()]{.fn}, [years()]{.fn}, and more!
+
+---
+
+## Adding time intervals: Add 1 month
+
+```{r}
+#| echo: true
+datetimes + months(1)
+```
+
+---
+
+## Rounding dates: Round to nearest minute
+
+```{r}
+#| echo: true
+round_date(datetimes, "minute")
+```
+
+---
+
+## Rounding dates: Round to nearest 5 minutes
+
+```{r}
+#| echo: true
+round_date(datetimes, "5 mins")
+```
+
+You can round to any time unit!
+
+---
+
+## Challenge
+
+Read in the conductivity data (`CondData.csv`) and convert the date column to a datetime using the pipe:
+
+---
+
+```{r}
+#| echo: true
+#| eval: false
+CondData <- read_csv(here("Week_05", "data", "CondData.csv")) |>
+  mutate(datetime = mdy_hms(datetime_column))
+```
+
+::: {.callout-warning}
+## Watch for hidden data
+Excel may hide seconds or display dates inconsistently. **Always** examine your data after reading it in with [glimpse()]{.fn} or [View()]{.fn}.
+:::
+
+---
+
+## Today's awesome R package: [ggcats]{.fn}
+
+Ever wanted to plot with cats in ggplot2?
+
+::: {.columns}
+
+::: {.column width="45%"}
+
+```{r}
+#| echo: true
+#| eval: false
+library(ggplot2)
+library(ggcats)
+
+# Create sample data
+df <- data.frame(
+  x = c(1, 2, 3, 4, 5),
+  y = c(2, 4, 3, 5, 4)
+)
+
+ggplot(df, aes(x, y)) +
+  geom_cat(cat = "nyancat", 
+           size = 4) +
+  labs(title = "Cats!", 
+       x = "X", y = "Y") +
+  theme_minimal()
+```
+
+:::
+
+::: {.column width="55%"}
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+library(ggplot2)
+library(ggcats)
+
+df <- data.frame(
+  x = c(1, 2, 3, 4, 5),
+  y = c(2, 4, 3, 5, 4)
+)
+
+ggplot(df, aes(x, y)) +
+  geom_cat(cat = "nyancat", size = 4) +
+  labs(title = "Plotting with Cats!", x = "X", y = "Y") +
+  theme_minimal()
+```
+
+:::
+
+:::
+---
+
+## Homework {.center}
+
+::: {.incremental}
+1. Read in both the conductivity and depth data
+2. Convert date columns appropriately
+3. Round the conductivity data to the nearest 10 seconds to match depth data
+4. Join the two dataframes using [inner_join()]{.fn} (only exact matches)
+5. Calculate averages of date, depth, temperature, and salinity **by minute**
+6. Make a plot using the averaged data
+7. Use pipes throughout (minimize separate dataframes)
+8. Add comments to your code!
+9. Save output, data, and scripts appropriately
+:::
+
+---
+
+## {.center .middle}
+
+# Thanks!
+
+Slides created with [**Quarto**](https://quarto.org/)
+
+References:  
+[Tidyexplain GitHub](https://github.com/gadenbuie/tidyexplain) — animated join visualizations  
+[lubridate cheatsheet](https://evoldyn.gitlab.io/evomics-2018/ref-sheets/R_lubridate.pdf)

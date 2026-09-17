@@ -19,4 +19,8 @@ Note: Lectures posted here before the start of class are still a work in progres
 
 *Week 4*  
 - [dplyr Data wrangling](https://01a09736-e4ca-5c27-d0df-0a55dc3e758d.share.connect.posit.cloud)    
-- [tidyr Data wrangling](https://01a09812-984b-cb5c-7542-5c44356ade6b.share.connect.posit.cloud)
+- [tidyr Data wrangling](https://01a09812-984b-cb5c-7542-5c44356ade6b.share.connect.posit.cloud)  
+
+*Week 5*
+- [joins and dates](https://01a0ac76-d3be-f1f5-8c63-b215b6ab7119.share.connect.posit.cloud)  
+

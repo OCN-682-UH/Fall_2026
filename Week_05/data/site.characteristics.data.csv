@@ -1,0 +1,79 @@
+﻿name,site.letter,site.block,parameter.measured,values
+Anemone Heaven,F,1,light ,1674.241
+Hilton High,C,2,light ,1193.23
+Public Beach,B,3,light ,2647.89
+Manava,E,1,light ,1533.245
+Sargassum Heaven,D,2,light ,2114.013
+Creepy Tree,A,3,light ,2677.125
+Anemone Heaven,F,1,temp,27.4
+Hilton High,C,2,temp,26.5
+Public Beach,B,3,temp,26.7
+Manava,E,1,temp,27.7
+Sargassum Heaven,D,2,temp,26.9
+Creepy Tree,A,3,temp,27
+Anemone Heaven,F,1,NH4,0.825
+Hilton High,C,2,NH4,0.36
+Public Beach,B,3,NH4,0.085
+Manava,E,1,NH4,1.49
+Sargassum Heaven,D,2,NH4,0.515
+Creepy Tree,A,3,NH4,0.225
+Anemone Heaven,F,1,N.N,0.51
+Hilton High,C,2,N.N,0.26
+Public Beach,B,3,N.N,0.255
+Manava,E,1,N.N,0.76
+Sargassum Heaven,D,2,N.N,0.515
+Creepy Tree,A,3,N.N,0.355
+Anemone Heaven,F,1,P,0.34
+Hilton High,C,2,P,0.335
+Public Beach,B,3,P,0.335
+Manava,E,1,P,0.355
+Sargassum Heaven,D,2,P,0.325
+Creepy Tree,A,3,P,0.4
+Anemone Heaven,F,1,DIN_DIP,3.938961
+Hilton High,C,2,DIN_DIP,1.858482
+Public Beach,B,3,DIN_DIP,1.011607
+Manava,E,1,DIN_DIP,6.365323
+Sargassum Heaven,D,2,DIN_DIP,3.184535
+Creepy Tree,A,3,DIN_DIP,1.451532
+Anemone Heaven,F,1,N,0.7840256
+Hilton High,C,2,N,0.7906739
+Public Beach,B,3,N,0.6703865
+Manava,E,1,N,0.8935947
+Sargassum Heaven,D,2,N,0.858445
+Creepy Tree,A,3,N,0.747416
+Anemone Heaven,F,1,trap.accumulation.rate,2.287115477
+Hilton High,C,2,trap.accumulation.rate,2.373570014
+Public Beach,B,3,trap.accumulation.rate,1.579760175
+Manava,E,1,trap.accumulation.rate,3.438532719
+Sargassum Heaven,D,2,trap.accumulation.rate,2.149574168
+Creepy Tree,A,3,trap.accumulation.rate,2.008103108
+Anemone Heaven,F,1,CCA.cover,6.1
+Hilton High,C,2,CCA.cover,10.25
+Public Beach,B,3,CCA.cover,7.5
+Manava,E,1,CCA.cover,4
+Sargassum Heaven,D,2,CCA.cover,1.25
+Creepy Tree,A,3,CCA.cover,15.25
+Anemone Heaven,F,1,algal.cover,37.15
+Hilton High,C,2,algal.cover,32.625
+Public Beach,B,3,algal.cover,20
+Manava,E,1,algal.cover,22.375
+Sargassum Heaven,D,2,algal.cover,14.5
+Creepy Tree,A,3,algal.cover,14.5
+Anemone Heaven,F,1,p.acuta.cover,6.3
+Hilton High,C,2,p.acuta.cover,6.5
+Public Beach,B,3,p.acuta.cover,16
+Manava,E,1,p.acuta.cover,3.5
+Sargassum Heaven,D,2,p.acuta.cover,0.25
+Creepy Tree,A,3,p.acuta.cover,3
+Anemone Heaven,F,1,coral.cover,16.95
+Hilton High,C,2,coral.cover,35.75
+Public Beach,B,3,coral.cover,33.75
+Manava,E,1,coral.cover,20.05
+Sargassum Heaven,D,2,coral.cover,28
+Creepy Tree,A,3,coral.cover,21.75
+Anemone Heaven,F,1,substrate.cover,33.5
+Hilton High,C,2,substrate.cover,14.875
+Public Beach,B,3,substrate.cover,22.75
+Manava,E,1,substrate.cover,50.075
+Sargassum Heaven,D,2,substrate.cover,56
+Creepy Tree,A,3,substrate.cover,45.5

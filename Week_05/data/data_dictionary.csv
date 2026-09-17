@@ -1,0 +1,17 @@
+﻿site.characteristics.data.csv ,
+Variable Name,Description
+name,Name of the site
+site.letter,Code associated with each site
+site.block,Experimental block (two sites were done at the same time)
+parameter.measured,"Environmental parameter measured: Light (proton flux density),  temp (degrees C), NH4 (ammonium umol/L),"
+values,"N.N (Nitrate + nitrite, umol/l), P (phosphate umol/L), DIN_DIP (nitrogen to phosphorus ratio), N (% tissue N in Sargassum), trap.accum (sedimentation rate), CCA.cover (crustose coralline algae cover, %), algal.cover (fleshy algae cover, %), coral.cover (coral cover, %), substrate.cover (other substrate cover, %)"
+,
+Topt_data.csv,
+fragment.ID,Unique ID of every coral fragment (Pocillopora acuta)
+rate.type,"The type of metabolic rate measured (R = respiration, GP = Gross Photosynthesis, C = calcification)"
+E,Activation energy extracted from thermal performance curve (eV)
+Eh,Deactivation energy extracted from thermal performance curve (eV)
+lnc,Rate at a constant temperature extracted from thermal performance curves (umol cm-2 hr-1)
+Th,"Temperature in Kelvin (K), where half the enzymes are inactivated"
+Topt,Thermal optima extracted from ther thermal performance curve (degree C)
+site.letter,Code associated with each site

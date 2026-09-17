@@ -508,9 +508,32 @@ Plotly plots are interactive! Hover over points to see exact values, zoom in/out
 
 ## Animate by species with frame
 
+::: {.columns}
+
+::: {.column width="45%"}
+
 ```{r}
 #| echo: true
-#| eval: true
+#| eval: false
+penguins |>
+  plot_ly(x = ~body_mass_g,
+          y = ~bill_depth_mm,
+          frame = ~species,
+          color = ~species,
+          type = "scatter",
+          mode = "markers",
+          marker = list(size = 8)) |>
+  layout(title = "Penguin Characteristics",
+         xaxis = list(title = "Body Mass (g)"),
+         yaxis = list(title = "Bill Depth (mm)"))
+```
+
+:::
+
+::: {.column width="55%"}
+
+```{r}
+#| echo: false
 penguins |>
   plot_ly(x = ~body_mass_g,
           y = ~bill_depth_mm,
@@ -525,6 +548,10 @@ penguins |>
 ```
 
 Click the play button to animate through species!
+
+:::
+
+:::
 
 ---
 

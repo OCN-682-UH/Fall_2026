@@ -642,6 +642,125 @@ Dr.&nbsp;Nyssa Silbiger
 </tbody>
 </table>
 </section>
+<section id="common-gotcha-joining-by-different-column-names" class="slide level2">
+<h2>Common gotcha: Joining by different column names</h2>
+<p>What if your tables use different column names for the same information?</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="" aria-label="1"></a>T3 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb17-2"><a href="" aria-label="2"></a>  <span class="at">SiteID =</span> <span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, <span class="st">"D"</span>),  <span class="co"># Note: different name!</span></span>
+<span id="cb17-3"><a href="" aria-label="3"></a>  <span class="at">Chlorophyll =</span> <span class="fu">c</span>(<span class="fl">2.3</span>, <span class="fl">3.1</span>, <span class="fl">1.9</span>, <span class="fl">2.8</span>)</span>
+<span id="cb17-4"><a href="" aria-label="4"></a>)</span>
+<span id="cb17-5"><a href="" aria-label="5"></a></span>
+<span id="cb17-6"><a href="" aria-label="6"></a>T3</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 2
+  SiteID Chlorophyll
+  &lt;chr&gt;        &lt;dbl&gt;
+1 A              2.3
+2 B              3.1
+3 C              1.9
+4 D              2.8</code></pre>
+</div>
+</div>
+<p>Notice T1 uses <code>Site.ID</code> but T3 uses <code>SiteID</code>. These are the same thing!</p>
+</section>
+<section id="joining-with-by-argument-different-column-names" class="slide level2">
+<h2>Joining with <code>by</code> argument — Different column names</h2>
+<p>Use the <code>by</code> argument to specify column mapping as a named character vector:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="" aria-label="1"></a><span class="fu">left_join</span>(T1, T3, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"Site.ID"</span> <span class="ot">=</span> <span class="st">"SiteID"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 3
+  Site.ID Temperature Chlorophyll
+  &lt;chr&gt;         &lt;dbl&gt;       &lt;dbl&gt;
+1 A              14.1         2.3
+2 B              16.7         3.1
+3 C              15.3         1.9
+4 D              12.8         2.8</code></pre>
+</div>
+</div>
+<p>The syntax is: <code>by = c("left_table_col" = "right_table_col")</code></p>
+<p>This is one of the most common mistakes students make — don’t forget the <code>by</code> argument!</p>
+</section>
+<section id="joining-by-multiple-columns" class="slide level2">
+<h2>Joining by multiple columns</h2>
+<p>When matching requires <strong>multiple</strong> columns, specify all of them:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="" aria-label="1"></a>T4 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb21-2"><a href="" aria-label="2"></a>  <span class="at">Site.ID =</span> <span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"B"</span>),</span>
+<span id="cb21-3"><a href="" aria-label="3"></a>  <span class="at">Year =</span> <span class="fu">c</span>(<span class="dv">2020</span>, <span class="dv">2021</span>, <span class="dv">2020</span>, <span class="dv">2021</span>),</span>
+<span id="cb21-4"><a href="" aria-label="4"></a>  <span class="at">Biomass =</span> <span class="fu">c</span>(<span class="fl">12.5</span>, <span class="fl">15.3</span>, <span class="fl">18.2</span>, <span class="fl">16.9</span>)</span>
+<span id="cb21-5"><a href="" aria-label="5"></a>)</span>
+<span id="cb21-6"><a href="" aria-label="6"></a></span>
+<span id="cb21-7"><a href="" aria-label="7"></a>T5 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb21-8"><a href="" aria-label="8"></a>  <span class="at">SiteID =</span> <span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"A"</span>, <span class="st">"B"</span>),</span>
+<span id="cb21-9"><a href="" aria-label="9"></a>  <span class="at">Year =</span> <span class="fu">c</span>(<span class="dv">2020</span>, <span class="dv">2021</span>, <span class="dv">2021</span>),</span>
+<span id="cb21-10"><a href="" aria-label="10"></a>  <span class="at">Nutrients =</span> <span class="fu">c</span>(<span class="fl">8.2</span>, <span class="fl">7.9</span>, <span class="fl">9.1</span>)</span>
+<span id="cb21-11"><a href="" aria-label="11"></a>)</span>
+<span id="cb21-12"><a href="" aria-label="12"></a></span>
+<span id="cb21-13"><a href="" aria-label="13"></a><span class="fu">left_join</span>(T4, T5, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"Site.ID"</span> <span class="ot">=</span> <span class="st">"SiteID"</span>, <span class="st">"Year"</span> <span class="ot">=</span> <span class="st">"Year"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 4
+  Site.ID  Year Biomass Nutrients
+  &lt;chr&gt;   &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;
+1 A        2020    12.5       8.2
+2 A        2021    15.3       7.9
+3 B        2020    18.2      NA  
+4 B        2021    16.9       9.1</code></pre>
+</div>
+</div>
+<p>Notice <code>Year</code> appears in both with the same name. You must still include it in the <code>by</code> argument when joining by multiple columns.</p>
+</section>
+<section id="handling-naming-conflicts-.x-and-.y-suffixes" class="slide level2">
+<h2>Handling naming conflicts: .x and .y suffixes</h2>
+<p>What happens when both tables have columns with the same name but you’re NOT joining by them?</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="" aria-label="1"></a>T6 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb23-2"><a href="" aria-label="2"></a>  <span class="at">Site.ID =</span> <span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>),</span>
+<span id="cb23-3"><a href="" aria-label="3"></a>  <span class="at">Notes =</span> <span class="fu">c</span>(<span class="st">"pristine"</span>, <span class="st">"degraded"</span>, <span class="st">"moderately impaired"</span>)</span>
+<span id="cb23-4"><a href="" aria-label="4"></a>)</span>
+<span id="cb23-5"><a href="" aria-label="5"></a></span>
+<span id="cb23-6"><a href="" aria-label="6"></a>T7 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb23-7"><a href="" aria-label="7"></a>  <span class="at">Site.ID =</span> <span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"D"</span>),</span>
+<span id="cb23-8"><a href="" aria-label="8"></a>  <span class="at">Notes =</span> <span class="fu">c</span>(<span class="st">"sunny"</span>, <span class="st">"shaded"</span>, <span class="st">"partially shaded"</span>),</span>
+<span id="cb23-9"><a href="" aria-label="9"></a>  <span class="at">Quality =</span> <span class="fu">c</span>(<span class="st">"good"</span>, <span class="st">"fair"</span>, <span class="st">"poor"</span>)</span>
+<span id="cb23-10"><a href="" aria-label="10"></a>)</span>
+<span id="cb23-11"><a href="" aria-label="11"></a></span>
+<span id="cb23-12"><a href="" aria-label="12"></a><span class="co"># Don't specify how to join — creates ambiguity with 'Notes'</span></span>
+<span id="cb23-13"><a href="" aria-label="13"></a><span class="fu">left_join</span>(T6, T7, <span class="at">by =</span> <span class="st">"Site.ID"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 4
+  Site.ID Notes.x             Notes.y Quality
+  &lt;chr&gt;   &lt;chr&gt;               &lt;chr&gt;   &lt;chr&gt;  
+1 A       pristine            sunny   good   
+2 B       degraded            shaded  fair   
+3 C       moderately impaired &lt;NA&gt;    &lt;NA&gt;   </code></pre>
+</div>
+</div>
+<p>See the <code>.x</code> and <code>.y</code> suffixes on <code>Notes</code>? They distinguish which table each column came from!</p>
+</section>
+<section id="avoiding-naming-conflicts" class="slide level2">
+<h2>Avoiding naming conflicts</h2>
+<p>Best practice: <strong>rename columns before joining</strong> to avoid confusion</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="" aria-label="1"></a>T6_renamed <span class="ot">&lt;-</span> T6 <span class="sc">|&gt;</span> </span>
+<span id="cb25-2"><a href="" aria-label="2"></a>  <span class="fu">rename</span>(<span class="at">Condition_Notes =</span> Notes)</span>
+<span id="cb25-3"><a href="" aria-label="3"></a></span>
+<span id="cb25-4"><a href="" aria-label="4"></a>T7_renamed <span class="ot">&lt;-</span> T7 <span class="sc">|&gt;</span> </span>
+<span id="cb25-5"><a href="" aria-label="5"></a>  <span class="fu">rename</span>(<span class="at">Habitat_Notes =</span> Notes)</span>
+<span id="cb25-6"><a href="" aria-label="6"></a></span>
+<span id="cb25-7"><a href="" aria-label="7"></a><span class="fu">left_join</span>(T6_renamed, T7_renamed, <span class="at">by =</span> <span class="st">"Site.ID"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 4
+  Site.ID Condition_Notes     Habitat_Notes Quality
+  &lt;chr&gt;   &lt;chr&gt;               &lt;chr&gt;         &lt;chr&gt;  
+1 A       pristine            sunny         good   
+2 B       degraded            shaded        fair   
+3 C       moderately impaired &lt;NA&gt;          &lt;NA&gt;   </code></pre>
+</div>
+</div>
+<p>Much cleaner! No <code>.x</code> and <code>.y</code> suffixes, and the data is self-documenting.</p>
+</section>
 <section class="slide level2">
 
 </section></section>
@@ -653,29 +772,33 @@ Dr.&nbsp;Nyssa Silbiger
 <section id="what-time-is-it-now" class="slide level2">
 <h2>What time is it now?</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="" aria-label="1"></a><span class="fu">now</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="" aria-label="1"></a><span class="fu">now</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "2026-09-16 17:46:56 MDT"</code></pre>
+<pre><code>[1] "2026-09-16 19:30:43 MDT"</code></pre>
 </div>
 </div>
 </section>
 <section id="current-time-in-different-timezones" class="slide level2">
 <h2>Current time in different timezones</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="" aria-label="1"></a><span class="fu">now</span>(<span class="at">tzone =</span> <span class="st">"EST"</span>)  <span class="co"># East Coast</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="" aria-label="1"></a><span class="fu">now</span>(<span class="at">tzone =</span> <span class="st">"EST"</span>)  <span class="co"># East Coast</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "2026-09-16 18:46:56 EST"</code></pre>
+<pre><code>[1] "2026-09-16 20:30:43 EST"</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="" aria-label="1"></a><span class="fu">now</span>(<span class="at">tzone =</span> <span class="st">"GMT"</span>)  <span class="co"># Greenwich Mean Time</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="" aria-label="1"></a><span class="fu">now</span>(<span class="at">tzone =</span> <span class="st">"GMT"</span>)  <span class="co"># Greenwich Mean Time</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "2026-09-16 23:46:56 GMT"</code></pre>
+<pre><code>[1] "2026-09-17 01:30:43 GMT"</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="" aria-label="1"></a><span class="fu">now</span>(<span class="at">tzone =</span> <span class="st">"US/Hawaii"</span>)  <span class="co"># Hawaii Time</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "2026-09-16 15:30:43 HST"</code></pre>
 </div>
 </div>
 </section>
 <section id="just-the-date" class="slide level2">
 <h2>Just the date</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="" aria-label="1"></a><span class="fu">today</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="" aria-label="1"></a><span class="fu">today</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "2026-09-16"</code></pre>
 </div>
@@ -684,20 +807,20 @@ Dr.&nbsp;Nyssa Silbiger
 <section id="just-the-date-in-a-specific-timezone" class="slide level2">
 <h2>Just the date in a specific timezone</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="" aria-label="1"></a><span class="fu">today</span>(<span class="at">tzone =</span> <span class="st">"GMT"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="" aria-label="1"></a><span class="fu">today</span>(<span class="at">tzone =</span> <span class="st">"GMT"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "2026-09-16"</code></pre>
+<pre><code>[1] "2026-09-17"</code></pre>
 </div>
 </div>
 </section>
 <section id="time-checks" class="slide level2">
 <h2>Time checks</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="" aria-label="1"></a><span class="fu">am</span>(<span class="fu">now</span>())        <span class="co"># Is it morning?</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="" aria-label="1"></a><span class="fu">am</span>(<span class="fu">now</span>())        <span class="co"># Is it morning?</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] FALSE</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="" aria-label="1"></a><span class="fu">leap_year</span>(<span class="fu">now</span>()) <span class="co"># Is it a leap year?</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="" aria-label="1"></a><span class="fu">leap_year</span>(<span class="fu">now</span>()) <span class="co"># Is it a leap year?</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] FALSE</code></pre>
 </div>
@@ -749,7 +872,7 @@ Dr.&nbsp;Nyssa Silbiger
 <section id="convert-dates-iso-format-yyyy-mm-dd" class="slide level2">
 <h2>Convert dates: ISO format (YYYY-MM-DD)</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="" aria-label="1"></a><span class="fu">ymd</span>(<span class="st">"2021-02-24"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="" aria-label="1"></a><span class="fu">ymd</span>(<span class="st">"2021-02-24"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "2021-02-24"</code></pre>
 </div>
@@ -758,7 +881,7 @@ Dr.&nbsp;Nyssa Silbiger
 <section id="convert-dates-us-format-mmddyyyy" class="slide level2">
 <h2>Convert dates: US format (MM/DD/YYYY)</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="" aria-label="1"></a><span class="fu">mdy</span>(<span class="st">"02/24/2021"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="" aria-label="1"></a><span class="fu">mdy</span>(<span class="st">"02/24/2021"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "2021-02-24"</code></pre>
 </div>
@@ -767,7 +890,7 @@ Dr.&nbsp;Nyssa Silbiger
 <section id="convert-dates-written-month" class="slide level2">
 <h2>Convert dates: Written month</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="" aria-label="1"></a><span class="fu">mdy</span>(<span class="st">"February 24 2021"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="" aria-label="1"></a><span class="fu">mdy</span>(<span class="st">"February 24 2021"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "2021-02-24"</code></pre>
 </div>
@@ -776,7 +899,7 @@ Dr.&nbsp;Nyssa Silbiger
 <section id="convert-dates-european-format-ddmmyyyy" class="slide level2">
 <h2>Convert dates: European format (DD/MM/YYYY)</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="" aria-label="1"></a><span class="fu">dmy</span>(<span class="st">"24/02/2021"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="" aria-label="1"></a><span class="fu">dmy</span>(<span class="st">"24/02/2021"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "2021-02-24"</code></pre>
 </div>
@@ -810,7 +933,7 @@ Dr.&nbsp;Nyssa Silbiger
 <section id="convert-date-and-time-iso-format-with-time" class="slide level2">
 <h2>Convert date and time: ISO format with time</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="" aria-label="1"></a><span class="fu">ymd_hms</span>(<span class="st">"2021-02-24 10:22:20 PM"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="" aria-label="1"></a><span class="fu">ymd_hms</span>(<span class="st">"2021-02-24 10:22:20 PM"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "2021-02-24 22:22:20 UTC"</code></pre>
 </div>
@@ -819,7 +942,7 @@ Dr.&nbsp;Nyssa Silbiger
 <section id="convert-date-and-time-us-format-with-seconds" class="slide level2">
 <h2>Convert date and time: US format with seconds</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="" aria-label="1"></a><span class="fu">mdy_hms</span>(<span class="st">"02/24/2021 22:22:20"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="" aria-label="1"></a><span class="fu">mdy_hms</span>(<span class="st">"02/24/2021 22:22:20"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "2021-02-24 22:22:20 UTC"</code></pre>
 </div>
@@ -828,7 +951,7 @@ Dr.&nbsp;Nyssa Silbiger
 <section id="convert-date-and-time-written-month-with-hourminute" class="slide level2">
 <h2>Convert date and time: Written month with hour/minute</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="" aria-label="1"></a><span class="fu">mdy_hm</span>(<span class="st">"February 24 2021 10:22 PM"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="" aria-label="1"></a><span class="fu">mdy_hm</span>(<span class="st">"February 24 2021 10:22 PM"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "2021-02-24 22:22:00 UTC"</code></pre>
 </div>
@@ -837,13 +960,13 @@ Dr.&nbsp;Nyssa Silbiger
 <section id="create-a-vector-of-datetimes" class="slide level2">
 <h2>Create a vector of datetimes</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="" aria-label="1"></a>datetimes <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
-<span id="cb45-2"><a href="" aria-label="2"></a>  <span class="st">"02/24/2021 22:22:20"</span>,</span>
-<span id="cb45-3"><a href="" aria-label="3"></a>  <span class="st">"02/25/2021 11:21:10"</span>,</span>
-<span id="cb45-4"><a href="" aria-label="4"></a>  <span class="st">"02/26/2021 8:01:52"</span></span>
-<span id="cb45-5"><a href="" aria-label="5"></a>)</span>
-<span id="cb45-6"><a href="" aria-label="6"></a></span>
-<span id="cb45-7"><a href="" aria-label="7"></a>datetimes</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="" aria-label="1"></a>datetimes <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb57-2"><a href="" aria-label="2"></a>  <span class="st">"02/24/2021 22:22:20"</span>,</span>
+<span id="cb57-3"><a href="" aria-label="3"></a>  <span class="st">"02/25/2021 11:21:10"</span>,</span>
+<span id="cb57-4"><a href="" aria-label="4"></a>  <span class="st">"02/26/2021 8:01:52"</span></span>
+<span id="cb57-5"><a href="" aria-label="5"></a>)</span>
+<span id="cb57-6"><a href="" aria-label="6"></a></span>
+<span id="cb57-7"><a href="" aria-label="7"></a>datetimes</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "02/24/2021 22:22:20" "02/25/2021 11:21:10" "02/26/2021 8:01:52" </code></pre>
 </div>
@@ -852,9 +975,9 @@ Dr.&nbsp;Nyssa Silbiger
 <section id="convert-the-vector-to-datetime-objects" class="slide level2">
 <h2>Convert the vector to datetime objects</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="" aria-label="1"></a>datetimes <span class="ot">&lt;-</span> <span class="fu">mdy_hms</span>(datetimes)</span>
-<span id="cb47-2"><a href="" aria-label="2"></a></span>
-<span id="cb47-3"><a href="" aria-label="3"></a>datetimes</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb59"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="" aria-label="1"></a>datetimes <span class="ot">&lt;-</span> <span class="fu">mdy_hms</span>(datetimes)</span>
+<span id="cb59-2"><a href="" aria-label="2"></a></span>
+<span id="cb59-3"><a href="" aria-label="3"></a>datetimes</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "2021-02-24 22:22:20 UTC" "2021-02-25 11:21:10 UTC"
 [3] "2021-02-26 08:01:52 UTC"</code></pre>
@@ -865,7 +988,7 @@ Dr.&nbsp;Nyssa Silbiger
 <section id="extract-the-month-as-number" class="slide level2">
 <h2>Extract the month (as number)</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="" aria-label="1"></a><span class="fu">month</span>(datetimes)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb61"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="" aria-label="1"></a><span class="fu">month</span>(datetimes)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 2 2 2</code></pre>
 </div>
@@ -874,7 +997,7 @@ Dr.&nbsp;Nyssa Silbiger
 <section id="extract-the-month-as-abbreviated-label" class="slide level2">
 <h2>Extract the month (as abbreviated label)</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="" aria-label="1"></a><span class="fu">month</span>(datetimes, <span class="at">label =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb63"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="" aria-label="1"></a><span class="fu">month</span>(datetimes, <span class="at">label =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] Feb Feb Feb
 12 Levels: Jan &lt; Feb &lt; Mar &lt; Apr &lt; May &lt; Jun &lt; Jul &lt; Aug &lt; Sep &lt; ... &lt; Dec</code></pre>
@@ -884,7 +1007,7 @@ Dr.&nbsp;Nyssa Silbiger
 <section id="extract-the-month-as-full-name" class="slide level2">
 <h2>Extract the month (as full name)</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="" aria-label="1"></a><span class="fu">month</span>(datetimes, <span class="at">label =</span> <span class="cn">TRUE</span>, <span class="at">abbr =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb65"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="" aria-label="1"></a><span class="fu">month</span>(datetimes, <span class="at">label =</span> <span class="cn">TRUE</span>, <span class="at">abbr =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] February February February
 12 Levels: January &lt; February &lt; March &lt; April &lt; May &lt; June &lt; ... &lt; December</code></pre>
@@ -894,7 +1017,7 @@ Dr.&nbsp;Nyssa Silbiger
 <section id="extract-the-day-of-the-month" class="slide level2">
 <h2>Extract the day of the month</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="" aria-label="1"></a><span class="fu">day</span>(datetimes)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb67"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="" aria-label="1"></a><span class="fu">day</span>(datetimes)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 24 25 26</code></pre>
 </div>
@@ -903,7 +1026,7 @@ Dr.&nbsp;Nyssa Silbiger
 <section id="extract-the-day-of-the-week" class="slide level2">
 <h2>Extract the day of the week</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="" aria-label="1"></a><span class="fu">wday</span>(datetimes, <span class="at">label =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb69"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="" aria-label="1"></a><span class="fu">wday</span>(datetimes, <span class="at">label =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] Wed Thu Fri
 Levels: Sun &lt; Mon &lt; Tue &lt; Wed &lt; Thu &lt; Fri &lt; Sat</code></pre>
@@ -913,15 +1036,15 @@ Levels: Sun &lt; Mon &lt; Tue &lt; Wed &lt; Thu &lt; Fri &lt; Sat</code></pre>
 <section id="extract-hour-minute-and-second" class="slide level2">
 <h2>Extract hour, minute, and second</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb59"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="" aria-label="1"></a><span class="fu">hour</span>(datetimes)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb71"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="" aria-label="1"></a><span class="fu">hour</span>(datetimes)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 22 11  8</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb61"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="" aria-label="1"></a><span class="fu">minute</span>(datetimes)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb73"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="" aria-label="1"></a><span class="fu">minute</span>(datetimes)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 22 21  1</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb63"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="" aria-label="1"></a><span class="fu">second</span>(datetimes)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb75"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="" aria-label="1"></a><span class="fu">second</span>(datetimes)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 20 10 52</code></pre>
 </div>
@@ -930,7 +1053,7 @@ Levels: Sun &lt; Mon &lt; Tue &lt; Wed &lt; Thu &lt; Fri &lt; Sat</code></pre>
 <section id="adding-time-intervals-add-4-hours" class="slide level2">
 <h2>Adding time intervals: Add 4 hours</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb65"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="" aria-label="1"></a>datetimes <span class="sc">+</span> <span class="fu">hours</span>(<span class="dv">4</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb77"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="" aria-label="1"></a>datetimes <span class="sc">+</span> <span class="fu">hours</span>(<span class="dv">4</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "2021-02-25 02:22:20 UTC" "2021-02-25 15:21:10 UTC"
 [3] "2021-02-26 12:01:52 UTC"</code></pre>
@@ -955,7 +1078,7 @@ Levels: Sun &lt; Mon &lt; Tue &lt; Wed &lt; Thu &lt; Fri &lt; Sat</code></pre>
 <section id="adding-time-intervals-add-2-days" class="slide level2">
 <h2>Adding time intervals: Add 2 days</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb67"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="" aria-label="1"></a>datetimes <span class="sc">+</span> <span class="fu">days</span>(<span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb79"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="" aria-label="1"></a>datetimes <span class="sc">+</span> <span class="fu">days</span>(<span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "2021-02-26 22:22:20 UTC" "2021-02-27 11:21:10 UTC"
 [3] "2021-02-28 08:01:52 UTC"</code></pre>
@@ -966,7 +1089,7 @@ Levels: Sun &lt; Mon &lt; Tue &lt; Wed &lt; Thu &lt; Fri &lt; Sat</code></pre>
 <section id="adding-time-intervals-add-1-month" class="slide level2">
 <h2>Adding time intervals: Add 1 month</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb69"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="" aria-label="1"></a>datetimes <span class="sc">+</span> <span class="fu">months</span>(<span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb81"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="" aria-label="1"></a>datetimes <span class="sc">+</span> <span class="fu">months</span>(<span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "2021-03-24 22:22:20 UTC" "2021-03-25 11:21:10 UTC"
 [3] "2021-03-26 08:01:52 UTC"</code></pre>
@@ -976,7 +1099,7 @@ Levels: Sun &lt; Mon &lt; Tue &lt; Wed &lt; Thu &lt; Fri &lt; Sat</code></pre>
 <section id="rounding-dates-round-to-nearest-minute" class="slide level2">
 <h2>Rounding dates: Round to nearest minute</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb71"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="" aria-label="1"></a><span class="fu">round_date</span>(datetimes, <span class="st">"minute"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb83"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="" aria-label="1"></a><span class="fu">round_date</span>(datetimes, <span class="st">"minute"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "2021-02-24 22:22:00 UTC" "2021-02-25 11:21:00 UTC"
 [3] "2021-02-26 08:02:00 UTC"</code></pre>
@@ -986,13 +1109,106 @@ Levels: Sun &lt; Mon &lt; Tue &lt; Wed &lt; Thu &lt; Fri &lt; Sat</code></pre>
 <section id="rounding-dates-round-to-nearest-5-minutes" class="slide level2">
 <h2>Rounding dates: Round to nearest 5 minutes</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb73"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="" aria-label="1"></a><span class="fu">round_date</span>(datetimes, <span class="st">"5 mins"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb85"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="" aria-label="1"></a><span class="fu">round_date</span>(datetimes, <span class="st">"5 mins"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "2021-02-24 22:20:00 UTC" "2021-02-25 11:20:00 UTC"
 [3] "2021-02-26 08:00:00 UTC"</code></pre>
 </div>
 </div>
 <p>You can round to any time unit!</p>
+</section>
+<section id="timezone-awareness-a-real-world-challenge" class="slide level2">
+<h2>Timezone awareness: A real-world challenge</h2>
+<p>Your data may come from different timezones, or your system timezone may differ from data collection timezone. This causes <strong>major</strong> problems if you ignore it!</p>
+<p>Example: Data collected in Hawaii (HST) but your computer is in EST.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb87"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href="" aria-label="1"></a><span class="co"># Create a datetime WITHOUT timezone info</span></span>
+<span id="cb87-2"><a href="" aria-label="2"></a>datetime_naive <span class="ot">&lt;-</span> <span class="fu">mdy_hms</span>(<span class="st">"02/24/2021 10:22:20"</span>)</span>
+<span id="cb87-3"><a href="" aria-label="3"></a>datetime_naive</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "2021-02-24 10:22:20 UTC"</code></pre>
+</div>
+</div>
+<p>This object has NO timezone information — dangerous!</p>
+</section>
+<section id="with_tz-view-same-moment-in-different-timezone" class="slide level2">
+<h2><span class="fn">with_tz()</span> — View same moment in different timezone</h2>
+<p>Use <span class="fn">with_tz()</span> to <strong>interpret the same clock time in a different timezone</strong>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb89"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="" aria-label="1"></a><span class="co"># Assume the naive time is in Hawaii</span></span>
+<span id="cb89-2"><a href="" aria-label="2"></a>hawaii_time <span class="ot">&lt;-</span> <span class="fu">with_tz</span>(datetime_naive, <span class="at">tzone =</span> <span class="st">"US/Hawaii"</span>)</span>
+<span id="cb89-3"><a href="" aria-label="3"></a>hawaii_time</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "2021-02-24 00:22:20 HST"</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb91"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a href="" aria-label="1"></a><span class="co"># Same moment, viewed from EST</span></span>
+<span id="cb91-2"><a href="" aria-label="2"></a>est_time <span class="ot">&lt;-</span> <span class="fu">with_tz</span>(hawaii_time, <span class="at">tzone =</span> <span class="st">"EST"</span>)</span>
+<span id="cb91-3"><a href="" aria-label="3"></a>est_time</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "2021-02-24 05:22:20 EST"</code></pre>
+</div>
+</div>
+<p>The <strong>instant in time</strong> is the same; we’re just viewing it in different timezones. Notice the hour changed!</p>
+</section>
+<section id="force_tz-change-the-timezone-label" class="slide level2">
+<h2><span class="fn">force_tz()</span> — Change the timezone label</h2>
+<p>Use <span class="fn">force_tz()</span> to <strong>reassign</strong> a naive datetime to a specific timezone (claim it was collected there):</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb93"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a href="" aria-label="1"></a><span class="co"># Claim this was collected in Hawaii (though it was naive)</span></span>
+<span id="cb93-2"><a href="" aria-label="2"></a>force_hawaii <span class="ot">&lt;-</span> <span class="fu">force_tz</span>(datetime_naive, <span class="at">tzone =</span> <span class="st">"US/Hawaii"</span>)</span>
+<span id="cb93-3"><a href="" aria-label="3"></a>force_hawaii</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "2021-02-24 10:22:20 HST"</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb95"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a href="" aria-label="1"></a><span class="co"># Now convert to EST (this changes the clock time!)</span></span>
+<span id="cb95-2"><a href="" aria-label="2"></a><span class="fu">with_tz</span>(force_hawaii, <span class="at">tzone =</span> <span class="st">"EST"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "2021-02-24 15:22:20 EST"</code></pre>
+</div>
+</div>
+<p><strong>Important:</strong> <span class="fn">force_tz()</span> changes the clock reading because you’re assigning timezone info to a previously naive datetime.</p>
+</section>
+<section id="with_tz-vs-force_tz-key-difference" class="slide level2">
+<h2>with_tz() vs force_tz() — Key difference</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function</th>
+<th>Use when</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="fn">with_tz()</span></td>
+<td>Datetime HAS timezone; you want to view it in a different one</td>
+<td>Clock changes, <strong>instant stays the same</strong></td>
+</tr>
+<tr class="even">
+<td><span class="fn">force_tz()</span></td>
+<td>Datetime is NAIVE; you want to claim where it was collected</td>
+<td><strong>Instant changes</strong>, timezone label added</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>This confuses everyone!</strong></p>
+</div>
+<div class="callout-content">
+<p>A common mistake: using <span class="fn">with_tz()</span> when you meant <span class="fn">force_tz()</span>, or vice versa. <strong>Always verify your datetime after conversion!</strong></p>
+</div>
+</div>
+</div>
 </section>
 <section id="challenge" class="slide level2">
 <h2>Challenge</h2>
@@ -1001,8 +1217,8 @@ Levels: Sun &lt; Mon &lt; Tue &lt; Wed &lt; Thu &lt; Fri &lt; Sat</code></pre>
 <section class="slide level2">
 
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb75"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="" aria-label="1"></a>CondData <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">"Week_05"</span>, <span class="st">"data"</span>, <span class="st">"CondData.csv"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb75-2"><a href="" aria-label="2"></a>  <span class="fu">mutate</span>(<span class="at">datetime =</span> <span class="fu">mdy_hms</span>(datetime_column))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb97"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb97-1"><a href="" aria-label="1"></a>CondData <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">"Week_05"</span>, <span class="st">"data"</span>, <span class="st">"CondData.csv"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb97-2"><a href="" aria-label="2"></a>  <span class="fu">mutate</span>(<span class="at">datetime =</span> <span class="fu">mdy_hms</span>(datetime_column))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="callout callout-warning callout-titled callout-style-default">
 <div class="callout-body">
@@ -1024,28 +1240,28 @@ Levels: Sun &lt; Mon &lt; Tue &lt; Wed &lt; Thu &lt; Fri &lt; Sat</code></pre>
 <div class="columns">
 <div class="column" style="width:45%;">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb76"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="" aria-label="1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb76-2"><a href="" aria-label="2"></a><span class="fu">library</span>(ggcats)</span>
-<span id="cb76-3"><a href="" aria-label="3"></a></span>
-<span id="cb76-4"><a href="" aria-label="4"></a><span class="co"># Create sample data</span></span>
-<span id="cb76-5"><a href="" aria-label="5"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb76-6"><a href="" aria-label="6"></a>  <span class="at">x =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>),</span>
-<span id="cb76-7"><a href="" aria-label="7"></a>  <span class="at">y =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">4</span>)</span>
-<span id="cb76-8"><a href="" aria-label="8"></a>)</span>
-<span id="cb76-9"><a href="" aria-label="9"></a></span>
-<span id="cb76-10"><a href="" aria-label="10"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(x, y)) <span class="sc">+</span></span>
-<span id="cb76-11"><a href="" aria-label="11"></a>  <span class="fu">geom_cat</span>(<span class="at">cat =</span> <span class="st">"nyancat"</span>, </span>
-<span id="cb76-12"><a href="" aria-label="12"></a>           <span class="at">size =</span> <span class="dv">4</span>) <span class="sc">+</span></span>
-<span id="cb76-13"><a href="" aria-label="13"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Cats!"</span>, </span>
-<span id="cb76-14"><a href="" aria-label="14"></a>       <span class="at">x =</span> <span class="st">"X"</span>, <span class="at">y =</span> <span class="st">"Y"</span>) <span class="sc">+</span></span>
-<span id="cb76-15"><a href="" aria-label="15"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb98"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb98-1"><a href="" aria-label="1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb98-2"><a href="" aria-label="2"></a><span class="fu">library</span>(ggcats)</span>
+<span id="cb98-3"><a href="" aria-label="3"></a></span>
+<span id="cb98-4"><a href="" aria-label="4"></a><span class="co"># Create sample data</span></span>
+<span id="cb98-5"><a href="" aria-label="5"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb98-6"><a href="" aria-label="6"></a>  <span class="at">x =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>),</span>
+<span id="cb98-7"><a href="" aria-label="7"></a>  <span class="at">y =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">4</span>)</span>
+<span id="cb98-8"><a href="" aria-label="8"></a>)</span>
+<span id="cb98-9"><a href="" aria-label="9"></a></span>
+<span id="cb98-10"><a href="" aria-label="10"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(x, y)) <span class="sc">+</span></span>
+<span id="cb98-11"><a href="" aria-label="11"></a>  <span class="fu">geom_cat</span>(<span class="at">cat =</span> <span class="st">"nyancat"</span>, </span>
+<span id="cb98-12"><a href="" aria-label="12"></a>           <span class="at">size =</span> <span class="dv">4</span>) <span class="sc">+</span></span>
+<span id="cb98-13"><a href="" aria-label="13"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Cats!"</span>, </span>
+<span id="cb98-14"><a href="" aria-label="14"></a>       <span class="at">x =</span> <span class="st">"X"</span>, <span class="at">y =</span> <span class="st">"Y"</span>) <span class="sc">+</span></span>
+<span id="cb98-15"><a href="" aria-label="15"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div><div class="column" style="width:55%;">
 <div class="cell">
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="9_joins_lubridate_files/figure-revealjs/unnamed-chunk-36-1.png" width="960"></p>
+<p><img data-src="9_joins_lubridate_files/figure-revealjs/unnamed-chunk-44-1.png" width="960"></p>
 </figure>
 </div>
 </div>

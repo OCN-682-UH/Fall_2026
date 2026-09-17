@@ -275,7 +275,107 @@ Use [anti_join()]{.fn} to identify unmatched records and detect data quality iss
 | [semi_join()]{.fn} | Left rows with matches | Filtering without duplication |
 | [anti_join()]{.fn} | Left rows without matches | Finding unmatched data |
 
+---
 
+## Common gotcha: Joining by different column names
+
+What if your tables use different column names for the same information?
+
+```{r}
+#| echo: true
+T3 <- tibble(
+  SiteID = c("A", "B", "C", "D"),  # Note: different name!
+  Chlorophyll = c(2.3, 3.1, 1.9, 2.8)
+)
+
+T3
+```
+
+Notice T1 uses `Site.ID` but T3 uses `SiteID`. These are the same thing!
+
+---
+
+## Joining with `by` argument — Different column names
+
+Use the `by` argument to specify column mapping as a named character vector:
+
+```{r}
+#| echo: true
+left_join(T1, T3, by = c("Site.ID" = "SiteID"))
+```
+
+The syntax is: `by = c("left_table_col" = "right_table_col")`
+
+This is one of the most common mistakes students make — don't forget the `by` argument!
+
+---
+
+## Joining by multiple columns
+
+When matching requires **multiple** columns, specify all of them:
+
+```{r}
+#| echo: true
+T4 <- tibble(
+  Site.ID = c("A", "A", "B", "B"),
+  Year = c(2020, 2021, 2020, 2021),
+  Biomass = c(12.5, 15.3, 18.2, 16.9)
+)
+
+T5 <- tibble(
+  SiteID = c("A", "A", "B"),
+  Year = c(2020, 2021, 2021),
+  Nutrients = c(8.2, 7.9, 9.1)
+)
+
+left_join(T4, T5, by = c("Site.ID" = "SiteID", "Year" = "Year"))
+```
+
+Notice `Year` appears in both with the same name. You must still include it in the `by` argument when joining by multiple columns.
+
+---
+
+## Handling naming conflicts: .x and .y suffixes
+
+What happens when both tables have columns with the same name but you're NOT joining by them?
+
+```{r}
+#| echo: true
+T6 <- tibble(
+  Site.ID = c("A", "B", "C"),
+  Notes = c("pristine", "degraded", "moderately impaired")
+)
+
+T7 <- tibble(
+  Site.ID = c("A", "B", "D"),
+  Notes = c("sunny", "shaded", "partially shaded"),
+  Quality = c("good", "fair", "poor")
+)
+
+# Don't specify how to join — creates ambiguity with 'Notes'
+left_join(T6, T7, by = "Site.ID")
+```
+
+See the `.x` and `.y` suffixes on `Notes`? They distinguish which table each column came from!
+
+---
+
+## Avoiding naming conflicts
+
+Best practice: **rename columns before joining** to avoid confusion
+
+```{r}
+#| echo: true
+T6_renamed <- T6 |> 
+  rename(Condition_Notes = Notes)
+
+T7_renamed <- T7 |> 
+  rename(Habitat_Notes = Notes)
+
+left_join(T6_renamed, T7_renamed, by = "Site.ID")
+```
+
+Much cleaner! No `.x` and `.y` suffixes, and the data is self-documenting.
 
 ---
 
@@ -298,6 +398,7 @@ now()
 #| echo: true
 now(tzone = "EST")  # East Coast
 now(tzone = "GMT")  # Greenwich Mean Time
+now(tzone = "US/Hawaii")  # Hawaii Time
 ```
 
 ---
@@ -559,6 +660,74 @@ round_date(datetimes, "5 mins")
 ```
 
 You can round to any time unit!
+
+---
+
+## Timezone awareness: A real-world challenge
+
+Your data may come from different timezones, or your system timezone may differ from data collection timezone. This causes **major** problems if you ignore it!
+
+Example: Data collected in Hawaii (HST) but your computer is in EST.
+
+```{r}
+#| echo: true
+# Create a datetime WITHOUT timezone info
+datetime_naive <- mdy_hms("02/24/2021 10:22:20")
+datetime_naive
+```
+
+This object has NO timezone information — dangerous!
+
+---
+
+## [with_tz()]{.fn} — View same moment in different timezone
+
+Use [with_tz()]{.fn} to **interpret the same clock time in a different timezone**:
+
+```{r}
+#| echo: true
+# Assume the naive time is in Hawaii
+hawaii_time <- with_tz(datetime_naive, tzone = "US/Hawaii")
+hawaii_time
+
+# Same moment, viewed from EST
+est_time <- with_tz(hawaii_time, tzone = "EST")
+est_time
+```
+
+The **instant in time** is the same; we're just viewing it in different timezones. Notice the hour changed!
+
+---
+
+## [force_tz()]{.fn} — Change the timezone label
+
+Use [force_tz()]{.fn} to **reassign** a naive datetime to a specific timezone (claim it was collected there):
+
+```{r}
+#| echo: true
+# Claim this was collected in Hawaii (though it was naive)
+force_hawaii <- force_tz(datetime_naive, tzone = "US/Hawaii")
+force_hawaii
+
+# Now convert to EST (this changes the clock time!)
+with_tz(force_hawaii, tzone = "EST")
+```
+
+**Important:** [force_tz()]{.fn} changes the clock reading because you're assigning timezone info to a previously naive datetime.
+
+---
+
+## with_tz() vs force_tz() — Key difference
+
+| Function | Use when | Effect |
+|---|---|---|
+| [with_tz()]{.fn} | Datetime HAS timezone; you want to view it in a different one | Clock changes, **instant stays the same** |
+| [force_tz()]{.fn} | Datetime is NAIVE; you want to claim where it was collected | **Instant changes**, timezone label added |
+
+::: {.callout-warning}
+## This confuses everyone!
+A common mistake: using [with_tz()]{.fn} when you meant [force_tz()]{.fn}, or vice versa. **Always verify your datetime after conversion!**
+:::
 
 ---
 

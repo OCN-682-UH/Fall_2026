@@ -23,5 +23,5 @@ Note: Lectures posted here before the start of class are still a work in progres
 
 *Week 5*
 - [joins and dates](https://01a0ac76-d3be-f1f5-8c63-b215b6ab7119.share.connect.posit.cloud)  
-- [Fun advanced plotting](https://connect.posit.cloud/njsilbiger/content/01a0aca7-1198-6142-04ca-5b01c203245b)  
+- [Fun advanced plotting](https://01a0aca7-1198-6142-04ca-5b01c203245b.share.connect.posit.cloud)  
 

@@ -1,0 +1,51 @@
+---
+title: "My awesome quarto"
+author: "Nyssa Silbiger"
+date: today
+format: 
+  html:
+    toc: true
+    theme: superhero 
+---
+
+# Introduction
+
+Today we are going to work with the penguin data to learn *Quarto*.  
+
+We are also learning basic Quarto.  Here are all the ways I can change an [HTML format Quarto Doc](https://quarto.org/docs/reference/formats/html.html)
+
+# Load Libraries
+First, we will load the important libraries.
+
+```{r}
+#| message: false # this turns off the messages
+
+library(here)
+library(tidyverse)
+library(palmerpenguins)
+
+```
+
+# Analysis
+
+Next, we need to look at the dataframe  
+```{r}
+glimpse(penguins) # look at the Penguin data
+```
+
+# Plot
+We will make a plot looking at bill length versus bill depth
+
+```{r}
+#| warning: false
+
+penguins %>%
+  ggplot(aes(x = bill_length_mm, y = bill_depth_mm, color = species))+
+  geom_point()+
+  geom_smooth(method = lm)+
+  labs(x = " Bill Length (mm)",
+       y = "Bill Depth (mm)")+
+  theme_bw()
+```
+
+Here are some built in [themes](https://quarto.org/docs/output-formats/html-themes.html) for fun

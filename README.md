@@ -25,3 +25,7 @@ Note: Lectures posted here before the start of class are still a work in progres
 - [joins and dates](https://01a0ac76-d3be-f1f5-8c63-b215b6ab7119.share.connect.posit.cloud)  
 - [Fun advanced plotting](https://01a0aca7-1198-6142-04ca-5b01c203245b.share.connect.posit.cloud)  
 
+*Week 6*
+- [Quarto 1](https://01a0cc54-ca5f-a042-daed-970c2fa7304d.share.connect.posit.cloud)
+- [Quarto 2](https://01a0cc62-a81c-82fb-d906-a3feaaf082fc.share.connect.posit.cloud)
+

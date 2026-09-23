@@ -1,0 +1,363 @@
+---
+title: "Computer Modeling (OCN 682)"
+subtitle: "Quarto Part 2"
+author: "Dr. Nyssa Silbiger"
+institute: "UH Fall 2026"
+date: today
+resources:
+  - custom-theme.scss
+format:
+  revealjs:
+    theme: [default, custom-theme.scss]
+    highlight-style: github
+    code-line-numbers: true
+    width: 1500
+    height: 1000
+    preview-links: auto
+    self-contained-math: true
+    embed-resources: false
+    slide-number: c/t
+    footer: "OCN 682 | Week 6 | Quarto Part 2"
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+library(tidyverse)
+library(palmerpenguins)
+library(kableExtra)
+```
+
+## Outline of class
+
+::: {.incremental}
+- Working with Figures
+- Working with Tables
+- Cross-references
+- Themes & `code-fold`
+- Advanced outputs
+- Homework: Practice Quarto
+:::
+
+[Quarto Cheatsheet](https://rstudio.github.io/cheatsheets/html/quarto.html)
+
+---
+
+## Working with figures
+
+We can change lots of aspects of the figure right in our markdown document:
+
+::: {.incremental}
+- change size
+- change resolution
+- change "device" (i.e. is it a .png, .pdf, etc.)
+- save it to a specific folder
+:::
+
+---
+
+## Start a Quarto document
+
+- Open a new .qmd file and set it up
+- Load the appropriate libraries and make a very simple plot with the penguin package of anything (don't overthink it this is just for practice)
+
+---
+
+## Change the size of a figure
+
+Some options:
+
+::: {.incremental}
+- `out-width: "70%"` (makes it 70% of the width)
+- `fig-width: 3` (make the width 3 inches)
+- `fig-height: 4` (make the width 4 inches)
+- `fig-align: "center"` (center aligns the figure)
+:::
+
+We will walk through each of these together.
+[See here for all options](https://quarto.org/docs/reference/cells/cells-knitr.html)
+
+---
+
+### Label a figure {.smaller}
+
+We can add labels to figures and captions and subcaptions.
+
+Some options:
+
+- `label: some-fig-lab` (allows you to call the figure in your quarto file and it automatically give it a number)
+- `fig-cap: "my caption"` (gives your figure a caption)
+
+::: {.fragment}
+#### Automatically save all your figures in your output folder
+
+This will automatically save every figure in your output folder with the fig size based on your YAML and named with the label you gave it.
+[**NOTE**]{.yellow} Quarto automatically saves everything to the file location NOT the project location
+
+```{r}
+#| eval: false
+#| echo: true
+
+knitr:
+  opts_chunk:
+    fig.path: "../output/" ## added the ../ because your qmd folder is in your scripts folder so we need to go up one directory and then into your output folder
+```
+:::
+
+---
+
+## Type out a table by hand
+
+::: {.columns}
+::: {.column width="50%"}
+```{r}
+#| echo: true
+#| eval: false
+
+
+| Time  | Session | Topic    |
+|:------|:-------:|---------:|
+| _left_ | _center_| _right_ |
+| 01:00  | 1       | Anatomy |
+| 01:50  |         | *Break* |
+| 02:00  | 2       | Tables  |
+| 02:45  |         | *Break* |
+```
+:::
+
+::: {.column width="50%"}
+| Time  | Session | Topic    |
+|:------|:-------:|---------:|
+| _left_ | _center_| _right_ |
+| 01:00  | 1       | Anatomy |
+| 01:50  |         | *Break* |
+| 02:00  | 2       | Tables  |
+| 02:45  |         | *Break* |
+:::
+:::
+
+---
+
+## Tables with [kableExtra]{.fn}
+
+```{r}
+#| eval: false
+#| echo: true
+
+install.packages("kableExtra")
+```
+
+```{r}
+#| echo: true
+
+penguins |>
+  group_by(species) |>
+  summarise(billmean = mean(bill_length_mm, na.rm = TRUE)) |>
+  kbl() # make it a kable table
+```
+
+[**Note**]{.yellow} You can add a label to this code chunk too just like your figure and reference your table in the text by using tbl-name in your label.
+
+---
+
+## Add some style
+
+```{r}
+#| echo: true
+
+penguins |>
+  group_by(species) |>
+  summarise(billmean = mean(bill_length_mm, na.rm = TRUE)) |>
+  kbl()  |> # make it a kable table
+  kable_classic() |> # add a theme
+  row_spec(2, bold = TRUE, color = "white", background = "red") |> # highlight row 2
+  kable_styling(full_width = FALSE) # don't make it so wide
+```
+
+---
+
+## More tables
+
+There are *TONS* of things you can do with tables. Check out the link [here](https://rfortherestofus.com/2019/11/how-to-make-beautiful-tables-in-r/) and also look at the [gt]{.fn} and [gtExtra]{.fn} packages.
+Look up the [kableExtra]{.fn} package for everything you can do with it
+
+---
+
+## Cross-references {.inverse .center .middle}
+
+## Cross-references: figures
+
+One of Quarto's biggest advantages for scientific writing: **figures and tables are auto-numbered and linkable from your prose**.
+
+**Step 1:** Give your chunk a label starting with `fig-`
+
+```r
+#| label: fig-penguin-bill
+#| fig-cap: "Bill length vs. bill depth for three penguin species."
+#| echo: false
+
+ggplot(penguins, aes(x = bill_depth_mm, y = bill_length_mm, color = species)) +
+  geom_point() +
+  scale_color_viridis_d()
+```
+
+::: {.fragment}
+**Step 2:** Reference it anywhere in your prose with `@fig-penguin-bill`
+
+```r
+As shown in @fig-penguin-bill, bill dimensions differ clearly by species.
+```
+
+Renders as: *"As shown in **Figure 1**, bill dimensions differ clearly by species."* — auto-numbered!
+:::
+
+## Cross-references: tables
+
+Same pattern for tables — label must start with `tbl-`
+
+```r
+#| label: tbl-penguin-means
+#| tbl-cap: "Mean bill length by species."
+
+penguins |>
+  group_by(species) |>
+  summarise(mean_bill = mean(bill_length_mm, na.rm = TRUE)) |>
+  kbl()
+```
+
+::: {.fragment}
+Then in your prose:
+
+```r
+Mean bill lengths are summarised in @tbl-penguin-means.
+```
+
+Renders as: *"Mean bill lengths are summarised in **Table 1**."*
+:::
+
+::: {.fragment}
+::: {.callout-warning}
+## Prefix rules
+- Figures **must** use a `fig-` prefix — `label: fig-my-plot`
+- Tables **must** use a `tbl-` prefix — `label: tbl-my-table`
+- Quarto will error if the prefix doesn't match the cross-reference type
+:::
+:::
+
+---
+
+## {.inverse .center .middle}
+
+## Activity: Cross-references
+
+In your Quarto document:
+
+::: {.incremental}
+1. Create a code chunk that makes a ggplot — give it a `fig-` label and a `fig-cap:`
+2. Create a code chunk that makes a [kbl()]{.fn} table — give it a `tbl-` label and a `tbl-cap:`
+3. In a prose paragraph, reference both with `@fig-...` and `@tbl-...`
+4. Render and confirm **Figure 1** and **Table 1** appear as clickable cross-links
+:::
+
+::: {.fragment}
+::: {.callout-tip}
+## Most common mistake
+Missing or wrong prefix — if the cross-reference isn't rendering, check that the chunk label starts with exactly `fig-` or `tbl-`.
+:::
+:::
+
+---
+
+
+## `code-fold` — show/hide code in your output {.smaller}
+
+One line of YAML lets readers toggle code on and off without changing `echo:`:
+
+```{r}
+#| eval: false
+#| echo: true
+
+---
+title: "My Analysis"
+format:
+  html:
+    code-fold: true              # code hidden by default, with a toggle button
+    code-summary: "Show code"    # customize the button label
+---
+```
+
+::: {.fragment}
+::: {.callout-tip}
+## When to use each approach
+
+| Option | Best for |
+|---|---|
+| `echo: false` | Reports where readers never need to see code |
+| `code-fold: true` | Reports where code is optional — reviewers, collaborators |
+| `echo: true` (default) | Teaching materials, methods sections, reproducible workflows |
+:::
+:::
+
+---
+
+## Themes
+
+There are so many things you can do with themes. There are canned themes and there are also ways you can manipulate themes. Check out the [link here](https://quarto.org/docs/output-formats/html-themes.html) for html theme options.
+
+---
+
+## Outputs
+
+There are also many different formats. [Here is a list of different documents](https://quarto.org/docs/output-formats/all-formats.html). I really like GitHub documents because you can view them right in GitHub! PDF is also very useful.
+
+Here is an example to make a "github flavored markdown" file. Remember to use YAML that is specific to the format you are using. So the gfm format info is [here](https://quarto.org/docs/reference/formats/markdown/gfm.html)
+
+```{r}
+#| eval: false
+#| echo: true
+
+title: "Intro to Quarto part 2"
+author: "Nyssa Silbiger"
+format: gfm
+prefer-html: true
+```
+
+[**Note**]{.yellow} you cannot use html interactive files in a gfm document. You will need to install the [webshot2]{.fn} package which automatically turns them into screenshots if you have an html table, for example, in your file.
+
+---
+
+## Today's totally awesome R package
+
+Make a meme in R!
+
+```{r}
+#| echo: true
+#| eval: false
+
+devtools::install_github("sctyner/memer")
+```
+
+```{r}
+#| echo: true
+
+library(memer)
+meme_get("DistractedBf") |>
+  meme_text_distbf("Silly R package", "OCN 682 students", "actual coding")
+```
+
+---
+
+## Homework {.center}
+
+::: {.incremental}
+- Take any of the data sheets you have already worked with in class and create at least one table and one figure in an Quarto file.
+- Create the most beautiful Quarto output you can in either an html, github doc, or pdf format. YOU MUST RENDER THE FILE
+- Make sure you have headings with clear explanations of what you are doing.
+- Practice using markdown formatting with **bold, italics, and lists** (use each of these at least once).
+- Make sure your outputs and scripts are saved in the appropriate folders. Keep proper coding etiquette (figures need to be pub quality as usual and you need to comment your code).
+:::
+
+## {.center .middle}
+
+# Thanks!
+
+Slides created with [**Quarto**](https://quarto.org/)

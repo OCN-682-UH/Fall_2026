@@ -1,0 +1,58 @@
+---
+title: "Intro to Quarto part 2"
+author: "Nyssa Silbiger"
+date: today
+format: gfm
+prefer-html: true
+knitr:
+  opts_chunk:
+    fig.path: "../output/"
+---
+
+## Introduction
+Today, we are learning about how to work with figures and themes
+
+## Load the libraries
+
+```{r}
+#| message: false
+#| warning: false
+
+library(tidyverse)
+library(here)
+library(palmerpenguins)
+library(kableExtra)
+```
+## Make a plot
+
+```{r}
+#| warning: false
+#| fig-align: "center"
+#| fig-height: 4
+#| label: fig-penguin-1
+#| fig-cap: "This is a figure showing bill length by bill depth."
+
+
+penguins %>%
+  ggplot(aes(x = bill_length_mm, y = bill_depth_mm, color = species))+
+  geom_point()
+```
+
+
+When you look at @fig-penguin-1 we can see there is a positive relationship between bill length and bill depth.
+
+```{r}
+#| label: tbl-penguin
+#| tbl-cap: "My awesome table"
+#| warning: false
+
+penguins %>%
+  group_by(species) %>%
+  summarise(billmean = mean(bill_length_mm, na.rm = TRUE)) %>%
+  kbl()  %>% # make it a kable table
+  kable_classic() %>%
+  row_spec(2, bold = TRUE, color = "white", background = "red")%>% # highlight row 2
+  kable_styling(full_width = FALSE) # don't make it so wide
+```
+
+This is @tbl-penguin

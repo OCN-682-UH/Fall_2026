@@ -1,0 +1,1254 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="11_qurato_intro_files/libs/clipboard/clipboard.min.js"></script>
+<script src="11_qurato_intro_files/libs/quarto-html/tabby.min.js"></script>
+<script src="11_qurato_intro_files/libs/quarto-html/popper.min.js"></script>
+<script src="11_qurato_intro_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="11_qurato_intro_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="11_qurato_intro_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="11_qurato_intro_files/libs/quarto-html/quarto-syntax-highlighting-bb62276ab45c84d9efd712f51ff97b5a.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="11_qurato_intro_files/libs/quarto-contrib/videojs/video.min.js"></script>
+<link href="11_qurato_intro_files/libs/quarto-contrib/videojs/video-js.css" rel="stylesheet"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.10.18">
+
+  <meta name="author" content="Dr.&nbsp;Nyssa Silbiger">
+  <meta name="dcterms.date" content="2026-09-22">
+  <title>Computer Modeling (OCN 682)</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="11_qurato_intro_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="11_qurato_intro_files/libs/revealjs/dist/reveal.css">
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #24292e;  }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #24292e; } /* Normal */
+    code span.al { color: #ff5555; font-weight: bold; } /* Alert */
+    code span.an { color: #6a737d; } /* Annotation */
+    code span.at { color: #d73a49; } /* Attribute */
+    code span.bn { color: #005cc5; } /* BaseN */
+    code span.bu { color: #d73a49; } /* BuiltIn */
+    code span.cf { color: #d73a49; } /* ControlFlow */
+    code span.ch { color: #032f62; } /* Char */
+    code span.cn { color: #005cc5; } /* Constant */
+    code span.co { color: #6a737d; } /* Comment */
+    code span.cv { color: #6a737d; } /* CommentVar */
+    code span.do { color: #6a737d; } /* Documentation */
+    code span.dt { color: #d73a49; } /* DataType */
+    code span.dv { color: #005cc5; } /* DecVal */
+    code span.er { color: #ff5555; text-decoration: underline; } /* Error */
+    code span.ex { color: #d73a49; font-weight: bold; } /* Extension */
+    code span.fl { color: #005cc5; } /* Float */
+    code span.fu { color: #6f42c1; } /* Function */
+    code span.im { color: #032f62; } /* Import */
+    code span.in { color: #6a737d; } /* Information */
+    code span.kw { color: #d73a49; } /* Keyword */
+    code span.op { color: #24292e; } /* Operator */
+    code span.ot { color: #6f42c1; } /* Other */
+    code span.pp { color: #d73a49; } /* Preprocessor */
+    code span.re { color: #6a737d; } /* RegionMarker */
+    code span.sc { color: #005cc5; } /* SpecialChar */
+    code span.ss { color: #032f62; } /* SpecialString */
+    code span.st { color: #032f62; } /* String */
+    code span.va { color: #e36209; } /* Variable */
+    code span.vs { color: #032f62; } /* VerbatimString */
+    code span.wa { color: #ff5555; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="11_qurato_intro_files/libs/revealjs/dist/theme/quarto-9e4340bb97cbf06a7fc0e3582515d99c.css">
+  <link href="11_qurato_intro_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="11_qurato_intro_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="11_qurato_intro_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="11_qurato_intro_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">Computer Modeling (OCN 682)</h1>
+  <p class="subtitle">Introduction to Quarto</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Dr.&nbsp;Nyssa Silbiger
+</div>
+        <p class="quarto-title-affiliation">
+            UH Fall 2026
+          </p>
+    </div>
+</div>
+
+  <p class="date">2026-09-22</p>
+</section>
+<section id="outline-of-class" class="slide level2">
+<h2>Outline of class</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<ul>
+<li>Quiz 5</li>
+<li>What is Quarto?</li>
+<li>Metadata and outputs</li>
+<li>Basic Markdown Text</li>
+<li>Using code chunks</li>
+<li>Publishing &amp; sharing your document</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<p><em>Next Time</em></p>
+<ul>
+<li>Working with figures and tables</li>
+<li>Themes</li>
+<li>Advanced Outputs</li>
+</ul>
+<p><a href="https://rstudio.github.io/cheatsheets/html/quarto.html">Quarto Cheatsheet</a></p>
+</div></div>
+</section>
+<section id="review" class="slide level2 center">
+<h2>Review</h2>
+<blockquote>
+<p>If I want to convert Feb 28 2021 10:05:50 to a date, what function do I use?</p>
+</blockquote>
+</section>
+<section id="what-is-quarto" class="slide level2">
+<h2>What is Quarto?</h2>
+<h3 id="analyze.-share.-reproduce.-you-have-a-story-to-tell-with-datatell-it-with-quarto.">Analyze. Share. Reproduce. You have a story to tell with data—tell it with Quarto.</h3>
+
+<img data-src="https://rstudio.github.io/cheatsheets/html/images/quarto-illustration.png" class="r-stretch"></section>
+<section id="what-is-quarto-1" class="slide level2 smaller">
+<h2>What is Quarto?</h2>
+<p><span class="orange"><strong>Quarto provides a unified authoring framework for data science, combining your code, its results, and your prose. Quarto documents are fully reproducible and support dozens of output formats, like PDFs, Word files, presentations, and more.</strong></span></p>
+<div class="fragment">
+<ol type="1">
+<li>For communicating to decision-makers, who want to focus on the conclusions, not the code behind the analysis.</li>
+</ol>
+</div>
+<div class="fragment">
+<ol start="2" type="1">
+<li>For collaborating with other data scientists (including future you!), who are interested in both your conclusions, and how you reached them (i.e.&nbsp;the code).</li>
+</ol>
+</div>
+<div class="fragment">
+<ol start="3" type="1">
+<li>As an environment in which to do data science, as a modern-day lab notebook where you can capture not only what you did, but also what you were thinking.</li>
+</ol>
+</div>
+</section>
+<section id="change-your-mental-mode" class="slide level2 smaller">
+<h2>Change your mental mode</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<h3 id="source-to-output">Source to Output</h3>
+<p><img data-src="https://apreshill.github.io/rmd4cdc/images/word.png" style="width:100.0%"></p>
+</div><div class="column" style="width:50%;">
+<h3 id="source-to-output-1">Source to Output</h3>
+<p><img data-src="https://apreshill.github.io/rmd4cdc/images/rmd-file.png" style="width:100.0%"></p>
+</div></div>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Key idea</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>Take your notes in the same place as your code</strong></p>
+</div>
+</div>
+</div>
+</section>
+<section id="what-is-inside" class="slide level2">
+<h2>What is inside?</h2>
+
+<img data-src="https://apreshill.github.io/rmd4cdc/images/doc-make.jpg" class="r-stretch"></section>
+<section id="what-is-inside-1" class="slide level2">
+<h2>What is inside?</h2>
+<p>Quarto is broken into 4 major parts:</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<ul>
+<li>Metadata</li>
+<li>Text</li>
+<li>Code</li>
+<li>Output</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<p><img data-src="libs/images/quartofile.jpeg" style="width:100.0%"></p>
+</div></div>
+<p><em>Before we code together I will walk you through some of the features. Then I will have you work with me.</em></p>
+</section>
+<section id="metadata-yaml" class="slide level2 smaller">
+<h2>Metadata: YAML</h2>
+<h3 id="yaml---yet-another-markup-language">YAML - <em>yet another markup language</em></h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="" aria-label="1"></a><span class="sc">---</span></span>
+<span id="cb1-2"><a href="" aria-label="2"></a>key<span class="sc">:</span> value</span>
+<span id="cb1-3"><a href="" aria-label="3"></a><span class="sc">---</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>This goes at the top of your Quarto document, includes the metadata, style, and type of output for your document.</p>
+<div class="fragment">
+<p>You only need two pieces for it to work, but there is lots more to add to make it beautiful.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="" aria-label="1"></a><span class="sc">---</span></span>
+<span id="cb2-2"><a href="" aria-label="2"></a>title<span class="sc">:</span> <span class="st">"My Awesome Markdown File"</span></span>
+<span id="cb2-3"><a href="" aria-label="3"></a>format<span class="sc">:</span> html</span>
+<span id="cb2-4"><a href="" aria-label="4"></a><span class="sc">---</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><em>title</em> is the title of your Quarto document<br>
+<em>format</em> is the format that it will be saved as</p>
+</div>
+</section>
+<section id="example-yaml" class="slide level2">
+<h2>Example YAML</h2>
+
+<img data-src="libs/images/no_toc.png" class="r-stretch"></section>
+<section class="slide level2">
+
+<video id="video_shortcode_videojs_video1" class="video-js vjs-default-skin vjs-big-play-centered vjs-fluid" controls="" preload="auto" data-setup="{}" title=""><source src="libs/images/no_toc.mp4"></video>
+</section>
+<section class="slide level2">
+
+
+<img data-src="libs/images/with_toc.png" class="r-stretch"></section>
+<section class="slide level2">
+
+<video id="video_shortcode_videojs_video2" class="video-js vjs-default-skin vjs-big-play-centered vjs-fluid" controls="" preload="auto" data-setup="{}" title=""><source src="libs/images/WITH_toc.mp4"></video>
+</section>
+<section id="lets-get-started" class="slide level2">
+<h2>Let’s get started</h2>
+
+<img data-src="libs/images/Quarto1.png" class="r-stretch"></section>
+<section id="enter-in-some-metadata-and-save-the-doc-in-your-folder" class="slide level2">
+<h2>Enter in some metadata and save the doc in your folder</h2>
+
+<img data-src="libs/images/Quarto2.png" class="r-stretch"></section>
+<section id="you-create-an-html-document-by-hitting-render" class="slide level2">
+<h2>You create an html document by hitting render</h2>
+
+<img data-src="libs/images/Quarto3.png" class="r-stretch"></section>
+<section id="text" class="slide level2">
+<h2>Text</h2>
+<p>The text is written in the markdown language. You have already done a lab on markdown and this is the exact language that you use for your readme files. This is a short review.</p>
+</section>
+<section id="bold" class="slide level2">
+<h2>Bold</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="" aria-label="1"></a>I <span class="sc">**</span>love<span class="sc">**</span> markdown</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="fragment">
+<h3 id="italics"><em>Italics</em></h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="" aria-label="1"></a>I <span class="sc">*</span>love<span class="sc">*</span> markdown</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<p>I <strong>love</strong> markdown</p>
+<div class="fragment">
+<p>I <em>love</em> markdown</p>
+</div>
+</div></div>
+</section>
+<section id="lists" class="slide level2">
+<h2>Lists</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="" aria-label="1"></a>  <span class="sc">-</span> item <span class="dv">1</span></span>
+<span id="cb5-2"><a href="" aria-label="2"></a>  <span class="sc">-</span> item <span class="dv">2</span></span>
+<span id="cb5-3"><a href="" aria-label="3"></a>  <span class="sc">-</span> item <span class="dv">3</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div><div class="column" style="width:50%;">
+<ul>
+<li>item 1</li>
+<li>item 2</li>
+<li>item 3</li>
+</ul>
+</div></div>
+</section>
+<section id="images" class="slide level2">
+<h2>Images</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="" aria-label="1"></a><span class="sc">!</span>[](https<span class="sc">:</span><span class="er">//</span>pbs.twimg.com<span class="sc">/</span>profile_images<span class="sc">/</span><span class="dv">1052001602628857856</span><span class="sc">/</span>AGtSZNoO_400x400.jpg)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+
+<img data-src="https://pbs.twimg.com/profile_images/1052001602628857856/AGtSZNoO_400x400.jpg" class="r-stretch"></section>
+<section id="links" class="slide level2">
+<h2>Links</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="" aria-label="1"></a>[Silbiger Lab](https<span class="sc">:</span><span class="er">//</span>silbigerlab.com)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><a href="https://silbigerlab.com">Silbiger Lab</a></p>
+</section>
+<section id="code-chunks" class="slide level2">
+<h2>Code chunks</h2>
+<p>You can add a code chunk by pressing</p>
+<ul>
+<li>the keyboard shortcut <strong>Ctrl + Alt + I</strong> (OS X: <strong>Cmd + Option + I</strong>)</li>
+<li>Click <strong>Code</strong> at the top of RStudio then <strong>+C</strong> in green.</li>
+</ul>
+
+<img data-src="libs/images/codechunk.PNG" class="r-stretch"></section>
+<section id="code-chunk-options" class="slide level2">
+<h2>Code chunk options</h2>
+<p>You can control what you want printed in the html within the code chunks by giving a key and a value within the chunks after a <code>#|</code></p>
+
+<img data-src="libs/images/codechunkops.png" class="r-stretch"><p><a href="https://quarto.org/docs/reference/cells/cells-knitr.html">Code Chunk Options</a></p>
+</section>
+<section id="global-code-chunk-options-in-the-yaml" class="slide level2">
+<h2>Global code chunk options in the YAML</h2>
+<p>This will suppress warnings in every single code chunk as a default</p>
+
+<img data-src="libs/images/warning.png" class="r-stretch"></section>
+<section id="the-execute-yaml-block" class="slide level2 smaller">
+<h2>The <code>execute:</code> YAML block</h2>
+<p>Instead of setting options on every single chunk, set defaults once in your YAML:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="" aria-label="1"></a><span class="sc">---</span></span>
+<span id="cb8-2"><a href="" aria-label="2"></a>title<span class="sc">:</span> <span class="st">"My Analysis"</span></span>
+<span id="cb8-3"><a href="" aria-label="3"></a>format<span class="sc">:</span> html</span>
+<span id="cb8-4"><a href="" aria-label="4"></a>execute<span class="sc">:</span></span>
+<span id="cb8-5"><a href="" aria-label="5"></a>  warning<span class="sc">:</span> false   <span class="co"># suppress warnings in all chunks</span></span>
+<span id="cb8-6"><a href="" aria-label="6"></a>  message<span class="sc">:</span> false   <span class="co"># suppress package loading messages</span></span>
+<span id="cb8-7"><a href="" aria-label="7"></a>  echo<span class="sc">:</span> false      <span class="co"># hide code by default (show results only)</span></span>
+<span id="cb8-8"><a href="" aria-label="8"></a>  eval<span class="sc">:</span> true       <span class="co"># run all chunks (the default)</span></span>
+<span id="cb8-9"><a href="" aria-label="9"></a><span class="sc">---</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="fragment">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Override per-chunk when needed</strong></p>
+</div>
+<div class="callout-content">
+<p>YAML <code>execute:</code> options are <strong>defaults</strong> — override any one on an individual chunk:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="" aria-label="1"></a><span class="co"># Even if YAML says echo: false, this chunk shows its code:</span></span>
+<span id="cb9-2"><a href="" aria-label="2"></a><span class="co"># | echo: true</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="inline-r-code" class="slide level2 inverse center middle">
+<h2>Inline R code</h2>
+</section>
+<section id="why-type-numbers-by-hand" class="slide level2">
+<h2>Why type numbers by hand?</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<h4 id="hard-coded-fragile">Hard-coded (fragile)</h4>
+<blockquote>
+<p>The dataset contains <strong>344 penguins</strong> across <strong>3 species</strong>. The mean body mass was <strong>4201.8 grams</strong>.</p>
+</blockquote>
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Problem</strong></p>
+</div>
+<div class="callout-content">
+<p>If the data change, you have to find and update every number by hand — and it’s easy to miss one.</p>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<h4 id="inline-r-code-reproducible">Inline R code (reproducible)</h4>
+<blockquote>
+<p>The dataset contains <strong>344</strong> penguins across <strong>3</strong> species. The mean body mass was <strong>4201.8</strong> grams.</p>
+</blockquote>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Benefit</strong></p>
+</div>
+<div class="callout-content">
+<p>R recalculates every time you render — your text is always in sync with your data.</p>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="inline-r-code-syntax" class="slide level2">
+<h2>Inline R code: syntax</h2>
+<p>Wrap any R expression between a backtick-r and a closing backtick, directly in your prose:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="" aria-label="1"></a><span class="co"># In your prose (not a code chunk), write:</span></span>
+<span id="cb10-2"><a href="" aria-label="2"></a><span class="co"># backtick + r + space + expression + backtick</span></span>
+<span id="cb10-3"><a href="" aria-label="3"></a></span>
+<span id="cb10-4"><a href="" aria-label="4"></a><span class="co"># Examples:</span></span>
+<span id="cb10-5"><a href="" aria-label="5"></a><span class="co"># The dataset has `nrow(penguins)` rows.</span></span>
+<span id="cb10-6"><a href="" aria-label="6"></a><span class="co"># The mean is `round(mean(x, na.rm = TRUE), 1)`.</span></span>
+<span id="cb10-7"><a href="" aria-label="7"></a><span class="co"># Analysis run on `Sys.Date()`.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="fragment">
+<p>The output renders as <strong>plain text</strong> — readers never see the R code, only the result.</p>
+</div>
+</section>
+<section id="inline-r-code-what-it-looks-like" class="slide level2">
+<h2>Inline R code: what it looks like</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<h4 id="what-you-type-in-the-.qmd">What you type in the .qmd</h4>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="" aria-label="1"></a><span class="co"># Prose line in your document:</span></span>
+<span id="cb11-2"><a href="" aria-label="2"></a>The dataset has <span class="st">`</span><span class="at">r nrow(penguins)</span><span class="st">`</span> rows</span>
+<span id="cb11-3"><a href="" aria-label="3"></a>and <span class="st">`</span><span class="at">r ncol(penguins)</span><span class="st">`</span> columns.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div><div class="column" style="width:50%;">
+<h4 id="what-renders-in-the-output">What renders in the output</h4>
+<p>The dataset has <strong>344</strong> rows and <strong>8</strong> columns.</p>
+<p><em>The backtick-r expressions are replaced by their computed values.</em></p>
+</div></div>
+</section>
+<section id="section" class="slide level2 inverse center middle">
+<h2></h2>
+</section>
+<section id="activity-inline-r-code" class="slide level2">
+<h2>Activity: Inline R code</h2>
+<p>Open your Quarto document and add a prose paragraph using <strong>only</strong> inline R — no hard-coded numbers.</p>
+<ol type="1">
+<li class="fragment">Load <span class="fn">palmerpenguins</span> in a code chunk at the top</li>
+<li class="fragment">Write a prose sentence describing the dataset (count, species, islands)</li>
+<li class="fragment">Write a second sentence with a summary statistic — try <span class="fn">mean()</span>, <span class="fn">max()</span>, or <span class="fn">min()</span>, wrapped in <span class="fn">round()</span></li>
+<li class="fragment">Hit <strong>Render</strong> and confirm the numbers appear correctly in the output</li>
+</ol>
+<div class="fragment">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Scaffold to get started</strong></p>
+</div>
+<div class="callout-content">
+<p>In your prose (not inside a chunk), write something like:</p>
+<p><em>“There are X penguins across Y islands. The heaviest weighed Z grams.”</em></p>
+<p>Replace X, Y, Z with <span class="fn">nrow()</span>, <span class="fn">n_distinct()</span>, <span class="fn">max()</span> — each wrapped in backtick‑r … backtick</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="file-paths-in-quarto" class="slide level2 smaller">
+<h2>File paths in Quarto</h2>
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Quarto renders from the file’s location, not the project root</strong></p>
+</div>
+<div class="callout-content">
+<p>When Quarto knits your <code>.qmd</code>, the working directory is set to <strong>wherever the <code>.qmd</code> file lives</strong> — not the RStudio project folder.</p>
+<p>So if your file is at <code>scripts/my_analysis.qmd</code> and you write:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="" aria-label="1"></a>data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/myfile.csv"</span>)  <span class="co"># ❌ Breaks — "data/" doesn't exist relative to scripts/</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Solution: always use <span class="fn">here()</span></strong></p>
+</div>
+<div class="callout-content">
+<p><span class="fn">here()</span> always anchors to the project root (where your <code>.Rproj</code> file lives), regardless of where the <code>.qmd</code> file is saved:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="" aria-label="1"></a><span class="fu">library</span>(here)</span>
+<span id="cb13-2"><a href="" aria-label="2"></a>data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"myfile.csv"</span>))  <span class="co"># ✅ Always works</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This is true even when you run code interactively in the console — another reason to always use <span class="fn">here()</span>.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="publishing-your-quarto-document" class="slide level2 inverse center middle">
+<h2>Publishing your Quarto document</h2>
+</section>
+<section id="what-is-posit-connect-cloud" class="slide level2">
+<h2>What is Posit Connect Cloud?</h2>
+<p><a href="https://connect.posit.cloud">connect.posit.cloud</a> is a free hosted service where you can publish and share your rendered Quarto documents, R Markdown files, and Shiny apps as a live URL.</p>
+<ul>
+<li class="fragment">Anyone with the link can view your rendered document — no R required</li>
+<li class="fragment">Every time you re-publish, the URL stays the same</li>
+<li class="fragment">This is how you will <strong>submit homework</strong> — share the link, not the file</li>
+</ul>
+<div class="fragment">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Free tier is enough</strong></p>
+</div>
+<div class="callout-content">
+<p>The free account supports publishing documents for this course. No credit card needed.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="step-1-create-your-account" class="slide level2">
+<h2>Step 1: Create your account</h2>
+<ol type="1">
+<li class="fragment">Go to <a href="https://connect.posit.cloud">connect.posit.cloud</a></li>
+<li class="fragment">Click <strong>Sign Up</strong> and create a free account</li>
+<li class="fragment">Verify your email address</li>
+<li class="fragment">Log in — you should see your empty Connect Cloud dashboard</li>
+</ol>
+<div class="fragment">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="libs/images/dashboard.png" class="quarto-figure quarto-figure-center" style="width:55.0%"></p>
+</figure>
+</div>
+</div>
+</section>
+<section id="step-2-link-rstudio-to-your-account" class="slide level2">
+<h2>Step 2: Link RStudio to your account</h2>
+<p>Run this <strong>once</strong> in your console — it opens a browser window to authenticate:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="" aria-label="1"></a><span class="fu">install.packages</span>(<span class="st">"rsconnect"</span>)   <span class="co"># if you haven't already</span></span>
+<span id="cb14-2"><a href="" aria-label="2"></a><span class="fu">library</span>(rsconnect)</span>
+<span id="cb14-3"><a href="" aria-label="3"></a></span>
+<span id="cb14-4"><a href="" aria-label="4"></a>rsconnect<span class="sc">::</span><span class="fu">connectCloudUser</span>()   <span class="co"># opens browser → log in → authorize</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="fragment">
+<p>Confirm it worked:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="" aria-label="1"></a>rsconnect<span class="sc">::</span><span class="fu">accounts</span>()  <span class="co"># should show your Connect Cloud account</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="fragment">
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Do this in the console, not your script</strong></p>
+</div>
+<div class="callout-content">
+<p>Authentication stores a token on your machine. You only need to do this once per computer.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="step-3-publish-your-document" class="slide level2">
+<h2>Step 3: Publish your document</h2>
+<p>With your <code>.qmd</code> file open, run this in the console:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="" aria-label="1"></a><span class="fu">library</span>(rsconnect)</span>
+<span id="cb16-2"><a href="" aria-label="2"></a><span class="fu">library</span>(here)</span>
+<span id="cb16-3"><a href="" aria-label="3"></a></span>
+<span id="cb16-4"><a href="" aria-label="4"></a>rsconnect<span class="sc">::</span><span class="fu">deployDoc</span>(</span>
+<span id="cb16-5"><a href="" aria-label="5"></a>  <span class="at">doc      =</span> <span class="fu">here</span>(<span class="st">"scripts"</span>, <span class="st">"my_analysis.qmd"</span>),  <span class="co"># path to your .qmd</span></span>
+<span id="cb16-6"><a href="" aria-label="6"></a>  <span class="at">appTitle =</span> <span class="st">"OCN 682 - Your Name - Week 6"</span>        <span class="co"># give it a clear title</span></span>
+<span id="cb16-7"><a href="" aria-label="7"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="fragment">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>What happens next</strong></p>
+</div>
+<div class="callout-content">
+<p>Quarto renders the document, bundles it, and uploads it to Connect Cloud. Your browser will open automatically to the published page when it’s done.</p>
+<p>You can also press the “Publish” button at the top right.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="step-4-share-your-link" class="slide level2">
+<h2>Step 4: Share your link</h2>
+<p>After publishing, your browser opens to the live document. Copy that URL — that is what you submit.</p>
+<ol type="1">
+<li class="fragment">On the published page, click <strong>Access</strong> in the left sidebar</li>
+<li class="fragment">Under <em>Who can view this content</em>, select <strong>Anyone</strong></li>
+<li class="fragment">Copy the URL from your browser’s address bar</li>
+<li class="fragment">Paste it into your readme file</li>
+</ol>
+<div class="fragment">
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Make it public before submitting</strong></p>
+</div>
+<div class="callout-content">
+<p>If you leave access set to “Only me,” I cannot open your link and you will not receive credit.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="totally-awesome-r-package-of-the-day" class="slide level2">
+<h2>Totally awesome R package of the day</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="" aria-label="1"></a><span class="fu">install.packages</span>(<span class="st">"beepr"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="" aria-label="1"></a><span class="fu">library</span>(beepr)</span>
+<span id="cb18-2"><a href="" aria-label="2"></a><span class="fu">beep</span>(<span class="dv">5</span>)</span>
+<span id="cb18-3"><a href="" aria-label="3"></a><span class="fu">beep</span>(<span class="dv">9</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="upcoming-homework-good-plot-bad-plot" class="slide level2 smaller">
+<h2>Upcoming homework: Good Plot / Bad Plot 🏆</h2>
+<p><strong>Due October 20 — this is a contest. There is a prize.</strong></p>
+<p>Create two versions of a plot using any dataset you choose:</p>
+<ul>
+<li class="fragment"><span class="orange"><strong>Bad plot:</strong></span> Make it as misleading, confusing, and ugly as possible — then explain in writing every principle you broke</li>
+<li class="fragment"><span class="green"><strong>Good plot:</strong></span> Same (or similar) data, done right — explain briefly why it works</li>
+</ul>
+<div class="fragment">
+<p><strong>Rules:</strong> - Both plots made in <span class="fn">ggplot2</span> with code visible in your Quarto document - The raw data must be visible in at least one plot - Submit as a <strong>rendered Quarto doc pushed to your GitHub folder</strong> — create a dedicated <code>goodplot-badplot/</code> folder - Let me know if you prefer your plots not be posted on social media</p>
+</div>
+<div class="fragment">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Great data source</strong></p>
+</div>
+<div class="callout-content">
+<p><a href="https://github.com/rfordatascience/tidytuesday">TidyTuesday</a> — a new dataset every week, community favorites included</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="section-1" class="slide level2 center middle">
+<h2></h2>
+</section>
+<section id="thanks" class="title-slide slide level1 center">
+<h1>Thanks!</h1>
+<p>Slides created with <a href="https://quarto.org/"><strong>Quarto</strong></a></p>
+
+</section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+<p>OCN 682 | Week 6 | Introduction to Quarto</p>
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="11_qurato_intro_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="11_qurato_intro_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="11_qurato_intro_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="11_qurato_intro_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="11_qurato_intro_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="11_qurato_intro_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="11_qurato_intro_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="11_qurato_intro_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="11_qurato_intro_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="11_qurato_intro_files/libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': true,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1500,
+
+        height: 1000,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    
+
+    <script>
+
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+
+      // slide changes (different for each slide format).
+
+      (function () {
+
+        // dispatch for htmlwidgets
+
+        function fireSlideEnter() {
+
+          const event = window.document.createEvent("Event");
+
+          event.initEvent("slideenter", true, true);
+
+          window.document.dispatchEvent(event);
+
+        }
+
+    
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+
+          fireSlideEnter();
+
+    
+
+          // dispatch for shiny
+
+          if (window.jQuery) {
+
+            if (previousSlide) {
+
+              window.jQuery(previousSlide).trigger("hidden");
+
+            }
+
+            if (currentSlide) {
+
+              window.jQuery(currentSlide).trigger("shown");
+
+            }
+
+          }
+
+        }
+
+    
+
+        // hookup for slidy
+
+        if (window.w3c_slidy) {
+
+          window.w3c_slidy.add_observer(function (slide_num) {
+
+            // slide_num starts at position 1
+
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+
+          });
+
+        }
+
+    
+
+      })();
+
+    </script>
+
+    
+
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    <script>videojs(video_shortcode_videojs_video1);</script>
+    <script>videojs(video_shortcode_videojs_video2);</script>
+    
+
+</body></html>

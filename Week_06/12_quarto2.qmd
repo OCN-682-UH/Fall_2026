@@ -245,7 +245,7 @@ Renders as: *"Mean bill lengths are summarised in **Table 1**."*
 
 ---
 
-## {.inverse .center .middle}
+## Activity: Cross-references {.inverse .center .middle}
 
 ## Activity: Cross-references
 

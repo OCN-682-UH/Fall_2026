@@ -427,7 +427,7 @@ The dataset has **`r nrow(penguins)`** rows and **`r ncol(penguins)`** columns.
 
 :::
 
-## {.inverse .center .middle}
+## Activity: Inline R code {.inverse .center .middle}
 
 
 ## Activity: Inline R code

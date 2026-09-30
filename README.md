@@ -29,3 +29,7 @@ Note: Lectures posted here before the start of class are still a work in progres
 - [Quarto 1](https://01a0cc54-ca5f-a042-daed-970c2fa7304d.share.connect.posit.cloud)
 - [Quarto 2](https://01a0cc62-a81c-82fb-d906-a3feaaf082fc.share.connect.posit.cloud)
 
+*Week 7*  
+- [Maps 1](https://01a0f0a4-051f-9904-7834-1cd910f3a856.share.connect.posit.cloud)  
+- [Maps 2](https://01a0f0a4-f709-8c5d-d52f-f86869e48bf5.share.connect.posit.cloud)
+

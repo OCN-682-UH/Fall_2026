@@ -1,0 +1,1573 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="13_Maps1_files/libs/clipboard/clipboard.min.js"></script>
+<script src="13_Maps1_files/libs/quarto-html/tabby.min.js"></script>
+<script src="13_Maps1_files/libs/quarto-html/popper.min.js"></script>
+<script src="13_Maps1_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="13_Maps1_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="13_Maps1_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="13_Maps1_files/libs/quarto-html/quarto-syntax-highlighting-bb62276ab45c84d9efd712f51ff97b5a.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.10.18">
+
+  <meta name="author" content="Dr.&nbsp;Nyssa Silbiger">
+  <meta name="dcterms.date" content="2026-09-29">
+  <title>Computer Modeling (OCN 682)</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="13_Maps1_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="13_Maps1_files/libs/revealjs/dist/reveal.css">
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #24292e;  }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #24292e; } /* Normal */
+    code span.al { color: #ff5555; font-weight: bold; } /* Alert */
+    code span.an { color: #6a737d; } /* Annotation */
+    code span.at { color: #d73a49; } /* Attribute */
+    code span.bn { color: #005cc5; } /* BaseN */
+    code span.bu { color: #d73a49; } /* BuiltIn */
+    code span.cf { color: #d73a49; } /* ControlFlow */
+    code span.ch { color: #032f62; } /* Char */
+    code span.cn { color: #005cc5; } /* Constant */
+    code span.co { color: #6a737d; } /* Comment */
+    code span.cv { color: #6a737d; } /* CommentVar */
+    code span.do { color: #6a737d; } /* Documentation */
+    code span.dt { color: #d73a49; } /* DataType */
+    code span.dv { color: #005cc5; } /* DecVal */
+    code span.er { color: #ff5555; text-decoration: underline; } /* Error */
+    code span.ex { color: #d73a49; font-weight: bold; } /* Extension */
+    code span.fl { color: #005cc5; } /* Float */
+    code span.fu { color: #6f42c1; } /* Function */
+    code span.im { color: #032f62; } /* Import */
+    code span.in { color: #6a737d; } /* Information */
+    code span.kw { color: #d73a49; } /* Keyword */
+    code span.op { color: #24292e; } /* Operator */
+    code span.ot { color: #6f42c1; } /* Other */
+    code span.pp { color: #d73a49; } /* Preprocessor */
+    code span.re { color: #6a737d; } /* RegionMarker */
+    code span.sc { color: #005cc5; } /* SpecialChar */
+    code span.ss { color: #032f62; } /* SpecialString */
+    code span.st { color: #032f62; } /* String */
+    code span.va { color: #e36209; } /* Variable */
+    code span.vs { color: #032f62; } /* VerbatimString */
+    code span.wa { color: #ff5555; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="13_Maps1_files/libs/revealjs/dist/theme/quarto-9e4340bb97cbf06a7fc0e3582515d99c.css">
+  <link href="13_Maps1_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="13_Maps1_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="13_Maps1_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="13_Maps1_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">Computer Modeling (OCN 682)</h1>
+  <p class="subtitle">Intro to Maps Part 1</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Dr.&nbsp;Nyssa Silbiger
+</div>
+        <p class="quarto-title-affiliation">
+            UH Fall 2026
+          </p>
+    </div>
+</div>
+
+  <p class="date">2026-09-29</p>
+</section>
+<section id="outline" class="slide level2">
+<h2>Outline</h2>
+<p>Working with Maps</p>
+<ol type="1">
+<li class="fragment">Quiz!</li>
+<li class="fragment">Overview of spatial packages in R</li>
+<li class="fragment">Simple mapping with the <span class="fn">{maps}</span> package + ggplot</li>
+<li class="fragment">Preview: the modern <span class="fn">{sf}</span> approach</li>
+</ol>
+<p><strong>Homework:</strong> Make a map using Quarto</p>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>I am NOT a GIS person. Please refer to references on spatial analysis for theory.<br>
+Today is about getting a map on screen with real data.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="show-me-your-quarto-files" class="slide level2">
+<h2>Show Me Your Quarto Files!</h2>
+</section>
+<section id="map-packages-in-r" class="slide level2 smaller-title">
+<h2>Map Packages in R</h2>
+<p>There are <strong>many</strong> map packages in R. Here is a curated overview:</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 24%">
+<col style="width: 35%">
+<col style="width: 40%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Package</th>
+<th>What it does</th>
+<th>Needs API key?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="fn">{maps}</span></td>
+<td>Simple polygon basemaps (country, state, county)</td>
+<td>No</td>
+</tr>
+<tr class="even">
+<td><span class="fn">{sf}</span></td>
+<td>Full-featured spatial data (GIS-grade)</td>
+<td>No</td>
+</tr>
+<tr class="odd">
+<td><span class="fn">{rnaturalearth}</span></td>
+<td>World/country/state polygons as sf objects</td>
+<td>No</td>
+</tr>
+<tr class="even">
+<td><span class="fn">{maptiles}</span></td>
+<td>Download satellite/street tile basemaps</td>
+<td>No</td>
+</tr>
+<tr class="odd">
+<td><span class="fn">{leaflet}</span></td>
+<td>Interactive HTML maps</td>
+<td>No</td>
+</tr>
+<tr class="even">
+<td><span class="fn">{tmap}</span></td>
+<td>Thematic maps, static and interactive</td>
+<td>No</td>
+</tr>
+<tr class="odd">
+<td><span class="fn">{ggmap}</span></td>
+<td>Tile maps via Google/Stadia</td>
+<td>Yes (credit card)<sub></sub></td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Tip</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>Today:</strong> <span class="fn">{maps}</span> for polygons and a preview of <span class="fn">{sf}</span>.<br>
+<strong>Next class:</strong> <span class="fn">{maptiles}</span> + <span class="fn">{leaflet}</span> for tile and interactive maps — no API key required!</p>
+</div>
+</div>
+</div>
+<p><strong>Helpful references:</strong> - <a href="https://geocompr.robinlovelace.net/adv-map.html">Geocomputation with R</a> - <a href="http://ben-williams.github.io/updated_ggplot_figures.html#maps">Bathymetry example</a> - <a href="https://www.earthdatascience.org/courses/earth-analytics/spatial-data-r/understand-epsg-wkt-and-other-crs-definition-file-types/">Earth Lab — CRS types</a></p>
+</section>
+<section id="start-your-script-or-quarto-file" class="slide level2">
+<h2>Start Your Script or Quarto File</h2>
+<p>Install today’s packages if you haven’t already:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="" aria-label="1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">"maps"</span>, <span class="st">"mapdata"</span>, <span class="st">"mapproj"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Load libraries:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="" aria-label="1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb2-2"><a href="" aria-label="2"></a><span class="fu">library</span>(here)</span>
+<span id="cb2-3"><a href="" aria-label="3"></a><span class="fu">library</span>(maps)</span>
+<span id="cb2-4"><a href="" aria-label="4"></a><span class="fu">library</span>(mapdata)</span>
+<span id="cb2-5"><a href="" aria-label="5"></a><span class="fu">library</span>(mapproj)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="todays-data" class="slide level2">
+<h2>Today’s Data</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="" aria-label="1"></a><span class="co"># Population in California by county</span></span>
+<span id="cb3-2"><a href="" aria-label="2"></a>popdata <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">"Week_07"</span>, <span class="st">"data"</span>, <span class="st">"CApopdata.csv"</span>))</span>
+<span id="cb3-3"><a href="" aria-label="3"></a></span>
+<span id="cb3-4"><a href="" aria-label="4"></a><span class="co"># Seastar counts at field sites in California</span></span>
+<span id="cb3-5"><a href="" aria-label="5"></a>stars <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">"Week_07"</span>, <span class="st">"data"</span>, <span class="st">"stars.csv"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>Take a minute to explore both datasets before moving on.</strong></p>
+</section>
+<section id="the-maps-package" class="slide level2 inverse">
+<h2>The {maps} Package</h2>
+<p><span class="fn">map_data()</span> pulls polygon boundaries for countries, states, and counties — ready to use with ggplot.</p>
+</section>
+<section id="map_data-world" class="slide level2">
+<h2>map_data() — World</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4" data-code-line-numbers="1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="" aria-label="1"></a>world <span class="ot">&lt;-</span> <span class="fu">map_data</span>(<span class="st">"world"</span>)</span>
+<span id="cb4-2"><a href="" aria-label="2"></a></span>
+<span id="cb4-3"><a href="" aria-label="3"></a><span class="fu">head</span>(world)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       long      lat group order region subregion
+1 -69.89912 12.45200     1     1  Aruba      &lt;NA&gt;
+2 -69.89571 12.42300     1     2  Aruba      &lt;NA&gt;
+3 -69.94219 12.43853     1     3  Aruba      &lt;NA&gt;
+4 -70.00415 12.50049     1     4  Aruba      &lt;NA&gt;
+5 -70.06612 12.54697     1     5  Aruba      &lt;NA&gt;
+6 -70.05088 12.59707     1     6  Aruba      &lt;NA&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="map_data-usa" class="slide level2">
+<h2>map_data() — USA</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6" data-code-line-numbers="1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="" aria-label="1"></a>usa <span class="ot">&lt;-</span> <span class="fu">map_data</span>(<span class="st">"usa"</span>)</span>
+<span id="cb6-2"><a href="" aria-label="2"></a></span>
+<span id="cb6-3"><a href="" aria-label="3"></a><span class="fu">head</span>(usa)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       long      lat group order region subregion
+1 -101.4078 29.74224     1     1   main      &lt;NA&gt;
+2 -101.3906 29.74224     1     2   main      &lt;NA&gt;
+3 -101.3620 29.65056     1     3   main      &lt;NA&gt;
+4 -101.3505 29.63911     1     4   main      &lt;NA&gt;
+5 -101.3219 29.63338     1     5   main      &lt;NA&gt;
+6 -101.3047 29.64484     1     6   main      &lt;NA&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="map_data-a-country" class="slide level2">
+<h2>map_data() — A Country</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8" data-code-line-numbers="1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="" aria-label="1"></a>italy <span class="ot">&lt;-</span> <span class="fu">map_data</span>(<span class="st">"italy"</span>)</span>
+<span id="cb8-2"><a href="" aria-label="2"></a></span>
+<span id="cb8-3"><a href="" aria-label="3"></a><span class="fu">head</span>(italy)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      long      lat group order        region subregion
+1 11.83295 46.50011     1     1 Bolzano-Bozen      &lt;NA&gt;
+2 11.81089 46.52784     1     2 Bolzano-Bozen      &lt;NA&gt;
+3 11.73068 46.51890     1     3 Bolzano-Bozen      &lt;NA&gt;
+4 11.69115 46.52257     1     4 Bolzano-Bozen      &lt;NA&gt;
+5 11.65041 46.50721     1     5 Bolzano-Bozen      &lt;NA&gt;
+6 11.63282 46.48045     1     6 Bolzano-Bozen      &lt;NA&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="map_data-us-states" class="slide level2">
+<h2>map_data() — US States</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10" data-code-line-numbers="1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="" aria-label="1"></a>states <span class="ot">&lt;-</span> <span class="fu">map_data</span>(<span class="st">"state"</span>)</span>
+<span id="cb10-2"><a href="" aria-label="2"></a></span>
+<span id="cb10-3"><a href="" aria-label="3"></a><span class="fu">head</span>(states)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       long      lat group order  region subregion
+1 -87.46201 30.38968     1     1 alabama      &lt;NA&gt;
+2 -87.48493 30.37249     1     2 alabama      &lt;NA&gt;
+3 -87.52503 30.37249     1     3 alabama      &lt;NA&gt;
+4 -87.53076 30.33239     1     4 alabama      &lt;NA&gt;
+5 -87.57087 30.32665     1     5 alabama      &lt;NA&gt;
+6 -87.58806 30.32665     1     6 alabama      &lt;NA&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="map_data-us-counties" class="slide level2">
+<h2>map_data() — US Counties</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12" data-code-line-numbers="1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="" aria-label="1"></a>counties <span class="ot">&lt;-</span> <span class="fu">map_data</span>(<span class="st">"county"</span>)</span>
+<span id="cb12-2"><a href="" aria-label="2"></a></span>
+<span id="cb12-3"><a href="" aria-label="3"></a><span class="fu">head</span>(counties)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       long      lat group order  region subregion
+1 -86.50517 32.34920     1     1 alabama   autauga
+2 -86.53382 32.35493     1     2 alabama   autauga
+3 -86.54527 32.36639     1     3 alabama   autauga
+4 -86.55673 32.37785     1     4 alabama   autauga
+5 -86.57966 32.38357     1     5 alabama   autauga
+6 -86.59111 32.37785     1     6 alabama   autauga</code></pre>
+</div>
+</div>
+</section>
+<section id="structure-of-the-data" class="slide level2">
+<h2>Structure of the Data</h2>
+<ul>
+<li class="fragment"><strong><span class="var">long</span></strong> — longitude. West of the prime meridian is negative.</li>
+<li class="fragment"><strong><span class="var">lat</span></strong> — latitude.</li>
+<li class="fragment"><strong><span class="var">order</span></strong> — the order in which ggplot connects the dots (polygon vertices).</li>
+<li class="fragment"><strong><span class="var">region</span> / <span class="var">subregion</span></strong> — the region or subregion a set of points surrounds.</li>
+<li class="fragment"><strong><span class="var">group</span></strong> — <em>This one is critical!</em> Controls whether adjacent points are connected by lines. Points in the same group get connected; different groups cause ggplot to “lift the pen.”</li>
+</ul>
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Warning</strong></p>
+</div>
+<div class="callout-content">
+<p>Forgetting <span class="param"><code>group = group</code></span> in your aesthetic is the #1 cause of “crazy line” plots. You will do this. Everyone does.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="make-a-map-of-the-world" class="slide level2">
+<h2>Make a Map of the World</h2>
+<div class="cell columns column-output-location">
+<div class="column">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="" aria-label="1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb14-2"><a href="" aria-label="2"></a>  <span class="fu">geom_polygon</span>(<span class="at">data =</span> world,</span>
+<span id="cb14-3"><a href="" aria-label="3"></a>               <span class="fu">aes</span>(<span class="at">x =</span> long, <span class="at">y =</span> lat,</span>
+<span id="cb14-4"><a href="" aria-label="4"></a>                   <span class="at">group =</span> group))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div><div class="column">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="13_Maps1_files/figure-revealjs/unnamed-chunk-10-1.png" width="672"></p>
+</figure>
+</div>
+</div>
+</div></div>
+</section>
+<section id="what-happens-without-group-group" class="slide level2">
+<h2>What Happens Without <code>group = group</code>?</h2>
+<div class="cell columns column-output-location">
+<div class="column">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15" data-code-line-numbers="3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="" aria-label="1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb15-2"><a href="" aria-label="2"></a>  <span class="fu">geom_polygon</span>(<span class="at">data =</span> world,</span>
+<span id="cb15-3"><a href="" aria-label="3"></a>               <span class="fu">aes</span>(<span class="at">x =</span> long, <span class="at">y =</span> lat))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div><div class="column">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="13_Maps1_files/figure-revealjs/unnamed-chunk-11-1.png" width="672"></p>
+</figure>
+</div>
+</div>
+</div></div>
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Warning</strong></p>
+</div>
+<div class="callout-content">
+<p>Those “crazy lines” mean ggplot is connecting all points in one continuous path — it has no idea where one polygon ends and the next begins.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="add-color-to-lines-and-fill" class="slide level2">
+<h2>Add Color to Lines and Fill</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16" data-code-line-numbers="5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="" aria-label="1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb16-2"><a href="" aria-label="2"></a>  <span class="fu">geom_polygon</span>(<span class="at">data =</span> world,</span>
+<span id="cb16-3"><a href="" aria-label="3"></a>               <span class="fu">aes</span>(<span class="at">x =</span> long, <span class="at">y =</span> lat,</span>
+<span id="cb16-4"><a href="" aria-label="4"></a>                   <span class="at">group =</span> group),</span>
+<span id="cb16-5"><a href="" aria-label="5"></a>               <span class="at">color =</span> <span class="st">"black"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="13_Maps1_files/figure-revealjs/unnamed-chunk-13-1.png" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="fill-by-region" class="slide level2">
+<h2>Fill by Region</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17" data-code-line-numbers="5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="" aria-label="1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb17-2"><a href="" aria-label="2"></a>  <span class="fu">geom_polygon</span>(<span class="at">data =</span> world,</span>
+<span id="cb17-3"><a href="" aria-label="3"></a>               <span class="fu">aes</span>(<span class="at">x =</span> long, <span class="at">y =</span> lat,</span>
+<span id="cb17-4"><a href="" aria-label="4"></a>                   <span class="at">group =</span> group,</span>
+<span id="cb17-5"><a href="" aria-label="5"></a>                   <span class="at">fill =</span> region),</span>
+<span id="cb17-6"><a href="" aria-label="6"></a>               <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb17-7"><a href="" aria-label="7"></a>  <span class="fu">guides</span>(<span class="at">fill =</span> <span class="st">"none"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="13_Maps1_files/figure-revealjs/unnamed-chunk-15-1.png" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="change-the-theme" class="slide level2">
+<h2>Change the Theme</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18" data-code-line-numbers="8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="" aria-label="1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb18-2"><a href="" aria-label="2"></a>  <span class="fu">geom_polygon</span>(<span class="at">data =</span> world,</span>
+<span id="cb18-3"><a href="" aria-label="3"></a>               <span class="fu">aes</span>(<span class="at">x =</span> long, <span class="at">y =</span> lat,</span>
+<span id="cb18-4"><a href="" aria-label="4"></a>                   <span class="at">group =</span> group,</span>
+<span id="cb18-5"><a href="" aria-label="5"></a>                   <span class="at">fill =</span> region),</span>
+<span id="cb18-6"><a href="" aria-label="6"></a>               <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb18-7"><a href="" aria-label="7"></a>  <span class="fu">guides</span>(<span class="at">fill =</span> <span class="st">"none"</span>) <span class="sc">+</span></span>
+<span id="cb18-8"><a href="" aria-label="8"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="13_Maps1_files/figure-revealjs/unnamed-chunk-17-1.png" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="make-the-ocean-blue" class="slide level2">
+<h2>Make the Ocean Blue</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19" data-code-line-numbers="9,10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="" aria-label="1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb19-2"><a href="" aria-label="2"></a>  <span class="fu">geom_polygon</span>(<span class="at">data =</span> world,</span>
+<span id="cb19-3"><a href="" aria-label="3"></a>               <span class="fu">aes</span>(<span class="at">x =</span> long, <span class="at">y =</span> lat,</span>
+<span id="cb19-4"><a href="" aria-label="4"></a>                   <span class="at">group =</span> group,</span>
+<span id="cb19-5"><a href="" aria-label="5"></a>                   <span class="at">fill =</span> region),</span>
+<span id="cb19-6"><a href="" aria-label="6"></a>               <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb19-7"><a href="" aria-label="7"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb19-8"><a href="" aria-label="8"></a>  <span class="fu">guides</span>(<span class="at">fill =</span> <span class="st">"none"</span>) <span class="sc">+</span></span>
+<span id="cb19-9"><a href="" aria-label="9"></a>  <span class="fu">theme</span>(<span class="at">panel.background =</span></span>
+<span id="cb19-10"><a href="" aria-label="10"></a>          <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"lightblue"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="13_Maps1_files/figure-revealjs/unnamed-chunk-19-1.png" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="change-the-map-projection" class="slide level2">
+<h2>Change the Map Projection</h2>
+<p>The earth is not flat, but we visualize it in 2D — there are many projections to choose from.<br>
+See <a href="https://rdrr.io/cran/mapproj/man/mapproject.html">{mapproj}</a> for available options.</p>
+<p><span class="orange">Use a Mercator projection:</span></p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20" data-code-line-numbers="11,12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="" aria-label="1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb20-2"><a href="" aria-label="2"></a>  <span class="fu">geom_polygon</span>(<span class="at">data =</span> world,</span>
+<span id="cb20-3"><a href="" aria-label="3"></a>               <span class="fu">aes</span>(<span class="at">x =</span> long, <span class="at">y =</span> lat,</span>
+<span id="cb20-4"><a href="" aria-label="4"></a>                   <span class="at">group =</span> group,</span>
+<span id="cb20-5"><a href="" aria-label="5"></a>                   <span class="at">fill =</span> region),</span>
+<span id="cb20-6"><a href="" aria-label="6"></a>               <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb20-7"><a href="" aria-label="7"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb20-8"><a href="" aria-label="8"></a>  <span class="fu">guides</span>(<span class="at">fill =</span> <span class="st">"none"</span>) <span class="sc">+</span></span>
+<span id="cb20-9"><a href="" aria-label="9"></a>  <span class="fu">theme</span>(<span class="at">panel.background =</span></span>
+<span id="cb20-10"><a href="" aria-label="10"></a>          <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"lightblue"</span>)) <span class="sc">+</span></span>
+<span id="cb20-11"><a href="" aria-label="11"></a>  <span class="fu">coord_map</span>(<span class="at">projection =</span> <span class="st">"mercator"</span>,</span>
+<span id="cb20-12"><a href="" aria-label="12"></a>            <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">180</span>, <span class="dv">180</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="13_Maps1_files/figure-revealjs/unnamed-chunk-21-1.png" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="change-the-map-projection-1" class="slide level2">
+<h2>Change the Map Projection</h2>
+<p><span class="orange">Use a sinusoidal projection:</span></p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21" data-code-line-numbers="11,12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="" aria-label="1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb21-2"><a href="" aria-label="2"></a>  <span class="fu">geom_polygon</span>(<span class="at">data =</span> world,</span>
+<span id="cb21-3"><a href="" aria-label="3"></a>               <span class="fu">aes</span>(<span class="at">x =</span> long, <span class="at">y =</span> lat,</span>
+<span id="cb21-4"><a href="" aria-label="4"></a>                   <span class="at">group =</span> group,</span>
+<span id="cb21-5"><a href="" aria-label="5"></a>                   <span class="at">fill =</span> region),</span>
+<span id="cb21-6"><a href="" aria-label="6"></a>               <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb21-7"><a href="" aria-label="7"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb21-8"><a href="" aria-label="8"></a>  <span class="fu">guides</span>(<span class="at">fill =</span> <span class="st">"none"</span>) <span class="sc">+</span></span>
+<span id="cb21-9"><a href="" aria-label="9"></a>  <span class="fu">theme</span>(<span class="at">panel.background =</span></span>
+<span id="cb21-10"><a href="" aria-label="10"></a>          <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"lightblue"</span>)) <span class="sc">+</span></span>
+<span id="cb21-11"><a href="" aria-label="11"></a>  <span class="fu">coord_map</span>(<span class="at">projection =</span> <span class="st">"sinusoidal"</span>,</span>
+<span id="cb21-12"><a href="" aria-label="12"></a>            <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">180</span>, <span class="dv">180</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="13_Maps1_files/figure-revealjs/unnamed-chunk-23-1.png" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="map-of-just-california" class="slide level2">
+<h2>Map of Just California</h2>
+<p>Filter the <span class="var">states</span> dataset to California:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="" aria-label="1"></a>CA_data <span class="ot">&lt;-</span> states <span class="sc">|&gt;</span></span>
+<span id="cb22-2"><a href="" aria-label="2"></a>  <span class="fu">filter</span>(region <span class="sc">==</span> <span class="st">"california"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Tip</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>Think, pair, share:</strong> Make a simple map of California using what you just learned. No peeking at the next slide!</p>
+</div>
+</div>
+</div>
+</section>
+<section id="map-of-california" class="slide level2">
+<h2>Map of California</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23" data-code-line-numbers="7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="" aria-label="1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb23-2"><a href="" aria-label="2"></a>  <span class="fu">geom_polygon</span>(<span class="at">data =</span> CA_data,</span>
+<span id="cb23-3"><a href="" aria-label="3"></a>               <span class="fu">aes</span>(<span class="at">x =</span> long, <span class="at">y =</span> lat,</span>
+<span id="cb23-4"><a href="" aria-label="4"></a>                   <span class="at">group =</span> group),</span>
+<span id="cb23-5"><a href="" aria-label="5"></a>               <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb23-6"><a href="" aria-label="6"></a>  <span class="fu">coord_map</span>() <span class="sc">+</span></span>
+<span id="cb23-7"><a href="" aria-label="7"></a>  <span class="fu">theme_void</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="13_Maps1_files/figure-revealjs/unnamed-chunk-26-1.png" width="480"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="adding-multiple-layers-of-data" class="slide level2">
+<h2>Adding Multiple Layers of Data</h2>
+<p><span class="orange">Plot the population of every county in California.</span></p>
+<p>First, we need county-level polygons and join them to our population dataset.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="" aria-label="1"></a><span class="fu">head</span>(counties)[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, ]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       long      lat group order  region subregion
+1 -86.50517 32.34920     1     1 alabama   autauga
+2 -86.53382 32.35493     1     2 alabama   autauga
+3 -86.54527 32.36639     1     3 alabama   autauga</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="" aria-label="1"></a><span class="fu">head</span>(popdata)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 2
+  County         Population
+  &lt;chr&gt;               &lt;dbl&gt;
+1 los angeles      10081570
+2 san diego         3316073
+3 orange            3168044
+4 riverside         2411439
+5 san bernardino    2149031
+6 santa clara       1927470</code></pre>
+</div>
+</div>
+</section>
+<section id="wrangle-the-data" class="slide level2">
+<h2>Wrangle the Data</h2>
+<p><span class="orange">Make column names match before joining.</span></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="" aria-label="1"></a>CApop_county <span class="ot">&lt;-</span> popdata <span class="sc">|&gt;</span></span>
+<span id="cb28-2"><a href="" aria-label="2"></a>  <span class="fu">select</span>(<span class="st">"subregion"</span> <span class="ot">=</span> County, Population) <span class="sc">|&gt;</span>   <span class="co"># rename to match counties</span></span>
+<span id="cb28-3"><a href="" aria-label="3"></a>  <span class="fu">inner_join</span>(counties) <span class="sc">|&gt;</span></span>
+<span id="cb28-4"><a href="" aria-label="4"></a>  <span class="fu">filter</span>(region <span class="sc">==</span> <span class="st">"california"</span>)                 <span class="co"># some county names repeat in other states</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="" aria-label="1"></a><span class="fu">head</span>(CApop_county)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 7
+  subregion   Population  long   lat group order region    
+  &lt;chr&gt;            &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt; &lt;chr&gt;     
+1 los angeles   10081570 -119.  34.8   175  7827 california
+2 los angeles   10081570 -118.  34.8   175  7828 california
+3 los angeles   10081570 -118.  34.8   175  7829 california
+4 los angeles   10081570 -118.  34.6   175  7830 california
+5 los angeles   10081570 -118.  34.6   175  7831 california
+6 los angeles   10081570 -118.  34.5   175  7832 california</code></pre>
+</div>
+</div>
+</section>
+<section id="map-of-ca-population-by-county" class="slide level2">
+<h2>Map of CA Population by County</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="" aria-label="1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb31-2"><a href="" aria-label="2"></a>  <span class="fu">geom_polygon</span>(<span class="at">data =</span> CApop_county,</span>
+<span id="cb31-3"><a href="" aria-label="3"></a>               <span class="fu">aes</span>(<span class="at">x =</span> long, <span class="at">y =</span> lat,</span>
+<span id="cb31-4"><a href="" aria-label="4"></a>                   <span class="at">group =</span> group,</span>
+<span id="cb31-5"><a href="" aria-label="5"></a>                   <span class="at">fill =</span> Population),</span>
+<span id="cb31-6"><a href="" aria-label="6"></a>               <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb31-7"><a href="" aria-label="7"></a>  <span class="fu">coord_map</span>() <span class="sc">+</span></span>
+<span id="cb31-8"><a href="" aria-label="8"></a>  <span class="fu">theme_void</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="13_Maps1_files/figure-revealjs/unnamed-chunk-32-1.png" width="480"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="log-scale-for-easier-interpretation" class="slide level2">
+<h2>Log Scale for Easier Interpretation</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32" data-code-line-numbers="9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="" aria-label="1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb32-2"><a href="" aria-label="2"></a>  <span class="fu">geom_polygon</span>(<span class="at">data =</span> CApop_county,</span>
+<span id="cb32-3"><a href="" aria-label="3"></a>               <span class="fu">aes</span>(<span class="at">x =</span> long, <span class="at">y =</span> lat,</span>
+<span id="cb32-4"><a href="" aria-label="4"></a>                   <span class="at">group =</span> group,</span>
+<span id="cb32-5"><a href="" aria-label="5"></a>                   <span class="at">fill =</span> Population),</span>
+<span id="cb32-6"><a href="" aria-label="6"></a>               <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb32-7"><a href="" aria-label="7"></a>  <span class="fu">coord_map</span>() <span class="sc">+</span></span>
+<span id="cb32-8"><a href="" aria-label="8"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span></span>
+<span id="cb32-9"><a href="" aria-label="9"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">transform =</span> <span class="st">"log10"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="13_Maps1_files/figure-revealjs/unnamed-chunk-34-1.png" width="480"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Tip</strong></p>
+</div>
+<div class="callout-content">
+<p><span class="param">transform = “log10”</span> compresses the color scale so that less-populated counties are still visible alongside Los Angeles.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="add-a-layer-of-points" class="slide level2">
+<h2>Add a Layer of Points</h2>
+<p>The <span class="var">stars</span> dataset has seastar counts (per m²) at field sites in California.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="" aria-label="1"></a><span class="fu">head</span>(stars)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 3
+    lat  long star_no
+  &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
+1  33.5 -118.      10
+2  35.5 -121.       1
+3  39.5 -124.      25
+4  32.9 -117.      22
+5  33.5 -118.       8
+6  33.5 -118.       3</code></pre>
+</div>
+</div>
+</section>
+<section id="overlay-seastar-sites" class="slide level2">
+<h2>Overlay Seastar Sites</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35" data-code-line-numbers="7,8,9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="" aria-label="1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb35-2"><a href="" aria-label="2"></a>  <span class="fu">geom_polygon</span>(<span class="at">data =</span> CApop_county,</span>
+<span id="cb35-3"><a href="" aria-label="3"></a>               <span class="fu">aes</span>(<span class="at">x =</span> long, <span class="at">y =</span> lat,</span>
+<span id="cb35-4"><a href="" aria-label="4"></a>                   <span class="at">group =</span> group,</span>
+<span id="cb35-5"><a href="" aria-label="5"></a>                   <span class="at">fill =</span> Population),</span>
+<span id="cb35-6"><a href="" aria-label="6"></a>               <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb35-7"><a href="" aria-label="7"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> stars,</span>
+<span id="cb35-8"><a href="" aria-label="8"></a>             <span class="fu">aes</span>(<span class="at">x =</span> long,</span>
+<span id="cb35-9"><a href="" aria-label="9"></a>                 <span class="at">y =</span> lat)) <span class="sc">+</span></span>
+<span id="cb35-10"><a href="" aria-label="10"></a>  <span class="fu">coord_map</span>() <span class="sc">+</span></span>
+<span id="cb35-11"><a href="" aria-label="11"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span></span>
+<span id="cb35-12"><a href="" aria-label="12"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">transform =</span> <span class="st">"log10"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="13_Maps1_files/figure-revealjs/unnamed-chunk-37-1.png" width="480"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="size-points-by-seastar-count" class="slide level2">
+<h2>Size Points by Seastar Count</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36" data-code-line-numbers="9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="" aria-label="1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb36-2"><a href="" aria-label="2"></a>  <span class="fu">geom_polygon</span>(<span class="at">data =</span> CApop_county,</span>
+<span id="cb36-3"><a href="" aria-label="3"></a>               <span class="fu">aes</span>(<span class="at">x =</span> long, <span class="at">y =</span> lat,</span>
+<span id="cb36-4"><a href="" aria-label="4"></a>                   <span class="at">group =</span> group,</span>
+<span id="cb36-5"><a href="" aria-label="5"></a>                   <span class="at">fill =</span> Population),</span>
+<span id="cb36-6"><a href="" aria-label="6"></a>               <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb36-7"><a href="" aria-label="7"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> stars,</span>
+<span id="cb36-8"><a href="" aria-label="8"></a>             <span class="fu">aes</span>(<span class="at">x =</span> long, <span class="at">y =</span> lat,</span>
+<span id="cb36-9"><a href="" aria-label="9"></a>                 <span class="at">size =</span> star_no)) <span class="sc">+</span></span>
+<span id="cb36-10"><a href="" aria-label="10"></a>  <span class="fu">coord_map</span>() <span class="sc">+</span></span>
+<span id="cb36-11"><a href="" aria-label="11"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span></span>
+<span id="cb36-12"><a href="" aria-label="12"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">transform =</span> <span class="st">"log10"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="13_Maps1_files/figure-revealjs/unnamed-chunk-39-1.png" width="480"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="better-legend-labels" class="slide level2">
+<h2>Better Legend Labels</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37" data-code-line-numbers="13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="" aria-label="1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb37-2"><a href="" aria-label="2"></a>  <span class="fu">geom_polygon</span>(<span class="at">data =</span> CApop_county,</span>
+<span id="cb37-3"><a href="" aria-label="3"></a>               <span class="fu">aes</span>(<span class="at">x =</span> long, <span class="at">y =</span> lat,</span>
+<span id="cb37-4"><a href="" aria-label="4"></a>                   <span class="at">group =</span> group,</span>
+<span id="cb37-5"><a href="" aria-label="5"></a>                   <span class="at">fill =</span> Population),</span>
+<span id="cb37-6"><a href="" aria-label="6"></a>               <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb37-7"><a href="" aria-label="7"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> stars,</span>
+<span id="cb37-8"><a href="" aria-label="8"></a>             <span class="fu">aes</span>(<span class="at">x =</span> long, <span class="at">y =</span> lat,</span>
+<span id="cb37-9"><a href="" aria-label="9"></a>                 <span class="at">size =</span> star_no)) <span class="sc">+</span></span>
+<span id="cb37-10"><a href="" aria-label="10"></a>  <span class="fu">coord_map</span>() <span class="sc">+</span></span>
+<span id="cb37-11"><a href="" aria-label="11"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span></span>
+<span id="cb37-12"><a href="" aria-label="12"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">transform =</span> <span class="st">"log10"</span>) <span class="sc">+</span></span>
+<span id="cb37-13"><a href="" aria-label="13"></a>  <span class="fu">labs</span>(<span class="at">size =</span> <span class="st">"# stars/m²"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="13_Maps1_files/figure-revealjs/unnamed-chunk-41-1.png" width="480"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="save-the-map" class="slide level2">
+<h2>Save the Map</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38" data-code-line-numbers="15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="" aria-label="1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb38-2"><a href="" aria-label="2"></a>  <span class="fu">geom_polygon</span>(<span class="at">data =</span> CApop_county,</span>
+<span id="cb38-3"><a href="" aria-label="3"></a>               <span class="fu">aes</span>(<span class="at">x =</span> long, <span class="at">y =</span> lat,</span>
+<span id="cb38-4"><a href="" aria-label="4"></a>                   <span class="at">group =</span> group,</span>
+<span id="cb38-5"><a href="" aria-label="5"></a>                   <span class="at">fill =</span> Population),</span>
+<span id="cb38-6"><a href="" aria-label="6"></a>               <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb38-7"><a href="" aria-label="7"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> stars,</span>
+<span id="cb38-8"><a href="" aria-label="8"></a>             <span class="fu">aes</span>(<span class="at">x =</span> long, <span class="at">y =</span> lat,</span>
+<span id="cb38-9"><a href="" aria-label="9"></a>                 <span class="at">size =</span> star_no)) <span class="sc">+</span></span>
+<span id="cb38-10"><a href="" aria-label="10"></a>  <span class="fu">coord_map</span>() <span class="sc">+</span></span>
+<span id="cb38-11"><a href="" aria-label="11"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span></span>
+<span id="cb38-12"><a href="" aria-label="12"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">transform =</span> <span class="st">"log10"</span>) <span class="sc">+</span></span>
+<span id="cb38-13"><a href="" aria-label="13"></a>  <span class="fu">labs</span>(<span class="at">size =</span> <span class="st">"# stars/m²"</span>)</span>
+<span id="cb38-14"><a href="" aria-label="14"></a></span>
+<span id="cb38-15"><a href="" aria-label="15"></a><span class="fu">ggsave</span>(<span class="fu">here</span>(<span class="st">"Week_07"</span>, <span class="st">"output"</span>, <span class="st">"CApop.pdf"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Tip</strong></p>
+</div>
+<div class="callout-content">
+<p><span class="fn">ggsave()</span> saves the <strong>last</strong> plot by default. Run it on the line immediately after your ggplot code, or pass the plot object explicitly.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="the-modern-approach-sf-rnaturalearth" class="slide level2 inverse">
+<h2>The Modern Approach: {sf} + {rnaturalearth}</h2>
+<p>Everything we just did works — but it’s the old way.<br>
+Here is a quick preview of where the field has moved.</p>
+</section>
+<section id="why-sf" class="slide level2">
+<h2>Why {sf}?</h2>
+<p>The <span class="fn">{sf}</span> (“simple features”) package is the current standard for spatial data in R.</p>
+<ul>
+<li class="fragment">Spatial objects are just <strong>data frames</strong> — all tidyverse verbs work on them</li>
+<li class="fragment">Handles projections, CRS transformations, spatial joins natively</li>
+<li class="fragment"><span class="fn">geom_sf()</span> replaces <span class="fn">geom_polygon()</span> — no need to manage <span class="var">group</span> manually</li>
+<li class="fragment">Compatible with a rich ecosystem: <span class="fn">{tigris}</span>, <span class="fn">{rnaturalearth}</span>, <span class="fn">{maptiles}</span>, <span class="fn">{leaflet}</span></li>
+</ul>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Tip</strong></p>
+</div>
+<div class="callout-content">
+<p>For any serious spatial analysis — buffering, intersections, area calculations — <span class="fn">{sf}</span> is the tool you want. Today’s <span class="fn">{maps}</span> approach is great for quick plots, but it won’t scale to real GIS work.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="rnaturalearth-world-map-with-geom_sf" class="slide level2">
+<h2>{rnaturalearth} — World Map with geom_sf()</h2>
+<p>Install once:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="" aria-label="1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">"sf"</span>, <span class="st">"rnaturalearth"</span>, <span class="st">"rnaturalearthdata"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell columns column-output-location">
+<div class="column">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40" data-code-line-numbers="5,6,9,10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="" aria-label="1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb40-2"><a href="" aria-label="2"></a><span class="fu">library</span>(rnaturalearth)</span>
+<span id="cb40-3"><a href="" aria-label="3"></a><span class="fu">library</span>(rnaturalearthdata)</span>
+<span id="cb40-4"><a href="" aria-label="4"></a></span>
+<span id="cb40-5"><a href="" aria-label="5"></a>world_sf <span class="ot">&lt;-</span> <span class="fu">ne_countries</span>(<span class="at">scale =</span> <span class="st">"medium"</span>,</span>
+<span id="cb40-6"><a href="" aria-label="6"></a>                         <span class="at">returnclass =</span> <span class="st">"sf"</span>)</span>
+<span id="cb40-7"><a href="" aria-label="7"></a></span>
+<span id="cb40-8"><a href="" aria-label="8"></a><span class="fu">ggplot</span>(world_sf) <span class="sc">+</span></span>
+<span id="cb40-9"><a href="" aria-label="9"></a>  <span class="fu">geom_sf</span>(<span class="at">fill =</span> <span class="st">"lightgray"</span>,</span>
+<span id="cb40-10"><a href="" aria-label="10"></a>          <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb40-11"><a href="" aria-label="11"></a>  <span class="fu">theme_void</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div><div class="column">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="13_Maps1_files/figure-revealjs/unnamed-chunk-44-1.png" width="672"></p>
+</figure>
+</div>
+</div>
+</div></div>
+<p>No <span class="var">group</span>! No longitude/latitude columns to manage! <span class="fn">{sf}</span> handles all of that.</p>
+</section>
+<section id="projections-with-coord_sf" class="slide level2">
+<h2>Projections with coord_sf()</h2>
+<p><span class="fn"><code>coord_sf()</code></span> handles projections using standard <strong>EPSG codes</strong> — much more rigorous than <span class="fn">{mapproj}</span>:</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41" data-code-line-numbers="3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="" aria-label="1"></a><span class="fu">ggplot</span>(world_sf) <span class="sc">+</span></span>
+<span id="cb41-2"><a href="" aria-label="2"></a>  <span class="fu">geom_sf</span>(<span class="at">fill =</span> <span class="st">"lightgray"</span>, <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb41-3"><a href="" aria-label="3"></a>  <span class="fu">coord_sf</span>(<span class="at">crs =</span> <span class="st">"+proj=robin"</span>) <span class="sc">+</span> <span class="co"># Robinson projection</span></span>
+<span id="cb41-4"><a href="" aria-label="4"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span></span>
+<span id="cb41-5"><a href="" aria-label="5"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Robinson Projection"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="13_Maps1_files/figure-revealjs/unnamed-chunk-46-1.png" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>Common CRS choices: <span class="param"><code>"+proj=robin"</code></span> (Robinson), <span class="param"><code>4326</code></span> (WGS84 / GPS), <span class="param"><code>3857</code></span> (Web Mercator).<br>
+Learn more at <a href="https://ggplot2-book.org/maps#sec-sf">map chapter in ggplot2 book</a>.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="total-awesome-r-package-ggdogs" class="slide level2">
+<h2>Total Awesome R Package — {ggdogs} 🐾</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="" aria-label="1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"R-CoderDotCom/ggdogs@main"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="" aria-label="1"></a><span class="fu">library</span>(ggdogs)</span>
+<span id="cb43-2"><a href="" aria-label="2"></a><span class="fu">ggplot</span>(mtcars) <span class="sc">+</span></span>
+<span id="cb43-3"><a href="" aria-label="3"></a>  <span class="fu">geom_dog</span>(<span class="fu">aes</span>(mpg, wt), <span class="at">dog =</span> <span class="st">"pug"</span>, <span class="at">size =</span> <span class="dv">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+
+</div>
+<img data-src="13_Maps1_files/figure-revealjs/unnamed-chunk-48-1.png" width="768" class="r-stretch"></section>
+<section id="homework" class="slide level2">
+<h2>Homework</h2>
+<p>Make a map <strong>using Quarto</strong> with one of the following TidyTuesday datasets. Save your script and output appropriately.</p>
+<ul>
+<li><a href="https://github.com/rfordatascience/tidytuesday/blob/master/data/2021/2021-01-26/readme.md">Plastic Pollution</a></li>
+<li><a href="https://github.com/rfordatascience/tidytuesday/blob/master/data/2023/2023-01-31/readme.md">Cats on the Move!</a></li>
+<li><a href="https://github.com/rfordatascience/tidytuesday/tree/master/data/2022/2022-09-13">Where Is Bigfoot?</a></li>
+<li><a href="https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-06-11">Meteorites</a></li>
+</ul>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Tip</strong></p>
+</div>
+<div class="callout-content">
+<p>The map does not have to be complex — a clean, labeled <span class="fn">geom_polygon()</span> or <span class="fn">geom_sf()</span> map with your data overlaid is exactly right.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="thanks" class="slide level2 inverse center">
+<h2>Thanks!</h2>
+<p>Slides created with <a href="https://quarto.org">Quarto</a> and <a href="https://revealjs.com/">RevealJS</a>.<br>
+Some content adapted from <a href="https://eriqande.github.io/rep-res-web/lectures/making-maps-with-R.html/">Making Maps with R</a> and <a href="https://geocompr.robinlovelace.net/">Geocomputation with R</a>.</p>
+
+</section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+<p>OCN 682 | Week 7 | Intro to Maps Part 1</p>
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="13_Maps1_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="13_Maps1_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="13_Maps1_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="13_Maps1_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="13_Maps1_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="13_Maps1_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="13_Maps1_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="13_Maps1_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="13_Maps1_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="13_Maps1_files/libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': true,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1500,
+
+        height: 1000,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    
+
+    <script>
+
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+
+      // slide changes (different for each slide format).
+
+      (function () {
+
+        // dispatch for htmlwidgets
+
+        function fireSlideEnter() {
+
+          const event = window.document.createEvent("Event");
+
+          event.initEvent("slideenter", true, true);
+
+          window.document.dispatchEvent(event);
+
+        }
+
+    
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+
+          fireSlideEnter();
+
+    
+
+          // dispatch for shiny
+
+          if (window.jQuery) {
+
+            if (previousSlide) {
+
+              window.jQuery(previousSlide).trigger("hidden");
+
+            }
+
+            if (currentSlide) {
+
+              window.jQuery(currentSlide).trigger("shown");
+
+            }
+
+          }
+
+        }
+
+    
+
+        // hookup for slidy
+
+        if (window.w3c_slidy) {
+
+          window.w3c_slidy.add_observer(function (slide_num) {
+
+            // slide_num starts at position 1
+
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+
+          });
+
+        }
+
+    
+
+      })();
+
+    </script>
+
+    
+
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>

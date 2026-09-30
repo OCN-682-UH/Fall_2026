@@ -1,0 +1,263 @@
+---
+title: "Week 7b"
+subtitle: "Intro to Maps part 2"
+author: "Dr. Nyssa Silbiger"
+institute: "UH Data Science Fundamentals in R"
+date: "(updated: `r Sys.Date()`)"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      highlightSpans: true
+      countIncrementalSlides: false
+      beforeInit: "macros.js"
+      ratio: '15:10'
+---
+
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+```
+<div style = "position:fixed; visibility: hidden">
+$$\require{color}\definecolor{yellow}{rgb}{1, 0.8, 0.16078431372549}$$
+$$\require{color}\definecolor{orange}{rgb}{0.96078431372549, 0.525490196078431, 0.203921568627451}$$
+$$\require{color}\definecolor{green}{rgb}{0, 0.474509803921569, 0.396078431372549}$$
+</div>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: {
+    Macros: {
+      yellow: ["{\\color{yellow}{#1}}", 1],
+      orange: ["{\\color{orange}{#1}}", 1],
+      green: ["{\\color{green}{#1}}", 1]
+    },
+    loader: {load: ['[tex]/color']},
+    tex: {packages: {'[+]': ['color']}}
+  }
+});
+</script>
+
+<style>
+.yellow {color: #FFCC29;}
+.orange {color: #F58634;}
+.green {color: #007965;}
+</style>
+
+
+```{r flair_color, echo=FALSE}
+library(flair)
+yellow <- "#FFCC29"
+orange <- "#F58634"
+green <- "#007965"
+```
+
+---
+# Outline of class
+
+
+Working with Maps part 2
+
+
+
+1.  {ggmaps}
+
+
+[ggmap article](http://stat405.had.co.nz/ggmap.pdf)  
+[Making plots with ggmap](https://www.littlemissdata.com/blog/maps)  
+[Setting up ggmap](https://builtin.com/data-science/ggmap)   
+
+---
+# Review
+
+1. If my plot looks like a bunch of crazy lines, what did I likely forget to put in the ggplot code?
+
+---
+# Install ggmaps and ggsn
+
+```{r, eval=FALSE}
+devtools::install_github("dkahle/ggmap")# for ggmaps
+install.packages("ggspatial")# to add scale bars and compass arrows
+```
+
+```{r, warning=FALSE, message=FALSE}
+library(ggmap)
+library(tidyverse)
+library(here)
+library(ggspatial)
+```
+
+
+```{r, eval=FALSE}
+register_google(key = "YOUR KEY HERE", write = TRUE) ### use your own API
+#IMPORTANT don't put your key to github!! I usually save mine in a text file and import it each time
+
+# Setting write = TRUE will write the API key to your R environment so that you do not have to re register it each time
+
+#Also use the stadia maps API Key
+register_stadiamaps("Your API KEY HERE", write = TRUE)
+```
+
+---
+# Data for today
+
+We will use a snapshot of the Maunalua Chemistry data in this weeks data folder
+
+```{r, warning=FALSE, message=FALSE}
+ChemData<-read_csv(here("Week_07","data","chemicaldata_maunalua.csv"))
+
+glimpse(ChemData)
+```
+
+
+---
+# Get base maps from ggmap
+
+*get_map()* is the function to get a basemap from Google Maps. At it's simplest form, you only need to put in a location.  
+
+Location as a string:
+
+```{r, warning=FALSE, message=FALSE}
+Oahu<-get_map("Oahu")
+
+```
+
+--
+
+### Use ggmap to plot the base layer
+
+```{r, out.width="25%", fig.align="center"}
+ggmap(Oahu)
+```
+
+---
+# Get base maps from ggmap
+
+You can also put in lat and lon coordinates to get a basemap.
+
+**Get coordinates for Wailupe on Oahu.**
+```{r, warning=FALSE, message=FALSE, out.width="25%", fig.align='center'}
+#Make a data frame of lon and lat coordinates
+WP<-data.frame(lon = -157.7621, lat = 21.27427) # coordinates for Wailupe
+
+# Get base layer
+Map1<-get_map(WP)
+
+# plot it
+ggmap(Map1)
+
+```
+---
+# Get base maps from ggmap
+
+### Zoom in on a location
+
+The *zoom* argument, an integer from **3 to 20** specifying how large the spatial extent should be around the center, with 3 being the **continent level** and 20 being roughly the **single building level**.
+
+```{r, warning=FALSE, message=FALSE, out.width="25%", fig.align='center'}
+Map1<-get_map(WP,zoom = 17)
+
+ggmap(Map1)
+```
+
+---
+# Get base maps from ggmap
+**Change the map type**
+
+```{r, warning=FALSE, message=FALSE, out.width="40%", fig.align='center'}
+Map1<-get_map(WP,zoom = 17, maptype = "satellite") #<<
+
+ggmap(Map1)
+```
+
+---
+# Get base maps from ggmap
+**Change the map type.** There are lots of different ones. look at ?get_map
+
+```{r, warning=FALSE, message=FALSE, out.width="40%", fig.align='center'}
+
+Map1<-get_map(WP,zoom = 17, maptype = "stamen_watercolor", source = "stadia") #<<
+
+ggmap(Map1)
+```
+---
+# You can use the ggmap base layer in any ggplot
+
+```{r, warning=FALSE, message=FALSE, out.width="40%", fig.align='center'}
+
+
+Map1<-get_map(WP,zoom = 17, maptype = "satellite") 
+
+ggmap(Map1)+
+  geom_point(data = ChemData, #<<
+             aes(x = Long, y = Lat, color = Salinity), #<<
+             size = 4) + #<<
+  scale_color_viridis_c()
+```
+---
+# Add scale bar
+
+```{r, warning=FALSE, message=FALSE, out.width="35%", fig.align='center'}
+ggmap(Map1)+
+  geom_point(data = ChemData, 
+             aes(x = Long, y = Lat, color = Salinity), 
+             size = 4) + 
+  scale_color_viridis_c()+
+  annotation_scale( bar_cols = c("yellow", "white"),
+                    location = "bl")+ # put the bar on the bottom left and make the colors yellow and white
+  annotation_north_arrow(location = "tl")+ # add a north arrow
+  coord_sf(crs = 4326) # for the scale bar to work it needs to be in this coordinate system - this is a typical coordinate reference system for a GPS (WGS84)
+
+  
+```
+
+    
+---
+# Don't know the exact lat and long?
+
+Use *geocode()* to get exact locations that you can then use in the maps.
+
+
+```{r, message=FALSE, warning=FALSE}
+geocode("the white house")
+
+geocode("University of Hawaii at Manoa")
+```
+---
+# Totally awesome R Package
+**emojifont!**
+.pull-left[
+```{r, eval=FALSE}
+install.packages("emojifont")
+```
+
+```{r, warning=FALSE, message=FALSE}
+library(emojifont)
+search_emoji('smile')
+```
+
+
+[More info here](https://cran.r-project.org/web/packages/emojifont/vignettes/emojifont.html)
+]
+
+.pull-right[
+```{r, out.width="60%"}
+ggplot() + 
+  geom_emoji('smile_cat', 
+             x=1:5, y=1:5, 
+             size=10)
+```
+
+]
+
+---
+
+
+class: center, middle
+
+# Thanks!
+
+Slides created via the R package [**xaringan**](https://github.com/yihui/xaringan).  
+Some slides modified from [Making maps with R](http://stat405.had.co.nz/ggmap.pdf)

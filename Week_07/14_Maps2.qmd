@@ -1,0 +1,775 @@
+---
+title: "Computer Modeling (OCN 682)"
+subtitle: "Intro to Maps Part 2"
+author: "Dr. Nyssa Silbiger"
+institute: "UH Fall 2026"
+date: today
+resources:
+  - custom-theme.scss
+format:
+  revealjs:
+    theme: [default, custom-theme.scss]
+    highlight-style: github
+    code-line-numbers: false
+    width: 1500
+    height: 1000
+    preview-links: auto
+    self-contained-math: true
+    embed-resources: false
+    slide-number: c/t
+    footer: "OCN 682 | Week 7 | Intro to Maps Part 2"
+---
+
+```{r}
+#| label: setup
+#| include: false
+
+library(tidyverse)
+library(here)
+```
+
+## Outline 
+
+Working with Maps — Part 2
+
+::: {.incremental}
+1. Review
+1. Tile and satellite basemaps with [{maptiles}]{.fn} 
+1. Overlaying data + annotations with [{ggspatial}]{.fn}
+1. Interactive maps with [{leaflet}]{.fn}
+1. Geocoding with [{tidygeocoder}]{.fn}
+:::
+
+**References:**
+- [maptiles documentation](https://github.com/riatelab/maptiles)
+- [tidyterra documentation](https://dieghernan.github.io/tidyterra/)
+- [Leaflet for R](https://rstudio.github.io/leaflet/)
+
+---
+
+## Review
+
+::: {.callout-warning}
+**If your map looks like a tangle of crazy lines, what did you most likely forget?**
+:::
+
+. . .
+
+[`group = group`]{.param} in your [geom_polygon()]{.fn} aesthetic.
+
+Without it, ggplot connects every vertex in one continuous path — it has no idea where one polygon ends and the next begins.
+
+---
+
+## Install Today's Packages
+
+```{r}
+#| echo: true
+#| eval: false
+
+install.packages(c(
+
+  "maptiles",      # download tile basemaps (satellite, street, terrain)
+  "tidyterra",     # plot terra rasters in ggplot2
+  "leaflet",       # interactive HTML maps
+  "tidygeocoder",  # free geocoding (OpenStreetMap / Census)
+  "ggspatial"      # scale bars and north arrows
+))
+```
+
+::: {.callout-tip}
+None of these require an API key or a credit card.
+:::
+
+---
+
+## Load Libraries
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+
+library(tidyverse)
+library(here)
+library(sf)
+library(maptiles)
+library(tidyterra)
+library(leaflet)
+library(tidygeocoder)
+library(ggspatial)
+```
+
+---
+
+## Data for Today
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+
+ChemData <- read_csv(here("Week_07", "data", "chemicaldata_maunalua.csv"))
+
+glimpse(ChemData)
+```
+
+---
+
+## Getting Tile Basemaps with {maptiles} {.inverse}
+
+[{maptiles}]{.fn} downloads satellite and street map tiles  
+from free public providers directly into R.
+
+---
+
+## What Is a Map Tile?
+
+Online maps (Google, OpenStreetMap, ESRI) are not single images — they are made of thousands of small **256 × 256 pixel tiles** stitched together.
+
+::: {.columns}
+::: {.column width="55%"}
+::: {.incremental}
+- Tiles are organized by **zoom level** and **grid position**
+- At zoom 1, a handful of tiles cover the whole world
+- At zoom 17, thousands of tiles cover a single neighborhood
+- [{maptiles}]{.fn} figures out which tiles you need, downloads them, and stitches them into one image
+:::
+:::
+::: {.column width="45%"}
+::: {.callout-tip}
+This is exactly how Google Maps works — [{maptiles}]{.fn} just accesses the same tiles directly, using providers that allow free access.
+:::
+:::
+:::
+
+---
+
+## Step 1 — Define Your Area of Interest
+
+[get_tiles()]{.fn} needs to know **what area to download**. We give it a **bounding box** — a rectangle defined by its corner coordinates.
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+
+# Define a bounding box around Wailupe, Oahu
+# xmin/xmax = westmost/eastmost longitude
+# ymin/ymax = southernmost/northernmost latitude
+wailupe_bbox <- st_as_sfc(
+  st_bbox(c(xmin = -157.772, ymin = 21.267,
+            xmax = -157.752, ymax = 21.281),
+          crs = 4326) # crs = 4326 means WGS84 — the lat/lon system your GPS uses
+)
+```
+
+::: {.callout-note}
+**[st_bbox()]{.fn}** creates the bounding box rectangle.  
+**[st_as_sfc()]{.fn}** converts it to an [{sf}]{.fn} geometry object so [{maptiles}]{.fn} can read it.  
+**[crs = 4326]{.param}** specifies WGS84 — almost all GPS and web map data uses this coordinate system.
+:::
+
+---
+
+## Step 2 — Download the Tiles
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+
+tiles_satellite <- get_tiles(
+  wailupe_bbox,               # the area to download
+  provider = "Esri.WorldImagery", # which tile source to use
+  zoom = 16,                  # level of detail (3 = continent, 20 = building)
+  crop = TRUE,                # clip to our exact bbox (vs. slightly larger)
+  cachedir = here("Week_07", "data", "tiles_cache") # save tiles to disk
+)
+```
+
+::: {.callout-tip}
+**[cachedir]{.param}** saves the raw tile images to disk. The next time you render this document, [{maptiles}]{.fn} will read from disk instead of re-downloading. Always include this when building presentations.
+:::
+
+---
+
+## What Does get_tiles() Return?
+
+```{r}
+#| echo: true
+
+class(tiles_satellite)
+```
+
+. . .
+
+A **[SpatRaster]{.var}** — a raster image (grid of pixels) from the [{terra}]{.fn} package.
+
+::: {.columns}
+::: {.column width="55%"}
+::: {.incremental}
+- A raster is just a matrix of pixel values — like a photo
+- [tiles_satellite]{.var} has **3 layers**: red, green, and blue
+- We can't use `geom_raster()` because that expects a data frame, not a terra object
+- [{tidyterra}]{.fn} bridges this gap with [geom_spatraster_rgb()]{.fn}
+:::
+:::
+::: {.column width="45%"}
+```{r}
+#| echo: true
+
+terra::nlyr(tiles_satellite) # number of layers (R, G, B)
+```
+:::
+:::
+
+---
+
+## Step 3 — Plot with geom_spatraster_rgb()
+
+```{r}
+#| echo: true
+#| output-location: column
+#| fig-width: 6
+#| fig-height: 5
+
+# geom_spatraster_rgb() is from {tidyterra}
+# It reads the 3 color layers and renders them as a photo
+ggplot() +
+  geom_spatraster_rgb(data = tiles_satellite) +
+  coord_sf(crs = 4326) +
+  theme_minimal()
+```
+
+::: {.callout-note}
+[coord_sf(crs = 4326)]{.fn} tells ggplot to treat your axes as geographic coordinates in WGS84. Always include it when plotting spatial data — it ensures the map is not distorted and that scale bars will work correctly later.
+:::
+
+---
+
+## Zoom Levels
+
+The [zoom]{.param} argument controls how much detail is shown. Larger number = more detail but more tiles to download.
+
+::: {.columns}
+::: {.column width="33%"}
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| fig-width: 4
+#| fig-height: 4
+
+tiles_z10 <- get_tiles(wailupe_bbox, provider = "Esri.WorldImagery", zoom = 10, crop = TRUE, cachedir = here("Week_07", "data", "tiles_cache"))
+ggplot() +
+  geom_spatraster_rgb(data = tiles_z10) +
+  coord_sf(crs = 4326) +
+  theme_void() +
+  labs(title = "zoom = 10 (island)")
+```
+:::
+::: {.column width="33%"}
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| fig-width: 4
+#| fig-height: 4
+
+tiles_z14 <- get_tiles(wailupe_bbox, provider = "Esri.WorldImagery", zoom = 14, crop = TRUE, cachedir = here("Week_07", "data", "tiles_cache"))
+ggplot() +
+  geom_spatraster_rgb(data = tiles_z14) +
+  coord_sf(crs = 4326) +
+  theme_void() +
+  labs(title = "zoom = 14 (neighborhood)")
+```
+:::
+::: {.column width="33%"}
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| fig-width: 4
+#| fig-height: 4
+
+tiles_z17 <- get_tiles(wailupe_bbox, provider = "Esri.WorldImagery", zoom = 17, crop = TRUE, cachedir = here("Week_07", "data", "tiles_cache"))
+ggplot() +
+  geom_spatraster_rgb(data = tiles_z17) +
+  coord_sf(crs = 4326) +
+  theme_void() +
+  labs(title = "zoom = 17 (site level)")
+```
+:::
+:::
+
+---
+
+## Different Tile Providers
+
+Just change the [provider]{.param} string — all are free with no API key:
+
+::: {.columns}
+::: {.column width="50%"}
+
+| Provider string | Style |
+|---|---|
+| `"Esri.WorldImagery"` | Satellite |
+| `"OpenStreetMap"` | Street map |
+| `"CartoDB.Positron"` | Minimal/clean |
+| `"Esri.WorldStreetMap"` | ESRI street |
+| `"Esri.WorldTerrain"` | Shaded terrain |
+
+:::
+::: {.column width="50%"}
+```{r}
+#| echo: true
+#| eval: false
+
+tiles_street <- get_tiles(
+  wailupe_bbox,
+  provider = "CartoDB.Positron",
+  zoom = 14,
+  cachedir = here("Week_07", "data", "tiles_cache")
+)
+```
+:::
+:::
+
+::: {.callout-note}
+Browse all available providers at [leaflet-extras.github.io/leaflet-providers](https://leaflet-extras.github.io/leaflet-providers/preview/).
+:::
+
+---
+
+## Deriving the Bbox from Your Data
+
+Instead of hard-coding coordinates, generate the bounding box directly from your data:
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+
+# Step 1: convert your data frame to an sf object
+# coords tells sf which columns hold longitude and latitude
+ChemData_sf <- st_as_sf(ChemData,
+                         coords = c("Long", "Lat"),
+                         crs = 4326)
+
+# Step 2: get the bounding box and add a small buffer
+# the + c(...) pads all four sides by ~0.4 km so points aren't at the edge
+bbox_chem <- st_bbox(ChemData_sf) + c(-0.004, -0.004, 0.004, 0.004)
+
+# Step 3: download tiles for that extent
+Map_satellite <- get_tiles(
+  st_as_sfc(bbox_chem),
+  provider = "Esri.WorldImagery",
+  zoom = 15,
+  crop = TRUE,
+  cachedir = here("Week_07", "data", "tiles_cache")
+)
+```
+
+---
+
+## Overlay Point Data
+
+Once you have a tile basemap, add ggplot layers on top exactly as you normally would:
+
+```{r}
+#| echo: true
+#| output-location: column
+#| message: false
+#| warning: false
+#| fig-width: 6
+#| fig-height: 5
+
+ggplot() +
+  geom_spatraster_rgb(data = Map_satellite) +
+  geom_point(data = ChemData,
+             aes(x = Long, y = Lat,
+                 color = Salinity),
+             size = 4) +
+  scale_color_viridis_c() +
+  coord_sf(crs = 4326) +
+  theme_minimal()
+```
+
+::: {.callout-tip}
+Any [geom_*()]{.fn} layer works on top of [geom_spatraster_rgb()]{.fn} — points, lines, polygons. The tile is just another ggplot layer.
+:::
+
+---
+
+## Add a Scale Bar and North Arrow
+
+[{ggspatial}]{.fn} provides two annotation functions that are spatial-aware — they calculate real-world distances and magnetic north automatically.
+
+```{r}
+#| echo: true
+#| output-location: column
+#| message: false
+#| warning: false
+#| fig-width: 6
+#| fig-height: 5
+
+ggplot() +
+  geom_spatraster_rgb(data = Map_satellite) +
+  geom_point(data = ChemData,
+             aes(x = Long, y = Lat,
+                 color = Salinity),
+             size = 4) +
+  scale_color_viridis_c() +
+  annotation_scale(           # scale bar
+    location = "bl",          # bl = bottom-left
+    bar_cols = c("yellow", "white")) +
+  annotation_north_arrow(     # north arrow
+    location = "tl") +        # tl = top-left
+  coord_sf(crs = 4326) +
+  theme_minimal()
+```
+
+---
+
+## Polish and Save
+
+```{r}
+#| echo: true
+#| eval: false
+
+ggplot() +
+  geom_spatraster_rgb(data = Map_satellite) +
+  geom_point(data = ChemData,
+             aes(x = Long, y = Lat, color = Salinity),
+             size = 4) +
+  scale_color_viridis_c(name = "Salinity (ppt)") +
+  annotation_scale(location = "bl",
+                   bar_cols = c("yellow", "white")) +
+  annotation_north_arrow(location = "tl") +
+  coord_sf(crs = 4326) +
+  labs(title = "Maunalua Bay — Water Chemistry",
+       caption = "Basemap: ESRI World Imagery") +
+  theme_minimal()
+
+ggsave(here("Week_07", "output", "maunalua_map.pdf"), width = 8, height = 6)
+```
+
+---
+
+## Interactive Maps with {leaflet} {.inverse}
+
+Static maps are great for publications.  
+Interactive maps let you **zoom, pan, and click on your data** — and embed directly in HTML documents.
+
+---
+
+## How Leaflet Works
+
+[{leaflet}]{.fn} builds maps by **piping layers together with `|>`** — similar in concept to ggplot's `+`, but using pipes instead.
+
+```{r}
+#| echo: true
+#| eval: false
+
+leaflet() |>                       # 1. create the map widget
+  addProviderTiles(...) |>         # 2. add a basemap tile layer
+  addCircleMarkers(...) |>         # 3. add your data as markers
+  addLegend(...)                   # 4. add a color legend
+```
+
+::: {.incremental}
+- [leaflet()]{.fn} — initializes an empty map widget. Pass your data frame here.
+- [addProviderTiles()]{.fn} — adds a basemap. Uses `providers$Name` to select from hundreds of free tile sources.
+- [add*()]{.fn} functions — each one adds a new layer (markers, polygons, popups, legends...)
+- The result is an **interactive HTML widget** — it works in RStudio, Quarto HTML, and any web browser.
+:::
+
+---
+
+## Your First Leaflet Map
+
+```{r}
+#| echo: true
+#| eval: true
+
+leaflet() |>
+  addProviderTiles(providers$Esri.WorldImagery) |>
+  setView(lng = -157.762, lat = 21.274, zoom = 14)
+```
+
+::: {.callout-note}
+[setView()]{.fn} centers the map on a specific location. [lng]{.param} and [lat]{.param} are the coordinates, and [zoom]{.param} works exactly like in [{maptiles}]{.fn}.
+:::
+
+---
+
+## The ~ Formula Notation
+
+In leaflet, column names are written with a `~` prefix:
+
+```{r}
+#| echo: true
+#| eval: false
+
+addCircleMarkers(lng = ~Long, lat = ~Lat, color = ~pal(Salinity))
+```
+
+::: {.incremental}
+- `~Long` means *"use the [Long]{.var} column from the data frame"*
+- It is leaflet's equivalent of `aes(x = Long)` in ggplot
+- You will see `~` anywhere leaflet needs to reference a column
+:::
+
+::: {.callout-tip}
+The `~` is leaflet's way of saying "evaluate this as a formula against the data." Without it, leaflet treats the argument as a fixed value, not a column reference.
+:::
+
+---
+
+## Add a Color Palette
+
+Leaflet needs a **color function** that converts numeric values to hex colors. [colorNumeric()]{.fn} creates one:
+
+```{r}
+#| echo: true
+
+# colorNumeric() returns a FUNCTION, not a color vector
+pal <- colorNumeric(
+  palette = "viridis",            # any RColorBrewer or viridis palette name
+  domain = ChemData$Salinity      # the full range of values to map
+)
+
+# Use it by calling pal(value) — it returns a hex color
+pal(30)  # what color does salinity = 30 get?
+```
+
+. . .
+
+```{r}
+#| echo: true
+
+pal(40)  # higher salinity → different color
+```
+
+---
+
+## Add Data Points with Color
+
+```{r}
+#| echo: true
+
+pal <- colorNumeric("viridis", domain = ChemData$Salinity)
+
+leaflet(ChemData) |>           # pass data frame here
+  addProviderTiles(providers$Esri.WorldImagery) |>
+  addCircleMarkers(
+    lng = ~Long, lat = ~Lat,   # which columns are coordinates
+    color = ~pal(Salinity),    # apply our color function to Salinity
+    radius = 6,
+    fillOpacity = 0.9,
+    popup = ~paste("Salinity:", Salinity, "ppt",  # click a point to see this
+                   "<br>Site:", Site)) |>
+  addLegend(
+    pal = pal,                 # the same color function
+    values = ~Salinity,        # which column drives the legend
+    title = "Salinity (ppt)",
+    position = "bottomright")
+```
+
+---
+
+## popup vs. label
+
+::: {.columns}
+::: {.column width="50%"}
+
+**[popup]{.param}** — appears when you **click** a marker
+
+```{r}
+#| echo: true
+#| eval: false
+
+addCircleMarkers(
+  popup = ~paste("Site:", Site,
+                 "<br>Salinity:", Salinity))
+```
+
+HTML tags work inside popups (`<br>` = line break).
+
+:::
+::: {.column width="50%"}
+
+**[label]{.param}** — appears when you **hover** over a marker
+
+```{r}
+#| echo: true
+#| eval: false
+
+addCircleMarkers(
+  label = ~Site)
+```
+
+Labels are plain text only (no HTML).
+
+:::
+:::
+
+::: {.callout-tip}
+Use [popup]{.param} for detailed information (multiple fields, formatted text).  
+Use [label]{.param} for a quick identifier on hover.
+:::
+
+---
+
+## Geocoding with {tidygeocoder} {.inverse}
+
+**Geocoding** = converting a place name or address into latitude and longitude coordinates.
+
+---
+
+## What Is Geocoding?
+
+::: {.columns}
+::: {.column width="55%"}
+::: {.incremental}
+- You know *where* you want to map, but not the exact coordinates
+- Geocoding services look up addresses and place names in a database and return lat/lon
+- [{tidygeocoder}]{.fn} does this for free using:
+  - **OpenStreetMap** (`method = "osm"`) — best for landmarks and place names worldwide
+  - **US Census** (`method = "census"`) — best for US street addresses
+:::
+:::
+::: {.column width="45%"}
+::: {.callout-warning}
+Geocoding requires an **internet connection** and results depend on the service's database. OSM is very good for well-known places but may fail on obscure locations or unusual search strings.
+:::
+:::
+:::
+
+---
+
+## geo() — Convert a Place Name to Coordinates
+
+[geo()]{.fn} geocodes a single location string and returns a one-row tibble:
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+
+geo("University of Hawaii at Manoa", method = "osm")
+```
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+
+geo("Pearl Harbor, Oahu, Hawaii", method = "osm")
+```
+
+::: {.callout-tip}
+If a location returns [NA]{.var}, try a more specific search string — add the city, state, or country. OSM often needs more context for landmarks that share names across locations.
+:::
+
+---
+
+## geocode() — Geocode a Data Frame
+
+[geocode()]{.fn} (note: no "r") operates on a data frame and adds lat/lon columns:
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+
+oahu_sites <- tribble(
+  ~place,
+  "University of Hawaii at Manoa",
+  "Honolulu International Airport",
+  "Pearl Harbor National Memorial, Hawaii",
+  "Diamond Head State Monument, Hawaii"
+)
+
+oahu_geocoded <- oahu_sites |>
+  geocode(place, method = "osm") # geocode the 'place' column
+
+oahu_geocoded
+```
+
+---
+
+## Map Geocoded Locations
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+
+leaflet(oahu_geocoded) |>
+  addProviderTiles(providers$Esri.WorldImagery) |>
+  addMarkers(
+    lng = ~long, lat = ~lat,   # tidygeocoder always returns 'lat' and 'long'
+    label = ~place)            # hover to see place name
+```
+
+---
+
+## Totally Awesome R Package — {emojifont}
+
+```{r}
+#| echo: true
+#| eval: false
+
+install.packages("emojifont")
+```
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+#| output-location: column
+#| fig-width: 5
+#| fig-height: 4
+
+library(emojifont)
+
+search_emoji("smile")
+```
+
+```{r}
+#| echo: true
+#| output-location: column
+#| fig-width: 5
+#| fig-height: 4
+
+ggplot() +
+  geom_emoji("smile_cat",
+             x = 1:5, y = 1:5,
+             size = 10)
+```
+
+[More info: emojifont vignette](https://cran.r-project.org/web/packages/emojifont/vignettes/emojifont.html)
+
+---
+
+## Summary: Static vs. Interactive Maps
+
+| | Static [{maptiles}]{.fn} + [{tidyterra}]{.fn} | Interactive [{leaflet}]{.fn} |
+|---|---|---|
+| **Output** | PDF, PNG, Quarto figure | HTML widget |
+| **Best for** | Publications, reports | Exploration, sharing online |
+| **Layers** | Any [geom_*()]{.fn} via ggplot | [add*()]{.fn} functions via pipe |
+| **Color palettes** | `scale_color_*()` | [colorNumeric()]{.fn} etc. |
+| **Scale bars** | [{ggspatial}]{.fn} | Built-in scale control |
+
+
+---
+
+## Thanks! {.inverse .center}
+
+Slides created with [Quarto](https://quarto.org) and [RevealJS](https://revealjs.com/).  
+Some content adapted from [Making Maps with R](http://stat405.had.co.nz/ggmap.pdf).
+
+**Tile data © [ESRI](https://www.esri.com) | © [OpenStreetMap contributors](https://www.openstreetmap.org/copyright)**

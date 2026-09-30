@@ -1,0 +1,916 @@
+---
+title: "Computer Modeling (OCN 682)"
+subtitle: "Intro to Maps Part 1"
+author: "Dr. Nyssa Silbiger"
+institute: "UH Fall 2026"
+date: today
+resources:
+  - custom-theme.scss
+format:
+  revealjs:
+    theme: [default, custom-theme.scss]
+    highlight-style: github
+    code-line-numbers: true
+    width: 1500
+    height: 1000
+    preview-links: auto
+    self-contained-math: true
+    embed-resources: false
+    slide-number: c/t
+    footer: "OCN 682 | Week 7 | Intro to Maps Part 1"
+---
+
+```{r}
+#| label: setup
+#| include: false
+
+library(tidyverse)
+library(here)
+```
+
+## Outline 
+
+Working with Maps
+
+::: {.incremental}
+1. Quiz!
+1. Overview of spatial packages in R
+1. Simple mapping with the [{maps}]{.fn} package + ggplot
+1. Preview: the modern [{sf}]{.fn} approach
+
+
+**Homework:** Make a map using Quarto
+
+::: {.callout-note}
+I am NOT a GIS person. Please refer to references on spatial analysis for theory.  
+Today is about getting a map on screen with real data.
+:::
+:::
+---
+
+## Show Me Your Quarto Files!
+
+---
+
+## Map Packages in R {.smaller-title}
+
+There are **many** map packages in R. Here is a curated overview:
+
+| Package | What it does | Needs API key? |
+|---------|-------------|---------------|
+| [{maps}]{.fn} | Simple polygon basemaps (country, state, county) | No |
+| [{sf}]{.fn} | Full-featured spatial data (GIS-grade) | No |
+| [{rnaturalearth}]{.fn} | World/country/state polygons as sf objects | No |
+| [{maptiles}]{.fn} | Download satellite/street tile basemaps | No |
+| [{leaflet}]{.fn} | Interactive HTML maps | No |
+| [{tmap}]{.fn} | Thematic maps, static and interactive | No |
+| [{ggmap}]{.fn} | Tile maps via Google/Stadia | Yes (credit card)~~ |
+
+::: {.callout-tip}
+**Today:** [{maps}]{.fn} for polygons and a preview of [{sf}]{.fn}.  
+**Next class:** [{maptiles}]{.fn} + [{leaflet}]{.fn} for tile and interactive maps — no API key required!
+:::
+
+**Helpful references:**
+- [Geocomputation with R](https://geocompr.robinlovelace.net/adv-map.html)
+- [Bathymetry example](http://ben-williams.github.io/updated_ggplot_figures.html#maps)
+- [Earth Lab — CRS types](https://www.earthdatascience.org/courses/earth-analytics/spatial-data-r/understand-epsg-wkt-and-other-crs-definition-file-types/)
+
+---
+
+## Start Your Script or Quarto File
+
+Install today's packages if you haven't already:
+
+```{r}
+#| echo: true
+#| eval: false
+
+install.packages(c("maps", "mapdata", "mapproj"))
+```
+
+Load libraries:
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+
+library(tidyverse)
+library(here)
+library(maps)
+library(mapdata)
+library(mapproj)
+```
+
+---
+
+## Today's Data
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+
+# Population in California by county
+popdata <- read_csv(here("Week_07", "data", "CApopdata.csv"))
+
+# Seastar counts at field sites in California
+stars <- read_csv(here("Week_07", "data", "stars.csv"))
+```
+
+**Take a minute to explore both datasets before moving on.**
+
+---
+
+## The {maps} Package {.inverse}
+
+[map_data()]{.fn} pulls polygon boundaries for countries, states, and counties — ready to use with ggplot.
+
+---
+
+## map_data() — World
+
+```{r}
+#| echo: true
+#| code-line-numbers: "1"
+
+world <- map_data("world")
+
+head(world)
+```
+
+---
+
+## map_data() — USA
+
+```{r}
+#| echo: true
+#| code-line-numbers: "1"
+
+usa <- map_data("usa")
+
+head(usa)
+```
+
+---
+
+## map_data() — A Country
+
+```{r}
+#| echo: true
+#| code-line-numbers: "1"
+
+italy <- map_data("italy")
+
+head(italy)
+```
+
+---
+
+## map_data() — US States
+
+```{r}
+#| echo: true
+#| code-line-numbers: "1"
+
+states <- map_data("state")
+
+head(states)
+```
+
+---
+
+## map_data() — US Counties
+
+```{r}
+#| echo: true
+#| code-line-numbers: "1"
+
+counties <- map_data("county")
+
+head(counties)
+```
+
+---
+
+## Structure of the Data
+
+::: {.incremental}
+- **[long]{.var}** — longitude. West of the prime meridian is negative.
+- **[lat]{.var}** — latitude.
+- **[order]{.var}** — the order in which ggplot connects the dots (polygon vertices).
+- **[region]{.var} / [subregion]{.var}** — the region or subregion a set of points surrounds.
+- **[group]{.var}** — *This one is critical!* Controls whether adjacent points are connected by lines. Points in the same group get connected; different groups cause ggplot to "lift the pen."
+
+
+::: {.callout-warning}
+Forgetting [`group = group`]{.param} in your aesthetic is the #1 cause of "crazy line" plots. You will do this. Everyone does.
+:::
+:::
+---
+
+## Make a Map of the World
+
+```{r}
+#| echo: true
+#| output-location: column
+#| fig-width: 7
+#| fig-height: 5
+
+ggplot() +
+  geom_polygon(data = world,
+               aes(x = long, y = lat,
+                   group = group))
+```
+
+---
+
+## What Happens Without `group = group`?
+
+```{r}
+#| echo: true
+#| output-location: column
+#| code-line-numbers: "3"
+#| fig-width: 7
+#| fig-height: 5
+
+ggplot() +
+  geom_polygon(data = world,
+               aes(x = long, y = lat))
+```
+
+::: {.callout-warning}
+Those "crazy lines" mean ggplot is connecting all points in one continuous path — it has no idea where one polygon ends and the next begins.
+:::
+
+---
+
+## Add Color to Lines and Fill
+
+::: {.columns}
+::: {.column width="50%"}
+```{r}
+#| label: plot1
+#| echo: true
+#| eval: false
+#| code-line-numbers: "5"
+
+ggplot() +
+  geom_polygon(data = world,
+               aes(x = long, y = lat,
+                   group = group),
+               color = "black")
+```
+:::
+::: {.column width="50%"}
+```{r}
+#| ref.label: plot1
+#| echo: false
+#| warning: false
+#| fig-width: 7
+#| fig-height: 5
+```
+:::
+:::
+
+---
+
+## Fill by Region
+
+::: {.columns}
+::: {.column width="50%"}
+```{r}
+#| label: plot1a
+#| echo: true
+#| eval: false
+#| code-line-numbers: "5"
+
+ggplot() +
+  geom_polygon(data = world,
+               aes(x = long, y = lat,
+                   group = group,
+                   fill = region),
+               color = "black") +
+  guides(fill = "none")
+```
+:::
+::: {.column width="50%"}
+```{r}
+#| ref.label: plot1a
+#| echo: false
+#| warning: false
+#| fig-width: 7
+#| fig-height: 5
+```
+:::
+:::
+
+---
+
+## Change the Theme
+
+::: {.columns}
+::: {.column width="50%"}
+```{r}
+#| label: plot2
+#| echo: true
+#| eval: false
+#| code-line-numbers: "8"
+
+ggplot() +
+  geom_polygon(data = world,
+               aes(x = long, y = lat,
+                   group = group,
+                   fill = region),
+               color = "black") +
+  guides(fill = "none") +
+  theme_minimal()
+```
+:::
+::: {.column width="50%"}
+```{r}
+#| ref.label: plot2
+#| echo: false
+#| warning: false
+#| fig-width: 7
+#| fig-height: 5
+```
+:::
+:::
+
+---
+
+## Make the Ocean Blue
+
+::: {.columns}
+::: {.column width="50%"}
+```{r}
+#| label: plot3
+#| echo: true
+#| eval: false
+#| code-line-numbers: "9,10"
+
+ggplot() +
+  geom_polygon(data = world,
+               aes(x = long, y = lat,
+                   group = group,
+                   fill = region),
+               color = "black") +
+  theme_minimal() +
+  guides(fill = "none") +
+  theme(panel.background =
+          element_rect(fill = "lightblue"))
+```
+:::
+::: {.column width="50%"}
+```{r}
+#| ref.label: plot3
+#| echo: false
+#| warning: false
+#| fig-width: 7
+#| fig-height: 5
+```
+:::
+:::
+
+---
+
+## Change the Map Projection
+
+The earth is not flat, but we visualize it in 2D — there are many projections to choose from.  
+See [{mapproj}](https://rdrr.io/cran/mapproj/man/mapproject.html) for available options.
+
+[Use a Mercator projection:]{.orange}
+
+::: {.columns}
+::: {.column width="50%"}
+```{r}
+#| label: plot4
+#| echo: true
+#| eval: false
+#| code-line-numbers: "11,12"
+
+ggplot() +
+  geom_polygon(data = world,
+               aes(x = long, y = lat,
+                   group = group,
+                   fill = region),
+               color = "black") +
+  theme_minimal() +
+  guides(fill = "none") +
+  theme(panel.background =
+          element_rect(fill = "lightblue")) +
+  coord_map(projection = "mercator",
+            xlim = c(-180, 180))
+```
+:::
+::: {.column width="50%"}
+```{r}
+#| ref.label: plot4
+#| echo: false
+#| warning: false
+#| fig-width: 7
+#| fig-height: 5
+```
+:::
+:::
+
+---
+
+## Change the Map Projection
+
+[Use a sinusoidal projection:]{.orange}
+
+::: {.columns}
+::: {.column width="50%"}
+```{r}
+#| label: plot5
+#| echo: true
+#| eval: false
+#| code-line-numbers: "11,12"
+
+ggplot() +
+  geom_polygon(data = world,
+               aes(x = long, y = lat,
+                   group = group,
+                   fill = region),
+               color = "black") +
+  theme_minimal() +
+  guides(fill = "none") +
+  theme(panel.background =
+          element_rect(fill = "lightblue")) +
+  coord_map(projection = "sinusoidal",
+            xlim = c(-180, 180))
+```
+:::
+::: {.column width="50%"}
+```{r}
+#| ref.label: plot5
+#| echo: false
+#| warning: false
+#| fig-width: 7
+#| fig-height: 5
+```
+:::
+:::
+
+---
+
+## Map of Just California
+
+Filter the [states]{.var} dataset to California:
+
+```{r}
+#| echo: true
+
+CA_data <- states |>
+  filter(region == "california")
+```
+
+::: {.callout-tip}
+**Think, pair, share:** Make a simple map of California using what you just learned. No peeking at the next slide!
+:::
+
+---
+
+## Map of California
+
+::: {.columns}
+::: {.column width="50%"}
+```{r}
+#| label: plot6
+#| echo: true
+#| eval: false
+#| code-line-numbers: "7"
+
+ggplot() +
+  geom_polygon(data = CA_data,
+               aes(x = long, y = lat,
+                   group = group),
+               color = "black") +
+  coord_map() +
+  theme_void()
+```
+:::
+::: {.column width="50%"}
+```{r}
+#| ref.label: plot6
+#| echo: false
+#| warning: false
+#| fig-width: 5
+#| fig-height: 7
+```
+:::
+:::
+
+---
+
+## Adding Multiple Layers of Data
+
+[Plot the population of every county in California.]{.orange}
+
+First, we need county-level polygons and join them to our population dataset.
+
+```{r}
+#| echo: true
+
+head(counties)[1:3, ]
+```
+
+```{r}
+#| echo: true
+
+head(popdata)
+```
+
+---
+
+## Wrangle the Data
+
+[Make column names match before joining.]{.orange}
+
+```{r}
+#| echo: true
+#| message: false
+
+CApop_county <- popdata |>
+  select("subregion" = County, Population) |>   # rename to match counties
+  inner_join(counties) |>
+  filter(region == "california")                 # some county names repeat in other states
+```
+
+```{r}
+#| echo: true
+
+head(CApop_county)
+```
+
+---
+
+## Map of CA Population by County
+
+::: {.columns}
+::: {.column width="50%"}
+```{r}
+#| label: plot7
+#| echo: true
+#| eval: false
+
+
+ggplot() +
+  geom_polygon(data = CApop_county,
+               aes(x = long, y = lat,
+                   group = group,
+                   fill = Population),
+               color = "black") +
+  coord_map() +
+  theme_void()
+```
+:::
+::: {.column width="50%"}
+```{r}
+#| ref.label: plot7
+#| echo: false
+#| warning: false
+#| fig-width: 5
+#| fig-height: 7
+```
+:::
+:::
+
+---
+
+## Log Scale for Easier Interpretation
+
+::: {.columns}
+::: {.column width="50%"}
+```{r}
+#| label: plot8
+#| echo: true
+#| eval: false
+#| code-line-numbers: "9"
+
+ggplot() +
+  geom_polygon(data = CApop_county,
+               aes(x = long, y = lat,
+                   group = group,
+                   fill = Population),
+               color = "black") +
+  coord_map() +
+  theme_void() +
+  scale_fill_gradient(transform = "log10")
+```
+:::
+::: {.column width="50%"}
+```{r}
+#| ref.label: plot8
+#| echo: false
+#| warning: false
+#| fig-width: 5
+#| fig-height: 7
+```
+:::
+:::
+
+::: {.callout-tip}
+[transform = "log10"]{.param} compresses the color scale so that less-populated counties are still visible alongside Los Angeles.
+:::
+
+---
+
+## Add a Layer of Points
+
+The [stars]{.var} dataset has seastar counts (per m²) at field sites in California.
+
+```{r}
+#| echo: true
+
+head(stars)
+```
+
+---
+
+## Overlay Seastar Sites
+
+::: {.columns}
+::: {.column width="50%"}
+```{r}
+#| label: plot9
+#| echo: true
+#| eval: false
+#| code-line-numbers: "7,8,9"
+
+ggplot() +
+  geom_polygon(data = CApop_county,
+               aes(x = long, y = lat,
+                   group = group,
+                   fill = Population),
+               color = "black") +
+  geom_point(data = stars,
+             aes(x = long,
+                 y = lat)) +
+  coord_map() +
+  theme_void() +
+  scale_fill_gradient(transform = "log10")
+```
+:::
+::: {.column width="50%"}
+```{r}
+#| ref.label: plot9
+#| echo: false
+#| warning: false
+#| fig-width: 5
+#| fig-height: 7
+```
+:::
+:::
+
+---
+
+## Size Points by Seastar Count
+
+::: {.columns}
+::: {.column width="50%"}
+```{r}
+#| label: plot10
+#| echo: true
+#| eval: false
+#| code-line-numbers: "9"
+
+ggplot() +
+  geom_polygon(data = CApop_county,
+               aes(x = long, y = lat,
+                   group = group,
+                   fill = Population),
+               color = "black") +
+  geom_point(data = stars,
+             aes(x = long, y = lat,
+                 size = star_no)) +
+  coord_map() +
+  theme_void() +
+  scale_fill_gradient(transform = "log10")
+```
+:::
+::: {.column width="50%"}
+```{r}
+#| ref.label: plot10
+#| echo: false
+#| warning: false
+#| fig-width: 5
+#| fig-height: 7
+```
+:::
+:::
+
+---
+
+## Better Legend Labels
+
+::: {.columns}
+::: {.column width="50%"}
+```{r}
+#| label: plot11
+#| echo: true
+#| eval: false
+#| code-line-numbers: "13"
+
+ggplot() +
+  geom_polygon(data = CApop_county,
+               aes(x = long, y = lat,
+                   group = group,
+                   fill = Population),
+               color = "black") +
+  geom_point(data = stars,
+             aes(x = long, y = lat,
+                 size = star_no)) +
+  coord_map() +
+  theme_void() +
+  scale_fill_gradient(transform = "log10") +
+  labs(size = "# stars/m²")
+```
+:::
+::: {.column width="50%"}
+```{r}
+#| ref.label: plot11
+#| echo: false
+#| warning: false
+#| fig-width: 5
+#| fig-height: 7
+```
+:::
+:::
+
+---
+
+## Save the Map
+
+```{r}
+#| label: plot12
+#| echo: true
+#| eval: false
+#| code-line-numbers: "15"
+
+ggplot() +
+  geom_polygon(data = CApop_county,
+               aes(x = long, y = lat,
+                   group = group,
+                   fill = Population),
+               color = "black") +
+  geom_point(data = stars,
+             aes(x = long, y = lat,
+                 size = star_no)) +
+  coord_map() +
+  theme_void() +
+  scale_fill_gradient(transform = "log10") +
+  labs(size = "# stars/m²")
+
+ggsave(here("Week_07", "output", "CApop.pdf"))
+```
+
+::: {.callout-tip}
+[ggsave()]{.fn} saves the **last** plot by default. Run it on the line immediately after your ggplot code, or pass the plot object explicitly.
+:::
+
+---
+
+## The Modern Approach: {sf} + {rnaturalearth} {.inverse}
+
+Everything we just did works — but it's the old way.  
+Here is a quick preview of where the field has moved.
+
+---
+
+## Why {sf}?
+
+The [{sf}]{.fn} ("simple features") package is the current standard for spatial data in R.
+
+::: {.incremental}
+- Spatial objects are just **data frames** — all tidyverse verbs work on them
+- Handles projections, CRS transformations, spatial joins natively
+- [geom_sf()]{.fn} replaces [geom_polygon()]{.fn} — no need to manage [group]{.var} manually
+- Compatible with a rich ecosystem: [{tigris}]{.fn}, [{rnaturalearth}]{.fn}, [{maptiles}]{.fn}, [{leaflet}]{.fn}
+:::
+
+::: {.callout-tip}
+For any serious spatial analysis — buffering, intersections, area calculations — [{sf}]{.fn} is the tool you want. Today's [{maps}]{.fn} approach is great for quick plots, but it won't scale to real GIS work.
+:::
+
+---
+
+## {rnaturalearth} — World Map with geom_sf()
+
+Install once:
+
+```{r}
+#| echo: true
+#| eval: false
+
+install.packages(c("sf", "rnaturalearth", "rnaturalearthdata"))
+```
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+#| output-location: column
+#| code-line-numbers: "5,6,9,10"
+#| fig-width: 7
+#| fig-height: 5
+
+library(sf)
+library(rnaturalearth)
+library(rnaturalearthdata)
+
+world_sf <- ne_countries(scale = "medium",
+                         returnclass = "sf")
+
+ggplot(world_sf) +
+  geom_sf(fill = "lightgray",
+          color = "white") +
+  theme_void()
+```
+
+No [group]{.var}! No longitude/latitude columns to manage! [{sf}]{.fn} handles all of that.
+
+---
+
+## Projections with coord_sf()
+
+[`coord_sf()`]{.fn} handles projections using standard **EPSG codes** — much more rigorous than [{mapproj}]{.fn}:
+
+::: {.columns}
+::: {.column width="50%"}
+```{r}
+#| label: sf_proj
+#| echo: true
+#| eval: false
+#| code-line-numbers: "3"
+
+ggplot(world_sf) +
+  geom_sf(fill = "lightgray", color = "white") +
+  coord_sf(crs = "+proj=robin") + # Robinson projection
+  theme_void() +
+  labs(title = "Robinson Projection")
+```
+:::
+::: {.column width="50%"}
+```{r}
+#| ref.label: sf_proj
+#| echo: false
+#| warning: false
+#| fig-width: 7
+#| fig-height: 5
+```
+:::
+:::
+
+::: {.callout-note}
+Common CRS choices: [`"+proj=robin"`]{.param} (Robinson), [`4326`]{.param} (WGS84 / GPS), [`3857`]{.param} (Web Mercator).  
+Learn more at [map chapter in ggplot2 book](https://ggplot2-book.org/maps#sec-sf).
+:::
+
+---
+
+## Total Awesome R Package — {ggdogs} 🐾
+
+```{r}
+#| echo: true
+#| eval: false
+
+remotes::install_github("R-CoderDotCom/ggdogs@main")
+```
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+#| fig-width: 8
+#| fig-height: 4
+
+library(ggdogs)
+ggplot(mtcars) +
+  geom_dog(aes(mpg, wt), dog = "pug", size = 5)
+```
+
+---
+
+## Homework
+
+Make a map **using Quarto** with one of the following TidyTuesday datasets. Save your script and output appropriately.
+
+- [Plastic Pollution](https://github.com/rfordatascience/tidytuesday/blob/master/data/2021/2021-01-26/readme.md)
+- [Cats on the Move!](https://github.com/rfordatascience/tidytuesday/blob/master/data/2023/2023-01-31/readme.md)
+- [Where Is Bigfoot?](https://github.com/rfordatascience/tidytuesday/tree/master/data/2022/2022-09-13)
+- [Meteorites](https://github.com/rfordatascience/tidytuesday/tree/master/data/2019/2019-06-11)
+
+::: {.callout-tip}
+The map does not have to be complex — a clean, labeled [geom_polygon()]{.fn} or [geom_sf()]{.fn} map with your data overlaid is exactly right.
+:::
+
+---
+
+## Thanks! {.inverse .center}
+
+Slides created with [Quarto](https://quarto.org) and [RevealJS](https://revealjs.com/).  
+Some content adapted from [Making Maps with R](https://eriqande.github.io/rep-res-web/lectures/making-maps-with-R.html/) and [Geocomputation with R](https://geocompr.robinlovelace.net/).

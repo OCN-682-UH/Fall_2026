@@ -1,0 +1,1503 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="14_Maps2_files/libs/clipboard/clipboard.min.js"></script>
+<script src="14_Maps2_files/libs/quarto-html/tabby.min.js"></script>
+<script src="14_Maps2_files/libs/quarto-html/popper.min.js"></script>
+<script src="14_Maps2_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="14_Maps2_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="14_Maps2_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="14_Maps2_files/libs/quarto-html/quarto-syntax-highlighting-bb62276ab45c84d9efd712f51ff97b5a.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.10.18">
+
+  <meta name="author" content="Dr.&nbsp;Nyssa Silbiger">
+  <meta name="dcterms.date" content="2026-09-29">
+  <title>Computer Modeling (OCN 682)</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="14_Maps2_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="14_Maps2_files/libs/revealjs/dist/reveal.css">
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #24292e;  }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #24292e; } /* Normal */
+    code span.al { color: #ff5555; font-weight: bold; } /* Alert */
+    code span.an { color: #6a737d; } /* Annotation */
+    code span.at { color: #d73a49; } /* Attribute */
+    code span.bn { color: #005cc5; } /* BaseN */
+    code span.bu { color: #d73a49; } /* BuiltIn */
+    code span.cf { color: #d73a49; } /* ControlFlow */
+    code span.ch { color: #032f62; } /* Char */
+    code span.cn { color: #005cc5; } /* Constant */
+    code span.co { color: #6a737d; } /* Comment */
+    code span.cv { color: #6a737d; } /* CommentVar */
+    code span.do { color: #6a737d; } /* Documentation */
+    code span.dt { color: #d73a49; } /* DataType */
+    code span.dv { color: #005cc5; } /* DecVal */
+    code span.er { color: #ff5555; text-decoration: underline; } /* Error */
+    code span.ex { color: #d73a49; font-weight: bold; } /* Extension */
+    code span.fl { color: #005cc5; } /* Float */
+    code span.fu { color: #6f42c1; } /* Function */
+    code span.im { color: #032f62; } /* Import */
+    code span.in { color: #6a737d; } /* Information */
+    code span.kw { color: #d73a49; } /* Keyword */
+    code span.op { color: #24292e; } /* Operator */
+    code span.ot { color: #6f42c1; } /* Other */
+    code span.pp { color: #d73a49; } /* Preprocessor */
+    code span.re { color: #6a737d; } /* RegionMarker */
+    code span.sc { color: #005cc5; } /* SpecialChar */
+    code span.ss { color: #032f62; } /* SpecialString */
+    code span.st { color: #032f62; } /* String */
+    code span.va { color: #e36209; } /* Variable */
+    code span.vs { color: #032f62; } /* VerbatimString */
+    code span.wa { color: #ff5555; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="14_Maps2_files/libs/revealjs/dist/theme/quarto-9e4340bb97cbf06a7fc0e3582515d99c.css">
+  <link href="14_Maps2_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="14_Maps2_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="14_Maps2_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="14_Maps2_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+  <link href="14_Maps2_files/libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet">
+
+  <script src="14_Maps2_files/libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+
+  <script src="14_Maps2_files/libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+
+  <link href="14_Maps2_files/libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
+
+  <script src="14_Maps2_files/libs/leaflet-1.3.1/leaflet.js"></script>
+
+  <link href="14_Maps2_files/libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
+
+  <script src="14_Maps2_files/libs/proj4-2.6.2/proj4.min.js"></script>
+
+  <script src="14_Maps2_files/libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+
+  <link href="14_Maps2_files/libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
+
+  <script src="14_Maps2_files/libs/leaflet-binding-2.2.3/leaflet.js"></script>
+
+  <script src="14_Maps2_files/libs/leaflet-providers-3.0.0/leaflet-providers.js"></script>
+
+  <script src="14_Maps2_files/libs/leaflet-providers-plugin-2.2.3/leaflet-providers-plugin.js"></script>
+
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+  <h1 class="title">Computer Modeling (OCN 682)</h1>
+  <p class="subtitle">Intro to Maps Part 2</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Dr.&nbsp;Nyssa Silbiger
+</div>
+        <p class="quarto-title-affiliation">
+            UH Fall 2026
+          </p>
+    </div>
+</div>
+
+  <p class="date">2026-09-29</p>
+</section>
+<section id="outline" class="slide level2">
+<h2>Outline</h2>
+<p>Working with Maps — Part 2</p>
+<ol type="1">
+<li class="fragment">Review</li>
+<li class="fragment">Tile and satellite basemaps with <span class="fn">{maptiles}</span></li>
+<li class="fragment">Overlaying data + annotations with <span class="fn">{ggspatial}</span></li>
+<li class="fragment">Interactive maps with <span class="fn">{leaflet}</span></li>
+<li class="fragment">Geocoding with <span class="fn">{tidygeocoder}</span></li>
+</ol>
+<p><strong>References:</strong> - <a href="https://github.com/riatelab/maptiles">maptiles documentation</a> - <a href="https://dieghernan.github.io/tidyterra/">tidyterra documentation</a> - <a href="https://rstudio.github.io/leaflet/">Leaflet for R</a></p>
+</section>
+<section id="review" class="slide level2">
+<h2>Review</h2>
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Warning</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>If your map looks like a tangle of crazy lines, what did you most likely forget?</strong></p>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p><span class="param"><code>group = group</code></span> in your <span class="fn">geom_polygon()</span> aesthetic.</p>
+<p>Without it, ggplot connects every vertex in one continuous path — it has no idea where one polygon ends and the next begins.</p>
+</div>
+</section>
+<section id="install-todays-packages" class="slide level2">
+<h2>Install Today’s Packages</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(</span>
+<span id="cb1-2"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="st">"maptiles"</span>,      <span class="co"># download tile basemaps (satellite, street, terrain)</span></span>
+<span id="cb1-4"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="st">"tidyterra"</span>,     <span class="co"># plot terra rasters in ggplot2</span></span>
+<span id="cb1-5"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="st">"leaflet"</span>,       <span class="co"># interactive HTML maps</span></span>
+<span id="cb1-6"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="st">"tidygeocoder"</span>,  <span class="co"># free geocoding (OpenStreetMap / Census)</span></span>
+<span id="cb1-7"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="st">"ggspatial"</span>      <span class="co"># scale bars and north arrows</span></span>
+<span id="cb1-8"><a href="" aria-hidden="true" tabindex="-1"></a>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Tip</strong></p>
+</div>
+<div class="callout-content">
+<p>None of these require an API key or a credit card.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="load-libraries" class="slide level2">
+<h2>Load Libraries</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb2-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span>
+<span id="cb2-3"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb2-4"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(maptiles)</span>
+<span id="cb2-5"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyterra)</span>
+<span id="cb2-6"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(leaflet)</span>
+<span id="cb2-7"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidygeocoder)</span>
+<span id="cb2-8"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggspatial)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="data-for-today" class="slide level2">
+<h2>Data for Today</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="" aria-hidden="true" tabindex="-1"></a>ChemData <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">"Week_07"</span>, <span class="st">"data"</span>, <span class="st">"chemicaldata_maunalua.csv"</span>))</span>
+<span id="cb3-2"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(ChemData)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 23
+Columns: 15
+$ Waypoint    &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17,…
+$ Zone        &lt;chr&gt; "Transition", "Transition", "Transition", "Transition", "D…
+$ Lat         &lt;dbl&gt; 21.27531, 21.27523, 21.27504, 21.27449, 21.27503, 21.27485…
+$ Long        &lt;dbl&gt; -157.7618, -157.7627, -157.7633, -157.7640, -157.7617, -15…
+$ Site        &lt;chr&gt; "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W", "W"…
+$ Season      &lt;chr&gt; "SPRING", "SPRING", "SPRING", "SPRING", "SPRING", "SPRING"…
+$ Tide_time   &lt;chr&gt; "Low_Day", "Low_Day", "Low_Day", "Low_Day", "Low_Day", "Lo…
+$ Temp_in     &lt;dbl&gt; 23.75506, 23.53256, 22.63450, 24.01982, 23.26102, 24.00517…
+$ Salinity    &lt;dbl&gt; 27.74029, 30.61192, 28.37008, 32.82124, 29.12293, 34.02018…
+$ Phosphate   &lt;dbl&gt; 0.54, 0.36, 0.50, 0.25, 0.50, 0.13, 0.28, 0.15, 0.23, 0.11…
+$ Silicate    &lt;dbl&gt; 157.93, 92.59, 143.60, 42.32, 126.47, 15.04, 56.31, 23.10,…
+$ NN          &lt;dbl&gt; 7.92, 3.37, 7.29, 0.79, 7.45, 0.46, 1.59, 0.34, 1.91, 0.25…
+$ pH          &lt;dbl&gt; 7.909, 7.965, 8.023, 7.995, 8.005, 8.019, 8.003, 7.978, 7.…
+$ TA          &lt;dbl&gt; 2161.482, 2145.828, 2272.391, 2219.583, 2151.826, 2216.758…
+$ percent_sgd &lt;dbl&gt; 20.4043928, 11.9625323, 18.5529716, 5.4677003, 16.3397933,…</code></pre>
+</div>
+</div>
+</section>
+<section id="getting-tile-basemaps-with-maptiles" class="slide level2 inverse">
+<h2>Getting Tile Basemaps with {maptiles}</h2>
+<p><span class="fn">{maptiles}</span> downloads satellite and street map tiles<br>
+from free public providers directly into R.</p>
+</section>
+<section id="what-is-a-map-tile" class="slide level2">
+<h2>What Is a Map Tile?</h2>
+<p>Online maps (Google, OpenStreetMap, ESRI) are not single images — they are made of thousands of small <strong>256 × 256 pixel tiles</strong> stitched together.</p>
+<div class="columns">
+<div class="column" style="width:55%;">
+<ul>
+<li class="fragment">Tiles are organized by <strong>zoom level</strong> and <strong>grid position</strong></li>
+<li class="fragment">At zoom 1, a handful of tiles cover the whole world</li>
+<li class="fragment">At zoom 17, thousands of tiles cover a single neighborhood</li>
+<li class="fragment"><span class="fn">{maptiles}</span> figures out which tiles you need, downloads them, and stitches them into one image</li>
+</ul>
+</div><div class="column" style="width:45%;">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Tip</strong></p>
+</div>
+<div class="callout-content">
+<p>This is exactly how Google Maps works — <span class="fn">{maptiles}</span> just accesses the same tiles directly, using providers that allow free access.</p>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="step-1-define-your-area-of-interest" class="slide level2">
+<h2>Step 1 — Define Your Area of Interest</h2>
+<p><span class="fn">get_tiles()</span> needs to know <strong>what area to download</strong>. We give it a <strong>bounding box</strong> — a rectangle defined by its corner coordinates.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co"># Define a bounding box around Wailupe, Oahu</span></span>
+<span id="cb5-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co"># xmin/xmax = westmost/eastmost longitude</span></span>
+<span id="cb5-3"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co"># ymin/ymax = southernmost/northernmost latitude</span></span>
+<span id="cb5-4"><a href="" aria-hidden="true" tabindex="-1"></a>wailupe_bbox <span class="ot">&lt;-</span> <span class="fu">st_as_sfc</span>(</span>
+<span id="cb5-5"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_bbox</span>(<span class="fu">c</span>(<span class="at">xmin =</span> <span class="sc">-</span><span class="fl">157.772</span>, <span class="at">ymin =</span> <span class="fl">21.267</span>,</span>
+<span id="cb5-6"><a href="" aria-hidden="true" tabindex="-1"></a>            <span class="at">xmax =</span> <span class="sc">-</span><span class="fl">157.752</span>, <span class="at">ymax =</span> <span class="fl">21.281</span>),</span>
+<span id="cb5-7"><a href="" aria-hidden="true" tabindex="-1"></a>          <span class="at">crs =</span> <span class="dv">4326</span>) <span class="co"># crs = 4326 means WGS84 — the lat/lon system your GPS uses</span></span>
+<span id="cb5-8"><a href="" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p><strong><span class="fn">st_bbox()</span></strong> creates the bounding box rectangle.<br>
+<strong><span class="fn">st_as_sfc()</span></strong> converts it to an <span class="fn">{sf}</span> geometry object so <span class="fn">{maptiles}</span> can read it.<br>
+<strong><span class="param">crs = 4326</span></strong> specifies WGS84 — almost all GPS and web map data uses this coordinate system.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="step-2-download-the-tiles" class="slide level2">
+<h2>Step 2 — Download the Tiles</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="" aria-hidden="true" tabindex="-1"></a>tiles_satellite <span class="ot">&lt;-</span> <span class="fu">get_tiles</span>(</span>
+<span id="cb6-2"><a href="" aria-hidden="true" tabindex="-1"></a>  wailupe_bbox,               <span class="co"># the area to download</span></span>
+<span id="cb6-3"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="at">provider =</span> <span class="st">"Esri.WorldImagery"</span>, <span class="co"># which tile source to use</span></span>
+<span id="cb6-4"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="at">zoom =</span> <span class="dv">16</span>,                  <span class="co"># level of detail (3 = continent, 20 = building)</span></span>
+<span id="cb6-5"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="at">crop =</span> <span class="cn">TRUE</span>,                <span class="co"># clip to our exact bbox (vs. slightly larger)</span></span>
+<span id="cb6-6"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="at">cachedir =</span> <span class="fu">here</span>(<span class="st">"Week_07"</span>, <span class="st">"data"</span>, <span class="st">"tiles_cache"</span>) <span class="co"># save tiles to disk</span></span>
+<span id="cb6-7"><a href="" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Tip</strong></p>
+</div>
+<div class="callout-content">
+<p><strong><span class="param">cachedir</span></strong> saves the raw tile images to disk. The next time you render this document, <span class="fn">{maptiles}</span> will read from disk instead of re-downloading. Always include this when building presentations.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="what-does-get_tiles-return" class="slide level2">
+<h2>What Does get_tiles() Return?</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(tiles_satellite)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "SpatRaster"
+attr(,"package")
+[1] "terra"</code></pre>
+</div>
+</div>
+<div class="fragment">
+<p>A <strong><span class="var">SpatRaster</span></strong> — a raster image (grid of pixels) from the <span class="fn">{terra}</span> package.</p>
+<div class="columns">
+<div class="column" style="width:55%;">
+<ul>
+<li class="fragment">A raster is just a matrix of pixel values — like a photo</li>
+<li class="fragment"><span class="var">tiles_satellite</span> has <strong>3 layers</strong>: red, green, and blue</li>
+<li class="fragment">We can’t use <code>geom_raster()</code> because that expects a data frame, not a terra object</li>
+<li class="fragment"><span class="fn">{tidyterra}</span> bridges this gap with <span class="fn">geom_spatraster_rgb()</span></li>
+</ul>
+</div><div class="column" style="width:45%;">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="" aria-hidden="true" tabindex="-1"></a>terra<span class="sc">::</span><span class="fu">nlyr</span>(tiles_satellite) <span class="co"># number of layers (R, G, B)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3</code></pre>
+</div>
+</div>
+</div></div>
+</div>
+</section>
+<section id="step-3-plot-with-geom_spatraster_rgb" class="slide level2">
+<h2>Step 3 — Plot with geom_spatraster_rgb()</h2>
+<div class="cell columns column-output-location">
+<div class="column">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co"># geom_spatraster_rgb() is from {tidyterra}</span></span>
+<span id="cb11-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co"># It reads the 3 color layers and renders them as a photo</span></span>
+<span id="cb11-3"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb11-4"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_spatraster_rgb</span>(<span class="at">data =</span> tiles_satellite) <span class="sc">+</span></span>
+<span id="cb11-5"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_sf</span>(<span class="at">crs =</span> <span class="dv">4326</span>) <span class="sc">+</span></span>
+<span id="cb11-6"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div><div class="column">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="14_Maps2_files/figure-revealjs/unnamed-chunk-9-1.png" width="576"></p>
+</figure>
+</div>
+</div>
+</div></div>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p><span class="fn">coord_sf(crs = 4326)</span> tells ggplot to treat your axes as geographic coordinates in WGS84. Always include it when plotting spatial data — it ensures the map is not distorted and that scale bars will work correctly later.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="zoom-levels" class="slide level2">
+<h2>Zoom Levels</h2>
+<p>The <span class="param">zoom</span> argument controls how much detail is shown. Larger number = more detail but more tiles to download.</p>
+<div class="columns">
+<div class="column" style="width:33%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="14_Maps2_files/figure-revealjs/unnamed-chunk-10-1.png" width="384"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:33%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="14_Maps2_files/figure-revealjs/unnamed-chunk-11-1.png" width="384"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:33%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="14_Maps2_files/figure-revealjs/unnamed-chunk-12-1.png" width="384"></p>
+</figure>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="different-tile-providers" class="slide level2">
+<h2>Different Tile Providers</h2>
+<p>Just change the <span class="param">provider</span> string — all are free with no API key:</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Provider string</th>
+<th>Style</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>"Esri.WorldImagery"</code></td>
+<td>Satellite</td>
+</tr>
+<tr class="even">
+<td><code>"OpenStreetMap"</code></td>
+<td>Street map</td>
+</tr>
+<tr class="odd">
+<td><code>"CartoDB.Positron"</code></td>
+<td>Minimal/clean</td>
+</tr>
+<tr class="even">
+<td><code>"Esri.WorldStreetMap"</code></td>
+<td>ESRI street</td>
+</tr>
+<tr class="odd">
+<td><code>"Esri.WorldTerrain"</code></td>
+<td>Shaded terrain</td>
+</tr>
+</tbody>
+</table>
+</div><div class="column" style="width:50%;">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="" aria-hidden="true" tabindex="-1"></a>tiles_street <span class="ot">&lt;-</span> <span class="fu">get_tiles</span>(</span>
+<span id="cb12-2"><a href="" aria-hidden="true" tabindex="-1"></a>  wailupe_bbox,</span>
+<span id="cb12-3"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="at">provider =</span> <span class="st">"CartoDB.Positron"</span>,</span>
+<span id="cb12-4"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="at">zoom =</span> <span class="dv">14</span>,</span>
+<span id="cb12-5"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="at">cachedir =</span> <span class="fu">here</span>(<span class="st">"Week_07"</span>, <span class="st">"data"</span>, <span class="st">"tiles_cache"</span>)</span>
+<span id="cb12-6"><a href="" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div></div>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>Browse all available providers at <a href="https://leaflet-extras.github.io/leaflet-providers/preview/">leaflet-extras.github.io/leaflet-providers</a>.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="deriving-the-bbox-from-your-data" class="slide level2">
+<h2>Deriving the Bbox from Your Data</h2>
+<p>Instead of hard-coding coordinates, generate the bounding box directly from your data:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 1: convert your data frame to an sf object</span></span>
+<span id="cb13-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co"># coords tells sf which columns hold longitude and latitude</span></span>
+<span id="cb13-3"><a href="" aria-hidden="true" tabindex="-1"></a>ChemData_sf <span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(ChemData,</span>
+<span id="cb13-4"><a href="" aria-hidden="true" tabindex="-1"></a>                         <span class="at">coords =</span> <span class="fu">c</span>(<span class="st">"Long"</span>, <span class="st">"Lat"</span>),</span>
+<span id="cb13-5"><a href="" aria-hidden="true" tabindex="-1"></a>                         <span class="at">crs =</span> <span class="dv">4326</span>)</span>
+<span id="cb13-6"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 2: get the bounding box and add a small buffer</span></span>
+<span id="cb13-8"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co"># the + c(...) pads all four sides by ~0.4 km so points aren't at the edge</span></span>
+<span id="cb13-9"><a href="" aria-hidden="true" tabindex="-1"></a>bbox_chem <span class="ot">&lt;-</span> <span class="fu">st_bbox</span>(ChemData_sf) <span class="sc">+</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.004</span>, <span class="sc">-</span><span class="fl">0.004</span>, <span class="fl">0.004</span>, <span class="fl">0.004</span>)</span>
+<span id="cb13-10"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-11"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 3: download tiles for that extent</span></span>
+<span id="cb13-12"><a href="" aria-hidden="true" tabindex="-1"></a>Map_satellite <span class="ot">&lt;-</span> <span class="fu">get_tiles</span>(</span>
+<span id="cb13-13"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_as_sfc</span>(bbox_chem),</span>
+<span id="cb13-14"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="at">provider =</span> <span class="st">"Esri.WorldImagery"</span>,</span>
+<span id="cb13-15"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="at">zoom =</span> <span class="dv">15</span>,</span>
+<span id="cb13-16"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="at">crop =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb13-17"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="at">cachedir =</span> <span class="fu">here</span>(<span class="st">"Week_07"</span>, <span class="st">"data"</span>, <span class="st">"tiles_cache"</span>)</span>
+<span id="cb13-18"><a href="" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="overlay-point-data" class="slide level2">
+<h2>Overlay Point Data</h2>
+<p>Once you have a tile basemap, add ggplot layers on top exactly as you normally would:</p>
+<div class="cell columns column-output-location">
+<div class="column">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb14-2"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_spatraster_rgb</span>(<span class="at">data =</span> Map_satellite) <span class="sc">+</span></span>
+<span id="cb14-3"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> ChemData,</span>
+<span id="cb14-4"><a href="" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> Long, <span class="at">y =</span> Lat,</span>
+<span id="cb14-5"><a href="" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color =</span> Salinity),</span>
+<span id="cb14-6"><a href="" aria-hidden="true" tabindex="-1"></a>             <span class="at">size =</span> <span class="dv">4</span>) <span class="sc">+</span></span>
+<span id="cb14-7"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_viridis_c</span>() <span class="sc">+</span></span>
+<span id="cb14-8"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_sf</span>(<span class="at">crs =</span> <span class="dv">4326</span>) <span class="sc">+</span></span>
+<span id="cb14-9"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div><div class="column">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="14_Maps2_files/figure-revealjs/unnamed-chunk-15-1.png" width="576"></p>
+</figure>
+</div>
+</div>
+</div></div>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Tip</strong></p>
+</div>
+<div class="callout-content">
+<p>Any <span class="fn">geom_*()</span> layer works on top of <span class="fn">geom_spatraster_rgb()</span> — points, lines, polygons. The tile is just another ggplot layer.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="add-a-scale-bar-and-north-arrow" class="slide level2">
+<h2>Add a Scale Bar and North Arrow</h2>
+<p><span class="fn">{ggspatial}</span> provides two annotation functions that are spatial-aware — they calculate real-world distances and magnetic north automatically.</p>
+<div class="cell columns column-output-location">
+<div class="column">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb15-2"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_spatraster_rgb</span>(<span class="at">data =</span> Map_satellite) <span class="sc">+</span></span>
+<span id="cb15-3"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> ChemData,</span>
+<span id="cb15-4"><a href="" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> Long, <span class="at">y =</span> Lat,</span>
+<span id="cb15-5"><a href="" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color =</span> Salinity),</span>
+<span id="cb15-6"><a href="" aria-hidden="true" tabindex="-1"></a>             <span class="at">size =</span> <span class="dv">4</span>) <span class="sc">+</span></span>
+<span id="cb15-7"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_viridis_c</span>() <span class="sc">+</span></span>
+<span id="cb15-8"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotation_scale</span>(           <span class="co"># scale bar</span></span>
+<span id="cb15-9"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="at">location =</span> <span class="st">"bl"</span>,          <span class="co"># bl = bottom-left</span></span>
+<span id="cb15-10"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="at">bar_cols =</span> <span class="fu">c</span>(<span class="st">"yellow"</span>, <span class="st">"white"</span>)) <span class="sc">+</span></span>
+<span id="cb15-11"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotation_north_arrow</span>(     <span class="co"># north arrow</span></span>
+<span id="cb15-12"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="at">location =</span> <span class="st">"tl"</span>) <span class="sc">+</span>        <span class="co"># tl = top-left</span></span>
+<span id="cb15-13"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_sf</span>(<span class="at">crs =</span> <span class="dv">4326</span>) <span class="sc">+</span></span>
+<span id="cb15-14"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div><div class="column">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="14_Maps2_files/figure-revealjs/unnamed-chunk-16-1.png" width="576"></p>
+</figure>
+</div>
+</div>
+</div></div>
+</section>
+<section id="polish-and-save" class="slide level2">
+<h2>Polish and Save</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb16-2"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_spatraster_rgb</span>(<span class="at">data =</span> Map_satellite) <span class="sc">+</span></span>
+<span id="cb16-3"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> ChemData,</span>
+<span id="cb16-4"><a href="" aria-hidden="true" tabindex="-1"></a>             <span class="fu">aes</span>(<span class="at">x =</span> Long, <span class="at">y =</span> Lat, <span class="at">color =</span> Salinity),</span>
+<span id="cb16-5"><a href="" aria-hidden="true" tabindex="-1"></a>             <span class="at">size =</span> <span class="dv">4</span>) <span class="sc">+</span></span>
+<span id="cb16-6"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_viridis_c</span>(<span class="at">name =</span> <span class="st">"Salinity (ppt)"</span>) <span class="sc">+</span></span>
+<span id="cb16-7"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotation_scale</span>(<span class="at">location =</span> <span class="st">"bl"</span>,</span>
+<span id="cb16-8"><a href="" aria-hidden="true" tabindex="-1"></a>                   <span class="at">bar_cols =</span> <span class="fu">c</span>(<span class="st">"yellow"</span>, <span class="st">"white"</span>)) <span class="sc">+</span></span>
+<span id="cb16-9"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotation_north_arrow</span>(<span class="at">location =</span> <span class="st">"tl"</span>) <span class="sc">+</span></span>
+<span id="cb16-10"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_sf</span>(<span class="at">crs =</span> <span class="dv">4326</span>) <span class="sc">+</span></span>
+<span id="cb16-11"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Maunalua Bay — Water Chemistry"</span>,</span>
+<span id="cb16-12"><a href="" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">"Basemap: ESRI World Imagery"</span>) <span class="sc">+</span></span>
+<span id="cb16-13"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
+<span id="cb16-14"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-15"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="fu">here</span>(<span class="st">"Week_07"</span>, <span class="st">"output"</span>, <span class="st">"maunalua_map.pdf"</span>), <span class="at">width =</span> <span class="dv">8</span>, <span class="at">height =</span> <span class="dv">6</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="interactive-maps-with-leaflet" class="slide level2 inverse">
+<h2>Interactive Maps with {leaflet}</h2>
+<p>Static maps are great for publications.<br>
+Interactive maps let you <strong>zoom, pan, and click on your data</strong> — and embed directly in HTML documents.</p>
+</section>
+<section id="how-leaflet-works" class="slide level2">
+<h2>How Leaflet Works</h2>
+<p><span class="fn">{leaflet}</span> builds maps by <strong>piping layers together with <code>|&gt;</code></strong> — similar in concept to ggplot’s <code>+</code>, but using pipes instead.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">leaflet</span>() <span class="sc">|&gt;</span>                       <span class="co"># 1. create the map widget</span></span>
+<span id="cb17-2"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">addProviderTiles</span>(...) <span class="sc">|&gt;</span>         <span class="co"># 2. add a basemap tile layer</span></span>
+<span id="cb17-3"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">addCircleMarkers</span>(...) <span class="sc">|&gt;</span>         <span class="co"># 3. add your data as markers</span></span>
+<span id="cb17-4"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">addLegend</span>(...)                   <span class="co"># 4. add a color legend</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ul>
+<li class="fragment"><span class="fn">leaflet()</span> — initializes an empty map widget. Pass your data frame here.</li>
+<li class="fragment"><span class="fn">addProviderTiles()</span> — adds a basemap. Uses <code>providers$Name</code> to select from hundreds of free tile sources.</li>
+<li class="fragment"><span class="fn">add*()</span> functions — each one adds a new layer (markers, polygons, popups, legends…)</li>
+<li class="fragment">The result is an <strong>interactive HTML widget</strong> — it works in RStudio, Quarto HTML, and any web browser.</li>
+</ul>
+</section>
+<section id="your-first-leaflet-map" class="slide level2">
+<h2>Your First Leaflet Map</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">leaflet</span>() <span class="sc">|&gt;</span></span>
+<span id="cb18-2"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">addProviderTiles</span>(providers<span class="sc">$</span>Esri.WorldImagery) <span class="sc">|&gt;</span></span>
+<span id="cb18-3"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">setView</span>(<span class="at">lng =</span> <span class="sc">-</span><span class="fl">157.762</span>, <span class="at">lat =</span> <span class="fl">21.274</span>, <span class="at">zoom =</span> <span class="dv">14</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="leaflet html-widget html-fill-item" id="htmlwidget-45d5ccc4ff1a04c567af" style="width:960px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-45d5ccc4ff1a04c567af">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addProviderTiles","args":["Esri.WorldImagery",null,null,{"errorTileUrl":"","noWrap":false,"detectRetina":false}]}],"setView":[[21.274,-157.762],14,[]]},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p><span class="fn">setView()</span> centers the map on a specific location. <span class="param">lng</span> and <span class="param">lat</span> are the coordinates, and <span class="param">zoom</span> works exactly like in <span class="fn">{maptiles}</span>.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="the-formula-notation" class="slide level2">
+<h2>The ~ Formula Notation</h2>
+<p>In leaflet, column names are written with a <code>~</code> prefix:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">addCircleMarkers</span>(<span class="at">lng =</span> <span class="sc">~</span>Long, <span class="at">lat =</span> <span class="sc">~</span>Lat, <span class="at">color =</span> <span class="sc">~</span><span class="fu">pal</span>(Salinity))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ul>
+<li class="fragment"><code>~Long</code> means <em>“use the <span class="var">Long</span> column from the data frame”</em></li>
+<li class="fragment">It is leaflet’s equivalent of <code>aes(x = Long)</code> in ggplot</li>
+<li class="fragment">You will see <code>~</code> anywhere leaflet needs to reference a column</li>
+</ul>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Tip</strong></p>
+</div>
+<div class="callout-content">
+<p>The <code>~</code> is leaflet’s way of saying “evaluate this as a formula against the data.” Without it, leaflet treats the argument as a fixed value, not a column reference.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="add-a-color-palette" class="slide level2">
+<h2>Add a Color Palette</h2>
+<p>Leaflet needs a <strong>color function</strong> that converts numeric values to hex colors. <span class="fn">colorNumeric()</span> creates one:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co"># colorNumeric() returns a FUNCTION, not a color vector</span></span>
+<span id="cb20-2"><a href="" aria-hidden="true" tabindex="-1"></a>pal <span class="ot">&lt;-</span> <span class="fu">colorNumeric</span>(</span>
+<span id="cb20-3"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="at">palette =</span> <span class="st">"viridis"</span>,            <span class="co"># any RColorBrewer or viridis palette name</span></span>
+<span id="cb20-4"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="at">domain =</span> ChemData<span class="sc">$</span>Salinity      <span class="co"># the full range of values to map</span></span>
+<span id="cb20-5"><a href="" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb20-6"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-7"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co"># Use it by calling pal(value) — it returns a hex color</span></span>
+<span id="cb20-8"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">pal</span>(<span class="dv">30</span>)  <span class="co"># what color does salinity = 30 get?</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "#1F978B"</code></pre>
+</div>
+</div>
+<div class="fragment">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">pal</span>(<span class="dv">40</span>)  <span class="co"># higher salinity → different color</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "#808080"</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="add-data-points-with-color" class="slide level2">
+<h2>Add Data Points with Color</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="" aria-hidden="true" tabindex="-1"></a>pal <span class="ot">&lt;-</span> <span class="fu">colorNumeric</span>(<span class="st">"viridis"</span>, <span class="at">domain =</span> ChemData<span class="sc">$</span>Salinity)</span>
+<span id="cb24-2"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">leaflet</span>(ChemData) <span class="sc">|&gt;</span>           <span class="co"># pass data frame here</span></span>
+<span id="cb24-4"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">addProviderTiles</span>(providers<span class="sc">$</span>Esri.WorldImagery) <span class="sc">|&gt;</span></span>
+<span id="cb24-5"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">addCircleMarkers</span>(</span>
+<span id="cb24-6"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="at">lng =</span> <span class="sc">~</span>Long, <span class="at">lat =</span> <span class="sc">~</span>Lat,   <span class="co"># which columns are coordinates</span></span>
+<span id="cb24-7"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="sc">~</span><span class="fu">pal</span>(Salinity),    <span class="co"># apply our color function to Salinity</span></span>
+<span id="cb24-8"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="at">radius =</span> <span class="dv">6</span>,</span>
+<span id="cb24-9"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="at">fillOpacity =</span> <span class="fl">0.9</span>,</span>
+<span id="cb24-10"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="at">popup =</span> <span class="sc">~</span><span class="fu">paste</span>(<span class="st">"Salinity:"</span>, Salinity, <span class="st">"ppt"</span>,  <span class="co"># click a point to see this</span></span>
+<span id="cb24-11"><a href="" aria-hidden="true" tabindex="-1"></a>                   <span class="st">"&lt;br&gt;Site:"</span>, Site)) <span class="sc">|&gt;</span></span>
+<span id="cb24-12"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">addLegend</span>(</span>
+<span id="cb24-13"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="at">pal =</span> pal,                 <span class="co"># the same color function</span></span>
+<span id="cb24-14"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="at">values =</span> <span class="sc">~</span>Salinity,        <span class="co"># which column drives the legend</span></span>
+<span id="cb24-15"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Salinity (ppt)"</span>,</span>
+<span id="cb24-16"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="at">position =</span> <span class="st">"bottomright"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="leaflet html-widget html-fill-item" id="htmlwidget-6cb008973e8c96862d46" style="width:960px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-6cb008973e8c96862d46">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addProviderTiles","args":["Esri.WorldImagery",null,null,{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addCircleMarkers","args":[[21.27531,21.27523,21.27504,21.27449,21.27503,21.27485,21.27463,21.27436,21.27456,21.27427,21.27399,21.27377,21.27353,21.27328,21.27309,21.27288,21.27254,21.27214,21.27206,21.27185,21.27585,21.26879,21.26879],[-157.76181,-157.76265,-157.76328,-157.76402,-157.7617,-157.76234,-157.76318,-157.76364,-157.76126,-157.76208,-157.76295,-157.76344,-157.76089,-157.76164,-157.76244,-157.76306,-157.76073,-157.76118,-157.76196,-157.76279,-157.76212,-157.76039,-157.76039],6,null,null,{"interactive":true,"className":"","stroke":true,"color":["#355F8D","#21A685","#2E6F8E","#85D44A","#26828E","#D7E219","#5FC961","#BEDF26","#7BD151","#EDE51B","#E4E419","#D6E21A","#FBE723","#FBE723","#FBE723","#F5E61F","#FCE724","#FCE724","#FDE725","#FCE724","#440154","#FDE725","#FCE724"],"weight":5,"opacity":0.5,"fill":true,"fillColor":["#355F8D","#21A685","#2E6F8E","#85D44A","#26828E","#D7E219","#5FC961","#BEDF26","#7BD151","#EDE51B","#E4E419","#D6E21A","#FBE723","#FBE723","#FBE723","#F5E61F","#FCE724","#FCE724","#FDE725","#FCE724","#440154","#FDE725","#FCE724"],"fillOpacity":0.9},null,null,["Salinity: 27.7402879 ppt <br>Site: W","Salinity: 30.6119226 ppt <br>Site: W","Salinity: 28.37007862 ppt <br>Site: W","Salinity: 32.82124424 ppt <br>Site: W","Salinity: 29.12292683 ppt <br>Site: W","Salinity: 34.0201759 ppt <br>Site: W","Salinity: 32.20639623 ppt <br>Site: W","Salinity: 33.66594609 ppt <br>Site: W","Salinity: 32.66478542 ppt <br>Site: W","Salinity: 34.34759675 ppt <br>Site: W","Salinity: 34.2073991 ppt <br>Site: W","Salinity: 34.00567269 ppt <br>Site: W","Salinity: 34.57789008 ppt <br>Site: W","Salinity: 34.57832957 ppt <br>Site: W","Salinity: 34.57085822 ppt <br>Site: W","Salinity: 34.47636764 ppt <br>Site: W","Salinity: 34.59942514 ppt <br>Site: W","Salinity: 34.581406 ppt <br>Site: W","Salinity: 34.60733598 ppt <br>Site: W","Salinity: 34.59854616 ppt <br>Site: W","Salinity: 24.83173596 ppt <br>Site: W","Salinity: 34.60953343 ppt <br>Site: W","Salinity: 34.59459074 ppt <br>Site: W"],null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]},{"method":"addLegend","args":[{"colors":["#440154 , #46075B 1.72087876146202%, #472B7A 11.9481308912814%, #3E4A89 22.1753830211008%, #31668E 32.4026351509201%, #277F8E 42.6298872807395%, #1F978B 52.8571394105589%, #29AF7F 63.0843915403783%, #54C568 73.3116436701976%, #90D743 83.538895800017%, #D5E21A 93.7661479298364%, #FDE725 "],"labels":["25","26","27","28","29","30","31","32","33","34"],"na_color":null,"na_label":"NA","opacity":0.5,"position":"bottomright","type":"numeric","title":"Salinity (ppt)","extra":{"p_1":0.01720878761462017,"p_n":0.937661479298364},"layerId":null,"className":"info legend","group":null}]}],"limits":{"lat":[21.26879,21.27585],"lng":[-157.76402,-157.76039]}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</section>
+<section id="popup-vs.-label" class="slide level2">
+<h2>popup vs.&nbsp;label</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><strong><span class="param">popup</span></strong> — appears when you <strong>click</strong> a marker</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">addCircleMarkers</span>(</span>
+<span id="cb25-2"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="at">popup =</span> <span class="sc">~</span><span class="fu">paste</span>(<span class="st">"Site:"</span>, Site,</span>
+<span id="cb25-3"><a href="" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"&lt;br&gt;Salinity:"</span>, Salinity))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>HTML tags work inside popups (<code>&lt;br&gt;</code> = line break).</p>
+</div><div class="column" style="width:50%;">
+<p><strong><span class="param">label</span></strong> — appears when you <strong>hover</strong> over a marker</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">addCircleMarkers</span>(</span>
+<span id="cb26-2"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="at">label =</span> <span class="sc">~</span>Site)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Labels are plain text only (no HTML).</p>
+</div></div>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Tip</strong></p>
+</div>
+<div class="callout-content">
+<p>Use <span class="param">popup</span> for detailed information (multiple fields, formatted text).<br>
+Use <span class="param">label</span> for a quick identifier on hover.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="geocoding-with-tidygeocoder" class="slide level2 inverse">
+<h2>Geocoding with {tidygeocoder}</h2>
+<p><strong>Geocoding</strong> = converting a place name or address into latitude and longitude coordinates.</p>
+</section>
+<section id="what-is-geocoding" class="slide level2">
+<h2>What Is Geocoding?</h2>
+<div class="columns">
+<div class="column" style="width:55%;">
+<ul>
+<li class="fragment">You know <em>where</em> you want to map, but not the exact coordinates</li>
+<li class="fragment">Geocoding services look up addresses and place names in a database and return lat/lon</li>
+<li class="fragment"><span class="fn">{tidygeocoder}</span> does this for free using:
+<ul>
+<li class="fragment"><strong>OpenStreetMap</strong> (<code>method = "osm"</code>) — best for landmarks and place names worldwide</li>
+<li class="fragment"><strong>US Census</strong> (<code>method = "census"</code>) — best for US street addresses</li>
+</ul></li>
+</ul>
+</div><div class="column" style="width:45%;">
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Warning</strong></p>
+</div>
+<div class="callout-content">
+<p>Geocoding requires an <strong>internet connection</strong> and results depend on the service’s database. OSM is very good for well-known places but may fail on obscure locations or unusual search strings.</p>
+</div>
+</div>
+</div>
+</div></div>
+</section>
+<section id="geo-convert-a-place-name-to-coordinates" class="slide level2">
+<h2>geo() — Convert a Place Name to Coordinates</h2>
+<p><span class="fn">geo()</span> geocodes a single location string and returns a one-row tibble:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">geo</span>(<span class="st">"University of Hawaii at Manoa"</span>, <span class="at">method =</span> <span class="st">"osm"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 3
+  address                         lat  long
+  &lt;chr&gt;                         &lt;dbl&gt; &lt;dbl&gt;
+1 University of Hawaii at Manoa  21.3 -158.</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">geo</span>(<span class="st">"Pearl Harbor, Oahu, Hawaii"</span>, <span class="at">method =</span> <span class="st">"osm"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 3
+  address                      lat  long
+  &lt;chr&gt;                      &lt;dbl&gt; &lt;dbl&gt;
+1 Pearl Harbor, Oahu, Hawaii    NA    NA</code></pre>
+</div>
+</div>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Tip</strong></p>
+</div>
+<div class="callout-content">
+<p>If a location returns <span class="var">NA</span>, try a more specific search string — add the city, state, or country. OSM often needs more context for landmarks that share names across locations.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="geocode-geocode-a-data-frame" class="slide level2">
+<h2>geocode() — Geocode a Data Frame</h2>
+<p><span class="fn">geocode()</span> (note: no “r”) operates on a data frame and adds lat/lon columns:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="" aria-hidden="true" tabindex="-1"></a>oahu_sites <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<span id="cb31-2"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span>place,</span>
+<span id="cb31-3"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="st">"University of Hawaii at Manoa"</span>,</span>
+<span id="cb31-4"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Honolulu International Airport"</span>,</span>
+<span id="cb31-5"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Pearl Harbor National Memorial, Hawaii"</span>,</span>
+<span id="cb31-6"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Diamond Head State Monument, Hawaii"</span></span>
+<span id="cb31-7"><a href="" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb31-8"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-9"><a href="" aria-hidden="true" tabindex="-1"></a>oahu_geocoded <span class="ot">&lt;-</span> oahu_sites <span class="sc">|&gt;</span></span>
+<span id="cb31-10"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geocode</span>(place, <span class="at">method =</span> <span class="st">"osm"</span>) <span class="co"># geocode the 'place' column</span></span>
+<span id="cb31-11"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-12"><a href="" aria-hidden="true" tabindex="-1"></a>oahu_geocoded</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 3
+  place                                    lat  long
+  &lt;chr&gt;                                  &lt;dbl&gt; &lt;dbl&gt;
+1 University of Hawaii at Manoa           21.3 -158.
+2 Honolulu International Airport          21.3 -158.
+3 Pearl Harbor National Memorial, Hawaii  21.4 -158.
+4 Diamond Head State Monument, Hawaii     21.3 -158.</code></pre>
+</div>
+</div>
+</section>
+<section id="map-geocoded-locations" class="slide level2">
+<h2>Map Geocoded Locations</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">leaflet</span>(oahu_geocoded) <span class="sc">|&gt;</span></span>
+<span id="cb33-2"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">addProviderTiles</span>(providers<span class="sc">$</span>Esri.WorldImagery) <span class="sc">|&gt;</span></span>
+<span id="cb33-3"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">addMarkers</span>(</span>
+<span id="cb33-4"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="at">lng =</span> <span class="sc">~</span>long, <span class="at">lat =</span> <span class="sc">~</span>lat,   <span class="co"># tidygeocoder always returns 'lat' and 'long'</span></span>
+<span id="cb33-5"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> <span class="sc">~</span>place)            <span class="co"># hover to see place name</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="leaflet html-widget html-fill-item" id="htmlwidget-c9145bab47a817e013c5" style="width:960px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-c9145bab47a817e013c5">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addProviderTiles","args":["Esri.WorldImagery",null,null,{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addMarkers","args":[[21.2982795,21.3337782,21.3674843,21.2624863],[-157.8186932,-157.92099,-157.9384488,-157.8067896],null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},null,null,null,null,["University of Hawaii at Manoa","Honolulu International Airport","Pearl Harbor National Memorial, Hawaii","Diamond Head State Monument, Hawaii"],{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[21.2624863,21.3674843],"lng":[-157.9384488,-157.8067896]}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</section>
+<section id="totally-awesome-r-package-emojifont" class="slide level2">
+<h2>Totally Awesome R Package — {emojifont}</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"emojifont"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell columns column-output-location">
+<div class="column">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(emojifont)</span>
+<span id="cb35-2"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-3"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">search_emoji</span>(<span class="st">"smile"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div><div class="column">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "smiley"      "smile"       "sweat_smile" "smiley_cat"  "smile_cat"  </code></pre>
+</div>
+</div></div>
+<div class="cell columns column-output-location">
+<div class="column">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb37-2"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_emoji</span>(<span class="st">"smile_cat"</span>,</span>
+<span id="cb37-3"><a href="" aria-hidden="true" tabindex="-1"></a>             <span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="at">y =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,</span>
+<span id="cb37-4"><a href="" aria-hidden="true" tabindex="-1"></a>             <span class="at">size =</span> <span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div><div class="column">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="14_Maps2_files/figure-revealjs/unnamed-chunk-32-1.png" width="480"></p>
+</figure>
+</div>
+</div>
+</div></div>
+<p><a href="https://cran.r-project.org/web/packages/emojifont/vignettes/emojifont.html">More info: emojifont vignette</a></p>
+</section>
+<section id="summary-static-vs.-interactive-maps" class="slide level2">
+<h2>Summary: Static vs.&nbsp;Interactive Maps</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Static <span class="fn">{maptiles}</span> + <span class="fn">{tidyterra}</span></th>
+<th>Interactive <span class="fn">{leaflet}</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Output</strong></td>
+<td>PDF, PNG, Quarto figure</td>
+<td>HTML widget</td>
+</tr>
+<tr class="even">
+<td><strong>Best for</strong></td>
+<td>Publications, reports</td>
+<td>Exploration, sharing online</td>
+</tr>
+<tr class="odd">
+<td><strong>Layers</strong></td>
+<td>Any <span class="fn">geom_*()</span> via ggplot</td>
+<td><span class="fn">add*()</span> functions via pipe</td>
+</tr>
+<tr class="even">
+<td><strong>Color palettes</strong></td>
+<td><code>scale_color_*()</code></td>
+<td><span class="fn">colorNumeric()</span> etc.</td>
+</tr>
+<tr class="odd">
+<td><strong>Scale bars</strong></td>
+<td><span class="fn">{ggspatial}</span></td>
+<td>Built-in scale control</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="thanks" class="slide level2 inverse center">
+<h2>Thanks!</h2>
+<p>Slides created with <a href="https://quarto.org">Quarto</a> and <a href="https://revealjs.com/">RevealJS</a>.<br>
+Some content adapted from <a href="http://stat405.had.co.nz/ggmap.pdf">Making Maps with R</a>.</p>
+<p><strong>Tile data © <a href="https://www.esri.com">ESRI</a> | © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a></strong></p>
+
+</section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+<p>OCN 682 | Week 7 | Intro to Maps Part 2</p>
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="14_Maps2_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="14_Maps2_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="14_Maps2_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="14_Maps2_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="14_Maps2_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="14_Maps2_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="14_Maps2_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="14_Maps2_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="14_Maps2_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="14_Maps2_files/libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': true,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1500,
+
+        height: 1000,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    
+
+    <script>
+
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+
+      // slide changes (different for each slide format).
+
+      (function () {
+
+        // dispatch for htmlwidgets
+
+        function fireSlideEnter() {
+
+          const event = window.document.createEvent("Event");
+
+          event.initEvent("slideenter", true, true);
+
+          window.document.dispatchEvent(event);
+
+        }
+
+    
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+
+          fireSlideEnter();
+
+    
+
+          // dispatch for shiny
+
+          if (window.jQuery) {
+
+            if (previousSlide) {
+
+              window.jQuery(previousSlide).trigger("hidden");
+
+            }
+
+            if (currentSlide) {
+
+              window.jQuery(currentSlide).trigger("shown");
+
+            }
+
+          }
+
+        }
+
+    
+
+        // hookup for slidy
+
+        if (window.w3c_slidy) {
+
+          window.w3c_slidy.add_observer(function (slide_num) {
+
+            // slide_num starts at position 1
+
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+
+          });
+
+        }
+
+    
+
+      })();
+
+    </script>
+
+    
+
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>

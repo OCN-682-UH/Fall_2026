@@ -1,0 +1,758 @@
+---
+title: "Computer Modeling (OCN 682)"
+subtitle: "Functional Programming"
+author: "Dr. Nyssa Silbiger"
+institute: "UH Fall 2026"
+date: today
+resources:
+  - custom-theme.scss
+format:
+  revealjs:
+    theme: [default, custom-theme.scss]
+    highlight-style: github
+    code-line-numbers: true
+    width: 1500
+    height: 1000
+    preview-links: auto
+    self-contained-math: true
+    embed-resources: false
+    slide-number: c/t
+    footer: "OCN 682 | Week 8 | Lecture 15 | Functional Programming"
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+library(tidyverse)
+library(palmerpenguins)
+library(PNWColors)
+```
+
+## Outline of class
+
+Functional programming — writing reusable code
+
+::: {.incremental}
+1. When to write a function
+2. How to make a custom function
+3. Making plotting functions
+4. Control flow with [if-else]{.fn}
+5. Adding flexibility with arguments
+
+
+**Homework:** Practice writing functions
+:::
+---
+
+## Review {.center}
+
+::: {.incremental}
+1. What aesthetic is essential to include in [geom_polygon()]{.fn} to prevent your map from looking like a tangle of lines?
+2. What is a **bounding box** in the context of mapping?
+
+:::
+
+---
+
+# Why Write Functions?
+
+---
+
+## When do you need a function?
+
+Use a function when:
+
+::: {.incremental}
+- You have a task you want to use [more than once]{.orange}
+- You want to keep your script [clean and organized]{.orange}
+- You want to avoid mistakes with [copy and paste]{.orange}
+- You minimize places where you need to update your code
+:::
+
+![](https://www.dataquest.io/wp-content/uploads/2019/06/r-function-r-programming.jpg){fig-align="center" width="60%"}
+
+---
+
+## Example: Rescaling data
+
+Imagine you want to rescale multiple columns to lie between 0 and 1 using: $\frac{x - \min(x)}{\max(x) - \min(x)}$
+
+Set up a dataframe with random numbers:
+
+```{r}
+#| echo: true
+df <- tibble(
+  a = rnorm(10),
+  b = rnorm(10),
+  c = rnorm(10),
+  d = rnorm(10)
+)
+
+head(df)
+```
+
+---
+
+## Without a function: Manual rescaling
+
+```{r}
+#| echo: true
+df <- df |>
+  mutate(a = (a - min(a, na.rm = TRUE)) / (max(a, na.rm = TRUE) - min(a, na.rm = TRUE)))
+
+head(df)
+```
+
+---
+
+## Copy and paste for each column
+
+```{r}
+#| echo: true
+df <- df |>
+  mutate(
+    a = (a - min(a, na.rm = TRUE)) / (max(a, na.rm = TRUE) - min(a, na.rm = TRUE)),
+    b = (b - min(b, na.rm = TRUE)) / (max(a, na.rm = TRUE) - min(b, na.rm = TRUE)),
+    c = (c - min(c, na.rm = TRUE)) / (max(c, na.rm = TRUE) - min(c, na.rm = TRUE)),
+    d = (d - min(d, na.rm = TRUE)) / (max(d, na.rm = TRUE) - min(d, na.rm = TRUE))
+  )
+```
+
+::: {.callout-warning}
+## Why the error?
+Did I make a mistake in the formula? Hard to spot with copy-paste!
+:::
+
+---
+
+# Writing a Function
+
+---
+
+## Create a reusable rescaling function
+
+```{r}
+#| echo: true
+rescale01 <- function(x) {
+  value <- (x - min(x, na.rm = TRUE)) / (max(x, na.rm = TRUE) - min(x, na.rm = TRUE))
+  return(value)
+}
+
+df |>
+  mutate(
+    a = rescale01(a),
+    b = rescale01(b),
+    c = rescale01(c),
+    d = rescale01(d)
+  )
+```
+
+---
+
+## Even better: Use [mutate(across(everything()))]{.fn}
+
+```{r}
+#| echo: true
+df |>
+  mutate(across(everything(), rescale01))
+```
+
+Much cleaner! One line rescales all columns.
+
+---
+
+## Anatomy of a function
+
+Every function has **four key parts**:
+
+::: {.incremental}
+
+1. **Function name** — [rescale01]{.fn} describes what it does (rescales to 0-1)
+
+2. **Arguments** — [function(x)]{.fn} lists the inputs
+   - Multiple arguments: [function(x, y, z)]{.fn}
+
+3. **Function body** — The `{ }` block containing the code
+
+4. **Return statement** — What the function returns
+
+:::
+
+::: {.callout-tip}
+## Pro tip
+It's easier to write a function from working code than from scratch. Write the code first, then turn it into a function!
+:::
+
+---
+
+## Example: Fahrenheit to Celsius
+
+**Step 1: The conversion formula**
+
+```{r}
+#| echo: true
+#| eval: false
+temp_C <- (temp_F - 32) * 5 / 9
+```
+
+---
+
+## Step 2: Create the function structure
+
+```{r}
+#| echo: true
+#| eval: false
+f_to_celsius <- function() {
+  # code goes here
+}
+```
+
+---
+
+## Step 3: Add the formula
+
+```{r}
+#| echo: true
+#| eval: false
+f_to_celsius <- function() {
+  temp_C <- (temp_F - 32) * 5 / 9
+}
+```
+
+---
+
+## Step 4: Add the argument
+
+```{r}
+#| echo: true
+#| eval: false
+f_to_celsius <- function(temp_F) {
+  temp_C <- (temp_F - 32) * 5 / 9
+}
+```
+
+---
+
+## Step 5: Add the return statement
+
+```{r}
+#| echo: true
+f_to_celsius <- function(temp_F) {
+  temp_C <- (temp_F - 32) * 5 / 9
+  return(temp_C)
+}
+```
+
+---
+
+## Step 6: Test it
+
+```{r}
+#| echo: true
+f_to_celsius(32)
+```
+
+```{r}
+#| echo: true
+f_to_celsius(212)
+```
+
+---
+
+## Think, pair, share {.center}
+
+Write a function that converts Celsius to Kelvin.
+
+(Remember: Kelvin = Celsius + 273.15)
+
+---
+
+# Making Plot Functions
+
+---
+
+## Why turn plots into functions?
+
+If you have a plot format you use repeatedly, create a function to:
+
+- Write it once, use it many times
+- Maintain consistency across figures
+- Save time and reduce errors
+
+Let's create a reusable plot function with the penguin dataset:
+
+```{r}
+#| echo: true
+#| eval: false
+library(palmerpenguins)
+library(PNWColors)
+
+pal <- pnw_palette("Lake", 3, type = "discrete")
+
+ggplot(penguins, aes(x = body_mass_g, y = bill_length_mm, color = island)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  scale_color_manual("Island", values = pal) +
+  theme_bw()
+```
+
+---
+
+## Our plot
+
+```{r}
+#| echo: false
+pal <- pnw_palette("Lake", 3, type = "discrete")
+
+ggplot(penguins, aes(x = body_mass_g, y = bill_length_mm, color = island)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  scale_color_manual("Island", values = pal) +
+  theme_bw()
+```
+
+---
+
+## Name and set up the function
+
+```{r}
+#| echo: true
+#| eval: false
+myplot <- function() {
+  pal <- pnw_palette("Lake", 3, type = "discrete")
+  
+  ggplot(penguins, aes(x = body_mass_g, y = bill_length_mm, color = island)) +
+    geom_point() +
+    geom_smooth(method = "lm") +
+    scale_color_manual("Island", values = pal) +
+    theme_bw()
+}
+```
+
+---
+
+## Add flexible arguments
+
+Make arguments broad so the function works with any data:
+
+```{r}
+#| echo: true
+#| eval: false
+myplot <- function(data, x, y) {
+  pal <- pnw_palette("Lake", 3, type = "discrete")
+  
+  ggplot(data, aes(x = x, y = y, color = island)) +
+    geom_point() +
+    geom_smooth(method = "lm") +
+    scale_color_manual("Island", values = pal) +
+    theme_bw()
+}
+```
+
+---
+
+## Test it
+
+```{r}
+#| echo: true
+#| error: true
+myplot(data = penguins, x = body_mass_g, y = bill_length_mm)
+```
+
+::: {.callout-warning}
+## Why the error?
+[body_mass_g]{.var} exists within the penguin dataframe, but R can't find it in the environment. We need the [curly-curly {{}}]{.fn} operator!
+:::
+
+---
+
+## Use curly-curly {{}} for column names
+
+The [{{}}]{.fn} operator from [{rlang}]{.fn} (part of tidyverse) lets us pass column names as arguments:
+
+```{r}
+#| echo: true
+myplot <- function(data, x, y) {
+  pal <- pnw_palette("Lake", 3, type = "discrete")
+  
+  ggplot(data, aes(x = {{x}}, y = {{y}}, color = island)) +
+    geom_point() +
+    geom_smooth(method = "lm") +
+    scale_color_manual("Island", values = pal) +
+    theme_bw()
+}
+```
+
+---
+
+## Test again
+
+```{r}
+#| echo: true
+myplot(data = penguins, x = body_mass_g, y = bill_length_mm)
+```
+
+---
+
+## Test with different variables
+
+```{r}
+#| echo: true
+myplot(data = penguins, x = body_mass_g, y = flipper_length_mm)
+```
+
+---
+
+## Add default arguments
+
+Set defaults so users don't have to specify everything:
+
+```{r}
+#| echo: true
+myplot <- function(data = penguins, x, y) {
+  pal <- pnw_palette("Lake", 3, type = "discrete")
+  
+  ggplot(data, aes(x = {{x}}, y = {{y}}, color = island)) +
+    geom_point() +
+    geom_smooth(method = "lm") +
+    scale_color_manual("Island", values = pal) +
+    theme_bw()
+}
+```
+
+Now you can call it with just the column arguments:
+
+```{r}
+#| echo: true
+myplot(x = body_mass_g, y = flipper_length_mm)
+```
+
+---
+
+## Layer onto the function
+
+You can add ggplot layers using `+` just like a regular plot:
+
+```{r}
+#| echo: true
+myplot(x = body_mass_g, y = flipper_length_mm) +
+  labs(x = "Body mass (g)", y = "Flipper length (mm)")
+```
+
+---
+
+# Adding Control Flow with if-else
+
+---
+
+## The if-else statement
+
+Use [if-else]{.fn} to execute different code based on a condition:
+
+```{r}
+#| echo: true
+a <- 4
+b <- 5
+
+if (a > b) {
+  f <- 20
+} else {
+  f <- 10
+}
+
+f
+```
+
+The condition ([a > b]{.op}) is `FALSE`, so [f]{.var} is assigned 10.
+
+---
+
+## Making your function more flexible
+
+Add an argument to toggle features on/off:
+
+```{r}
+#| echo: true
+myplot <- function(data = penguins, x, y, lines = TRUE) {
+  pal <- pnw_palette("Lake", 3, type = "discrete")
+  
+  if (lines == TRUE) {
+    ggplot(data, aes(x = {{x}}, y = {{y}}, color = island)) +
+      geom_point() +
+      geom_smooth(method = "lm") +
+      scale_color_manual("Island", values = pal) +
+      theme_bw()
+  } else {
+    ggplot(data, aes(x = {{x}}, y = {{y}}, color = island)) +
+      geom_point() +
+      scale_color_manual("Island", values = pal) +
+      theme_bw()
+  }
+}
+```
+
+---
+
+## Test with lines (default)
+
+```{r}
+#| echo: true
+myplot(x = body_mass_g, y = flipper_length_mm)
+```
+
+---
+
+## Test without lines
+
+```{r}
+#| echo: true
+myplot(x = body_mass_g, y = flipper_length_mm, lines = FALSE)
+```
+
+---
+
+## Today's awesome R package: [{BRRR}]{.fn}
+
+Sounds with your ![favorite rappers](https://github.com/brooke-watson/BRRR)!
+
+```{r}
+#| echo: true
+#| eval: false
+pak::pak("brooke-watson/BRRR")
+
+```
+
+For snoop:
+
+```{r}
+#| echo: true
+#| eval: true
+library(BRRR)
+
+skrrrahh("snoop")
+```
+
+For Biggie:
+
+```{r}
+#| echo: true
+#| eval: true
+skrrrahh("biggie")
+```
+
+---
+
+## Homework {.center}
+
+::: {.incremental}
+1. Create any dataset you'd like
+2. Write **two useful functions**:
+   - One that creates a plot
+   - One that does something else
+3. Create a Quarto document showing:
+   - At least 2 examples per function
+   - Evidence of the function's flexibility
+4. **Due:** Tuesday at 1 PM
+:::
+
+---
+
+# Ethical AI Use for Data Science {.inverse .center .middle}
+
+---
+
+## Why This Matters
+
+The upcoming **AI-Assisted Community Data Sprint** is your real-world training ground.
+
+You'll be working with:
+- Sensitive community partner data
+- Code that impacts real decisions
+- Responsibilities to both the partner AND the broader community
+
+Using AI ethically is not optional — it's part of being a professional data scientist.
+
+---
+
+## Key Principles {.smaller}
+
+::: {.incremental}
+
+1. **Verify, don't trust**
+   - AI hallucinations are common (wrong function names, invented arguments, incorrect logic)
+   - You must understand and test every line of code
+
+2. **Know what gets sent to the AI**
+   - Don't upload sensitive, restricted, or private data to external AI systems
+   - Scrub personally identifiable information (PII), locations, names, IDs
+
+3. **Maintain reproducibility**
+   - Your final code should be understandable to someone who didn't use AI
+   - Document which decisions came from AI vs. your own reasoning
+
+4. **Be transparent with partners**
+   - Tell your community partner if/how you used AI
+   - Explain what AI did and what you validated/changed
+   - They have the right to know how their data was handled
+
+:::
+
+---
+
+## Available Tools {.smaller}
+
+You have **free access** through the University of Hawaiʻi:
+
+| Tool | Best for | No API needed? | Data privacy |
+|------|----------|---|---|
+| [**Google Gemini (Free)**]{.green} | General coding questions, quick debugging, explaining R | ✅ Yes | Use caution with sensitive data |
+| [**ChatGPT (free tier)**]{.green} | Writing functions, explanations, brainstorming | ⚠️ Free tier available | Use caution with sensitive data |
+| [**Claude (free tier)**]{.green} | Long-form code review, detailed explanations | ⚠️ Free tier available | Use caution with sensitive data |
+| [**Stack Overflow / R docs**]{.blue} | Specific function help, error messages | ✅ Yes | Public data only |
+
+::: {.callout-warning}
+## Critical: Don't Upload Restricted Data
+
+If your community partner's data:
+- Contains names, IDs, locations, health info, or any PII
+- Is restricted or confidential
+
+**Do not upload it to any external AI system.** Instead:
+- Ask the AI to help you write a function that *processes* data
+- Show the AI a small, anonymized example of your data structure
+- Test the function on the real data locally
+:::
+
+---
+
+## Workflow: Using AI Responsibly {.smaller}
+
+**1. Start with a small example or dummy data**
+
+```{r}
+#| echo: true
+#| eval: false
+
+# Good: Show the AI your data STRUCTURE, not your actual data
+example_structure <- tribble(
+  ~site_id, ~year, ~temperature,
+  "SITE001", 2020, 25.3,
+  "SITE002", 2020, 24.8
+)
+
+# Ask: "I have oceanographic data with columns like this. How do I..."
+```
+
+**2. Ask specific questions**
+
+```{r}
+#| echo: true
+#| eval: false
+
+# ✅ Good prompt: Specific, with context
+"I have a dataframe with columns: site_id, year, temperature. 
+I want to rescale temperature to 0-1 for each site. 
+Show me an R function using tidyverse."
+
+# ❌ Vague prompt: The AI will guess
+"How do I rescale data?"
+```
+
+---
+
+## Workflow: Verify & Debug {.smaller}
+
+**3. Test the AI's code on your dummy data first**
+
+```{r}
+#| echo: true
+#| eval: false
+
+# Before using the function on real data, run it on your example
+rescaled <- ai_generated_function(example_structure)
+
+# Check the output makes sense
+head(rescaled)
+```
+
+**4. Evaluate critically**
+
+Ask yourself:
+- Does the function do what I asked?
+- Does the code follow R best practices?
+- Are there hallucinated functions or arguments?
+- Is it more efficient than what I would write?
+
+**5. Document your decisions**
+
+```{r}
+#| echo: true
+#| eval: false
+
+# I used Claude to generate this rescaling approach because
+# [reason]. I verified it works by testing on dummy data and
+# comparing the output to manually calculated values.
+rescale_temp <- function(df, column) {
+  # AI-generated code, verified and tested
+}
+```
+
+---
+
+## Red Flags: When to Reject AI Code {.smaller}
+
+::: {.callout-warning}
+## Stop and rewrite if:
+
+- ❌ The AI suggests packages that don't exist
+- ❌ The code references variables that don't exist in your data
+- ❌ The AI's explanation doesn't match what the code does
+- ❌ You can't explain why the approach is correct
+- ❌ The function uses loops when vectorization would be cleaner (in R)
+- ❌ The AI "hallucinated" a solution and is confident but wrong
+
+**When in doubt, write it yourself or ask a peer.**
+:::
+
+---
+
+## Documentation: Your Developer Log {.smaller}
+
+The AI-Assisted Community Data Sprint requires an **AI Developer Log** documenting:
+
+::: {.incremental}
+
+- **Initial prompts**: What did you ask and why?
+- **Code evaluation**: What worked? What failed? Hallucinations?
+- **Your decisions**: When did you reject the AI's suggestion?
+- **Ethics & transparency**: How did you handle sensitive data?
+- **Verification**: How did you test the final solution?
+- **Reflection**: What did you learn about your own judgment as a coder?
+
+:::
+
+This isn't about proving AI is good or bad — it's about showing **your responsibility** as the data scientist.
+
+---
+
+## Quick Reference: Before You Use AI {.smaller}
+
+- ✅ Have a clear question or specific problem
+- ✅ Prepare a data example (anonymized/dummy if sensitive)
+- ✅ Know what "correct" looks like
+- ✅ Plan to verify and test the output
+- ✅ Document what you used AI for
+- ✅ Be ready to rewrite if needed
+
+- ❌ Don't upload sensitive data to external systems
+- ❌ Don't copy-paste AI code without understanding it
+- ❌ Don't assume the AI's explanation is correct
+- ❌ Don't skip testing or verification
+- ❌ Don't hide which decisions came from AI vs. you
+
+---
+
+## {.center .middle}
+
+# Thanks!
+
+Slides created with [**Quarto**](https://quarto.org/)

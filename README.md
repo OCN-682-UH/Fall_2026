@@ -31,5 +31,8 @@ Note: Lectures posted here before the start of class are still a work in progres
 
 *Week 7*  
 - [Maps 1](https://01a0f0a4-051f-9904-7834-1cd910f3a856.share.connect.posit.cloud)  
-- [Maps 2](https://01a0f0a4-f709-8c5d-d52f-f86869e48bf5.share.connect.posit.cloud)
+- [Maps 2](https://01a0f0a4-f709-8c5d-d52f-f86869e48bf5.share.connect.posit.cloud)  
+
+*Week 8*
+- [Functional Programming](https://01a136b7-93e7-8bf8-06b9-7fced191edda.share.connect.posit.cloud)  
 

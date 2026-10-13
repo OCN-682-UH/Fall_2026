@@ -10,7 +10,7 @@
   <meta name="generator" content="quarto-1.10.18">
 
   <meta name="author" content="Dr.&nbsp;Nyssa Silbiger">
-  <meta name="dcterms.date" content="2026-10-11">
+  <meta name="dcterms.date" content="2026-10-13">
   <title>Computer Modeling (OCN 682)</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -214,7 +214,7 @@ Dr.&nbsp;Nyssa Silbiger
     </div>
 </div>
 
-  <p class="date">2026-10-11</p>
+  <p class="date">2026-10-13</p>
 </section>
 <section id="outline-of-class" class="slide level2">
 <h2>Outline of class</h2>
@@ -225,6 +225,7 @@ Dr.&nbsp;Nyssa Silbiger
 <li class="fragment">Making plotting functions</li>
 <li class="fragment">Control flow with <span class="fn">if-else</span></li>
 <li class="fragment">Adding flexibility with arguments</li>
+<li class="fragment">Intro to AI use [Will give this assignment next week]</li>
 </ol>
 <p><strong>Homework:</strong> Practice writing functions</p>
 </section>
@@ -269,14 +270,14 @@ Dr.&nbsp;Nyssa Silbiger
 <span id="cb1-8"><a href="" aria-label="8"></a><span class="fu">head</span>(df)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 4
-        a      b      c       d
-    &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;
-1  2.41   -0.147  0.527 -1.92  
-2 -0.887   0.247 -0.635 -0.452 
-3  0.868  -0.490  0.672  0.633 
-4 -0.497   0.387 -0.232  2.61  
-5 -0.228   0.994  0.480 -0.0708
-6  0.0249 -0.381 -0.849  0.644 </code></pre>
+        a        b      c       d
+    &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;
+1  1.06   -0.648   -0.463  0.800 
+2 -0.355   0.813    0.528  0.668 
+3  0.857   0.682    0.500 -0.988 
+4 -0.706  -0.00445 -1.89   1.05  
+5 -0.0677 -0.921   -1.65   1.08  
+6  0.233   0.407   -1.27  -0.0285</code></pre>
 </div>
 </div>
 </section>
@@ -289,14 +290,14 @@ Dr.&nbsp;Nyssa Silbiger
 <span id="cb3-4"><a href="" aria-label="4"></a><span class="fu">head</span>(df)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 4
-      a      b      c       d
-  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;
-1 1     -0.147  0.527 -1.92  
-2 0      0.247 -0.635 -0.452 
-3 0.532 -0.490  0.672  0.633 
-4 0.118  0.387 -0.232  2.61  
-5 0.200  0.994  0.480 -0.0708
-6 0.276 -0.381 -0.849  0.644 </code></pre>
+      a        b      c       d
+  &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;
+1 0.803 -0.648   -0.463  0.800 
+2 0.376  0.813    0.528  0.668 
+3 0.742  0.682    0.500 -0.988 
+4 0.271 -0.00445 -1.89   1.05  
+5 0.463 -0.921   -1.65   1.08  
+6 0.554  0.407   -1.27  -0.0285</code></pre>
 </div>
 </div>
 </section>
@@ -350,18 +351,18 @@ Dr.&nbsp;Nyssa Silbiger
 <span id="cb6-12"><a href="" aria-label="12"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 10 × 4
-        a      b     c      d
-    &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
- 1 1      0.436  0.905 0     
- 2 0      0.630  0.141 0.324 
- 3 0.532  0.266  1     0.563 
- 4 0.118  0.700  0.405 1     
- 5 0.200  1      0.873 0.408 
- 6 0.276  0.320  0     0.566 
- 7 0.405  0.0263 0.720 0.0847
- 8 0.546  0      0.930 0.436 
- 9 0.0516 0.919  0.701 0.355 
-10 0.271  0.242  0.974 0.228 </code></pre>
+       a     b     c     d
+   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+ 1 0.803 0.122 0.617 0.867
+ 2 0.376 0.777 0.894 0.803
+ 3 0.742 0.719 0.887 0    
+ 4 0.271 0.411 0.216 0.990
+ 5 0.463 0     0.283 1    
+ 6 0.554 0.596 0.391 0.465
+ 7 1     0.125 1     0.469
+ 8 0.289 0.818 0     0.117
+ 9 0.246 0.912 0.547 0.321
+10 0     1     0.886 0.402</code></pre>
 </div>
 </div>
 </section>
@@ -372,18 +373,18 @@ Dr.&nbsp;Nyssa Silbiger
 <span id="cb8-2"><a href="" aria-label="2"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">everything</span>(), rescale01))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 10 × 4
-        a      b     c      d
-    &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
- 1 1      0.436  0.905 0     
- 2 0      0.630  0.141 0.324 
- 3 0.532  0.266  1     0.563 
- 4 0.118  0.700  0.405 1     
- 5 0.200  1      0.873 0.408 
- 6 0.276  0.320  0     0.566 
- 7 0.405  0.0263 0.720 0.0847
- 8 0.546  0      0.930 0.436 
- 9 0.0516 0.919  0.701 0.355 
-10 0.271  0.242  0.974 0.228 </code></pre>
+       a     b     c     d
+   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+ 1 0.803 0.122 0.617 0.867
+ 2 0.376 0.777 0.894 0.803
+ 3 0.742 0.719 0.887 0    
+ 4 0.271 0.411 0.216 0.990
+ 5 0.463 0     0.283 1    
+ 6 0.554 0.596 0.391 0.465
+ 7 1     0.125 1     0.469
+ 8 0.289 0.818 0     0.117
+ 9 0.246 0.912 0.547 0.321
+10 0     1     0.886 0.402</code></pre>
 </div>
 </div>
 <p>Much cleaner! One line rescales all columns.</p>
@@ -603,7 +604,9 @@ Dr.&nbsp;Nyssa Silbiger
 <span id="cb27-8"><a href="" aria-label="8"></a>    <span class="fu">theme_bw</span>()</span>
 <span id="cb27-9"><a href="" aria-label="9"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>Now you can call it with just the column arguments:</p>
+</section>
+<section id="now-you-can-call-it-with-just-the-column-arguments" class="slide level2">
+<h2>Now you can call it with just the column arguments:</h2>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="" aria-label="1"></a><span class="fu">myplot</span>(<span class="at">x =</span> body_mass_g, <span class="at">y =</span> flipper_length_mm)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
@@ -684,7 +687,7 @@ Dr.&nbsp;Nyssa Silbiger
 <img data-src="15_FunctionalProgramming_files/figure-revealjs/unnamed-chunk-27-1.png" width="960" class="r-stretch"></section>
 <section id="todays-awesome-r-package-brrr" class="slide level2">
 <h2>Today’s awesome R package: <span class="fn">{BRRR}</span></h2>
-<p>Sounds with your <img data-src="https://github.com/brooke-watson/BRRR.png" alt="favorite rappers">!</p>
+<p>Sounds with your <a href="https://github.com/brooke-watson/BRRR">favorite rappers</a>!</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="" aria-label="1"></a>pak<span class="sc">::</span><span class="fu">pak</span>(<span class="st">"brooke-watson/BRRR"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -727,31 +730,39 @@ Dr.&nbsp;Nyssa Silbiger
 <section id="why-this-matters" class="slide level2">
 <h2>Why This Matters</h2>
 <p>The upcoming <strong>AI-Assisted Community Data Sprint</strong> is your real-world training ground.</p>
-<p>You’ll be working with: - Sensitive community partner data - Code that impacts real decisions - Responsibilities to both the partner AND the broader community</p>
-<p>Using AI ethically is not optional — it’s part of being a professional data scientist.</p>
+<p>You’ll be working with:<br>
+- Sensitive community partner data<br>
+- Code that impacts real decisions<br>
+- Responsibilities to both the partner AND the broader community</p>
+<p>We must use AI ethically</p>
 </section>
 <section id="key-principles" class="slide level2 smaller">
 <h2>Key Principles</h2>
 <ol type="1">
 <li class="fragment"><strong>Verify, don’t trust</strong>
 <ul>
-<li class="fragment">AI hallucinations are common (wrong function names, invented arguments, incorrect logic)</li>
+<li class="fragment">AI hallucinations are common (wrong function names, invented arguments, incorrect logic)<br>
+</li>
 <li class="fragment">You must understand and test every line of code</li>
 </ul></li>
 <li class="fragment"><strong>Know what gets sent to the AI</strong>
 <ul>
-<li class="fragment">Don’t upload sensitive, restricted, or private data to external AI systems</li>
+<li class="fragment">Don’t upload sensitive, restricted, or private data to external AI systems<br>
+</li>
 <li class="fragment">Scrub personally identifiable information (PII), locations, names, IDs</li>
 </ul></li>
 <li class="fragment"><strong>Maintain reproducibility</strong>
 <ul>
-<li class="fragment">Your final code should be understandable to someone who didn’t use AI</li>
+<li class="fragment">Your final code should be understandable to someone who didn’t use AI<br>
+</li>
 <li class="fragment">Document which decisions came from AI vs.&nbsp;your own reasoning</li>
 </ul></li>
 <li class="fragment"><strong>Be transparent with partners</strong>
 <ul>
-<li class="fragment">Tell your community partner if/how you used AI</li>
-<li class="fragment">Explain what AI did and what you validated/changed</li>
+<li class="fragment">Tell your community partner if/how you used AI<br>
+</li>
+<li class="fragment">Explain what AI did and what you validated/changed<br>
+</li>
 <li class="fragment">They have the right to know how their data was handled</li>
 </ul></li>
 </ol>
@@ -810,8 +821,13 @@ Dr.&nbsp;Nyssa Silbiger
 <p><strong>Critical: Don’t Upload Restricted Data</strong></p>
 </div>
 <div class="callout-content">
-<p>If your community partner’s data: - Contains names, IDs, locations, health info, or any PII - Is restricted or confidential</p>
-<p><strong>Do not upload it to any external AI system.</strong> Instead: - Ask the AI to help you write a function that <em>processes</em> data - Show the AI a small, anonymized example of your data structure - Test the function on the real data locally</p>
+<p>If your community partner’s data:<br>
+- Contains names, IDs, locations, health info, or any PII<br>
+- Is restricted or confidential</p>
+<p><strong>Do not upload it to any external AI system.</strong> Instead:<br>
+- Ask the AI to help you write a function that <em>processes</em> data<br>
+- Show the AI a small, anonymized example of your data structure<br>
+- Test the function on the real data locally</p>
 </div>
 </div>
 </div>
@@ -851,14 +867,18 @@ Dr.&nbsp;Nyssa Silbiger
 <span id="cb40-5"><a href="" aria-label="5"></a><span class="fu">head</span>(rescaled)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><strong>4. Evaluate critically</strong></p>
-<p>Ask yourself: - Does the function do what I asked? - Does the code follow R best practices? - Are there hallucinated functions or arguments? - Is it more efficient than what I would write?</p>
+<p>Ask yourself:<br>
+- Does the function do what I asked?<br>
+- Does the code follow R best practices?<br>
+- Are there hallucinated functions or arguments?<br>
+- Is it more efficient than what I would write?</p>
 <p><strong>5. Document your decisions</strong></p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="" aria-label="1"></a><span class="co"># I used Claude to generate this rescaling approach because</span></span>
 <span id="cb41-2"><a href="" aria-label="2"></a><span class="co"># [reason]. I verified it works by testing on dummy data and</span></span>
 <span id="cb41-3"><a href="" aria-label="3"></a><span class="co"># comparing the output to manually calculated values.</span></span>
 <span id="cb41-4"><a href="" aria-label="4"></a>rescale_temp <span class="ot">&lt;-</span> <span class="cf">function</span>(df, column) {</span>
-<span id="cb41-5"><a href="" aria-label="5"></a>  <span class="co"># AI-generated code, verified and tested</span></span>
+<span id="cb41-5"><a href="" aria-label="5"></a>  <span class="co"># AI-generated code, that has been verified and tested</span></span>
 <span id="cb41-6"><a href="" aria-label="6"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
@@ -874,11 +894,14 @@ Dr.&nbsp;Nyssa Silbiger
 </div>
 <div class="callout-content">
 <ul>
-<li>❌ The AI suggests packages that don’t exist</li>
-<li>❌ The code references variables that don’t exist in your data</li>
-<li>❌ The AI’s explanation doesn’t match what the code does</li>
-<li>❌ You can’t explain why the approach is correct</li>
-<li>❌ The function uses loops when vectorization would be cleaner (in R)</li>
+<li>❌ The AI suggests packages that don’t exist<br>
+</li>
+<li>❌ The code references variables that don’t exist in your data<br>
+</li>
+<li>❌ The AI’s explanation doesn’t match what the code does<br>
+</li>
+<li>❌ You can’t explain why the approach is correct<br>
+</li>
 <li>❌ The AI “hallucinated” a solution and is confident but wrong</li>
 </ul>
 <p><strong>When in doubt, write it yourself or ask a peer.</strong></p>
@@ -890,14 +913,18 @@ Dr.&nbsp;Nyssa Silbiger
 <h2>Documentation: Your Developer Log</h2>
 <p>The AI-Assisted Community Data Sprint requires an <strong>AI Developer Log</strong> documenting:</p>
 <ul>
-<li class="fragment"><strong>Initial prompts</strong>: What did you ask and why?</li>
-<li class="fragment"><strong>Code evaluation</strong>: What worked? What failed? Hallucinations?</li>
-<li class="fragment"><strong>Your decisions</strong>: When did you reject the AI’s suggestion?</li>
-<li class="fragment"><strong>Ethics &amp; transparency</strong>: How did you handle sensitive data?</li>
-<li class="fragment"><strong>Verification</strong>: How did you test the final solution?</li>
+<li class="fragment"><strong>Initial prompts</strong>: What did you ask and why?<br>
+</li>
+<li class="fragment"><strong>Code evaluation</strong>: What worked? What failed? Hallucinations?<br>
+</li>
+<li class="fragment"><strong>Your decisions</strong>: When did you reject the AI’s suggestion?<br>
+</li>
+<li class="fragment"><strong>Ethics &amp; transparency</strong>: How did you handle sensitive data?<br>
+</li>
+<li class="fragment"><strong>Verification</strong>: How did you test the final solution?<br>
+</li>
 <li class="fragment"><strong>Reflection</strong>: What did you learn about your own judgment as a coder?</li>
 </ul>
-<p>This isn’t about proving AI is good or bad — it’s about showing <strong>your responsibility</strong> as the data scientist.</p>
 </section>
 <section id="quick-reference-before-you-use-ai" class="slide level2 smaller">
 <h2>Quick Reference: Before You Use AI</h2>

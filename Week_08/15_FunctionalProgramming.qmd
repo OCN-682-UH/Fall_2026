@@ -37,6 +37,7 @@ Functional programming — writing reusable code
 3. Making plotting functions
 4. Control flow with [if-else]{.fn}
 5. Adding flexibility with arguments
+6. Intro to AI use [Will give this assignment next week]  
 
 
 **Homework:** Practice writing functions
@@ -419,7 +420,9 @@ myplot <- function(data = penguins, x, y) {
 }
 ```
 
-Now you can call it with just the column arguments:
+---
+
+## Now you can call it with just the column arguments:
 
 ```{r}
 #| echo: true
@@ -512,7 +515,7 @@ myplot(x = body_mass_g, y = flipper_length_mm, lines = FALSE)
 
 ## Today's awesome R package: [{BRRR}]{.fn}
 
-Sounds with your ![favorite rappers](https://github.com/brooke-watson/BRRR)!
+Sounds with your [favorite rappers](https://github.com/brooke-watson/BRRR)!
 
 ```{r}
 #| echo: true
@@ -564,12 +567,12 @@ skrrrahh("biggie")
 
 The upcoming **AI-Assisted Community Data Sprint** is your real-world training ground.
 
-You'll be working with:
-- Sensitive community partner data
-- Code that impacts real decisions
-- Responsibilities to both the partner AND the broader community
+You'll be working with:  
+- Sensitive community partner data  
+- Code that impacts real decisions  
+- Responsibilities to both the partner AND the broader community  
 
-Using AI ethically is not optional — it's part of being a professional data scientist.
+We must use AI ethically  
 
 ---
 
@@ -578,21 +581,21 @@ Using AI ethically is not optional — it's part of being a professional data sc
 ::: {.incremental}
 
 1. **Verify, don't trust**
-   - AI hallucinations are common (wrong function names, invented arguments, incorrect logic)
-   - You must understand and test every line of code
+   - AI hallucinations are common (wrong function names, invented arguments, incorrect logic)  
+   - You must understand and test every line of code  
 
 2. **Know what gets sent to the AI**
-   - Don't upload sensitive, restricted, or private data to external AI systems
-   - Scrub personally identifiable information (PII), locations, names, IDs
+   - Don't upload sensitive, restricted, or private data to external AI systems  
+   - Scrub personally identifiable information (PII), locations, names, IDs  
 
-3. **Maintain reproducibility**
-   - Your final code should be understandable to someone who didn't use AI
-   - Document which decisions came from AI vs. your own reasoning
+3. **Maintain reproducibility**  
+   - Your final code should be understandable to someone who didn't use AI  
+   - Document which decisions came from AI vs. your own reasoning  
 
-4. **Be transparent with partners**
-   - Tell your community partner if/how you used AI
-   - Explain what AI did and what you validated/changed
-   - They have the right to know how their data was handled
+4. **Be transparent with partners**  
+   - Tell your community partner if/how you used AI  
+   - Explain what AI did and what you validated/changed  
+   - They have the right to know how their data was handled  
 
 :::
 
@@ -600,7 +603,7 @@ Using AI ethically is not optional — it's part of being a professional data sc
 
 ## Available Tools {.smaller}
 
-You have **free access** through the University of Hawaiʻi:
+You have **free access** through the University of Hawaiʻi:  
 
 | Tool | Best for | No API needed? | Data privacy |
 |------|----------|---|---|
@@ -612,14 +615,14 @@ You have **free access** through the University of Hawaiʻi:
 ::: {.callout-warning}
 ## Critical: Don't Upload Restricted Data
 
-If your community partner's data:
-- Contains names, IDs, locations, health info, or any PII
-- Is restricted or confidential
+If your community partner's data:  
+- Contains names, IDs, locations, health info, or any PII  
+- Is restricted or confidential  
 
-**Do not upload it to any external AI system.** Instead:
-- Ask the AI to help you write a function that *processes* data
-- Show the AI a small, anonymized example of your data structure
-- Test the function on the real data locally
+**Do not upload it to any external AI system.** Instead:  
+- Ask the AI to help you write a function that *processes* data  
+- Show the AI a small, anonymized example of your data structure  
+- Test the function on the real data locally  
 :::
 
 ---
@@ -661,7 +664,7 @@ Show me an R function using tidyverse."
 
 ## Workflow: Verify & Debug {.smaller}
 
-**3. Test the AI's code on your dummy data first**
+**3. Test the AI's code on your dummy data first**  
 
 ```{r}
 #| echo: true
@@ -676,11 +679,11 @@ head(rescaled)
 
 **4. Evaluate critically**
 
-Ask yourself:
-- Does the function do what I asked?
-- Does the code follow R best practices?
-- Are there hallucinated functions or arguments?
-- Is it more efficient than what I would write?
+Ask yourself:  
+- Does the function do what I asked?  
+- Does the code follow R best practices?  
+- Are there hallucinated functions or arguments?  
+- Is it more efficient than what I would write?  
 
 **5. Document your decisions**
 
@@ -692,7 +695,7 @@ Ask yourself:
 # [reason]. I verified it works by testing on dummy data and
 # comparing the output to manually calculated values.
 rescale_temp <- function(df, column) {
-  # AI-generated code, verified and tested
+  # AI-generated code, that has been verified and tested
 }
 ```
 
@@ -703,12 +706,11 @@ rescale_temp <- function(df, column) {
 ::: {.callout-warning}
 ## Stop and rewrite if:
 
-- ❌ The AI suggests packages that don't exist
-- ❌ The code references variables that don't exist in your data
-- ❌ The AI's explanation doesn't match what the code does
-- ❌ You can't explain why the approach is correct
-- ❌ The function uses loops when vectorization would be cleaner (in R)
-- ❌ The AI "hallucinated" a solution and is confident but wrong
+- ❌ The AI suggests packages that don't exist  
+- ❌ The code references variables that don't exist in your data  
+- ❌ The AI's explanation doesn't match what the code does  
+- ❌ You can't explain why the approach is correct  
+- ❌ The AI "hallucinated" a solution and is confident but wrong  
 
 **When in doubt, write it yourself or ask a peer.**
 :::
@@ -721,16 +723,15 @@ The AI-Assisted Community Data Sprint requires an **AI Developer Log** documenti
 
 ::: {.incremental}
 
-- **Initial prompts**: What did you ask and why?
-- **Code evaluation**: What worked? What failed? Hallucinations?
-- **Your decisions**: When did you reject the AI's suggestion?
-- **Ethics & transparency**: How did you handle sensitive data?
-- **Verification**: How did you test the final solution?
-- **Reflection**: What did you learn about your own judgment as a coder?
+- **Initial prompts**: What did you ask and why?  
+- **Code evaluation**: What worked? What failed? Hallucinations?  
+- **Your decisions**: When did you reject the AI's suggestion?  
+- **Ethics & transparency**: How did you handle sensitive data?  
+- **Verification**: How did you test the final solution?  
+- **Reflection**: What did you learn about your own judgment as a coder?  
 
 :::
 
-This isn't about proving AI is good or bad — it's about showing **your responsibility** as the data scientist.
 
 ---
 

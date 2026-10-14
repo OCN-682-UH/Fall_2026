@@ -36,3 +36,6 @@ Note: Lectures posted here before the start of class are still a work in progres
 *Week 8*
 - [Functional Programming](https://01a136b7-93e7-8bf8-06b9-7fced191edda.share.connect.posit.cloud)  
 
+*Week 9*
+- [Factors](https://01a1382f-d6f4-0ed9-eebe-2d9a4a926d01.share.connect.posit.cloud)  
+

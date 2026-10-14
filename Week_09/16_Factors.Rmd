@@ -1,0 +1,391 @@
+---
+title: "Week 11b"
+subtitle: "Working with factors"
+author: "Dr. Nyssa Silbiger"
+institute: "UH Data Science Fundamentals Fall 2025"
+date: "(updated: `r Sys.Date()`)"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      highlightSpans: true
+      countIncrementalSlides: false
+      beforeInit: "macros.js"
+      ratio: '15:10'
+---
+
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE, htmltools.preserve.raw = FALSE)
+library(anicon)
+```
+<div style = "position:fixed; visibility: hidden">
+$$\require{color}\definecolor{yellow}{rgb}{1, 0.8, 0.16078431372549}$$
+$$\require{color}\definecolor{orange}{rgb}{0.96078431372549, 0.525490196078431, 0.203921568627451}$$
+$$\require{color}\definecolor{green}{rgb}{0, 0.474509803921569, 0.396078431372549}$$
+</div>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: {
+    Macros: {
+      yellow: ["{\\color{yellow}{#1}}", 1],
+      orange: ["{\\color{orange}{#1}}", 1],
+      green: ["{\\color{green}{#1}}", 1]
+    },
+    loader: {load: ['[tex]/color']},
+    tex: {packages: {'[+]': ['color']}}
+  }
+});
+</script>
+
+<style>
+.yellow {color: #FFCC29;}
+.orange {color: #F58634;}
+.green {color: #007965;}
+</style>
+
+
+```{r flair_color, echo=FALSE}
+library(flair)
+yellow <- "#FFCC29"
+orange <- "#F58634"
+green <- "#007965"
+```
+
+---
+# Outline of class
+
+Working with factors
+
+1. What is a factor
+2. Using {forcats} a part of the tidyverse (for CATegorical data... also an anagram for factor)
+3. Homework using factors  
+
+[Cheat Sheet](https://raw.githubusercontent.com/rstudio/cheatsheets/master/factors.pdf)
+
+<img src ="https://forcats.tidyverse.org/logo.png"/>
+
+
+---
+# Set-up your script
+
+```{r, warning=FALSE, message=FALSE}
+library(tidyverse)
+library(here)
+```
+
+### load data
+We will use two datasets today. One from an old TidyTuesday and one using starwars data (part of the forcats package).
+
+```{r, warning=FALSE, message=FALSE, eval=FALSE}
+#tuesdata <- tidytuesdayR::tt_load(2021, week = 7)
+#income_mean<-tuesdata$income_mean
+
+income_mean <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-02-09/income_mean.csv')
+
+```
+
+```{r, warning=FALSE, message=FALSE, echo=FALSE}
+
+income_mean <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-02-09/income_mean.csv')
+
+
+```
+
+
+
+---
+# What is a factor
+
+A factor is a specialized version of a character. It is how we truly store *cat*egorical data. The values that a factor takes are called **levels**. These levels allow you to order your data in specific ways. **The default levels are always alphabetical.** So, we need to learn how to use factors appropriately and reorder them to be specific to our analyses.  
+
+Importantly, once you convert a character into a factor, R is actually storing them as integers (i.e., 1,2,3,4...). If you are not careful this can lead to a lot of headache... but, this is how you can put your characters in a specific order.
+
+To make something a factor you put the vector in the function factor() 
+
+```{r}
+fruits<-factor(c("Apple", "Grape", "Banana"))
+fruits
+```
+
+
+---
+# factor booby-traps!
+When can this be scary...
+
+Let's say you had a typo in a column of what was suppose to be numbers.  R will read everything in as characters. If they are characters and you try to covert it to a number, the rows with real characters will covert to NAs 
+```{r}
+test<-c("A", "1", "2")
+as.numeric(test)
+```
+
+--
+
+Let's test was a factor
+```{r}
+test<-factor(test) # covert to factor
+as.numeric(test)
+```
+
+Yikes!
+
+---
+# Reading in data safely
+
+These types of factor booby-traps are why there was a big push to remove the automatic import of strings as factors.  If you read in your data as **read.csv()** then all your strings will be automatically read in as factors, if you use **read_csv()** strings will be read as characters. 
+
+
+
+---
+# {forcats}
+
+The forcats package is a family of functions for categorical data. All the main fuctions start with **fct_**
+
+Let's start with the starwars dataset to learn about how to use factors
+
+```{r}
+glimpse(starwars)
+```
+
+---
+# starwars
+
+Let's look at some information by different species in the starwars films. How many individuals of each species are present across all starwars films?
+
+```{r}
+starwars %>% 
+  filter(!is.na(species)) %>% # remove the NAs
+  count(species, sort = TRUE)
+```
+
+---
+# starwars
+
+There are 38 unique species, but most are really rare.  Let's say we wanted to lump all the species together that had **less than 3 individuals**. We could use **fct_lump()** which converts the data into a factor and lumps it together
+
+```{r}
+star_counts<-starwars %>% #<<
+  filter(!is.na(species)) %>%
+  mutate(species = fct_lump(species, n = 3)) %>% #<<
+  count(species)
+
+star_counts
+```
+
+
+Notice the order is not in alphabetical order because it is now a factor
+---
+# reordering factors
+
+A basic ggplot
+
+```{r, fig.height=4}
+star_counts %>%
+  ggplot(aes(x = species, y = n))+
+  geom_col()
+```
+
+Would be more helpful to view in order of lowest to highest...
+---
+# reordering factors
+
+A basic ggplot, in order
+
+```{r, fig.height=4, warning=FALSE}
+star_counts %>%
+  ggplot(aes(x = fct_reorder(species, n), y = n))+ # reorder the factor of species by n #<<
+  geom_col()
+```
+---
+# reordering factors
+
+A basic ggplot, in order (make it descending)
+
+```{r, fig.height=4, warning=FALSE}
+star_counts %>%
+  ggplot(aes(x = fct_reorder(species, n, .desc = TRUE), y = n))+ # reorder the factor of species by n #<<
+  geom_col() +
+  labs(x = "Species") #<<
+```
+
+---
+# reordering line plots
+
+Let's say you wanted to make a line plot and reorder the legend to match the order of the lines.  We will use the **income_mean** dataset to illustrate this.
+
+```{r}
+glimpse(income_mean)
+```
+
+--
+
+We will make a plot of the total income by year and quantile across all dollar types.
+
+```{r, message = FALSE, warning =FALSE}
+
+total_income<-income_mean %>%
+  group_by(year, income_quintile)%>%
+  summarise(income_dollars_sum = sum(income_dollars))%>%
+  mutate(income_quintile = factor(income_quintile)) # make it a factor
+```
+---
+# reordering line plots
+Basic line plot
+
+```{r, fig.height=4}
+total_income%>%
+ggplot(aes(x = year, y = income_dollars_sum, color = income_quintile))+
+  geom_line()
+```
+
+Notice the legend order.... Would be more helpful if it is sorted
+
+---
+# reordering line plots
+
+We can reorder line plots by using fct_reorder2, which reorders the data by two variables
+
+```{r, fig.height=4}
+total_income%>%
+  ggplot(aes(x = year, y = income_dollars_sum, 
+             color = fct_reorder2(income_quintile,year,income_dollars_sum)))+ #<<
+  geom_line()+
+  labs(color = "income quantile") #<<
+```
+---
+# reorder levels directly in a vector because I said so
+
+Let's say we have a vector and we want to put it in a specific order that **we say**. Not necessarily because its the largest or smallest value
+
+
+```{r}
+x1 <- factor(c("Jan", "Mar", "Apr", "Dec"))
+x1
+```
+This order is probably not what we want... 
+
+--
+You can set the specific order of the levels
+```{r}
+x1 <- factor(c("Jan", "Mar", "Apr", "Dec"), levels = c("Jan", "Mar", "Apr", "Dec"))
+x1
+```
+
+
+
+---
+# subest data with factors
+
+Back to starwars. Let's say we instead of grouping our species that have < 3 counts into "Other" we just filter them out.
+
+```{r}
+starwars_clean<-starwars %>% 
+  filter(!is.na(species)) %>% # remove the NAs
+  count(species, sort = TRUE) %>%
+  mutate(species = factor(species)) %>% # make species a factor #<< 
+  filter(n>3) # only keep species that have more than 3 #<<
+
+starwars_clean
+```
+
+--
+
+Check the **levels** of the factor
+
+```{r}
+levels(starwars_clean$species)
+```
+---
+# subest data with factors
+
+Only the data that we subsetted are in the dataframe, but all the levels from all possible factors are still there... this causes all sorts of problems when you go to plot.  Using either **fct_drop()** within mutate() or **droplevels()** (the latter is in base R), we can remove any extra levels not included in the dataframe
+
+```{r}
+starwars_clean<-starwars %>% 
+  filter(!is.na(species)) %>% # remove the NAs
+  count(species, sort = TRUE) %>%
+  mutate(species = factor(species)) %>% # make species a factor 
+  filter(n>3)  %>% # only keep species that have more than 3 
+  droplevels() # drop extra levels #<<
+```
+
+
+```{r}
+levels(starwars_clean$species)
+```
+
+---
+# recode levels
+
+If you want to rename (or recode) a level. For example, lets recode Human to Humanoid.
+
+```{r}
+starwars_clean<-starwars %>% 
+  filter(!is.na(species)) %>% # remove the NAs
+  count(species, sort = TRUE) %>%
+  mutate(species = factor(species)) %>% # make species a factor 
+  filter(n>3)  %>% # only keep species that have more than 3 
+  droplevels() %>% # drop extra levels 
+  mutate(species = fct_recode(species, "Humanoid" = "Human")) #<<
+
+starwars_clean
+```
+
+---
+# Other helpful factor resources
+
+[From Assigned reading](https://r4ds.had.co.nz/factors.html)  
+[Jenny Bryan Stat 545](https://stat545.com/factors-boss.html)
+---
+# Today's totally awesome R package
+
+### {gm} (generate music)
+
+```{r, eval = FALSE}
+install.packages('gm')
+```
+Then follow directions from [here](https://flujoo.github.io/gm/) to download the MuseScore program and tell R where the path to that program is.
+
+```{r, message=FALSE, warning=FALSE}
+library(gm)
+m <- 
+  Music() +  # initialize a Music object
+  Meter(4, 4) + # add a 4/4 time signature
+  Line(c("C5", "D5", "E5", "F5")) # add a musical line of four quarter notes
+  
+gm::show(m, to = c("score", "audio"))
+```
+
+
+
+[Find out more here](https://flujoo.github.io/gm/)
+
+---
+# Homework
+
+Working with intertidal data. Today you will need to use skills that you have learned in working with words to clean up some issues with the character data and use what you learned today to reorder your factors into orders that make sense.  (Also the column headers could be better...). HINT: New package idea to fix this is using the [janitor package](https://cran.r-project.org/web/packages/janitor/vignettes/janitor.html).
+
+Your goal, as per usual, is to make a plot, any plot where one of the axes is **a factor**.  Save everything in the appropriate folders.
+
+You have two possible files to play with in the data folder (you don't HAVE to use both): intertidal.csv and intertidal_latitude.csv (as well as a data dictionary)
+
+Importantly, if you decide to visualize anything by tide height it should go from low to mid to high tide on the plot and if you decide to visualize by site it should go in order of latitude (e.g. south to north or north to south).   
+
+Homework due date **due on Tuesday [not Friday]**.
+
+
+---
+class: center, middle
+
+# Thanks!
+
+Slides created via the R package [**xaringan**](https://github.com/yihui/xaringan).  
+Many slides modified from the following resources:   
+
+[forcats](https://forcats.tidyverse.org/)  
+[R4DS](https://r4ds.had.co.nz/factors.html)  
+[Jenny Bryan Stat 545](https://stat545.com/factors-boss.html)  
+

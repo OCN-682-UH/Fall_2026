@@ -1,0 +1,14 @@
+﻿Variable,Description
+Site,Location
+Transect,Trasect number
+Quadrat,"Location of quadrat in low, mid, or high tide"
+Bare Rock,% cover within the quadrat
+Algae,% cover within the quadrat
+Mussels ,% cover within the quadrat
+Small Barnacles,% cover within the quadrat
+Large Barnacles,% cover within the quadrat
+Gooseneck Barnacles,% cover within the quadrat
+Anemone,% cover within the quadrat
+Whelks (Counts),count within the quadrat
+Crabs (Counts),count within the quadrat
+Stars (Counts),count within the quadrat

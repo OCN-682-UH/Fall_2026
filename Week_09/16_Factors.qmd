@@ -1,0 +1,535 @@
+---
+title: "Computer Modeling (OCN 682)"
+subtitle: "Working with Factors"
+author: "Dr. Nyssa Silbiger"
+institute: "UH Fall 2026"
+date: today
+resources:
+  - custom-theme.scss
+format:
+  revealjs:
+    theme: [default, custom-theme.scss]
+    highlight-style: github
+    code-line-numbers: true
+    width: 1500
+    height: 1000
+    preview-links: auto
+    self-contained-math: true
+    embed-resources: false
+    slide-number: c/t
+    footer: "OCN 682 | Week 9 | Working with Factors"
+---
+
+```{r}
+#| label: setup
+#| include: false
+
+library(tidyverse)
+library(here)
+```
+
+## Outline {.inverse}
+
+Working with Factors
+
+::: {.incremental}
+1. What is a factor?
+1. Factor booby-traps
+1. Using [{forcats}]{.fn} — the tidyverse package for **cat**egorical data
+1. Homework using factors
+:::
+
+[Forcats cheat sheet](https://raw.githubusercontent.com/rstudio/cheatsheets/master/factors.pdf)
+
+![](https://forcats.tidyverse.org/logo.png){width="15%" fig-align="center"}
+
+---
+
+## Set Up Your Script
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+
+library(tidyverse)
+library(here)
+```
+
+---
+
+## Load Data
+
+We will use two datasets today:
+
+
+- **income_mean** — from a past TidyTuesday (income distribution in the US)
+- **starwars** — built into [{dplyr}]{.fn}, loaded automatically with the tidyverse
+
+
+```{r}
+#| echo: true
+#| eval: false
+
+# Option 1: via tidytuesdayR
+income_mean <- tidytuesdayR::tt_load(2021, week = 7)$income_mean
+```
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+
+# Option 2: read directly from GitHub
+income_mean <- read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-02-09/income_mean.csv")
+```
+
+---
+
+## What Is a Factor? {.inverse}
+
+---
+
+## What Is a Factor?
+
+A factor is a **specialized version of a character** — it is how R truly stores categorical data.
+
+
+- The values a factor can take are called **levels**
+- Levels let you control the **order** of categories in plots and summaries
+- The default order of levels is always **alphabetical**
+- Under the hood, R stores factors as **integers** (1, 2, 3...) mapped to level labels
+
+
+```{r}
+#| echo: true
+
+fruits <- factor(c("Apple", "Grape", "Banana"))
+fruits
+```
+
+::: {.callout-note}
+Notice the levels are printed in alphabetical order (Apple, Banana, Grape) — not the order you entered them. This matters a lot when plotting.
+:::
+
+---
+
+## Factor Booby-Traps!
+
+Imagine a column of numbers that has a single typo — R reads the whole thing as characters. If you then convert to numeric, real text becomes [NA]{.err}:
+
+```{r}
+#| echo: true
+
+test <- c("A", "1", "2")
+as.numeric(test)
+```
+
+. . .
+
+Now try converting *after* converting to a factor first — this is even worse:
+
+```{r}
+#| echo: true
+
+test <- factor(test)
+as.numeric(test)    # returns the underlying integer codes, not the original values!
+```
+
+::: {.callout-warning}
+**Yikes!** When you call [as.numeric()]{.fn} on a factor, R returns the **level index** (1, 2, 3...), not the original character values. This is a very common silent error.
+:::
+
+---
+
+## Reading In Data Safely
+
+Factor booby-traps are why there was a push to stop importing strings as factors automatically.
+
+| Function | How strings are read |
+|---|---|
+| [read.csv()]{.fn} — base R | Strings **become factors** automatically |
+| [read_csv()]{.fn} — tidyverse | Strings stay as **characters** |
+
+::: {.callout-tip}
+Always use [read_csv()]{.fn} from [{readr}]{.fn}. You then convert to factors **intentionally and explicitly**, only when you need a specific ordering — not by accident on import.
+:::
+
+---
+
+## The {forcats} Package {.inverse}
+
+**For** **cat**egorical data — also an anagram of "factors"
+
+All main functions start with [fct_]{.fn}
+
+---
+
+## Meet the starwars Data
+
+```{r}
+#| echo: true
+
+glimpse(starwars)
+```
+
+---
+
+## How Many of Each Species?
+
+```{r}
+#| echo: true
+
+starwars |>
+  filter(!is.na(species)) |>   # remove NAs
+  count(species, sort = TRUE)
+```
+
+There are 38 unique species, but most appear only once. Let's lump the rare ones together.
+
+---
+
+## fct_lump() — Lump Rare Levels Together
+
+[fct_lump(x, n)]{.fn} keeps the [n]{.param} most common levels and collapses everything else into `"Other"`:
+
+```{r}
+#| echo: true
+#| code-line-numbers: "1,3"
+
+star_counts <- starwars |>
+  filter(!is.na(species)) |>
+  mutate(species = fct_lump(species, n = 3)) |>
+  count(species)
+
+star_counts
+```
+
+::: {.callout-note}
+The result is now a **factor** — notice the output is no longer alphabetical. The order is determined by the factor levels, not the label names.
+:::
+
+---
+
+## Reordering Factors {.inverse}
+
+The default alphabetical order is almost never what you want in a plot.
+
+---
+
+## A Basic Bar Plot
+
+```{r}
+#| echo: true
+#| output-location: column
+#| fig-width: 6
+#| fig-height: 5
+
+star_counts |>
+  ggplot(aes(x = species, y = n)) +
+  geom_col()
+```
+
+This is hard to read. It would be more useful sorted by count.
+
+---
+
+## fct_reorder() — Sort by Another Variable
+
+[fct_reorder(f, x)]{.fn} reorders the levels of factor [f]{.param} by the values of [x]{.param}:
+
+```{r}
+#| echo: true
+#| output-location: column
+#| code-line-numbers: "2"
+#| fig-width: 6
+#| fig-height: 5
+
+star_counts |>
+  ggplot(aes(x = fct_reorder(species, n), y = n)) +
+  geom_col()
+```
+
+---
+
+## fct_reorder() — Descending Order
+
+Add [.desc = TRUE]{.param} to flip the order:
+
+```{r}
+#| echo: true
+#| output-location: column
+#| code-line-numbers: "2,4"
+#| fig-width: 6
+#| fig-height: 5
+
+star_counts |>
+  ggplot(aes(x = fct_reorder(species, n, .desc = TRUE), y = n)) +
+  geom_col() +
+  labs(x = "Species")
+```
+
+---
+
+## Reordering Line Plot Legends {.inverse}
+
+---
+
+## The income_mean Data
+
+```{r}
+#| echo: true
+
+glimpse(income_mean)
+```
+
+---
+
+## Summarize by Year and Quintile
+
+```{r}
+#| echo: true
+
+
+total_income <- income_mean |>
+  group_by(year, income_quintile) |>
+  summarise(income_dollars_sum = sum(income_dollars), .groups = "drop") |>
+  mutate(income_quintile = factor(income_quintile))
+```
+
+::: {.callout-tip}
+[mutate(income_quintile = factor(income_quintile))]{.fn} converts the character column to a factor so we can reorder it. If you skip this step, [{forcats}]{.fn} reordering functions won't work.
+:::
+
+---
+
+## Basic Line Plot — Legend in Wrong Order
+
+```{r}
+#| echo: true
+#| output-location: column
+#| fig-width: 6
+#| fig-height: 5
+
+total_income |>
+  ggplot(aes(x = year, y = income_dollars_sum,
+             color = income_quintile)) +
+  geom_line()
+```
+
+The legend order doesn't match the line order — the highest income group is at the bottom of the legend.
+
+---
+
+## fct_reorder2() — Reorder by Two Variables
+
+[fct_reorder2(f, x, y)]{.fn} reorders [f]{.param} by the values of [y]{.param} at the largest values of [x]{.param}. This aligns the legend with the right end of the lines:
+
+```{r}
+#| echo: true
+#| output-location: column
+#| code-line-numbers: "3,5"
+#| fig-width: 6
+#| fig-height: 5
+
+total_income |>
+  ggplot(aes(x = year, y = income_dollars_sum,
+             color = fct_reorder2(income_quintile, year, income_dollars_sum))) +
+  geom_line() +
+  labs(color = "income quintile")
+```
+
+---
+
+## Setting Levels Manually {.inverse}
+
+Sometimes you need a specific order that isn't determined by the data.
+
+---
+
+## factor() with levels = ...
+
+Use the [levels]{.param} argument inside [factor()]{.fn} to set the exact order you want:
+
+```{r}
+#| echo: true
+
+# Without levels — alphabetical by default
+x1 <- factor(c("Jan", "Mar", "Apr", "Dec"))
+x1
+```
+
+. . .
+
+```{r}
+#| echo: true
+
+# With levels — your specified order
+x1 <- factor(c("Jan", "Mar", "Apr", "Dec"),
+             levels = c("Jan", "Mar", "Apr", "Dec"))
+x1
+```
+
+::: {.callout-tip}
+This is especially useful for months, tide heights, treatment levels — any categorical variable with a meaningful inherent order that isn't alphabetical.
+:::
+
+---
+
+## Subsetting Factors {.inverse}
+
+What happens to factor levels when you filter your data?
+
+---
+
+## Filter to Common Species
+
+Let's filter the starwars data to only species with more than 3 individuals:
+
+```{r}
+#| echo: true
+#| code-line-numbers: "4,5"
+
+starwars_clean <- starwars |>
+  filter(!is.na(species)) |>
+  count(species, sort = TRUE) |>
+  mutate(species = factor(species)) |>   # convert to factor
+  filter(n > 3)                          # keep only common species
+
+starwars_clean
+```
+
+. . .
+
+```{r}
+#| echo: true
+
+levels(starwars_clean$species)   # check the factor levels
+```
+
+::: {.callout-warning}
+The filtered data frame only has 3 species, but the factor still has **all 38 levels**. This causes extra blank bars, axis labels, and legend entries in plots.
+:::
+
+---
+
+## droplevels() — Remove Unused Levels
+
+[droplevels()]{.fn} (base R) or [fct_drop()]{.fn} (forcats) removes any levels that no longer appear in the data:
+
+```{r}
+#| echo: true
+#| code-line-numbers: "6"
+
+starwars_clean <- starwars |>
+  filter(!is.na(species)) |>
+  count(species, sort = TRUE) |>
+  mutate(species = factor(species)) |>
+  filter(n > 3) |>
+  droplevels()                           # remove unused levels
+```
+
+```{r}
+#| echo: true
+
+levels(starwars_clean$species)
+```
+
+Now the factor only has 2 levels
+
+---
+
+## fct_recode() — Rename Levels
+
+[fct_recode(f, "new name" = "old name")]{.fn} renames one or more levels:
+
+```{r}
+#| echo: true
+#| code-line-numbers: "7"
+
+starwars_clean <- starwars |>
+  filter(!is.na(species)) |>
+  count(species, sort = TRUE) |>
+  mutate(species = factor(species)) |>
+  filter(n > 3) |>
+  droplevels() |>
+  mutate(species = fct_recode(species, "Humanoid" = "Human"))
+
+starwars_clean
+```
+
+---
+
+## Other Helpful {forcats} Functions
+
+| Function | What it does |
+|---|---|
+| [fct_relevel()]{.fn} | Move specific levels to the front |
+| [fct_rev()]{.fn} | Reverse the order of levels |
+| [fct_collapse()]{.fn} | Collapse multiple levels into one |
+| [fct_na_value_to_level()]{.fn} | Convert NA into an explicit level |
+| [fct_infreq()]{.fn} | Order levels by frequency |
+
+**Further reading:**
+- [R for Data Science — Factors](https://r4ds.had.co.nz/factors.html)
+- [Jenny Bryan — Stat 545 Factors](https://stat545.com/factors-boss.html)
+
+---
+
+## Today's Totally Awesome R Package — {gm}
+
+[{gm}]{.fn} generates music notation and audio directly from R!
+
+```{r}
+#| echo: true
+#| eval: false
+
+install.packages("gm")
+# Also requires MuseScore — see https://flujoo.github.io/gm/ for setup
+```
+
+```{r}
+#| echo: true
+#| eval: false
+
+library(gm)
+
+m <-
+  Music() +                              # initialize a Music object
+  Meter(4, 4) +                          # 4/4 time signature
+  Line(c("C5", "D5", "E5", "F5"))        # four quarter notes
+
+gm::show(m, to = c("score", "audio"))    # renders sheet music + plays audio
+```
+
+::: {.callout-note}
+Run this interactively in RStudio — [gm::show()]{.fn} opens the score and plays back the audio. It won't render inside a presentation but is very fun for exploring in the console.
+:::
+
+[Find out more at flujoo.github.io/gm](https://flujoo.github.io/gm/)
+
+---
+
+## Homework
+
+Working with **intertidal data**. Your goal is to make a plot where at least one axis is a **factor in a meaningful order**.
+
+::: {.incremental}
+- Data files in the `data/` folder: `intertidal.csv` and `intertidal_latitude.csv` (plus a data dictionary)
+- You may need to use string-cleaning skills (check out the [{janitor}]{.fn} [package](https://sfirke.github.io/janitor/articles/janitor.html)) to tidy column names
+- If you visualize by **tide height**, it must go Low → Mid → High on the plot
+- If you visualize by **site**, it must go in order of **latitude** (N→S or S→N)
+:::
+
+::: {.callout-warning}
+Homework is due **Tuesday**.
+:::
+
+---
+
+## Thanks! {.inverse .center}
+
+Slides created with [Quarto](https://quarto.org) and [RevealJS](https://revealjs.com/).
+
+Many slides adapted from:  
+[forcats.tidyverse.org](https://forcats.tidyverse.org/) | [R for Data Science](https://r4ds.had.co.nz/factors.html) | [Jenny Bryan — Stat 545](https://stat545.com/factors-boss.html)

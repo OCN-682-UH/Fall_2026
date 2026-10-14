@@ -1,0 +1,451 @@
+﻿Site,Transect,Quadrat,Bare Rock,Algae,Mussels ,Small Barnacles,Large Barnacles,Gooseneck Barnacles,Anemone,Whelks (Counts),Crabs (Counts),Stars (Counts)
+Scripps,1, Low  .,25,75,0,2,5,0,3,0,0,0
+Scripps,1,Mid,50,0,5,50,5,0,0,0,0,0
+Scripps,1,High,20,50,1,50,0,0,0,0,0,0
+Scripps,2,Low,10,85,0,0,0,5,0,0,0,0
+Scripps,2,Mid,40,5,10,40,1,5,0,0,0,0
+Scripps,2,High,40,5,0,55,0,0,0,0,0,0
+Scripps,3,Low,0,100,0,0,1,0,0,0,0,0
+Scripps,3,Mid,30,5,10,40,0,30,0,0,0,0
+Scripps,3,High  ,60,4,1,20,0,5,0,1,0,0
+Scripps,4,Low,0,100,0,0,0,0,0,0,0,0
+Scripps,4,Mid,45,10,3,25,15,0,5,0,0,0
+Scripps,4, High,70,0,0,25,5,0,0,0,0,0
+Scripps,5,Low,5,70,0,20,5,0,0,0,0,0
+Scripps,5, Mid,30,0,5,60,0,0,10,1,0,0
+Scripps,5,High,15,0,0,85,0,0,0,0,0,0
+Scripps,6,Low,5,85,0,5,5,0,0,0,0,0
+Scripps,6,Mid,30,10,2,50,0,0,10,0,0,0
+Scripps,6,High,85,0,0,15,0,0,0,0,0,0
+Scripps,7,Low,20,70,2,3,10,0,0,0,0,0
+Scripps,7,Mid ,25,25,0,60,2,10,3,0,0,0
+Scripps,7,High,20,0,0,80,0,0,0,0,0,0
+Scripps,8,Low,5,95,0,0,5,0,0,1,0,0
+Scripps,8,Mid  1,20,10,5,60,0,10,0,0,0,0
+Scripps,8,High,30,0,0,70,0,0,0,0,0,0
+Scripps,9,Low,10,65,0,3,3,0,25,0,0,0
+Scripps,9,Mid,0,10,3,80,0,5,2,1,0,0
+Scripps,9,High,15,25,0,80,0,0,0,0,0,0
+Scripps,10,Low,30,45,0,10,5,0,10,0,0,0
+Scripps,10,Mid,60,10,0,30,0,1,0,0,0,0
+Scripps,10,High,5,0,0,95,0,0,0,0,0,0
+Dana Point,1,Low,0,100,0,0,0,0,0,0,0,0
+Dana Point,1,Mid,5,50,10,50,30,0,2,0,0,0
+Dana Point,1,High,15,25,5,60,5,0,2,0,0,0
+Dana Point,2,Low,2,95,0,0,1,0,3,0,0,0
+Dana Point,2,Mid,5,80,25,15,10,2,3,1,0,0
+Dana Point,2,High,2,1,3,95,2,0,0,0,0,0
+Dana Point,3,Low,0,75,0,0,5,0,0,0,0,0
+Dana Point,3,Mid,6,25,25,30,15,2,2,0,1,0
+Dana Point,3,High,0,10,10,90,15,1,0,0,0,0
+Dana Point,4,Low,0,95,5,5,5,0,0,0,1,0
+Dana Point,4,Mid,0,30,5,60,30,0,0,0,0,0
+Dana Point,4,High,15,16,5,60,15,0,0,0,0,0
+Dana Point,5,Low,0,100,0,0,0,0,0,0,0,0
+Dana Point,5,Mid,2,20,35,50,30,3,0,0,0,0
+Dana Point,5,High,0,5,5,90,2,0,0,0,1,0
+Dana Point,6,Low,2,95,0,0,3,0,0,0,0,0
+Dana Point,6, Mid,0,45,45,60,10,0,5,0,1,0
+Dana Point,6,High,30,3,0,70,2,0,2,0,0,0
+Dana Point,7,Low,10,90,0,5,2,0,5,0,0,0
+Dana Point,7,Mid,0,95,5,0,0,0,0,0,0,0
+Dana Point,7,High,25,25,0,50,0,0,0,0,0,0
+Dana Point,8,Low,3,95,0,1,2,0,0,0,0,0
+Dana Point,8,Mid,2,95,1,3,5,0,0,0,1,0
+Dana Point,8,High,5,0,0,95,0,0,0,0,0,0
+Dana Point,9,Low,0,100,0,0,0,0,0,0,0,0
+Dana Point,9,Mid,3,90,0,10,0,0,2,0,0,0
+Dana Point,9,High,3,15,5,80,0,0,2,0,0,0
+Dana Point,10,Low,0,95,0,2,1,0,2,0,0,0
+Dana Point,10,Mid,0,95,0,2,1,0,2,0,0,0
+Dana Point,10,High,0,10,0,90,0,0,0,0,0,0
+Crystal Cove,1,Low,0,100,0,0,0,0,0,0,0,0
+Crystal Cove,1,Mid,30,5,60,10,5,30,5,0,0,0
+Crystal Cove,1,High,5,3,2,90,0,0,0,0,0,0
+Crystal Cove,2,Low,0,80,10,0,1,0,0,0,0,0
+Crystal Cove,2,Mid,15,3,50,30,3,25,2,0,0,0
+Crystal Cove,2,High,30,0,10,40,0,10,10,0,0,0
+Crystal Cove,3,Low,5,80,2,1,15,1,3,0,0,0
+Crystal Cove,3,Mid,0,15,60,15,5,40,10,0,1,0
+Crystal Cove,3,High,30,0,5,50,3,10,2,0,0,0
+Crystal Cove,4,Low,0,80,20,2,5,0,3,0,0,0
+Crystal Cove,4,Mid,15,3,40,10,2,50,5,0,0,0
+Crystal Cove,4,High,5,0,2,90,1,0,3,0,0,0
+Crystal Cove,5,Low,5,45,1,0,15,1,35,0,0,0
+Crystal Cove,5,Mid,15,5,30,25,5,30,5,0,0,0
+Crystal Cove,5,High,10,5,5,70,0,0,10,0,0,0
+Crystal Cove,6,Low,5,80,0,0,1,0,15,0,0,0
+Crystal Cove,6,Mid,20,0,80,50,5,10,5,0,0,0
+Crystal Cove,6,High,40,6,2,50,2,2,4,0,0,0
+Crystal Cove,7,Low,15,80,0,0,0,0,5,0,0,0
+Crystal Cove,7,Mid,10,0,50,5,5,0,40,0,0,0
+Crystal Cove,7,High,5,5,5,75,0,10,0,0,0,0
+Crystal Cove,8,Low  ,0,70,0,0,0,0,30,0,0,0
+Crystal Cove,8,Mid,20,15,30,5,0,35,25,0,0,0
+Crystal Cove,8,High,25,5,5,50,1,15,0,0,0,0
+Crystal Cove,9,Low,0,60,0,0,0,0,40,0,0,0
+Crystal Cove,9,Mid,20,0,30,40,1,20,10,1,1,0
+Crystal Cove,9,High,2,0,0,98,0,0,0,0,0,0
+Crystal Cove,10,Low,0,85,10,0,0,0,5,0,0,0
+Crystal Cove,10,Mid,0,5,50,3,10,5,40,0,0,0
+Crystal Cove,10,High,40,10,15,10,5,20,15,0,0,0
+Little Corona,1,Low,0,100,0,0,0,0,0,0,0,0
+Little Corona,1,Mid,5,90,10,4,3,3,1,0,0,0
+Little Corona,1,High,90,5,0,5,0,0,0,0,0,0
+Little Corona,2,Low,20,80,0,0,1,0,0,0,1,0
+Little Corona,2,Mid,50,30,5,5,5,5,3,0,0,0
+Little Corona,2,High,80,1,0,10,0,0,20,0,0,0
+Little Corona,3,Low,0,100,0,0,1,0,0,0,0,0
+Little Corona,3,Mid,30,40,5,10,5,20,0,0,0,0
+Little Corona,3,High,75,3,2,25,0,0,0,0,0,0
+Little Corona,4,Low,25,75,0,0,0,0,0,0,0,0
+Little Corona,4,Mid,0,80,5,2,3,0,0,0,0,0
+Little Corona,4,High,25,40,5,30,0,0,0,0,0,0
+Little Corona,5,Low,20,80,0,0,0,0,0,0,0,0
+Little Corona,5,Mid,30,60,5,0,5,0,3,0,0,0
+Little Corona,5,High,80,5,0,15,0,0,0,0,0,0
+Little Corona,6,Low,2,98,0,0,0,0,0,0,0,0
+Little Corona,6,Mid,50,40,5,3,0,0,5,0,0,0
+Little Corona,6,High,98,0,0,2,0,0,0,0,0,0
+Little Corona,7,Low,5,95,0,0,0,0,0,0,1,0
+Little Corona,7,Mid,20,30,15,10,5,0,0,0,0,0
+Little Corona,7,High,60,35,0,5,0,0,0,0,0,0
+Little Corona,8,Low,30,70,2,0,0,0,0,0,0,0
+Little Corona,8,Mid,25,35,20,5,5,15,0,0,0,0
+Little Corona,8,High,85,15,3,2,0,0,0,0,0,0
+Little Corona,9,Low,15,85,0,0,1,0,0,0,0,0
+Little Corona,9,Mid,5,75,10,2,5,10,0,0,0,0
+Little Corona,9,High,50,25,5,25,1,0,0,0,0,0
+Little Corona,10,Low,0,95,0,0,0,0,5,0,0,0
+Little Corona,10,Mid,60,25,5,0,2,10,0,0,0,0
+Little Corona,10,High,65,15,3,15,2,0,0,0,0,0
+Carpenteria,1,Low,5,50,40,30,0,60,5,0,0,0
+Carpenteria,1,Mid,25,1,30,20,0,20,25,0,0,0
+Carpenteria,1,High,70,5,1,15,0,10,0,0,0,0
+Carpenteria,2,Low,5,60,80,20,0,15,5,0,0,0
+Carpenteria,2,Mid,10,25,30,25,0,60,0,0,0,0
+Carpenteria,2,High,45,0,15,40,0,0,0,0,0,0
+Carpenteria,3,Low,20,60,60,20,0,10,20,0,0,0
+Carpenteria,3,Mid,0,30,60,10,0,40,0,0,0,0
+Carpenteria,3,High,20,0,20,25,0,5,0,0,0,0
+Carpenteria,4,Low,0,75,20,20,0,0,25,1,0,0
+Carpenteria,4,Mid,20,15,25,15,0,40,0,0,0,0
+Carpenteria,4,High,40,2,10,40,0,5,5,0,0,0
+Carpenteria,5,Low,0,1,50,25,0,2,50,1,0,0
+Carpenteria,5,Mid,15,15,60,20,0,30,0,0,0,0
+Carpenteria,5,High,60,5,20,30,0,10,0,0,0,0
+Carpenteria,6,Low,20,0,40,30,0,5,40,0,0,0
+Carpenteria,6,Mid,30,5,50,0,0,20,0,0,0,0
+Carpenteria,6,High,65,0,5,30,0,3,2,0,0,0
+Carpenteria,7,Low,20,0,20,15,0,10,60,0,0,0
+Carpenteria,7,Mid,65,0,20,10,0,20,5,0,0,0
+Carpenteria,7,High,70,0,15,25,0,5,0,0,0,0
+Carpenteria,8,Mid,75,5,20,10,0,15,5,0,0,0
+Carpenteria,8,Low,30,10,15,10,0,50,0,0,0,0
+Carpenteria,8,High,30,0,2,70,0,0,0,0,0,0
+Carpenteria,9,Low,40,15,30,0,0,20,5,0,0,0
+Carpenteria,9,Mid,50,15,15,10,0,25,0,0,0,0
+Carpenteria,9,High,90,1,0,10,0,0,0,0,0,0
+Carpenteria,10,Low,5,2,20,5,0,10,70,0,0,0
+Carpenteria,10,Mid,35,0,30,10,0,20,15,0,0,0
+Carpenteria,10,High,85,1,0,15,0,0,0,0,0,0
+Shell Beach,1,Low,15,80,0,5,0,0,2,0,0,0
+Shell Beach,1,Mid,20,10,80,0,0,5,5,0,1,0
+Shell Beach,1,High,50,2,0,50,3,0,0,0,0,0
+Shell Beach,2,Low,15,35,0,0,0,0,50,0,0,0
+Shell Beach,2,Mid,10,15,85,2,3,10,5,1,0,0
+Shell Beach,2,High,4,1,0,95,0,0,0,0,0,0
+Shell Beach,3,Low,2,70,5,0,0,0,85,1,0,0
+Shell Beach,3,Mid,10,20,60,5,2,15,5,0,1,0
+Shell Beach,3,High,15,3,0,80,2,0,0,1,0,0
+Shell Beach,4,Low,25,20,0,2,0,0,70,0,0,0
+Shell Beach,4,Mid,0,3,95,10,2,5,5,1,0,0
+Shell Beach,4,High,3,15,0,95,2,0,0,0,0,0
+Shell Beach,5,Low,15,30,0,2,2,0,70,0,2,0
+Shell Beach,5,Mid,0,20,97,5,3,3,3,0,1,0
+Shell Beach,5,High,30,20,0,50,2,0,0,1,0,0
+Shell Beach,6,Low,5,25,1,0,0,0,15,0,0,0
+Shell Beach,6,Mid,20,40,50,3,5,30,3,1,3,0
+Shell Beach,6,High,50,5,0,50,2,0,0,0,0,0
+Shell Beach,7,Low,5,30,2,0,0,0,5,0,0,0
+Shell Beach,7,Mid,0,30,85,5,10,15,5,0,0,0
+Shell Beach,7,High,15,2,0,80,3,0,0,0,0,0
+Shell Beach,8,Low,0,20,5,2,3,3,10,0,0,0
+Shell Beach,8,Mid,20,35,40,5,2,15,3,0,0,0
+Shell Beach,8,High,5,0,0,95,0,0,0,0,0,0
+Shell Beach,9,Low,5,80,0,0,2,0,15,0,0,0
+Shell Beach,9,Mid,0,0,85,90,5,15,5,2,3,0
+Shell Beach,9,High,10,20,0,80,5,0,0,0,0,0
+Shell Beach,10,Low,10,90,0,0,5,0,15,0,0,0
+Shell Beach,10,Mid,10,15,60,0,5,30,5,0,1,0
+Shell Beach,10,High,75,5,0,20,1,0,0,0,1,0
+Hazards,1,Low,5,70,0,0,0,0,2,0,0,0
+Hazards,1,Mid,5,20,40,0,0,40,5,0,1,0
+Hazards,1,High,13,30,25,2,5,30,3,0,3,0
+Hazards,2,Low,55,96,0,0,0,0,15,0,0,0
+Hazards,2,Mid,10,30,40,0,0,10,0,0,1,0
+Hazards,2,High,10,90,10,0,3,5,0,0,0,0
+Hazards,3,Low,3,93,0,0,2,0,20,0,0,0
+Hazards,3,Mid,15,35,30,0,2,15,10,0,1,0
+Hazards,3,High,0,100,3,0,0,0,0,0,0,0
+Hazards,4,Low,10,90,0,0,0,0,5,0,0,0
+Hazards,4,Mid,15,30,70,0,2,20,8,2,1,0
+Hazards,4,High,16,90,0,3,0,0,0,0,0,0
+Hazards,5,Low,10,80,0,0,0,0,20,0,0,0
+Hazards,5,Mid,20,40,10,2,0,5,3,0,1,0
+Hazards,5,High,15,90,3,2,3,0,2,0,0,0
+Hazards,6,Low,5,80,0,0,0,0,15,0,0,0
+Hazards,6,Mid,5,60,30,0,0,0,5,0,0,0
+Hazards,6,High,40,40,5,2,15,0,0,0,0,0
+Hazards,7,Low,5,65,0,0,0,0,30,0,0,0
+Hazards,7,Mid,15,60,30,2,3,15,10,1,3,0
+Hazards,7,High,90,5,0,2,5,0,0,0,0,0
+Hazards,8,Low,20,60,0,0,0,0,15,0,0,0
+Hazards,8,Mid,5,50,5,0,0,15,25,0,1,0
+Hazards,8,High,40,40,0,0,20,0,10,0,1,0
+Hazards,9,Low,15,70,0,0,0,0,25,0,0,0
+Hazards,9,Mid,10,60,5,0,2,10,3,1,0,0
+Hazards,9,High,50,30,0,1,20,0,0,0,0,0
+Hazards,10,Low,3,90,1,1,0,0,10,0,0,0
+Hazards,10,Mid,50,40,5,0,10,0,10,1,1,0
+Hazards,10,High,70,10,0,15,5,0,0,0,0,0
+Cambria,1,Low,5,95,0,0,0,5,0,0,0,0
+Cambria,1,Mid,30,50,20,0,0,5,0,0,0,0
+Cambria,1,High,90,0,5,0,0,5,0,0,0,0
+Cambria,2,Low,5,90,1,0,0,0,5,0,0,0
+Cambria,2,Mid,10,25,30,10,1,30,0,0,1,0
+Cambria,2,High,94,5,1,1,0,0,0,0,0,0
+Cambria,3,Low,4,95,0,0,1,0,0,0,0,0
+Cambria,3,Mid,60,10,20,5,0,10,0,0,0,0
+Cambria,3,High,95,3,0,0,0,2,0,0,0,0
+Cambria,4,Low,0,70,1,0,0,0,0,0,1,0
+Cambria,4,Mid,40,10,30,5,0,20,0,0,0,0
+Cambria,4,High,95,4,0,1,1,0,0,0,0,0
+Cambria,5,Low,0,80,0,0,0,0,0,0,1,0
+Cambria,5,Mid,55,20,10,3,0,15,0,0,2,0
+Cambria,5,High,94,3,0,1,0,0,0,0,0,0
+Cambria,6,Low,5,60,0,0,0,0,0,0,0,0
+Cambria,6,Mid,30,60,5,0,1,5,0,0,1,0
+Cambria,6,High,93,2,0,5,0,0,0,1,0,0
+Cambria,7,Low,0,100,0,1,1,0,0,0,0,0
+Cambria,7,Mid,30,70,0,1,2,5,0,0,0,0
+Cambria,7,High,5,5,0,10,0,0,0,0,0,0
+Cambria,8,Low,0,100,0,0,0,0,0,0,0,0
+Cambria,8,Mid,40,40,2,0,2,20,0,1,0,0
+Cambria,8,High,60,15,0,35,0,0,0,0,0,0
+Cambria,9,Low,0,85,0,15,0,0,0,0,0,0
+Cambria,9,Mid,20,60,1,2,0,0,2,4,0,0
+Cambria,9,High,75,5,0,20,0,0,0,0,0,0
+Cambria,10,Low,5,95,0,0,0,0,0,1,1,0
+Cambria,10,Mid,20,80,1,0,0,0,0,0,0,0
+Cambria,10,High,80,10,0,10,0,0,0,0,0,0
+Bodega,1,Low,0,100,0,0,0,0,0,0,0,0
+Bodega,1,Mid,0,60,90,25,0,5,0,0,0,0
+Bodega,1,High,85,10,0,5,0,0,0,0,0,0
+Bodega,2,Low,0,100,0,0,0,0,0,0,0,0
+Bodega,2,Mid,5,30,65,10,1,0,0,0,0,0
+Bodega,2,High,65,10,0,25,0,0,0,0,0,0
+Bodega,3,Low,0,100,0,0,0,0,0,0,0,0
+Bodega,3,Mid,0,50,65,0,0,0,0,1,0,0
+Bodega,3,High,98,2,0,2,0,0,0,0,0,0
+Bodega,4,Low,0,100,0,0,0,0,0,0,0,0
+Bodega,4,Mid,0,75,90,15,2,0,0,0,0,0
+Bodega,4,High,97,2,0,1,0,0,0,0,0,0
+Bodega,5,Low,0,100,0,0,0,0,0,0,0,0
+Bodega,5,Mid,0,25,95,20,0,15,0,2,0,0
+Bodega,5,High,99,0,0,1,0,0,0,0,0,0
+Bodega,6,Low,0,100,0,0,0,0,0,0,0,0
+Bodega,6,Mid,15,50,80,0,0,5,0,2,1,0
+Bodega,6,High,98,0,0,2,0,0,0,0,0,0
+Bodega,7,Low,0,100,0,0,0,0,0,0,0,0
+Bodega,7,Mid,5,80,5,0,0,0,0,0,0,0
+Bodega,7,High,98,1,0,1,0,0,0,0,0,0
+Bodega,8,Low,0,100,0,0,0,0,0,0,0,0
+Bodega,8,Mid,5,90,17,20,0,2,0,0,1,0
+Bodega,8,High,84,9,0,15,0,0,0,0,0,0
+Bodega,9,Low,15,85,0,0,0,0,0,0,0,0
+Bodega,9,Mid,10,95,2,0,0,0,0,0,0,0
+Bodega,9,High,98,0,0,2,0,0,0,0,0,0
+Bodega,10,Low,0,100,0,0,0,0,0,0,0,0
+Bodega,10,Mid,10,70,50,2,0,0,0,0,1,2
+Bodega,10,High,94,5,0,1,0,0,0,0,0,0
+Point St. George,1,Low,10,85,0,5,0,0,0,0,0,0
+Point St. George,1,Mid,5,55,50,30,0,20,0,19,0,0
+Point St. George,1,High,10,80,1,5,2,5,0,0,0,0
+Point St. George,2,Low,5,70,0,15,0,0,10,1,0,0
+Point St. George,2,Mid,0,4,100,50,0,1,0,11,0,0
+Point St. George,2,High,35,55,0,10,0,0,0,0,0,0
+Point St. George,3,Low,10,60,0,30,0,0,5,0,0,1
+Point St. George,3,Mid,0,25,100,15,0,1,0,9,1,0
+Point St. George,3,High,30,10,0,60,0,0,0,1,0,0
+Point St. George,4,Low,0,100,0,5,0,0,0,0,0,1
+Point St. George,4,Mid,10,20,75,15,0,5,0,9,0,0
+Point St. George,4,High,25,60,10,15,0,0,0,1,0,0
+Point St. George,5,Low,0,90,0,10,0,0,5,0,0,0
+Point St. George,5,Mid,0,20,100,5,0,1,0,2,0,0
+Point St. George,5,High,15,15,0,60,0,0,0,0,0,0
+Point St. George,6,Low,0,95,0,5,0,0,0,0,0,0
+Point St. George,6,Mid,0,80,100,25,0,2,0,2,0,0
+Point St. George,6,High,20,50,20,30,0,5,0,1,0,0
+Point St. George,7,Low,0,100,0,0,0,0,0,0,0,0
+Point St. George,7,Mid,0,95,100,5,0,5,0,0,0,0
+Point St. George,7,High,30,60,3,5,0,0,0,1,0,0
+Point St. George,8,Low,5,90,0,5,0,0,0,0,0,0
+Point St. George,8,Mid,5,80,45,15,5,2,3,0,0,0
+Point St. George,8,High,0,20,20,60,1,4,0,12,0,0
+Point St. George,9,Low,0,95,0,5,0,0,0,0,0,0
+Point St. George,9,Mid,0,60,95,50,1,1,0,5,0,0
+Point St. George,9,High,10,80,5,35,1,0,0,27,0,0
+Point St. George,10,Low,40,50,0,10,0,0,0,0,0,0
+Point St. George,10,Mid,10,70,0,30,0,0,0,0,0,0
+Point St. George,10,High,10,60,5,30,0,0,0,7,0,0
+Cape Arago,1,Low,40,70,0,1,0,0,4,0,0,0
+Cape Arago,1,Mid,35,5,30,25,0,10,0,0,0,0
+Cape Arago,1,High,73,2,0,25,0,0,0,0,0,0
+Cape Arago,2,Low,5,70,0,25,0,0,10,1,0,0
+Cape Arago,2,Mid,30,5,10,50,0,0,5,0,0,0
+Cape Arago,2,High,20,2,0,80,0,0,0,0,0,0
+Cape Arago,3,Low,60,10,0,30,0,0,0,1,0,0
+Cape Arago,3,Mid,25,0,25,50,0,10,0,2,0,0
+Cape Arago,3,High,75,0,0,25,0,0,0,0,0,0
+Cape Arago,4,High,20,80,0,5,0,0,0,0,0,0
+Cape Arago,4,Low,0,10,75,0,0,3,5,3,0,0
+Cape Arago,4,Mid,35,15,0,50,0,0,0,0,0,0
+Cape Arago,5,Low,20,75,0,0,0,0,5,1,0,0
+Cape Arago,5,Mid,40,10,15,35,0,0,0,0,0,0
+Cape Arago,5,High,50,10,0,40,0,0,0,0,0,0
+Cape Arago,6,Low,35,60,0,0,0,0,5,2,0,0
+Cape Arago,6,Mid,5,10,10,80,0,0,5,5,0,0
+Cape Arago,6,High,20,15,5,60,0,0,0,2,0,0
+Cape Arago,7,Low,20,80,0,0,0,0,0,0,0,0
+Cape Arago,7,Mid,20,15,5,60,0,0,0,0,0,0
+Cape Arago,7,High,40,8,2,50,0,0,0,0,0,0
+Cape Arago,8,Low,30,70,0,0,0,0,0,0,0,0
+Cape Arago,8,Mid,5,10,40,40,0,10,0,1,0,0
+Cape Arago,8,High,20,10,5,65,0,0,0,0,0,0
+Cape Arago,9,Low,40,60,0,0,0,0,0,0,0,0
+Cape Arago,9,Mid,30,10,10,45,0,5,5,0,0,0
+Cape Arago,9,High,70,15,0,15,0,0,0,0,0,0
+Cape Arago,10,Low,45,40,0,5,0,0,10,0,0,0
+Cape Arago,10,Mid,30,5,20,35,0,10,0,0,1,0
+Cape Arago,10,High,40,10,1,50,0,0,0,0,0,0
+Fogarty Creek,1,Low,0,90,0,0,0,0,15,21,0,0
+Fogarty Creek,1,Mid,8,3,95,100,3,5,5,0,0,0
+Fogarty Creek,1,High,60,10,0,30,0,0,0,0,0,0
+Fogarty Creek,2,Low,0,95,0,0,0,0,5,0,0,0
+Fogarty Creek,2,Mid,0,0,97,80,2,3,0,20,0,0
+Fogarty Creek,2,High,20,35,0,45,0,0,0,0,0,0
+Fogarty Creek,3,Low,0,70,0,0,0,0,40,0,0,0
+Fogarty Creek,3,Mid,5,1,90,60,1,10,0,8,0,0
+Fogarty Creek,3,High,5,80,0,15,0,0,0,0,0,0
+Fogarty Creek,4,Low,0,100,0,0,0,0,0,0,0,0
+Fogarty Creek,4,Mid,0,1,90,55,1,10,0,14,0,0
+Fogarty Creek,4,High,15,70,0,15,0,0,0,0,0,0
+Fogarty Creek,5,Low,0,100,0,0,0,0,0,0,0,0
+Fogarty Creek,5,Mid,0,0,75,30,0,25,0,26,0,0
+Fogarty Creek,5,High,0,20,0,25,0,0,0,0,0,0
+Fogarty Creek,6,Low,0,100,0,0,0,0,0,0,0,0
+Fogarty Creek,6,Mid,10,5,65,40,2,20,1,12,0,0
+Fogarty Creek,6,High,45,5,0,40,0,0,0,0,0,0
+Fogarty Creek,7,Low,0,100,0,0,0,0,0,0,0,0
+Fogarty Creek,7,Mid,0,2,100,60,3,5,0,7,0,0
+Fogarty Creek,7,High,15,40,1,45,0,0,0,0,0,0
+Fogarty Creek,8,Low,0,100,0,6,0,0,0,0,0,0
+Fogarty Creek,8,Mid,0,1,80,30,1,20,0,10,0,0
+Fogarty Creek,8,High,2,1,0,98,0,0,0,0,0,0
+Fogarty Creek,9,Low,0,100,0,0,0,0,1,0,0,0
+Fogarty Creek,9,Mid,0,1,90,30,2,10,0,5,0,0
+Fogarty Creek,9,High,13,2,0,85,0,0,0,0,0,0
+Fogarty Creek,10,Low,0,100,0,0,0,0,0,0,0,0
+Fogarty Creek,10,Mid,0,0,90,25,2,10,1,1,0,0
+Fogarty Creek,10,High,10,2,1,90,0,0,0,0,0,0
+Starfish Point,1,Low,0,90,0,0,0,1,20,0,0,0
+Starfish Point,1,Mid,0,0,90,75,5,10,5,91,0,0
+Starfish Point,1,High,3,0,1,95,0,1,0,0,0,0
+Starfish Point,2,Low,30,40,0,0,0,0,30,0,0,0
+Starfish Point,2,Mid,10,0,5,2,5,90,1,13,0,0
+Starfish Point,2,High,15,3,0,85,0,0,0,0,0,0
+Starfish Point,3,Low,0,80,0,20,0,0,0,2,0,1
+Starfish Point,3,Mid,10,0,5,30,5,80,20,48,0,0
+Starfish Point,3,High,5,5,1,95,0,0,0,0,0,0
+Starfish Point,4,Low,30,70,0,0,0,0,25,0,0,0
+Starfish Point,4,Mid,2,0,85,50,5,15,2,24,0,0
+Starfish Point,4,High,10,5,1,90,0,0,0,0,0,0
+Starfish Point,5,Low,15,50,0,0,0,0,75,0,0,0
+Starfish Point,5,Mid,20,0,70,60,5,25,0,79,0,0
+Starfish Point,5,High,5,5,1,95,0,0,0,0,0,0
+Starfish Point,6,Low,50,25,0,15,0,0,30,0,0,0
+Starfish Point,6,Mid,10,0,30,10,10,80,5,9,0,1
+Starfish Point,6,High,2,2,1,98,0,1,0,0,0,0
+Starfish Point,7,Low,40,40,0,0,0,0,20,0,0,0
+Starfish Point,7,Mid,2,0,30,5,5,60,20,21,0,0
+Starfish Point,7,High,5,4,1,95,0,0,0,0,0,0
+Starfish Point,8,Low,10,75,0,1,0,0,25,0,0,0
+Starfish Point,8,Mid,0,0,95,70,0,5,1,101,0,0
+Starfish Point,8,High,5,5,2,95,0,0,0,0,0,0
+Starfish Point,9,Low,10,35,0,0,0,0,60,0,0,0
+Starfish Point,9,Mid,0,0,15,10,0,85,0,13,0,0
+Starfish Point,9,High,5,0,5,90,0,0,0,2,0,0
+Starfish Point,10,Low,10,0,0,10,0,0,80,0,0,0
+Starfish Point,10,Mid,20,0,15,10,5,35,15,17,0,0
+Starfish Point,10,High,5,0,5,90,0,0,0,0,0,0
+Cape Meares,1,Low,40,0,3,0,30,50,0,0,1,0
+Cape Meares,1,Mid,5,15,15,1,40,40,10,1,1,0
+Cape Meares,1,High,55,5,0,5,40,0,0,0,0,0
+Cape Meares,2,Low,30,0,5,0,10,20,50,0,0,0
+Cape Meares,2,Mid,0,10,40,5,30,30,0,3,0,0
+Cape Meares,2,High,60,5,1,5,30,0,0,0,0,0
+Cape Meares,3,Low,20,0,20,2,30,10,20,0,0,0
+Cape Meares,3,Mid,0,15,80,5,50,50,0,4,0,0
+Cape Meares,3,High,85,0,0,5,10,0,0,0,0,0
+Cape Meares,4,Low,15,5,40,0,50,10,15,19,0,0
+Cape Meares,4,Mid,0,20,60,5,60,30,0,6,0,0
+Cape Meares,4,High,70,2,0,5,25,0,0,0,0,0
+Cape Meares,5,Low,20,0,40,5,20,10,5,0,0,0
+Cape Meares,5,Mid,5,2,85,10,50,10,3,2,0,0
+Cape Meares,5,High,95,0,0,2,3,0,0,0,0,0
+Cape Meares,6,Low,20,5,20,15,40,25,10,15,0,0
+Cape Meares,6,Mid,0,70,40,10,70,15,0,6,2,0
+Cape Meares,6,High,55,0,0,5,10,0,0,0,3,0
+Cape Meares,7,Low,25,10,5,0,70,0,15,0,0,0
+Cape Meares,7,Mid,10,75,40,3,35,20,0,6,0,0
+Cape Meares,7,High,95,0,0,2,3,0,0,0,0,0
+Cape Meares,8,Low,25,0,5,0,20,10,50,0,0,0
+Cape Meares,8,Mid,0,25,40,2,60,35,3,1,1,0
+Cape Meares,8,High,80,0,0,5,15,0,0,0,0,0
+Cape Meares,9,Low,45,0,5,0,0,0,50,0,0,0
+Cape Meares,9,Mid,5,20,45,25,40,5,5,1,1,0
+Cape Meares,9,High,70,0,0,5,25,0,0,5,0,0
+Cape Meares,10,Low,0,0,30,0,30,10,35,51,0,0
+Cape Meares,10,Mid,0,0,60,0,90,15,5,2,0,0
+Cape Meares,10,High,55,15,0,15,30,0,0,0,0,0
+Pyramid Point,1,Low,40,10,15,0,1,30,5,6,0,0
+Pyramid Point,1,Mid,0,0,75,0,5,25,0,7,1,0
+Pyramid Point,1,High,65,10,0,15,10,0,0,0,0,0
+Pyramid Point,2,Low,60,5,15,5,5,20,10,25,0,0
+Pyramid Point,2,Mid,5,0,40,5,10,60,0,26,0,0
+Pyramid Point,2,High,30,20,5,10,30,0,0,0,0,0
+Pyramid Point,3,Low,60,0,15,20,0,25,5,28,0,0
+Pyramid Point,3,Mid,20,0,70,10,10,20,1,7,0,0
+Pyramid Point,3,High,40,20,15,10,15,0,0,0,0,0
+Pyramid Point,4,Low,70,0,10,0,0,0,20,1,0,0
+Pyramid Point,4,Mid,5,5,15,5,20,70,0,53,0,0
+Pyramid Point,4,High,25,35,15,10,50,0,0,0,0,0
+Pyramid Point,5,Low,30,0,20,20,5,35,15,23,0,0
+Pyramid Point,5,Mid,10,0,80,0,0,15,10,45,0,0
+Pyramid Point,5,High,20,15,5,10,50,0,0,0,0,0
+Pyramid Point,6,Low,70,1,5,15,1,5,10,35,0,0
+Pyramid Point,6,Mid,15,0,40,5,1,50,5,11,0,0
+Pyramid Point,6,High,30,5,0,5,60,0,0,0,0,0
+Pyramid Point,7,Low,60,0,20,50,20,0,5,34,0,1
+Pyramid Point,7,Mid,10,0,85,10,5,5,0,7,0,0
+Pyramid Point,7,High,30,5,25,10,50,1,0,0,0,0
+Pyramid Point,8,Low,20,0,10,15,1,50,10,16,0,0
+Pyramid Point,8,Mid,5,0,90,50,5,10,0,51,0,0
+Pyramid Point,8,High,20,50,0,10,40,0,0,0,0,0
+Pyramid Point,9,Low,80,0,5,10,5,5,0,11,0,0
+Pyramid Point,9,Mid,0,0,95,40,5,5,0,35,0,0
+Pyramid Point,9,High,40,10,5,0,40,5,0,0,0,0
+Pyramid Point,10,Low,40,0,5,35,5,15,0,56,0,0
+Pyramid Point,10,Mid,25,5,50,15,5,15,0,20,0,0
+Pyramid Point,10,High,15,0,90,20,40,1,0,0,0,0

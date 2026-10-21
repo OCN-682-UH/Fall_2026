@@ -40,5 +40,13 @@ Note: Lectures posted here before the start of class are still a work in progres
 - [Factors](https://01a1382f-d6f4-0ed9-eebe-2d9a4a926d01.share.connect.posit.cloud)  
 
 *Week 10*  
-- [Strings](https://01a15c06-9b71-b5bb-e545-48148b9446b2.share.connect.posit.cloud)
+- [Strings](https://01a15c06-9b71-b5bb-e545-48148b9446b2.share.connect.posit.cloud)  
+
+*Week 11*
+- No class -- work on your community data homework  
+
+*Week 12*
+- [Shiny](https://01a15c4e-33db-cf9f-a242-c458a8769492.share.connect.posit.cloud)  
+- [My Test App](https://01a15c4f-b5ae-fe8c-818e-64b11e9ac090.share.connect.posit.cloud)
+
 

@@ -39,3 +39,6 @@ Note: Lectures posted here before the start of class are still a work in progres
 *Week 9*
 - [Factors](https://01a1382f-d6f4-0ed9-eebe-2d9a4a926d01.share.connect.posit.cloud)  
 
+*Week 10*  
+- [Strings](https://01a15c06-9b71-b5bb-e545-48148b9446b2.share.connect.posit.cloud)
+

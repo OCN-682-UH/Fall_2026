@@ -1,5 +1,5 @@
 ---
-title: "Computer Modeling (OCN 682)"
+title: "Data Fundamentals in R (OCN 682)"
 subtitle: "Data wrangling: joins & dates with lubridate"
 author: "Dr. Nyssa Silbiger"
 institute: "UH Fall 2026"

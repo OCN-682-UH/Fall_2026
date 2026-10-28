@@ -12,7 +12,7 @@ Every `.qmd` lecture file should use this YAML header, updating the `title`, `su
 
 ```yaml
 ---
-title: "Computer Modeling (OCN 682)"
+title: "Data Fundamentals in R (OCN 682)"
 subtitle: "Your Lecture Title Here"
 author: "Dr. Nyssa Silbiger"
 institute: "UH Fall 2026"

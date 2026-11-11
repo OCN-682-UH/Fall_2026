@@ -31,17 +31,32 @@ library(here)
 ## Intro to Shiny Apps {.inverse}
 
 ::: {.incremental}
+1. Quiz
+1. Discussion of AI assignment
 1. What is Shiny and why use it?
 1. Basics of user interface
 1. Basics of the server
 1. Reactive objects
 1. Resources for Shiny Themes, dashboard, publishing your app
-1. Tidy Tuesdays!
 :::
 
 ![](https://c.tenor.com/I5Q5xcLxmfsAAAAM/shiny-moana.gif){fig-align="center" width="40%"}
 
 [Cheatsheet](https://shiny.posit.co/r/articles/start/cheatsheet/)
+
+---
+
+# AI discussion
+
+::: {.incremental}
+1. How did you use AI for this project?  
+
+1. What part of your workflow would you trust AI to complete independently, and what part requires human scientific judgment?  
+
+1. Do you think using AI helped you become a better programmer, or did it allow you to bypass learning important skills?  
+
+1. Should universities continue teaching students how to code from scratch, or should they focus more on teaching students how to evaluate and debug AI-generated code?
+:::
 
 ---
 

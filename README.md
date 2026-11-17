@@ -50,7 +50,8 @@ Note: Lectures posted here before the start of class are still a work in progres
 - [My Test App](https://01a15c4f-b5ae-fe8c-818e-64b11e9ac090.share.connect.posit.cloud)  
 
 *Week 13*  
-- [Iterative Coding](https://01a1c87b-8e2b-26cc-f33b-d262a8e9c6f3.share.connect.posit.cloud)
+- [Iterative Coding](https://01a1c87b-8e2b-26cc-f33b-d262a8e9c6f3.share.connect.posit.cloud)  
+- [Intro to Models](https://01a1e7d2-35be-5b86-840d-125cde77de19.share.connect.posit.cloud)
 
 
 
